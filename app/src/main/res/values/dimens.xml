@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_small">7dp</dimen>
+    <dimen name="radius_medium">10dp</dimen>
+    <dimen name="radius_large">15dp</dimen>
+    <dimen name="radius_text_input">10dp</dimen>
+
+    <dimen name="margin_very_small">5dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
+    <dimen name="margin_large">30dp</dimen>
+
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="padding_large">15dp</dimen>
+
+    <dimen name="card_elevation_small">3dp</dimen>
+    <dimen name="card_elevation_medium">6dp</dimen>
+    <dimen name="card_elevation_long">10dp</dimen>
+
+    <dimen name="primary_icon_size">50dp</dimen>
+    <dimen name="secondary_icon_size">30dp</dimen>
+    <dimen name="tertiary_icon_size">15dp</dimen>
+
+    <integer name="duration_short">150</integer>
+    <integer name="duration_medium">300</integer>
+    <integer name="duration_long">500</integer>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>

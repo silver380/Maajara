@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="button.primaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/vazir_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="button.secondaryButton" parent="button.primaryButton">
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+
+    </style>
+
+    <style name="button.outLineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/vazir_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/vazir_medium</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="textInputLayout.outLinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="errorTextAppearance">@style/textHint</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_text_input</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_text_input</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_text_input</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radius_text_input</item>
+    </style>
+
+
+    <style name="editText" parent="textRegular" />
+    <style name="editText.oneLine" parent="editText">
+        <item name="maxLines">1</item>
+    </style>
+
+    <style name="textTittleBold">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/vazir_bold</item>
+        <item name="android:textColor">@color/colorNormalText</item>
+    </style>
+
+    <style name="textTittleMedium" parent="textTittleBold">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/vazir_medium</item>
+    </style>
+
+    <style name="textRegular" parent="textTittleBold">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/vazir_medium</item>
+    </style>
+
+    <style name="textSmall" parent="textTittleBold">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/vazir</item>
+    </style>
+
+    <style name="textLong" parent="textSmall">
+        <item name="android:justificationMode" tools:targetApi="o">inter_word</item>
+        <item name="android:lineSpacingExtra">1.5dp</item>
+    </style>
+
+    <style name="textHint" parent="textTittleBold">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/vazir_light</item>
+    </style>
+
+</resources>
