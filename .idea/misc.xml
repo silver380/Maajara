@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.37087378640776697" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.264" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_test.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/fragment_add.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/layout.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/place_view_holder.xml" value="0.8" />
       </map>
     </option>
   </component>

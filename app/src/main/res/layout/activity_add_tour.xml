@@ -4,33 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/padding_medium"
     android:background="@color/backgroundDarker"
+    android:orientation="vertical"
+    android:paddingVertical="30dp"
+    android:paddingHorizontal="@dimen/padding_medium"
     tools:context=".AddTourActivity">
-    
+
+
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/backgroundLighter"
+        app:cardCornerRadius="@dimen/radius_small"
+        >
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="اطلاعات"
-            style="@style/textTittleMedium"/>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/TourName"
-            app:startIconDrawable="@drawable/ic_flag"
-            style="@style/textInputLayout.outLinedBox">
-            <com.google.android.material.textfield.TextInputEditText
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:paddingVertical="@dimen/padding_small"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textTittleMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/textRegular"/>
+                android:layout_gravity="center"
+                android:text="@string/information" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/textInputLayout.outLinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/TourName"
+                app:startIconDrawable="@drawable/ic_flag">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/textRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:cardBackgroundColor="@color/backgroundLighter"
+        app:cardCornerRadius="@dimen/radius_small"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:paddingVertical="@dimen/padding_small"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textTittleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/places" />
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              />
+
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

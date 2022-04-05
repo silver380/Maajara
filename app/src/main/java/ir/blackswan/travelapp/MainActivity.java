@@ -1,6 +1,6 @@
 package ir.blackswan.travelapp;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        startActivity(new Intent(this , AddTourActivity.class));
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
