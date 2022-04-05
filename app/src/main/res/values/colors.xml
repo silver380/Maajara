@@ -3,8 +3,8 @@
     <color name="colorNormalText">#1A1A1A</color>
     <color name="colorHint">#505050</color>
     <color name="colorDividers">#C9C9C9</color>
-    <color name="colorBackgroundLighter">#F9F9F9</color>
-    <color name="colorBackgroundDarker">#EDEDED</color>
+    <color name="colorBackgroundLighter">#fff</color>
+    <color name="colorBackgroundDarker">#F4FAFA</color>
     <color name="colorIconTint">#29BDB9</color>
 
     <color name="colorError">#DD0E20</color>
@@ -13,4 +13,6 @@
 
     <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
+
+    <color name="colorMainStatusBar">#AFAFAF</color>
 </resources>

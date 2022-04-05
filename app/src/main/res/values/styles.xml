@@ -74,6 +74,7 @@
         <item name="android:height">?android:attr/actionBarSize</item>
         <item name="navigationIcon">@drawable/ic_back</item>
         <item name="titleTextAppearance">@style/textTittleBold</item>
+        <item name="android:layout_marginBottom">@dimen/margin_medium</item>
 
     </style>
 

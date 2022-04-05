@@ -3,13 +3,13 @@
     <style name="Theme.TravelApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#0A9894</item>
-        <item name="colorPrimaryVariant">#0A8B88</item>
-        <item name="colorOnPrimary">@color/colorBackgroundLighter</item>
+        <item name="colorPrimaryVariant">#097B78</item>
+        <item name="colorOnPrimary">@color/colorBackgroundDarker</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#0A9894</item>
-        <item name="colorSecondaryVariant">#0A8B88</item>
-        <item name="colorOnSecondary">@color/colorBackgroundLighter</item>
+        <item name="colorSecondaryVariant">#097B78</item>
+        <item name="colorOnSecondary">@color/colorBackgroundDarker</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
