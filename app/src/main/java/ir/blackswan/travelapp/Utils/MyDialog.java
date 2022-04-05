@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.Utils;
 
 
 import android.app.AlertDialog;
@@ -7,6 +7,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog;
+
 import ir.blackswan.travelapp.R;
 
 import java.util.Objects;
@@ -24,7 +27,7 @@ public class MyDialog {
     }
 
     public static Dialog getRoundSheetDialog(Context context , View view){
-        //Dialog dialog = new RoundedBottomSheetDialog(context);
+        Dialog dialog = new RoundedBottomSheetDialog(context);
 
         dialog.setContentView(view);
         return dialog;
@@ -47,12 +50,6 @@ public class MyDialog {
     public Dialog getDialog() {
         return dialog;
     }
-
-
-
-
-
-
 
 
 

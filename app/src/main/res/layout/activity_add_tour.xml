@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundDarker"
+    android:background="@color/colorBackgroundDarker"
     android:orientation="vertical"
     tools:context=".AddTourActivity">
 
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_setting"
-        android:layout_width="match_parent"
+        android:id="@+id/tb_activity"
         android:layout_height="?android:attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_back"
+        android:layout_width="match_parent"
+        style="@style/toolbar"
+
         app:title="اضافه کردن تور"
-        app:titleTextAppearance="@style/textTittleBold">
+        >
 
 
 
@@ -31,7 +33,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/backgroundLighter"
+            app:cardBackgroundColor="@color/colorBackgroundLighter"
             app:cardCornerRadius="@dimen/radius_small">
 
             <LinearLayout
@@ -71,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            app:cardBackgroundColor="@color/backgroundLighter"
+            app:cardBackgroundColor="@color/colorBackgroundLighter"
             app:cardCornerRadius="@dimen/radius_small">
 
             <LinearLayout
