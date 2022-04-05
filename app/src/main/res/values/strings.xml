@@ -4,5 +4,6 @@
     <string name="title_search">جستجو</string>
     <string name="title_add">افزودن</string>
     <string name="title_archive">آرشیو</string>
+    <string name="TourName">نام تور</string>
 
 </resources>
