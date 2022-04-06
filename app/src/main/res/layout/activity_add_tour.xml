@@ -14,10 +14,8 @@
         style="@style/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-
         app:title="اضافه کردن تور"
-        app:titleTextColor="@color/colorWhite">
+        >
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -31,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/padding_medium">
+            android:paddingTop="@dimen/padding_large"
+            android:paddingHorizontal="@dimen/padding_large">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -43,10 +42,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small"
-                    android:layout_marginBottom="@dimen/padding_medium">
+                    android:paddingVertical="@dimen/padding_small">
 
 
                     <TextView
@@ -107,6 +106,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
                 app:cardBackgroundColor="@color/colorBackgroundLighter"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small">
@@ -114,11 +114,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small"
-                    android:layout_marginBottom="@dimen/padding_medium"
-                    >
+                    android:paddingVertical="@dimen/padding_small">
 
                     <TextView
                         style="@style/textTittleMedium"
@@ -219,11 +218,12 @@
                         android:orientation="vertical"
                         android:paddingHorizontal="@dimen/padding_medium"
                         android:paddingVertical="@dimen/padding_small">
+
                         <CheckBox
+                            style="@style/textSmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="محل اسکان"
-                            />
+                            android:text="محل اسکان" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -231,31 +231,36 @@
                             android:orientation="horizontal"
                             android:paddingHorizontal="@dimen/padding_medium"
                             android:paddingVertical="@dimen/padding_medium">
-                            <Button
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="هتل"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
-                            <Button
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="هتل" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_medium"
                                 android:text="سوییت"
-                                android:layout_marginRight="@dimen/padding_medium"
 
                                 />
-                            <Button
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="خانه"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
-                            <Button
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="خانه" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ویلا"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="ویلا" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -265,11 +270,12 @@
                         android:orientation="vertical"
                         android:paddingHorizontal="@dimen/padding_medium"
                         android:paddingVertical="@dimen/padding_small">
+
                         <CheckBox
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="غذا"
-                            />
+                            style="@style/textRegular"
+                            android:text="غذا" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -277,25 +283,29 @@
                             android:orientation="horizontal"
                             android:paddingHorizontal="@dimen/padding_medium"
                             android:paddingVertical="@dimen/padding_medium">
-                            <Button
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="صبحانه"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
-                            <Button
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="صبحانه" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_medium"
                                 android:text="ناهار"
-                                android:layout_marginRight="@dimen/padding_medium"
 
                                 />
-                            <Button
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="شام"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="شام" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -305,48 +315,56 @@
                         android:orientation="vertical"
                         android:paddingHorizontal="@dimen/padding_medium"
                         android:paddingVertical="@dimen/padding_small">
+
                         <CheckBox
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="وسیله نقلیه"
-                            />
+                            style="@style/textRegular"
+                            android:text="وسیله نقلیه" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/padding_medium"
-                            android:paddingVertical="@dimen/padding_medium">
-                            <Button
+                            >
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="خودرو شخصی"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
-                            <Button
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="خودرو شخصی" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_medium"
                                 android:text="مینی‌بوس"
-                                android:layout_marginRight="@dimen/padding_medium"
 
                                 />
-                            <Button
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="اتوبوس"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
-                            <Button
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="اتوبوس" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ون"
-                                android:layout_marginRight="@dimen/padding_medium"
-                                />
+                                android:layout_marginRight="@dimen/margin_medium"
+                                android:text="ون" />
+
                         </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout></ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
