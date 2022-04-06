@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounded imageView
     implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1' //round bottom sheet dialog
     implementation 'io.github.muddz:styleabletoast:2.4.0' //styleable toast
+    //implementation 'com.google.android.material:material:<version>'
+
 }

@@ -1,10 +1,14 @@
 package ir.blackswan.travelapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -31,13 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, AddTourActivity.class));
 
-
         Toast.makeText(this, "هعی", Toast.LENGTH_LONG, Toast.TYPE_ERROR).show();
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host);
         NavController navCo = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navCo);
-
     }
-
 }
