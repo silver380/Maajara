@@ -16,6 +16,10 @@
         <activity
             android:name=".ui.AddTourActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activity_tour_page_picture"
+            android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
