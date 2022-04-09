@@ -36,6 +36,7 @@
         android:id="@+id/ll_login_active_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_medium"
         android:orientation="vertical">
 
@@ -209,11 +210,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login_go_to_another"
-            style="@style/button.TextButton"
+            style="@style/button.TextButton.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
+            android:paddingHorizontal="@dimen/padding_small"
             android:text="ثبت‌نام" />
 
     </LinearLayout>

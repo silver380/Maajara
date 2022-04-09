@@ -24,6 +24,11 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="button.TextButton.small" parent="button.TextButton">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
     <style name="textInputLayout.outLinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="errorTextAppearance">@style/textHint</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/radius_text_input</item>
@@ -57,18 +62,23 @@
 
 
     <style name="textSmall" parent="textTittleBold">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/vazir</item>
     </style>
 
     <style name="textLong" parent="textSmall">
         <item name="android:justificationMode" tools:targetApi="o">inter_word</item>
-        <item name="android:lineSpacingExtra">1.5dp</item>
+        <item name="android:lineSpacingExtra">@dimen/lines_extra_space</item>
+    </style>
+
+    <style name="textSmall.hintColor" parent="textSmall">
+        <item name="android:textColor">@color/colorHint</item>
     </style>
 
     <style name="textHint" parent="textTittleBold">
         <item name="android:textSize">13sp</item>
-        <item name="android:fontFamily">@font/vazir_light</item>
+        <item name="android:textColor">@color/colorHint</item>
+        <item name="android:fontFamily">@font/vazir</item>
     </style>
 
 
@@ -93,4 +103,5 @@
         <item name="android:layout_height">25dp</item>
         <item name="android:background">@color/colorDividers</item>
     </style>
+
 </resources>

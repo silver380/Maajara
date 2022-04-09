@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Dialogs;
 
 
 import static android.view.View.GONE;
@@ -21,17 +21,17 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Stack;
 
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.ui.Dialogs.MyDialog;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
 
 
-public class RegisterLoginDialog {
+public class RegisterLoginDialog extends MyDialog {
     public static final int STEP_LOGIN = 0, STEP_REGISTER = 1, STEP_VERIFY = 2;
     DialogRegisterLoginBinding binding;
     private final Activity mActivity;
-    private final RoundedBottomSheetDialog mDialog;
     int step;
     boolean forLogin;
     private Stack<Integer> stepsStack = new Stack<>();
@@ -46,13 +46,13 @@ public class RegisterLoginDialog {
     }
 
     public RegisterLoginDialog(Activity activity, boolean forLogin) {
+        binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
             step = STEP_LOGIN;
         else
             step = STEP_REGISTER;
 
-        binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
 
         mActivity = activity;
         errors = new String[]
@@ -60,8 +60,8 @@ public class RegisterLoginDialog {
                         activity.getString(R.string.emailError), activity.getString(R.string.passwordError)};
         textInputs = new TextInputEditText[]{binding.etLoginName, binding.etLoginLastName,
                 binding.etLoginEmail, binding.etLoginPassword};
-        mDialog = new RoundedBottomSheetDialog(activity);
-        mDialog.setContentView(binding.getRoot());
+
+        init(activity , binding.getRoot() , DIALOG_TYPE_ROUNDED_BOTTOM_SHEET);
 
         setFields();
         addListeners();
@@ -70,7 +70,7 @@ public class RegisterLoginDialog {
     }
 
     private void changeTypeAndStep(boolean forLogin, int step, boolean back) {
-        mDialog.dismiss();
+        dialog.dismiss();
         if (!back)
             stepsStack.add(this.step);
         if (forLogin != this.forLogin)
@@ -79,7 +79,7 @@ public class RegisterLoginDialog {
         this.step = step;
         setFields();
         setTexts();
-        mDialog.show();
+        dialog.show();
     }
 
     public boolean isLoading() {
@@ -175,11 +175,6 @@ public class RegisterLoginDialog {
                 }
             });
         }
-    }
-
-    public void show() {
-        mDialog.show();
-
     }
 
 

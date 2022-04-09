@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_medium"
+        >
+
+        <ir.blackswan.travelapp.Views.WebImageView
+            android:id="@+id/iv_place_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="16:9"
+
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_picture" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@id/iv_place_image"
+            android:paddingHorizontal="@dimen/padding_large"
+            >
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="@dimen/place_icon_size"
+
+                android:layout_height="@dimen/place_icon_size"
+                android:layout_marginTop="@dimen/margin_large"
+                android:src="@drawable/ic_location"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorIconTint" />
+
+            <ImageView
+                android:id="@+id/iv_city"
+                android:layout_width="@dimen/place_icon_size"
+                android:layout_height="@dimen/place_icon_size"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:src="@drawable/ic_map"
+                app:layout_constraintRight_toRightOf="@id/iv_location"
+                app:layout_constraintTop_toBottomOf="@id/iv_location"
+                app:tint="@color/colorIconTint" />
+
+            <ImageView
+                android:id="@+id/iv_place_text"
+                android:layout_width="@dimen/place_icon_size"
+                android:layout_height="@dimen/place_icon_size"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:src="@drawable/ic_text"
+                app:layout_constraintRight_toRightOf="@id/iv_location"
+                app:layout_constraintTop_toBottomOf="@id/iv_city"
+                app:tint="@color/colorIconTint" />
+
+            <TextView
+                android:id="@+id/tv_place_name_label"
+                style="@style/textSmall.hintColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_small"
+                android:text="نام مکان"
+                app:layout_constraintBottom_toBottomOf="@id/iv_location"
+                app:layout_constraintRight_toLeftOf="@id/iv_location"
+                app:layout_constraintTop_toTopOf="@id/iv_location" />
+
+            <TextView
+                android:id="@+id/tv_place_city_label"
+                style="@style/textSmall.hintColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_small"
+                android:text="نام شهر"
+                app:layout_constraintBottom_toBottomOf="@id/iv_city"
+                app:layout_constraintRight_toLeftOf="@id/iv_city"
+                app:layout_constraintTop_toTopOf="@id/iv_city" />
+
+            <TextView
+                android:id="@+id/tv_place_text_label"
+                style="@style/textSmall.hintColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_small"
+                android:text="توضیحات"
+                app:layout_constraintBottom_toBottomOf="@id/iv_place_text"
+                app:layout_constraintRight_toLeftOf="@id/iv_place_text"
+                app:layout_constraintTop_toTopOf="@id/iv_place_text" />
+
+
+            <TextView
+                android:id="@+id/tv_place_name"
+                style="@style/textSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="جنگل"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/tv_place_text"
+                app:layout_constraintTop_toTopOf="@id/tv_place_name_label" />
+
+            <TextView
+                android:id="@+id/tv_place_city"
+                style="@style/textSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="گیلان"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/tv_place_text"
+                app:layout_constraintTop_toTopOf="@id/tv_place_city_label" />
+
+            <TextView
+                android:id="@+id/tv_place_text"
+                style="@style/textSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="@dimen/lines_extra_space"
+                android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و  "
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_place_text_label"
+                app:layout_constraintTop_toTopOf="@id/tv_place_text_label"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

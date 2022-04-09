@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp;
+package ir.blackswan.travelapp.ui;
 
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -6,8 +6,6 @@ import android.widget.CheckBox;
 import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.databinding.ActivityAddTourBinding;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class AddTourActivity extends HasToolbarActivity {
     ActivityAddTourBinding binding;

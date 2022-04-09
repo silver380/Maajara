@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundDarker"
     android:orientation="vertical"
-    tools:context=".AddTourActivity">
+    tools:context=".ui.AddTourActivity">
 
 
     <androidx.appcompat.widget.Toolbar
