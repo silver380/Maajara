@@ -31,7 +31,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/radius_text_input</item>
         <item name="boxCornerRadiusTopStart">@dimen/radius_text_input</item>
     </style>
-    
+
 
 
     <style name="editText" parent="textRegular" />
@@ -86,5 +86,11 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
         <item name="android:layoutDirection">ltr</item>
+    </style>
+
+    <style name="vLine">
+        <item name="android:layout_width">5dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@color/colorDividers</item>
     </style>
 </resources>
