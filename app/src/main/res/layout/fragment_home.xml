@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
+
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/toggle_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/rec_medium_raidus_no_fill"
+        app:toggle_horizontalSpacing="0dp"
+        > <!-- this attribute is from the underlying FlexboxLayout -->
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn_home_passenger"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/colorTransparent"
+            app:toggle_fontFamily="vazir_medium.ttf"
+            app:toggle_btnCornerRadius="@dimen/radius_medium"
+            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+            app:toggle_text="مسافر" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn_home_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_btnCornerRadius="@dimen/radius_medium"
+            app:toggle_backgroundColor="@color/colorTransparent"
+            app:toggle_fontFamily="vazir_medium.ttf"
+            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+            app:toggle_text="راهنما" />
+
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
     <TextView
         android:id="@+id/text_home"
@@ -19,4 +54,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

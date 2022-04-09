@@ -7,5 +7,9 @@
     <string name="TourName">نام تور</string>
     <string name="places">مکان‌ها</string>
     <string name="information">اطلاعات</string>
+    <string name="nameError">نام نمی‌تواند خالی باشد</string>
+    <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد</string>
+    <string name="emailError">فرمت ایمیل صحیح نیست</string>
+    <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد</string>
 
 </resources>

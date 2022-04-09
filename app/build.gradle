@@ -33,13 +33,13 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment:2.4.1'
+    implementation 'androidx.navigation:navigation-ui:2.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -47,6 +47,10 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounded imageView
     implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1' //round bottom sheet dialog
     implementation 'io.github.muddz:styleabletoast:2.4.0' //styleable toast
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.8.0' // persianDatePicker
+    implementation 'nl.bryanderidder:themed-toggle-button-group:1.4.1' // switch
+    implementation 'com.github.poovamraj:PinEditTextField:1.2.6' //pin field
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0' //loading animation
     //implementation 'com.google.android.material:material:<version>'
 
 }

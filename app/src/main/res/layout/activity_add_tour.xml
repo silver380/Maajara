@@ -14,8 +14,7 @@
         style="@style/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:title="اضافه کردن تور"
-        >
+        app:title="اضافه کردن تور">
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -29,8 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/padding_large"
-            android:paddingHorizontal="@dimen/padding_large">
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_large">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -61,11 +60,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
                         android:hint="@string/TourName"
-
                         app:startIconDrawable="@drawable/ic_flag">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            style="@style/textRegular"
+                            style="@style/editText.oneLine"
+                            android:maxLength="@integer/max_tour_name_length"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -80,7 +79,10 @@
                         app:startIconDrawable="@drawable/ic_capacity">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            style="@style/textRegular"
+                            android:id="@+id/et_add_tour_capacity"
+                            style="@style/editText.oneLine"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_tour_capacity_length"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -95,7 +97,8 @@
                         app:startIconDrawable="@drawable/ic_location">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            style="@style/textRegular"
+                            style="@style/editText.oneLine"
+                            android:maxLength="@integer/max_city_name_length"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -132,11 +135,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
                         android:hint="تاریخ شروع"
-
                         app:startIconDrawable="@drawable/ic_calendar">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            style="@style/textRegular"
+                            android:id="@+id/et_add_tour_startDate"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -151,7 +154,8 @@
                         app:startIconDrawable="@drawable/ic_calendar">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            style="@style/textRegular"
+                            android:id="@+id/et_add_tour_finalDate"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -220,7 +224,9 @@
                         android:paddingVertical="@dimen/padding_small">
 
                         <CheckBox
+                            android:id="@+id/cb_add_tour_place"
                             style="@style/textSmall"
+                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="محل اسکان" />
@@ -233,6 +239,7 @@
                             android:paddingVertical="@dimen/padding_medium">
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_hotel"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -240,6 +247,7 @@
                                 android:text="هتل" />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_sweet"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -249,6 +257,7 @@
                                 />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_home"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -272,9 +281,11 @@
                         android:paddingVertical="@dimen/padding_small">
 
                         <CheckBox
+                            android:id="@+id/cb_add_tour_food"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/textRegular"
+                            android:clickable="false"
                             android:text="غذا" />
 
                         <LinearLayout
@@ -285,6 +296,7 @@
                             android:paddingVertical="@dimen/padding_medium">
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_breakfast"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -292,6 +304,7 @@
                                 android:text="صبحانه" />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_lunch"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -301,6 +314,7 @@
                                 />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_dinner"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -317,18 +331,20 @@
                         android:paddingVertical="@dimen/padding_small">
 
                         <CheckBox
+                            android:id="@+id/cb_add_tour_vehicle"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/textRegular"
+                            android:clickable="false"
                             android:text="وسیله نقلیه" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_car"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -336,6 +352,7 @@
                                 android:text="خودرو شخصی" />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_minibus"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -345,6 +362,7 @@
                                 />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_bus"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -352,6 +370,7 @@
                                 android:text="اتوبوس" />
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_add_tour_van"
                                 style="@style/button.outLineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
