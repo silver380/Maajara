@@ -7,12 +7,13 @@
     <color name="colorBackgroundDarker">#F4FAFA</color>
     <color name="colorIconTint">#29BDB9</color>
 
-    <color name="colorError">#DD0E20</color>
-    <color name="colorSuccess">#4BB543</color>
-    <color name="colorWarning">#FFCC00</color>
+    <color name="colorError">#fc5c65</color>
+    <color name="colorSuccess">#26de81</color>
+    <color name="colorWarning">#FFD940</color>
 
     <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
 
-    <color name="colorMainStatusBar">#AFAFAF</color>
+    <color name="colorMainStatusBar">#DADADA</color>
+    <color name="colorTransparent">#00FFFFFF</color>
 </resources>
