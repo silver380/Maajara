@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorBackgroundDarker"
+    android:background="@color/colorWhite">
+
+    <com.github.ybq.android.spinkit.SpinKitView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loading_wiv"
+        style="@style/SpinKitView.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:translationZ="5dp"
+        app:SpinKit_Color="@color/colorIconTint" />
 
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll_image_not_found_wiv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/app_name"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="25sp"
-        />
+        android:orientation="vertical">
 
+
+        <TextView
+            android:id="@+id/tv_error_wiv"
+            style="@style/textTittleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تصویر یافت نشد"
+            android:textColor="@color/colorHint" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/iv_download_again_wiv"
+            android:layout_width="@dimen/primary_icon_size"
+            android:layout_height="@dimen/primary_icon_size"
+            app:cardCornerRadius="@dimen/half_primary_icon_size"
+            app:cardElevation="@dimen/card_elevation_medium"
+            app:rippleColor="@color/colorDividers"
+            android:clickable="true"
+            android:layout_marginTop="@dimen/margin_small">
+
+            <ImageView
+                android:layout_width="@dimen/primary_icon_size"
+                android:layout_height="@dimen/primary_icon_size"
+                android:padding="@dimen/padding_medium"
+                android:src="@drawable/ic_retry"
+                app:tint="@color/colorIconTint" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 
 </FrameLayout>

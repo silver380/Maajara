@@ -3,22 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.1859375" />
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.22" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.4" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_test.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.10989583333333333" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_place.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_register_login.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/fragment_add.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/layout.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading.xml" value="0.12158054711246201" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading_spin.xml" value="0.12158054711246201" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading_view.xml" value="0.12158054711246201" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/place_view_holder.xml" value="0.1" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.12158054711246201" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/web_image_view.xml" value="0.12447916666666667" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/web_image_view.xml" value="0.2" />
       </map>
     </option>
   </component>
