@@ -15,5 +15,7 @@
     <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد</string>
     <string name="emailError">فرمت ایمیل صحیح نیست</string>
     <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد</string>
+    <string name="picture_download_failed">خطا در بارگذاری تصویر</string>
+    <string name="picture_not_found">تصویر پیدا نشد</string>
 
 </resources>

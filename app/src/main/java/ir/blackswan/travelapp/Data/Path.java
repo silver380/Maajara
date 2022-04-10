@@ -8,6 +8,11 @@ public class Path {
         this.localPath = localPath;
     }
 
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+        //updateServer
+    }
+
     public String getLocalPath() {
         return localPath;
     }
