@@ -11,10 +11,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.PermissionRequest;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
 import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
+import ir.blackswan.travelapp.ui.Dialogs.RegisterLoginDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         Utils.changeStatusColor(this, R.color.colorMainStatusBar);
 
-        startActivity(new Intent(this, AddTourActivity.class));
+        //startActivity(new Intent(this, AddTourActivity.class));
 
+        RegisterLoginDialog dialog = new RegisterLoginDialog(this , true);
+        //dialog.show();
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host);
@@ -39,14 +41,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-        if (!PermissionRequest.storage(this, 0)) {
-
-            Place place = new Place("مکان‍‍۱", "شهر۱", "توضیحات",
-                    null,
-                    "https://photokade.com/wp-content/uploads/lovegraphy-photokade-com-12.jpg");
-            new PlaceDialog(this, place).show();
-        }
-
+        Place place = new Place("مکان‍‍۱", "شهر۱", "توضیحات",
+                null,
+                "https://photokade.com/wp-content/uploads/lovegraphy-photokade-com-12.jpg");
+        new PlaceDialog(this, place).show();
 
 
     }
