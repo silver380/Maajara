@@ -423,7 +423,7 @@ pip-selfcheck.json
 *.mdb
 *.pdb
 *.sqlite3
-
+*_initial.py
 # End of https://www.toptal.com/developers/gitignore/api/database
 
 # Support for Project snippet scope
