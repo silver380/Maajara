@@ -1,60 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     app:cardBackgroundColor="@color/colorBackgroundDarker"
-    app:cardCornerRadius="@dimen/radius_medium"
-    android:orientation="vertical">
+    app:cardCornerRadius="@dimen/radius_medium">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/padding_small"
+        android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_medium"
-        android:orientation="vertical">
+        android:paddingVertical="@dimen/padding_small">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/tour_vh_iv"
-            android:layout_height="@dimen/tourImageSize"
             android:layout_width="@dimen/tourImageSize"
-            android:src="@color/colorHint"
+            android:layout_height="@dimen/tourImageSize"
             android:scaleType="fitCenter"
-            app:riv_corner_radius="@dimen/radius_small"
-            />
+            android:src="@color/colorHint"
+            app:riv_corner_radius="@dimen/radius_small" />
 
         <TextView
+            style="@style/textTittleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/TourName"
-            style="@style/textTittleMedium"
             android:layout_gravity="center"
-            />
+            android:text="@string/TourName" />
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price"
-            style="@style/textRegular"
-            />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/capacity"
-            style="@style/textSmall"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/start_date"
-            style="@style/textSmall"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:src="@drawable/ic_price" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/duration"
-            style="@style/textSmall"/>
+                <TextView
+                    style="@style/textRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/price" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:src="@drawable/ic_capacity" />
+
+                <TextView
+                    style="@style/textSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/capacity" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_start_date"
+                    android:layout_margin="@dimen/margin_very_small"/>
+
+                <TextView
+                    style="@style/textSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_date"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_duration"
+                    android:layout_margin="@dimen/margin_very_small"/>
+
+                <TextView
+                    style="@style/textSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duration"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

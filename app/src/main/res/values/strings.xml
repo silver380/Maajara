@@ -11,6 +11,8 @@
     <string name="price">قیمت</string>
     <string name="start_date">تاریخ شروع</string>
     <string name="duration">مدت زمان</string>
+    <string name="tl_name">نام راهنمای سفر</string>
+    <string name="biography">بیوگرافی</string>
     <string name="nameError">نام نمی‌تواند خالی باشد</string>
     <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد</string>
     <string name="emailError">فرمت ایمیل صحیح نیست</string>
