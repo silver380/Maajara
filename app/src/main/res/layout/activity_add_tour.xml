@@ -64,9 +64,9 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/editText.oneLine"
-                            android:maxLength="@integer/max_tour_name_length"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:maxLength="@integer/max_tour_name_length" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,10 +81,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_add_tour_capacity"
                             style="@style/editText.oneLine"
-                            android:inputType="number"
-                            android:maxLength="@integer/max_tour_capacity_length"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_tour_capacity_length" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,9 +98,9 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/editText.oneLine"
-                            android:maxLength="@integer/max_city_name_length"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:maxLength="@integer/max_city_name_length" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -216,69 +216,69 @@
                         android:layout_gravity="center"
                         android:text="امکانات" />
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="@dimen/padding_medium"
-                        android:paddingVertical="@dimen/padding_small">
+                        android:layout_height="wrap_content">
+
 
                         <CheckBox
                             android:id="@+id/cb_add_tour_place"
                             style="@style/textSmall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:clickable="false"
-                            android:layout_width="match_parent"
+                            android:text="محل اسکان"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            />
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_hotel"
+                            style="@style/button.outLineButton"
                             android:layout_height="wrap_content"
-                            android:text="محل اسکان" />
+                            android:layout_width="0dp"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_place"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_sweet"
+                            android:layout_marginHorizontal="@dimen/margin_small"
+                            android:text="هتل" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_sweet"
+                            style="@style/button.outLineButton"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/padding_medium"
-                            android:paddingVertical="@dimen/padding_medium">
+                            android:layout_width="0dp"
+                            app:layout_constraintHorizontal_weight="1"
+                            android:layout_marginHorizontal="@dimen/margin_small"
+                            android:text="سوییت"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_hotel"
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_hotel"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_home"
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_hotel"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="هتل" />
+                            />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_sweet"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="سوییت"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_home"
+                            style="@style/button.outLineButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintHorizontal_weight="1"
+                            android:layout_marginHorizontal="@dimen/margin_small"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_sweet"
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_sweet"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="خانه" />
 
-                                />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_home"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="خانه" />
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="ویلا" />
 
-                            <com.google.android.material.button.MaterialButton
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="ویلا" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="@dimen/padding_medium"
-                        android:paddingVertical="@dimen/padding_small">
 
                         <CheckBox
                             android:id="@+id/cb_add_tour_food"
@@ -288,47 +288,33 @@
                             android:clickable="false"
                             android:text="غذا" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_breakfast"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/padding_medium"
-                            android:paddingVertical="@dimen/padding_medium">
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="صبحانه" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_breakfast"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="صبحانه" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_lunch"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="ناهار"
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_lunch"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="ناهار"
+                            />
 
-                                />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_dinner"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="شام" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_dinner"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="شام" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="@dimen/padding_medium"
-                        android:paddingVertical="@dimen/padding_small">
 
                         <CheckBox
                             android:id="@+id/cb_add_tour_vehicle"
@@ -338,48 +324,42 @@
                             android:clickable="false"
                             android:text="وسیله نقلیه" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_car"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="خودرو شخصی" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_car"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="خودرو شخصی" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_minibus"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="مینی‌بوس"
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_minibus"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="مینی‌بوس"
+                            />
 
-                                />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_bus"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="اتوبوس" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_bus"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="اتوبوس" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_van"
+                            style="@style/button.outLineButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:text="ون" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_add_tour_van"
-                                style="@style/button.outLineButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_medium"
-                                android:text="ون" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

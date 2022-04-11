@@ -31,7 +31,6 @@
             <ImageView
                 android:id="@+id/iv_location"
                 android:layout_width="@dimen/place_icon_size"
-
                 android:layout_height="@dimen/place_icon_size"
                 android:layout_marginTop="@dimen/margin_large"
                 android:src="@drawable/ic_location"

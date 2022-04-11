@@ -9,20 +9,22 @@
     android:paddingTop="@dimen/padding_large"
     tools:context=".TourPageActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginBottom="@dimen/margin_medium">
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/register"
-            style="@style/textRegular"
+            style="@style/button.primaryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ثبت نام"
-            app:layout_constraintLeft_toRightOf="@+id/price"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginHorizontal="@dimen/margin_large"
+
+            />
 
         <TextView
             android:id="@+id/price"
@@ -30,12 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="قیمت"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/register"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginHorizontal="@dimen/margin_large"
+             />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,21 +50,21 @@
             android:text="جزئیات" />
 
         <TextView
-            style="@style/textHint"
+            style="@style/textSmall.hintColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="ظرفیت" />
 
         <TextView
-            style="@style/textHint"
+            style="@style/textSmall.hintColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="بازه" />
 
         <TextView
-            style="@style/textHint"
+            style="@style/textSmall.hintColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -76,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_medium">
-        >
+
 
         <TextView
             style="@style/textRegular"
@@ -88,13 +87,13 @@
             app:layout_constraintBottom_toTopOf="@+id/threeoptions"
             tools:ignore="MissingConstraints" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/threeoptions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:ignore="MissingConstraints"
+            android:orientation="horizontal"
             >
 
 
@@ -177,7 +176,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/food"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

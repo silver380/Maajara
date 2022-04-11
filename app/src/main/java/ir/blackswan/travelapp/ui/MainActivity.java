@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         Utils.changeStatusColor(this, R.color.colorMainStatusBar);
 
-//        startActivity(new Intent(this, AddTourActivity.class));
+        startActivity(new Intent(this, AddTourActivity.class));
 
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
