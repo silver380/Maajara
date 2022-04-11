@@ -413,6 +413,19 @@ pip-selfcheck.json
 .history
 .ionide
 
+# Created by https://www.toptal.com/developers/gitignore/api/database
+# Edit at https://www.toptal.com/developers/gitignore?templates=database
+
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+
+# End of https://www.toptal.com/developers/gitignore/api/database
+
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,sublimetext,visualstudiocode,django,virtualenv,python
