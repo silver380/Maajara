@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_tour_page_picture"
+    tools:context=".TourPageActivity"
 
     >
 
@@ -40,10 +40,10 @@
             />
     </LinearLayout>
 
-    <android.support.design.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_back"
+    <ImageView
+        android:layout_width="@dimen/secondary_icon_size"
+        android:layout_height="@dimen/secondary_icon_size"
+        android:src="@drawable/ic_back"
         android:layout_margin="@dimen/margin_medium"
         />
 

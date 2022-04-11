@@ -9,6 +9,6 @@ public class TourPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tour_page);
+        setContentView(R.layout.activity_tour_page_picture);
     }
 }

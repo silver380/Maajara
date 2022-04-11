@@ -15,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
-            android:name=".TourPageActivity"
+            android:name=".TourPageDialog"
             android:exported="false" />
         <activity
             android:name=".ui.AddTourActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_tour_page_picture"
+            android:name=".TourPageActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

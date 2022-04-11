@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <ir.blackswan.travelapp.Views.WebImageView
             android:id="@+id/place_vh_iv"
             android:layout_height="@dimen/placeImageSize"
             android:layout_width="@dimen/placeImageSize"
