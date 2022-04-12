@@ -62,7 +62,13 @@ public class WebImageView extends FrameLayout {
     public void setImagePath(Path path) {
         loadingState();
         if (path.getLocalPath() != null) {
-            setImageByFile(new File(path.getLocalPath()));
+            File imageFile = new File(path.getLocalPath());
+            if (imageFile.exists())
+                setImageByFile(new File(path.getLocalPath()));
+            else {
+                path.setLocalPath(null);
+                setImagePath(path);
+            }
         } else if (path.getServerPath() != null) {
 
             new WebDownloader(getContext(), downloadedFile -> {

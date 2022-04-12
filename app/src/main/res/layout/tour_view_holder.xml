@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/padding_medium"
-        android:paddingVertical="@dimen/padding_small">
+        >
 
         <ir.blackswan.travelapp.Views.WebImageView
             android:id="@+id/wiv_tvh_image"
@@ -25,7 +24,7 @@
             android:src="@color/colorHint"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="@dimen/radius_small" />
+             />
 
 
         <LinearLayout
