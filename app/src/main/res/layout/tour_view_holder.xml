@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_medium"
+    android:layout_marginVertical="@dimen/margin_medium"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorBackgroundDarker"
-    app:cardCornerRadius="@dimen/radius_medium">
+    app:cardBackgroundColor="@color/colorBackgroundLighter"
+    app:cardCornerRadius="@dimen/radius_medium"
+    app:cardElevation="@dimen/card_elevation_medium">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_medium"
         android:paddingVertical="@dimen/padding_small">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/tour_vh_iv"
-            android:layout_width="@dimen/tourImageSize"
-            android:layout_height="@dimen/tourImageSize"
-            android:scaleType="fitCenter"
+        <ir.blackswan.travelapp.Views.WebImageView
+            android:id="@+id/wiv_tvh_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
             android:src="@color/colorHint"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/radius_small" />
 
-        <TextView
-            style="@style/textTittleMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/TourName" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/wiv_tvh_image"
+            app:layout_constraintVertical_weight="1">
+
+            <TextView
+                android:id="@+id/tv_tvh_name"
+                style="@style/textTittleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:text="@string/TourName" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,6 +56,7 @@
                     android:src="@drawable/ic_price" />
 
                 <TextView
+                    android:id="@+id/tv_tvh_price"
                     style="@style/textRegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,6 +69,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -78,20 +90,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_start_date"
-                    android:layout_margin="@dimen/margin_very_small"/>
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:src="@drawable/ic_start_date" />
 
                 <TextView
+                    android:id="@+id/tv_tvh_start_date"
                     style="@style/textSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/start_date"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/start_date" />
 
 
             </LinearLayout>
@@ -99,24 +113,26 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
                 android:orientation="horizontal">
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_duration"
-                    android:layout_margin="@dimen/margin_very_small"/>
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:src="@drawable/ic_duration" />
 
                 <TextView
+                    android:id="@+id/tv_tvh_duration"
                     style="@style/textSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/duration"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/duration" />
 
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -10,11 +10,31 @@ public class Tour {
     private String city;
     private long startDate , finalDate;
     private List<Place> places;
+    private long price;
     private boolean hotel , sweet , house , villa;
     private boolean breakfast , lunch , dinner;
     private boolean car , minibus , bus , van;
     private List<User> requestedUsers;
     private List<User> registeredUses;
+
+    public Tour(User creator, String tourName, int capacity, String city, long startDate, long finalDate, List<Place> places, long price) {
+        this.creator = creator;
+        this.tourName = tourName;
+        this.capacity = capacity;
+        this.city = city;
+        this.startDate = startDate;
+        this.finalDate = finalDate;
+        this.places = places;
+        this.price = price;
+    }
+
+    public void setRequestedUsers(List<User> requestedUsers) {
+        this.requestedUsers = requestedUsers;
+    }
+
+    public void setRegisteredUses(List<User> registeredUses) {
+        this.registeredUses = registeredUses;
+    }
 
     public User getCreator() {
         return creator;
@@ -90,6 +110,10 @@ public class Tour {
 
     public boolean isVan() {
         return van;
+    }
+
+    public long getPrice() {
+        return price;
     }
 
     public List<User> getRequestedUsers() {

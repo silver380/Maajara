@@ -17,6 +17,72 @@ public class User {
     private List<Path> relatedDocsPaths;
     private double rate;
 
+    public User(String name, String lastName, String email) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+
+    public void setValidatedByAdmin(boolean validatedByAdmin) {
+        isValidatedByAdmin = validatedByAdmin;
+    }
+
+    public void setTourGuide(boolean tourGuide) {
+        isTourGuide = tourGuide;
+    }
+
+    public void setProfilePicturePath(Path profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    public void setTicket(int ticket) {
+        this.ticket = ticket;
+    }
+
+    public void setBirthDay(long birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public void setSex(boolean sex) {
+        this.sex = sex;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setPoliceClearanceDocPath(Path policeClearanceDocPath) {
+        this.policeClearanceDocPath = policeClearanceDocPath;
+    }
+
+    public void setLanguages(List<String> languages) {
+        this.languages = languages;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setTelegramUsername(String telegramUsername) {
+        this.telegramUsername = telegramUsername;
+    }
+
+    public void setWhatsappNumber(String whatsappNumber) {
+        this.whatsappNumber = whatsappNumber;
+    }
+
+    public void setRelatedDocsPaths(List<Path> relatedDocsPaths) {
+        this.relatedDocsPaths = relatedDocsPaths;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
     public boolean isBanned() {
         return isBanned;
     }

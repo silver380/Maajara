@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.TourPageActivity;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
+import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 
 
 public class SearchFragment extends Fragment {
@@ -23,9 +27,11 @@ public class SearchFragment extends Fragment {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity() , FakeData.getFakeTours());
+        binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        binding.rclSearch.setAdapter(tourRecyclerAdapter);
 
-        final TextView textView = binding.textSearch;
-        textView.setText("search");
+
         return root;
     }
 

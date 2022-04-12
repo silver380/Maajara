@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         //startActivity(new Intent(this, AddTourActivity.class));
 
-        RegisterLoginDialog dialog = new RegisterLoginDialog(this , true);
-        //dialog.show();
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host);
@@ -41,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-        Place place = new Place("مکان‍‍۱", "شهر۱", "توضیحات",
-                null,
-                "https://photokade.com/wp-content/uploads/lovegraphy-photokade-com-12.jpg");
-        new PlaceDialog(this, place).show();
 
 
     }
