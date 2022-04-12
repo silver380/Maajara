@@ -14,6 +14,7 @@ class MyUserManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address.')
 
+        print(kwargs)
         user = self.model(
             **kwargs
         )
