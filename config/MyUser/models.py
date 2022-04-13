@@ -14,11 +14,8 @@ class MyUserManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address.')
 
-        print(kwargs)
-        user = self.model(
-            **kwargs
-        )
-
+        user = self.model(**kwargs)
+        email = self.normalize_email(email)
         user.email = email
         user.set_password(password)
         user.save(using=self._db)
@@ -36,7 +33,7 @@ class MyUser(AbstractBaseUser):
     first_name = models.CharField(max_length=50, default='')
     last_name = models.CharField(max_length=50, default='')
     date_of_birth = models.DateField(blank=True, null=True)
-    gender = models.TextField(choices=[('F', 'Female'), ('M', 'Male')], default='M')
+    gender = models.TextField(choices=[('Female', 'F'), ('Male', 'M')], default='Male')
     biography = models.CharField(max_length=1003, default='')
     languages = models.CharField(max_length=500, default='')
     # TODO: should be changed to array
@@ -53,6 +50,23 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    def upgrade(self, data):
+        # required fields
+        self.biography = data['biography']
+        self.gender = data['gender']
+        self.languages = data['languages']
+        self.date_of_birth = data['date_of_birth']
+        self.phone_number = data['phone_number']
+
+        # optional fields
+        if 'telegram_id' in data:
+            self.telegram_id = data['telegram_id']
+        if 'whatsapp_id' in data:
+            self.whatsapp_id = data['whatsapp_id']
+
+        self.is_tour_leader = True
+        self.save()
+
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
@@ -68,3 +82,4 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
