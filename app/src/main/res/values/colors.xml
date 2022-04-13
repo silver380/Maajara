@@ -14,6 +14,7 @@
     <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
 
+
     <color name="colorMainStatusBar">#DADADA</color>
     <color name="colorTransparent">#00FFFFFF</color>
 </resources>

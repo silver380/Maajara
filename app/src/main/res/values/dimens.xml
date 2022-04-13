@@ -20,8 +20,9 @@
 
     <dimen name="primary_icon_size">50dp</dimen>
     <dimen name="half_primary_icon_size">25dp</dimen>
-    <dimen name="secondary_icon_size">30dp</dimen>
-    <dimen name="tertiary_icon_size">20dp</dimen>
+    <dimen name="secondary_icon_size">40dp</dimen>
+    <dimen name="half_secondary_icon_size">20dp</dimen>
+    <dimen name="tertiary_icon_size">30dp</dimen>
     <dimen name="placeImageSize">70dp</dimen>
     <dimen name="place_icon_size">25dp</dimen>
 

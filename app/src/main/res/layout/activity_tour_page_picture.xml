@@ -3,48 +3,368 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TourPageActivity"
-
-    >
+    android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/iv_tour_page_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_background"
         android:scaleType="centerCrop"
-        />
+        android:src="@drawable/test_picture" />
 
-    <LinearLayout
+    <View
+        android:id="@+id/view_tour_page_alpha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        android:layout_margin="@dimen/margin_medium"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/colorBlack" />
 
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="نام تور"
-            style="@style/textTittleBold"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="نام راهنمای سفر"
-            style="@style/textTittleMedium"
-            />
-    </LinearLayout>
-
-    <ImageView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_back_tour_page"
         android:layout_width="@dimen/secondary_icon_size"
         android:layout_height="@dimen/secondary_icon_size"
-        android:src="@drawable/ic_back"
+        android:layout_gravity="top|right"
         android:layout_margin="@dimen/margin_medium"
-        />
+        android:alpha=".7"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/colorBlack"
+        app:cardCornerRadius="@dimen/half_secondary_icon_size"
+        app:cardElevation="@dimen/card_elevation_medium"
+        app:rippleColor="@color/colorDividers">
 
+        <ImageView
+            android:layout_width="@dimen/secondary_icon_size"
+            android:layout_height="@dimen/secondary_icon_size"
+            android:padding="@dimen/padding_medium"
+            android:src="@drawable/ic_back"
+            app:tint="@color/colorWhite" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:id="@+id/sc_tour_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        tools:context=".TourPageActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".TourPageActivity">
+
+            <FrameLayout
+                android:id="@+id/view_for_showing_image"
+                android:layout_width="match_parent"
+                android:layout_height="738dp">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_tour_page_names"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bac_grad_black"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large">
+
+                    <TextView
+                        style="@style/textTittleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="نام تور"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        style="@style/textTittleMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:alpha=".75"
+                        android:text="نام راهنمای سفر"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+            </FrameLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/vg_tour_page_bottom_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_large"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_large">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/register"
+                            style="@style/button.primaryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_large"
+                            android:text="ثبت نام"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/price"
+                            style="@style/textRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_large"
+                            android:text="قیمت" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_medium">
+
+                        <TextView
+                            android:id="@+id/tv_label_details"
+                            style="@style/textTittleMedium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="جزئیات"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_icon_capacity"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:src="@drawable/ic_capacity"
+                            app:tint="@color/colorIconTint"
+                            android:layout_marginRight="@dimen/margin_small"
+                            app:layout_constraintTop_toBottomOf="@id/tv_label_details"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_marginTop="@dimen/margin_small"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_label_capacity"
+                            style="@style/textSmall.hintColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_small"
+                            android:gravity="right"
+                            android:text="ظرفیت"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_capacity"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_capacity"
+                            app:layout_constraintRight_toLeftOf="@id/iv_icon_capacity"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_tour_page_capacity"
+                            style="@style/textRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_medium"
+                            android:gravity="right"
+                            android:text="۴ از ۷"
+                            app:layout_constraintTop_toTopOf="@id/tv_label_capacity"
+                            app:layout_constraintRight_toLeftOf="@id/tv_label_capacity"
+                            />
+
+                        <ImageView
+                            android:id="@+id/iv_icon_calender"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="@color/colorIconTint"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_capacity"
+                            app:layout_constraintRight_toRightOf="@id/iv_icon_capacity"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_label_calender"
+                            style="@style/textSmall.hintColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_calender"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_calender"
+                            app:layout_constraintRight_toRightOf="@id/tv_label_capacity"
+                            android:text="بازه" />
+
+                        <TextView
+                            style="@style/textRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="از ۲۲/۲۲/۲۲ تا ۲۲/۲۲/۲۳"
+                            app:layout_constraintTop_toTopOf="@id/tv_label_calender"
+                            app:layout_constraintRight_toRightOf="@id/tv_tour_page_capacity"
+                            />
+
+                        <ImageView
+                            android:id="@+id/iv_icon_location"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/colorIconTint"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_calender"
+                            app:layout_constraintRight_toRightOf="@id/iv_icon_capacity"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_label_city"
+                            style="@style/textSmall.hintColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_location"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_location"
+                            app:layout_constraintRight_toRightOf="@id/tv_label_capacity"
+                            android:text="شهر" />
+
+
+                        <TextView
+                            style="@style/textRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="گیلان"
+                            app:layout_constraintTop_toTopOf="@id/tv_label_city"
+                            app:layout_constraintRight_toRightOf="@id/tv_tour_page_capacity"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_medium">
+
+
+                        <TextView
+                            style="@style/textRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="امکانات"
+                            app:layout_constraintBottom_toTopOf="@+id/threeoptions"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <LinearLayout
+                            android:id="@+id/threeoptions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent">
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/optionRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/padding_medium"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                tools:ignore="MissingConstraints">
+
+                                <ImageView
+                                    android:id="@+id/bed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_bed"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent" />
+
+                                <TextView
+                                    style="@style/textHint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="اقامتگاه"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/bed" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/optionMiddle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/padding_medium"
+                                app:layout_constraintRight_toLeftOf="@+id/optionRight"
+                                tools:ignore="MissingConstraints">
+
+                                <ImageView
+                                    android:id="@+id/car"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_car"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent" />
+
+                                <TextView
+                                    style="@style/textHint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="وسیله نقلیه"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/car" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/optionLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/padding_medium"
+                                app:layout_constraintRight_toLeftOf="@+id/optionMiddle"
+                                tools:ignore="MissingConstraints">
+
+                                <ImageView
+                                    android:id="@+id/food"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_food"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent" />
+
+                                <TextView
+                                    style="@style/textHint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="تغذیه"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/food" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
 </FrameLayout>

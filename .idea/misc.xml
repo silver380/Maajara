@@ -3,13 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.29739776951672864" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_test.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.25" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.2" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.152" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_place.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_register_login.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/fragment_add.xml" value="0.25" />

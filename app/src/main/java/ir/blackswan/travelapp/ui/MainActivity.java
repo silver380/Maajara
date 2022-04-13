@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
 import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
+        Log.d("scroll", "onCreate: ");
+        startActivity(new Intent(this , TourPageActivity.class));
 
 
     }
