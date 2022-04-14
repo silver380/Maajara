@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'MyUser.apps.MyuserConfig',
     'rest_framework.authtoken',
     'rest_framework',
+    'tour.apps.TourConfig',
 ]
 
 MIDDLEWARE = [
