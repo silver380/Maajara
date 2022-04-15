@@ -1,9 +1,11 @@
 package ir.blackswan.travelapp;
 
+import static ir.blackswan.travelapp.Utils.Utils.dp2px;
 import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,33 +13,28 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-import ir.blackswan.travelapp.Data.Place;
+import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
 
 public class TourPageActivity extends AppCompatActivity {
 
     ActivityTourPagePictureBinding binding;
     boolean bottomViewIsOpen = false;
-    boolean backBottomVisibility = false;
-
-    int backIconSize;
-    int backMargin;
+    int topNamesMarginRight;
     int maxScrollY;
+    int namesPadding;
 
-    List<Place> places;
-    RecyclerView placeRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +51,13 @@ public class TourPageActivity extends AppCompatActivity {
 
         setTouchListener();
 
-        //places recycler
+        binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
+
+        binding.llTourPageLeader.addView(new TourLeaderVerticalView(this).setData(FakeData.getFakeUser()));
+
 
     }
+
 
     private void changeBackBottomVisibility() {
         /*
@@ -70,7 +71,7 @@ public class TourPageActivity extends AppCompatActivity {
 
     private void openBottomView() {
         binding.scTourPage.post(() -> {
-            binding.scTourPage.smoothScrollTo(0, binding.scTourPage.getMaxScrollAmount());
+            binding.scTourPage.smoothScrollTo(0, maxScrollY);
         });
         bottomViewIsOpen = true;
     }
@@ -80,46 +81,6 @@ public class TourPageActivity extends AppCompatActivity {
         bottomViewIsOpen = false;
     }
 
-    private void invisibleBackBottom() {
-        if (!backBottomVisibility)
-            return;
-        backBottomVisibility = false;
-        Animation close = AnimationUtils.loadAnimation(this, R.anim.exit_up);
-        close.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                binding.cardBackTourPage.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        binding.cardBackTourPage.startAnimation(close);
-    }
-
-    private void visibleBackBottom() {
-        if (backBottomVisibility)
-            return;
-        backBottomVisibility = true;
-        binding.cardBackTourPage.setVisibility(View.VISIBLE);
-        binding.cardBackTourPage.startAnimation(AnimationUtils.
-                loadAnimation(this, R.anim.enter_down));
-    }
-
-    private void updateBackButtonPosition(float unit) {
-        int minMarginTop = -backIconSize - backMargin;
-        int marginDif = (int) (unit * (backMargin + -1 * minMarginTop));
-        FrameLayout.LayoutParams backParams = new FrameLayout.LayoutParams(backIconSize, backIconSize);
-        backParams.setMargins(backMargin, minMarginTop + marginDif, backMargin, 0);
-        binding.cardBackTourPage.setLayoutParams(backParams);
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
@@ -144,7 +105,7 @@ public class TourPageActivity extends AppCompatActivity {
                 } else {
                     if (scrollUp && binding.scTourPage.getScrollY() > getScreenHeight() * 10 / 100)
                         openBottomView();
-                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 35 / 100)
+                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 60 / 100)
                         closeBottomView();
                     else if (bottomViewIsOpen)
                         openBottomView();
@@ -166,7 +127,31 @@ public class TourPageActivity extends AppCompatActivity {
             return false;
 
         });
+
+        binding.scTourPageBottom.setOnTouchListener(new View.OnTouchListener() {
+            float lastDownY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+                    float dy = event.getY() - lastDownY;
+                    boolean scrollUp = dy < 0;
+                    if (scrollUp && binding.scTourPage.getScrollY() > getScreenHeight() * 10 / 100)
+                        openBottomView();
+                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 70 / 100)
+                        closeBottomView();
+                    else if (bottomViewIsOpen)
+                        openBottomView();
+                    else
+                        closeBottomView();
+                } else if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    lastDownY = event.getY();
+                }
+                return false;
+            }
+        });
     }
+
 
     private void setScrollListener() {
         binding.scTourPage.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -177,10 +162,20 @@ public class TourPageActivity extends AppCompatActivity {
             float unit = (float) scrollY / maxScrollY;
 
             binding.viewTourPageAlpha.setAlpha(unit * .7f);
-            updateBackButtonPosition(unit);
+
+            float max2 = maxScrollY * 80 / 100f;
+            float scroll2 = scrollY - max2;
+            int margin = 0;
+            if (scroll2 > -1) {
+                float maxScroll2 = maxScrollY - max2;
+                margin = (int) (scroll2 / maxScroll2 * topNamesMarginRight);
+            }
+
+            binding.llTourPageNames.setPadding(namesPadding, namesPadding, namesPadding + margin, namesPadding);
 
         });
     }
+
 
     private void prepareActivity() {
         binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(
@@ -190,19 +185,24 @@ public class TourPageActivity extends AppCompatActivity {
                         binding.viewForShowingImage.setLayoutParams(new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT, getScreenHeight()
                         ));
-                        backIconSize = binding.cardBackTourPage.getWidth();
-                        backMargin = ((FrameLayout.LayoutParams) binding.cardBackTourPage.getLayoutParams()).topMargin;
-                        updateBackButtonPosition(0);
+
                         maxScrollY = binding.scTourPage.getChildAt(0).getHeight() - getScreenHeight();
 
-                        binding.cardBackTourPage.getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
+                        binding.scTourPageBottom.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                        getScreenHeight() - Utils.getStatusBarHeight(TourPageActivity.this) -
+                                                binding.llTourPageNames.getHeight() -
+                                                dp2px(TourPageActivity.this, getResources().getDimension(R.dimen.margin_small))));
+
+                        topNamesMarginRight = ((FrameLayout.LayoutParams) binding.cardBackTourPage.getLayoutParams()).rightMargin
+                                + binding.cardBackTourPage.getWidth();
+                        namesPadding = binding.llTourPageNames.getPaddingLeft();
+
+
+                        binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
                     }
                 });
 
-        binding.cardBackTourPage.setOnClickListener(v -> {
-            closeBottomView();
-            onBackPressed();
-        });
+        //binding.ivTourPageBack.setOnClickListener(v -> { closeBottomView();onBackPressed(); });
     }
 
     @Override

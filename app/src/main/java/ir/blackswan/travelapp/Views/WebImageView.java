@@ -43,6 +43,11 @@ public class WebImageView extends FrameLayout {
         init(attrs);
     }
 
+    public void setScale(float scale){
+        errorContainer.setScaleX(scale);
+        errorContainer.setScaleY(scale);
+    }
+
     private void init(AttributeSet attrs) {
         inflate(getContext(), R.layout.web_image_view, this);
 
@@ -53,7 +58,7 @@ public class WebImageView extends FrameLayout {
         addView(imageView);
 
         errorContainer = findViewById(R.id.ll_image_not_found_wiv);
-
+        errorContainer.setVisibility(GONE);
         downloadAgain = findViewById(R.id.iv_download_again_wiv);
         loadingView = findViewById(R.id.loading_wiv);
         tvError = findViewById(R.id.tv_error_wiv);
@@ -133,5 +138,8 @@ public class WebImageView extends FrameLayout {
         imageView.setImageBitmap(bitmap);
     }
 
+    public void setCornerRadius(float radius){
+        imageView.setCornerRadius(radius);
+    }
 
 }
