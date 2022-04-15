@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.1859375" />
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/place_view_holder.xml" value="0.2" />
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/tour_view_holder.xml" value="0.1859375" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/drawable/bac_grad_black.xml" value="0.209" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/drawable/ic_bed_background.xml" value="0.209" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.209" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/drawable/shadow_tour.xml" value="0.209" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/drawable/telegram_back.xml" value="0.209" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tour_view_holder.xml" value="0.536" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />

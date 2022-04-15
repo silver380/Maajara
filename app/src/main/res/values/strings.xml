@@ -5,6 +5,7 @@
     <string name="title_add">افزودن</string>
     <string name="title_archive">آرشیو</string>
     <string name="TourName">نام تور</string>
+    <string name="location">موقعیت مکانی</string>
     <string name="places">مکان‌ها</string>
     <string name="information">اطلاعات</string>
     <string name="capacity">ظرفیت</string>

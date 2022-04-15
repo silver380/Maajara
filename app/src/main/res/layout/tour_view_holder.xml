@@ -1,137 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
     android:layout_marginHorizontal="@dimen/margin_medium"
     android:layout_marginVertical="@dimen/margin_medium"
-    android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorBackgroundLighter"
-    app:cardCornerRadius="@dimen/radius_medium"
-    app:cardElevation="@dimen/card_elevation_medium">
+    app:cardCornerRadius="@dimen/radius_medium">
+
+    <ir.blackswan.travelapp.Views.WebImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bac_grad_black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-        <ir.blackswan.travelapp.Views.WebImageView
-            android:id="@+id/wiv_tvh_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@color/colorHint"
-            app:layout_constraintDimensionRatio="16:9"
+        <android.support.design.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="#CCFFFFFF"
+            app:cardCornerRadius="@dimen/radius_small"
+            >
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/wiv_tvh_image"
-            app:layout_constraintVertical_weight="1">
 
             <TextView
-                android:id="@+id/tv_tvh_name"
-                style="@style/textTittleMedium"
+                style="@style/textRegular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:text="@string/TourName" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text=" 75000ت "
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_very_small"
-                    android:src="@drawable/ic_price" />
-
-                <TextView
-                    android:id="@+id/tv_tvh_price"
-                    style="@style/textRegular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/price" />
+                />
+        </android.support.design.card.MaterialCardView>
 
 
-            </LinearLayout>
+        <ImageView
+            android:id="@+id/loc_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="@dimen/margin_very_small"
+            android:src="@drawable/ic_location"
+            app:layout_constraintBottom_toTopOf="@id/duration_iv"
+            app:layout_constraintLeft_toLeftOf="@id/duration_iv"
+            app:layout_constraintRight_toRightOf="@id/duration_iv"
+            app:tint="@color/colorWhite" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:orientation="horizontal">
+        <TextView
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+            android:textColor="#E6FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/loc_iv"
+            app:layout_constraintRight_toLeftOf="@id/loc_iv"
+            app:layout_constraintTop_toTopOf="@id/loc_iv" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_very_small"
-                    android:src="@drawable/ic_capacity" />
+        <ImageView
+            android:id="@+id/duration_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:src="@drawable/ic_duration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:tint="@color/colorWhite" />
 
-                <TextView
-                    style="@style/textSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/capacity" />
+        <TextView
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_very_small"
+            android:text="@string/start_date"
+            android:textColor="#E6FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/duration_iv"
+            app:layout_constraintRight_toLeftOf="@id/duration_iv"
+            app:layout_constraintTop_toTopOf="@id/duration_iv" />
 
-            </LinearLayout>
+        <ImageView
+            android:id="@+id/moon_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:src="@drawable/ic_moon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:tint="@color/colorWhite" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_very_small"
-                    android:src="@drawable/ic_start_date" />
-
-                <TextView
-                    android:id="@+id/tv_tvh_start_date"
-                    style="@style/textSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/start_date" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_very_small"
-                    android:src="@drawable/ic_duration" />
-
-                <TextView
-                    android:id="@+id/tv_tvh_duration"
-                    style="@style/textSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/duration" />
-
-            </LinearLayout>
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_very_small"
+            android:text="3"
+            android:textColor="#E6FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/moon_iv"
+            app:layout_constraintLeft_toRightOf="@id/moon_iv"
+            app:layout_constraintTop_toTopOf="@id/moon_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
