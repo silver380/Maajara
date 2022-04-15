@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
+import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
@@ -52,7 +53,7 @@ public class TourPageActivity extends AppCompatActivity {
 
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
-        binding.llTourPageLeader.addView(new TourLeaderVerticalView(this));
+        binding.llTourPageLeader.addView(new TourLeaderVerticalView(this).setData(FakeData.getFakeUser()));
 
 
     }

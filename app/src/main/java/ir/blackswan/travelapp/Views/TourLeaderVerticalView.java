@@ -35,10 +35,21 @@ public class TourLeaderVerticalView extends MaterialCardView {
 
     public TourLeaderVerticalView setData(User user){
         name.setText(user.getNameAndLastname());
+        updateImageViewRadius();
         return this;
         //bio.setText(user.getBio());
         //rate.setText(user.getRate() + "");
         //image.setImagePath(user.getProfilePicturePath());
+    }
+
+    private void updateImageViewRadius(){
+        image.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                image.setCornerRadius(image.getWidth()/2f);
+                image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
     }
 
     private void init(){
@@ -49,14 +60,8 @@ public class TourLeaderVerticalView extends MaterialCardView {
         rate = findViewById(R.id.tv_tl_rate);
         telegram = findViewById(R.id.tel_iv);
         whatsapp = findViewById(R.id.w_app_iv);
+        updateImageViewRadius();
 
 
-        image.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                image.setCornerRadius(image.getWidth());
-                image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
     }
 }

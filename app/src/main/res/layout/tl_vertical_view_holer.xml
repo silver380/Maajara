@@ -9,8 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorWhite"
-        android:layout_margin="@dimen/margin_small"
-        app:cardCornerRadius="@dimen/radius_medium"
+        android:layout_marginHorizontal="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="@dimen/radius_small"
         app:cardElevation="@dimen/card_elevation_medium">
 
 
@@ -22,12 +24,14 @@
                 android:id="@+id/tl_iv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:padding="@dimen/padding_small"
+                android:padding="3dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_picture"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tl_name"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="100dp" />
 
@@ -38,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_very_small"
-                android:layout_marginRight="@dimen/margin_very_small"
                 android:gravity="right"
-                android:maxLines="1"
-                android:text="سید محمد حسین حسینی نسب"
+                android:maxLines="2"
+                app:layout_constraintHorizontal_weight="3"
+                android:text="امیر حسین دلواری احمد پور"
                 app:layout_constraintLeft_toRightOf="@id/tv_tl_rate"
-                app:layout_constraintRight_toLeftOf="@id/g_line"
+                app:layout_constraintRight_toLeftOf="@id/tl_iv"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -54,7 +58,7 @@
                 android:layout_marginTop="@dimen/margin_very_small"
                 android:layout_marginRight="@dimen/margin_very_small"
                 android:text="@string/biography"
-                app:layout_constraintRight_toLeftOf="@id/g_line"
+                app:layout_constraintRight_toRightOf="@id/tl_name"
                 app:layout_constraintTop_toBottomOf="@id/tl_name" />
 
             <ImageView
@@ -64,7 +68,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_star"
-                app:layout_constraintBottom_toBottomOf="@id/tl_name"
+
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tl_name"
                 app:tint="@color/colorIconTint" />
@@ -107,8 +111,9 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:paddingBottom="@dimen/padding_medium"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/g_line"
-                app:layout_constraintTop_toBottomOf="@id/tv_tl_bio">
+                app:layout_constraintRight_toRightOf="@id/tl_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_tl_bio"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <ImageView
                     android:id="@+id/phone_iv"
