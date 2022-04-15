@@ -17,10 +17,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
+import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
 
 public class TourPageActivity extends AppCompatActivity {
@@ -33,6 +36,8 @@ public class TourPageActivity extends AppCompatActivity {
     int backMargin;
     int maxScrollY;
 
+    List<Place> places;
+    RecyclerView placeRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,9 @@ public class TourPageActivity extends AppCompatActivity {
 
         setTouchListener();
 
+        //places recycler
 
     }
-
 
     private void changeBackBottomVisibility() {
         /*
@@ -162,7 +167,6 @@ public class TourPageActivity extends AppCompatActivity {
 
         });
     }
-
 
     private void setScrollListener() {
         binding.scTourPage.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
