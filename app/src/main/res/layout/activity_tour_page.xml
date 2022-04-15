@@ -85,102 +85,99 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/threeoptions"
-            android:layout_marginBottom="@dimen/margin_small"
             tools:ignore="MissingConstraints" />
 
         <LinearLayout
             android:id="@+id/threeoptions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:orientation="horizontal"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/optionRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:padding="@dimen/padding_medium"
-                android:layout_marginHorizontal="@dimen/margin_small"
-                tools:ignore="MissingConstraints">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium">
 
                 <ImageView
                     android:id="@+id/bed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
                     android:src="@drawable/ic_bed"
+                    app:tint="@color/colorIconTint"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
-                    style="@style/textHint"
+                    style="@style/textSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="اقامتگاه"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bed" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/optionMiddle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toLeftOf="@+id/optionRight"
                 android:padding="@dimen/padding_medium"
-                tools:ignore="MissingConstraints"
-                android:layout_marginHorizontal="@dimen/margin_small">
+                android:orientation="vertical"
+                android:gravity="center"
+                >
 
                 <ImageView
                     android:id="@+id/car"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
                     android:src="@drawable/ic_car"
+                    app:tint="@color/colorIconTint"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
-                    style="@style/textHint"
+                    style="@style/textSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="وسیله نقلیه"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/car" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/optionLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toLeftOf="@+id/optionMiddle"
                 android:padding="@dimen/padding_medium"
-                tools:ignore="MissingConstraints"
-                android:layout_marginHorizontal="@dimen/margin_small"
+                android:gravity="center"
+                android:orientation="vertical"
                 >
 
                 <ImageView
                     android:id="@+id/food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
                     android:src="@drawable/ic_food"
+                    app:tint="@color/colorIconTint"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
-                    style="@style/textHint"
+                    style="@style/textSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="تغذیه"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/food"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/food" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

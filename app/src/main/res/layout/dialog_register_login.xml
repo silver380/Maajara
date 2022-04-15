@@ -177,10 +177,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingHorizontal="45dp"
-            android:paddingVertical="6dp"
+            android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+            android:paddingVertical="@dimen/btn_large_padding_vertical"
             android:text=""
-            android:textSize="20sp"
             app:cornerRadius="@dimen/radius_medium"
             app:layout_constraintTop_toTopOf="parent" />
 

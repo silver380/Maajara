@@ -150,4 +150,8 @@ public class User {
     public double getRate() {
         return rate;
     }
+
+    public String getNameAndLastname(){
+        return name + " " + lastName;
+    }
 }

@@ -51,7 +51,7 @@ dependencies {
     implementation 'nl.bryanderidder:themed-toggle-button-group:1.4.1' // switch
     implementation 'com.github.poovamraj:PinEditTextField:1.2.6' //pin field
     implementation 'com.github.ybq:Android-SpinKit:1.4.0' //loading animation
-
+    implementation 'io.github.anylifezlb:ScrollTextView:2.0.0' //scroll textView
     //implementation 'com.google.android.material:material:<version>'
 
 }
