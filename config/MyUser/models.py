@@ -1,4 +1,6 @@
 from django.db import models
+import Tour.models
+
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
@@ -7,7 +9,6 @@ from django.contrib.auth.models import (
 # TODO: change database
 # TODO: add other fields
 # TODO: check if user can be added from view, login page
-
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
@@ -41,9 +42,9 @@ class MyUser(AbstractBaseUser):
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
     whatsapp_id = models.CharField(max_length=50, default='')
-
     is_tour_leader = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    registered_tours = models.ManyToManyField(Tour.models.Tour)
 
     objects = MyUserManager()
 

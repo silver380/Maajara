@@ -5,5 +5,5 @@ from .views import RegisterUsers, UpgradeToTL
 urlpatterns = [
     path('token/', obtain_auth_token),
     path('register/', RegisterUsers.as_view()),
-    path('upgrade/', UpgradeToTL.as_view())
+    path('upgrade/', UpgradeToTL.as_view()),
 ]

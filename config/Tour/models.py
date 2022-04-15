@@ -1,4 +1,5 @@
 from django.db import models
+import MyUser.models
 
 
 # Create your models here.
@@ -19,3 +20,6 @@ class Tour(models.Model):
                                                    ('B', 'Bus'), ('MB', 'Minibus'),
                                                    ('V', 'Van'), ('N', 'None')],
                                           default='N')
+
+    # Javad
+    creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
