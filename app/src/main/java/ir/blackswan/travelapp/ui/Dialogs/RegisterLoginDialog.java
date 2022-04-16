@@ -124,7 +124,7 @@ public class RegisterLoginDialog extends MyDialog {
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
                             , getEditableText(binding.etLoginPassword.getText()), responseBody -> {
-                        Toast.makeText(mActivity , "ورود با موفقیت انجام شد" , Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                Toast.makeText(mActivity, "ورود با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
                                 dialog.dismiss();
                             });
 
@@ -134,7 +134,7 @@ public class RegisterLoginDialog extends MyDialog {
                     String email = getEditableText(binding.etLoginEmail.getText());
                     authController.register(email,
                             getEditableText(binding.etLoginPassword.getText()), name, lastName, responseBody -> {
-                                Toast.makeText(mActivity , "ثبت‌نام با موفقیت انجام شد" , Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                Toast.makeText(mActivity, "ثبت‌نام با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
                                 dialog.dismiss();
                             });
                     //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email

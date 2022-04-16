@@ -16,11 +16,11 @@ import retrofit2.Response;
 public class MyCallBack implements Callback<ResponseBody> {
     public static final String TAG = "Response";
     private final Context context;
-    private final OnSuccessResponse onSuccessResponse;
+    private final AuthController.onSuccessAuth onSuccessAuth;
 
-    public MyCallBack(Context context, OnSuccessResponse onSuccessResponse) {
+    public MyCallBack(Context context, AuthController.onSuccessAuth onSuccessAuth) {
         this.context = context;
-        this.onSuccessResponse = onSuccessResponse;
+        this.onSuccessAuth = onSuccessAuth;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MyCallBack implements Callback<ResponseBody> {
             }
         } else if (response.body() != null) {
             try {
-                onSuccessResponse.onSuccess(response.body().string());
+                onSuccessAuth.onSuccess(response.body().string());
             } catch (IOException e) {
                 e.printStackTrace();
             }

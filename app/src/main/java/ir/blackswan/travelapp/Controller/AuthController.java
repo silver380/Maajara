@@ -31,22 +31,25 @@ public class AuthController {
         return map.get("token");
     }
 
-    public void login(String email, String password, OnSuccessResponse onSuccessResponse) {
+    public void login(String email, String password, onSuccessAuth onSuccessAuth) {
         api.token(email, password).enqueue(new MyCallBack(context, responseBody -> {
             user = new User(context , getTokenFromResponseBody(responseBody));
             Log.d(MyCallBack.TAG, "login: " + user);
-            onSuccessResponse.onSuccess(responseBody);
+            onSuccessAuth.onSuccess(responseBody);
         }));
 
     }
 
-    public void register(String email, String password, String firstName, String lastName, OnSuccessResponse onSuccessResponse) {
+    public void register(String email, String password, String firstName, String lastName, onSuccessAuth onSuccessAuth) {
         api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(context, responseBody -> {
             user = new User(firstName , lastName , email);
             Log.d(MyCallBack.TAG, "login: " + user);
-            onSuccessResponse.onSuccess(responseBody);
+            onSuccessAuth.onSuccess(responseBody);
         }));
     }
 
 
+    public interface onSuccessAuth {
+        void onSuccess(String responseBody);
+    }
 }
