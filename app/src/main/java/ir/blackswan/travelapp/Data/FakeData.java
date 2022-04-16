@@ -19,7 +19,7 @@ public class FakeData {
         finalDate.setDate(1401, 10, 16);
         for (int i = 0; i < 100; i++) {
             fakePlaces.add(new Place("مکان‍‍۱", "شهر۱", "توضیحات",
-                    "/storage/emulated/0/Android/data/ir.blackswan.travelapp/files/Pictures/Image1649696919.jpg",
+                    null,
                     "https://panel.safarmarket.com/storage/img/tours/1649138747448.jpg"));
             fakeTours.add(new Tour(fakeUser , "لورم ایپسوم" , 17 , "آذربایجان غربی" ,
                     startDate.getTimestamp() , finalDate.getTimestamp() , fakePlaces , 12000));

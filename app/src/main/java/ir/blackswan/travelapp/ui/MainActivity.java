@@ -1,24 +1,17 @@
 package ir.blackswan.travelapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
-import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
-import ir.blackswan.travelapp.ui.Dialogs.RegisterLoginDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends HasLoginDialogActivity {
 
     private ActivityMainBinding binding;
 
@@ -31,19 +24,14 @@ public class MainActivity extends AppCompatActivity {
 
         Utils.changeStatusColor(this, R.color.colorMainStatusBar);
 
-        //startActivity(new Intent(this, AddTourActivity.class));
-
-
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host);
 
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        Log.d("scroll", "onCreate: ");
-        startActivity(new Intent(this , TourPageActivity.class));
 
-
+        getRegisterLoginDialog().show();
     }
 
     @Override

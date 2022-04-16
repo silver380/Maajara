@@ -6,6 +6,7 @@ import static android.view.View.VISIBLE;
 import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_EMAIL;
 import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_NAME;
 import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_PASSWORD;
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -14,24 +15,24 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Stack;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.ui.Dialogs.MyDialog;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
+import ir.blackswan.travelapp.ui.HasLoginDialogActivity;
 
 
 public class RegisterLoginDialog extends MyDialog {
     public static final int STEP_LOGIN = 0, STEP_REGISTER = 1, STEP_VERIFY = 2;
     DialogRegisterLoginBinding binding;
-    private final Activity mActivity;
+    private final HasLoginDialogActivity mActivity;
     int step;
     boolean forLogin;
     private Stack<Integer> stepsStack = new Stack<>();
@@ -45,7 +46,9 @@ public class RegisterLoginDialog extends MyDialog {
         return activeCodeTimer;
     }
 
-    public RegisterLoginDialog(Activity activity, boolean forLogin) {
+    private AuthController authController;
+
+    public RegisterLoginDialog(HasLoginDialogActivity activity, boolean forLogin) {
         binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
@@ -53,6 +56,7 @@ public class RegisterLoginDialog extends MyDialog {
         else
             step = STEP_REGISTER;
 
+        authController = new AuthController(activity);
 
         mActivity = activity;
         errors = new String[]
@@ -61,7 +65,7 @@ public class RegisterLoginDialog extends MyDialog {
         textInputs = new TextInputEditText[]{binding.etLoginName, binding.etLoginLastName,
                 binding.etLoginEmail, binding.etLoginPassword};
 
-        init(activity , binding.getRoot() , DIALOG_TYPE_ROUNDED_BOTTOM_SHEET);
+        init(activity, binding.getRoot(), DIALOG_TYPE_ROUNDED_BOTTOM_SHEET);
 
         setFields();
         addListeners();
@@ -114,13 +118,26 @@ public class RegisterLoginDialog extends MyDialog {
         binding.btnLogin.setOnClickListener(v -> {
             if (loading)
                 return;
-            checkInputs();
-            int failedEtIndex = -1;
-            if (failedEtIndex == -1) {
+
+
+            if (checkInputs()) {
                 if (step == STEP_LOGIN) {
-                    //request login
+                    authController.login(getEditableText(binding.etLoginEmail.getText())
+                            , getEditableText(binding.etLoginPassword.getText()), responseBody -> {
+                        Toast.makeText(mActivity , "ورود با موفقیت انجام شد" , Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                dialog.dismiss();
+                            });
+
                 } else if (step == STEP_REGISTER) {
-                    activeCodeTimer.sendCodeAndStartTimer();
+                    String name = getEditableText(binding.etLoginName.getText());
+                    String lastName = getEditableText(binding.etLoginLastName.getText());
+                    String email = getEditableText(binding.etLoginEmail.getText());
+                    authController.register(email,
+                            getEditableText(binding.etLoginPassword.getText()), name, lastName, responseBody -> {
+                                Toast.makeText(mActivity , "ثبت‌نام با موفقیت انجام شد" , Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                dialog.dismiss();
+                            });
+                    //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
@@ -131,7 +148,7 @@ public class RegisterLoginDialog extends MyDialog {
                 }
 
             } else {
-                //handle error
+                //getStringErrors error
             }
 
         });
@@ -245,9 +262,6 @@ public class RegisterLoginDialog extends MyDialog {
     }
 
     private boolean setErrorIfHas(int index, boolean show) {
-        if (forLogin)
-            return true;
-
         TextInputLayout textInputLayout = (TextInputLayout) binding.llLoginEditTexes.getChildAt(index);
         if (!Utils.checkEditTextError(textInputs[index], inputTypes[index])) {
             if (show)
@@ -259,8 +273,6 @@ public class RegisterLoginDialog extends MyDialog {
     }
 
     private boolean checkInputs() {
-        if (forLogin)
-            return true;
 
         boolean success = true;
         for (int i = 0; i < inputTypes.length; i++) {

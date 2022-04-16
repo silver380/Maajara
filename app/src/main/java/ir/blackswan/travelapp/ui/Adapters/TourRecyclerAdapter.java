@@ -41,9 +41,11 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         Tour tour = tours.get(position);
         MyPersianCalender persianDate = new MyPersianCalender(tour.getStartDate());
         holder.image.setImagePath(tour.getPlaces().get(0).getPicturePath());
-        holder.name.setText(tour.getTourName());
         holder.price.setText(tour.getPrice() + "");
         holder.startDate.setText(persianDate.getShortDate());
+        holder.location.setText(tour.getCity());
+        holder.image.setScale(.5f);
+        holder.image.setGradient(true);
 
         //holder.itemView.setLayoutParams(new ViewGroup.LayoutParams());
         //holder.duration.setText();
@@ -56,14 +58,14 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder{
         WebImageView image;
-        TextView name , price , startDate , duration;
+        TextView price , startDate , duration , location;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.wiv_tvh_image);
-            name = itemView.findViewById(R.id.tv_tvh_name);
             price = itemView.findViewById(R.id.tv_tvh_price);
             startDate = itemView.findViewById(R.id.tv_tvh_start_date);
             duration = itemView.findViewById(R.id.tv_tvh_duration);
+            location = itemView.findViewById(R.id.tv_tvh_location);
         }
     }
 }

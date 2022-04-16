@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/iv_gradient_wiv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bac_grad_black"
+        android:translationZ="10dp"
+        android:visibility="visible" />
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/loading_wiv"
         style="@style/SpinKitView.Circle"
@@ -12,7 +20,6 @@
         android:layout_gravity="center"
         android:translationZ="5dp"
         app:SpinKit_Color="@color/colorIconTint" />
-
 
     <LinearLayout
         android:id="@+id/ll_image_not_found_wiv"
@@ -35,11 +42,11 @@
             android:id="@+id/iv_download_again_wiv"
             android:layout_width="@dimen/primary_icon_size"
             android:layout_height="@dimen/primary_icon_size"
+            android:layout_marginTop="@dimen/margin_small"
+            android:clickable="true"
             app:cardCornerRadius="@dimen/half_primary_icon_size"
             app:cardElevation="@dimen/card_elevation_medium"
-            app:rippleColor="@color/colorDividers"
-            android:clickable="true"
-            android:layout_marginTop="@dimen/margin_small">
+            app:rippleColor="@color/colorDividers">
 
             <ImageView
                 android:layout_width="@dimen/primary_icon_size"

@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.Data;
 import java.util.List;
 
 public class Tour {
+    private int tour_id;
     private User creator;
     private String tourName;
     private int capacity;

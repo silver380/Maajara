@@ -1,8 +1,13 @@
 package ir.blackswan.travelapp.Data;
 
+import android.content.Context;
+
 import java.util.List;
 
+import ir.blackswan.travelapp.Utils.SharedPrefManager;
+
 public class User {
+    private String token;
     private boolean isBanned , isValidatedByAdmin;
     private String name , lastName , email;
     private boolean isTourGuide;
@@ -21,6 +26,14 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+    }
+    public User (Context context , String token){
+        setToken(context, token);
+    }
+
+    public void setToken(Context context , String token) {
+        this.token = token;
+        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN , token);
     }
 
     public void setBanned(boolean banned) {
@@ -153,5 +166,26 @@ public class User {
 
     public String getNameAndLastname(){
         return name + " " + lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "token='" + token + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", isTourGuide=" + isTourGuide +
+                ", birthDay=" + birthDay +
+                ", sex=" + sex +
+                ", bio='" + bio + '\'' +
+                ", policeClearanceDocPath=" + policeClearanceDocPath +
+                ", languages=" + languages +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", telegramUsername='" + telegramUsername + '\'' +
+                ", whatsappNumber='" + whatsappNumber + '\'' +
+                ", relatedDocsPaths=" + relatedDocsPaths +
+                ", rate=" + rate +
+                '}';
     }
 }

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import ir.blackswan.travelapp.R;
 
-public abstract class HasToolbarActivity extends AppCompatActivity {
+public abstract class HasToolbarActivity extends HasLoginDialogActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "TravelAppSharedPref";
+    public static final String USER_TOKEN = "userToken";
 
 
     private final Context mCtx;

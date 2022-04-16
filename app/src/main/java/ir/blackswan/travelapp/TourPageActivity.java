@@ -5,7 +5,6 @@ import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,8 +26,10 @@ import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
+import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.HasLoginDialogActivity;
 
-public class TourPageActivity extends AppCompatActivity {
+public class TourPageActivity extends HasLoginDialogActivity {
 
     ActivityTourPagePictureBinding binding;
     boolean bottomViewIsOpen = false;
@@ -55,7 +57,9 @@ public class TourPageActivity extends AppCompatActivity {
 
         binding.llTourPageLeader.addView(new TourLeaderVerticalView(this).setData(FakeData.getFakeUser()));
 
-
+        binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this ,
+                FakeData.getFakePlaces()));
+        binding.rycTourPagePlaces.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
     }
 
 

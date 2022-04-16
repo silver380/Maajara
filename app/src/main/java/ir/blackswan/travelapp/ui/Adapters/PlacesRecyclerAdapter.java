@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp;
+package ir.blackswan.travelapp.ui.Adapters;
 
 import android.app.Activity;
 import android.view.View;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ir.blackswan.travelapp.Data.Place;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
-import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 
 public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder> {
      List<Place> places;

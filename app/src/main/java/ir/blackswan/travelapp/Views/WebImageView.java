@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -27,6 +29,8 @@ public class WebImageView extends FrameLayout {
     LinearLayout errorContainer;
     View downloadAgain;
     TextView tvError;
+    View gradient;
+    boolean gradientVisibility = false;
 
     public WebImageView(Context context) {
         super(context);
@@ -43,7 +47,7 @@ public class WebImageView extends FrameLayout {
         init(attrs);
     }
 
-    public void setScale(float scale){
+    public void setScale(float scale) {
         errorContainer.setScaleX(scale);
         errorContainer.setScaleY(scale);
     }
@@ -56,12 +60,27 @@ public class WebImageView extends FrameLayout {
         else
             imageView = new RoundedImageView(getContext());
         addView(imageView);
+        gradient = new View(getContext());
+        gradient.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bac_grad_black));
+        addView(gradient);
+        setGradientVisible();
 
         errorContainer = findViewById(R.id.ll_image_not_found_wiv);
         errorContainer.setVisibility(GONE);
         downloadAgain = findViewById(R.id.iv_download_again_wiv);
         loadingView = findViewById(R.id.loading_wiv);
         tvError = findViewById(R.id.tv_error_wiv);
+        gradient = findViewById(R.id.iv_gradient_wiv);
+
+    }
+
+    public void setGradient(boolean grad) {
+        gradientVisibility = grad;
+        setGradientVisible();
+    }
+
+    private void setGradientVisible() {
+        gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 
     public void setImagePath(Path path) {
@@ -99,6 +118,7 @@ public class WebImageView extends FrameLayout {
         imageView.setVisibility(GONE);
         loadingView.setVisibility(VISIBLE);
         errorContainer.setVisibility(GONE);
+        setGradientVisible();
     }
 
     private void errorState(boolean againVisibility) {
@@ -108,11 +128,11 @@ public class WebImageView extends FrameLayout {
         if (againVisibility) {
             downloadAgain.setVisibility(VISIBLE);
             tvError.setText(R.string.picture_download_failed);
-        }
-        else {
+        } else {
             downloadAgain.setVisibility(GONE);
             tvError.setText(R.string.picture_not_found);
         }
+        setGradientVisible();
 
     }
 
@@ -120,25 +140,29 @@ public class WebImageView extends FrameLayout {
         imageView.setVisibility(VISIBLE);
         loadingView.setVisibility(GONE);
         errorContainer.setVisibility(GONE);
+        setGradientVisible();
     }
 
     public void setImageDrawable(Drawable drawable) {
-        imageState();
         imageView.setImageDrawable(drawable);
+        imageState();
+
     }
 
     public void setImageByFile(File pictureFile) {
-        imageState();
         Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
         setImageBitmap(myBitmap);
+
+        imageState();
     }
 
     public void setImageBitmap(Bitmap bitmap) {
-        imageState();
         imageView.setImageBitmap(bitmap);
+
+        imageState();
     }
 
-    public void setCornerRadius(float radius){
+    public void setCornerRadius(float radius) {
         imageView.setCornerRadius(radius);
     }
 

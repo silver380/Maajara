@@ -401,7 +401,8 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/ryc_tour_page_places"
                                 android:layout_width="match_parent"
-                                android:layout_height="70dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
                                 android:layout_marginTop="@dimen/margin_small">
 
                             </androidx.recyclerview.widget.RecyclerView>

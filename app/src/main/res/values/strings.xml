@@ -20,5 +20,7 @@
     <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد</string>
     <string name="picture_download_failed">خطا در بارگذاری تصویر</string>
     <string name="picture_not_found">تصویر پیدا نشد</string>
+    <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را برسی کنید</string>
+    <string name="error_email_exist">با این ایمیل قبلا ثبت‌نام شده است</string>
 
 </resources>
