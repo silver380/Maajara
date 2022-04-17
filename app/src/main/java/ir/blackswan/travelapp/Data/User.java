@@ -8,8 +8,8 @@ import ir.blackswan.travelapp.Utils.SharedPrefManager;
 
 public class User {
     private String token;
-    private boolean isBanned , isValidatedByAdmin;
-    private String name , lastName , email;
+    private boolean isBanned, isValidatedByAdmin;
+    private String name, lastName, email;
     private boolean isTourGuide;
     private Path profilePicturePath;
     private int ticket;
@@ -18,7 +18,7 @@ public class User {
     private String bio;
     private Path policeClearanceDocPath;
     private List<String> languages;
-    private String phoneNumber , telegramUsername , whatsappNumber;
+    private String phoneNumber, telegramUsername, whatsappNumber;
     private List<Path> relatedDocsPaths;
     private double rate;
 
@@ -27,13 +27,14 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
-    public User (Context context , String token){
+
+    public User(Context context, String token) {
         setToken(context, token);
     }
 
-    public void setToken(Context context , String token) {
+    public void setToken(Context context, String token) {
         this.token = token;
-        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN , token);
+        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN, token);
     }
 
     public void setBanned(boolean banned) {
@@ -164,7 +165,7 @@ public class User {
         return rate;
     }
 
-    public String getNameAndLastname(){
+    public String getNameAndLastname() {
         return name + " " + lastName;
     }
 

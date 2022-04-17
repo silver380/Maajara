@@ -9,6 +9,7 @@ import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_PASSWORD;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -71,6 +72,8 @@ public class RegisterLoginDialog extends MyDialog {
         addListeners();
         setTexts();
         activeCodeTimer = new ActiveCodeTimer();
+
+        dialog.setCancelable(false);
     }
 
     private void changeTypeAndStep(boolean forLogin, int step, boolean back) {
@@ -84,6 +87,10 @@ public class RegisterLoginDialog extends MyDialog {
         setFields();
         setTexts();
         dialog.show();
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener dismissListener){
+        dialog.setOnDismissListener(dismissListener);
     }
 
     public boolean isLoading() {

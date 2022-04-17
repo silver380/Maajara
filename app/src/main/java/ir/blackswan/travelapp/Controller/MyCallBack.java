@@ -42,12 +42,11 @@ public class MyCallBack implements Callback<ResponseBody> {
             }
         }
 
-
     }
 
     @Override
     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
         Log.e(TAG, "onFailure: ", t);
-        ErrorHandler.showGsonError(context, context.getString(R.string.error_connection_lost));
+        ErrorHandler.showStringError(context, context.getString(R.string.error_connection_lost));
     }
 }
