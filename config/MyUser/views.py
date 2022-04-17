@@ -1,7 +1,7 @@
-from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from .serializer import UserSerializer, UserUpgradeSerializer
+from .serializer import UserSerializer, UserUpgradeSerializer, UserInfoSerializer
 from rest_framework import permissions
 
 
@@ -28,3 +28,13 @@ class UpgradeToTL(GenericAPIView):
             return Response(status=200, data={"User upgraded successfully."})
         else:
             return Response(status=400, data={"Unable to upgrade user."})
+
+
+class UserInfo(RetrieveAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+    serializer_class = UserInfoSerializer
+
+    def get_object(self):
+        return self.request.user

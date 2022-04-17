@@ -44,7 +44,9 @@ class MyUser(AbstractBaseUser):
     whatsapp_id = models.CharField(max_length=50, default='')
     is_tour_leader = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    registered_tours = models.ManyToManyField(Tour.models.Tour)
+
+    pending_registered_tours = models.ManyToManyField(Tour.models.Tour, related_name='pending_registered_tours')
+    confirmed_registered_tours = models.ManyToManyField(Tour.models.Tour, related_name='confirmed_registered_tours')
 
     objects = MyUserManager()
 

@@ -30,9 +30,9 @@ class Register(GenericAPIView):
             return Response(status=401, data={"error": "Invalid user"})
 
         if 'tour_id' not in request.data:
-            return Response(status=401, data={"error": "Invalid tour"})
+            return Response(status=400, data={"error": "Invalid tour"})
 
-        request.user.registered_tours.add(Tour.objects.get(pk=request.data['tour_id']))
+        request.user.pending_registered_tours.add(Tour.objects.get(pk=request.data['tour_id']))
         return Response(request.user.email)
 
 
