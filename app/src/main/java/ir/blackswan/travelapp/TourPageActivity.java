@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,9 +26,9 @@ import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
-import ir.blackswan.travelapp.ui.HasLoginDialogActivity;
+import ir.blackswan.travelapp.ui.AuthActivity;
 
-public class TourPageActivity extends HasLoginDialogActivity {
+public class TourPageActivity extends AuthActivity {
 
     ActivityTourPagePictureBinding binding;
     boolean bottomViewIsOpen = false;

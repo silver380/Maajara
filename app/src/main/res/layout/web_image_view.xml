@@ -2,15 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/colorDividers"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/iv_gradient_wiv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bac_grad_black"
-        android:translationZ="10dp"
-        android:visibility="visible" />
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/loading_wiv"

@@ -22,18 +22,19 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Stack;
 
 import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
-import ir.blackswan.travelapp.ui.HasLoginDialogActivity;
+import ir.blackswan.travelapp.ui.AuthActivity;
 
 
-public class RegisterLoginDialog extends MyDialog {
+public class AuthDialog extends MyDialog {
     public static final int STEP_LOGIN = 0, STEP_REGISTER = 1, STEP_VERIFY = 2;
     DialogRegisterLoginBinding binding;
-    private final HasLoginDialogActivity mActivity;
+    private final AuthActivity mActivity;
     int step;
     boolean forLogin;
     private Stack<Integer> stepsStack = new Stack<>();
@@ -49,7 +50,7 @@ public class RegisterLoginDialog extends MyDialog {
 
     private AuthController authController;
 
-    public RegisterLoginDialog(HasLoginDialogActivity activity, boolean forLogin) {
+    public AuthDialog(AuthActivity activity, boolean forLogin) {
         binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
@@ -74,6 +75,8 @@ public class RegisterLoginDialog extends MyDialog {
         activeCodeTimer = new ActiveCodeTimer();
 
         dialog.setCancelable(false);
+
+
     }
 
     private void changeTypeAndStep(boolean forLogin, int step, boolean back) {
@@ -125,14 +128,24 @@ public class RegisterLoginDialog extends MyDialog {
         binding.btnLogin.setOnClickListener(v -> {
             if (loading)
                 return;
-
+            startLoadingAnimation();
 
             if (checkInputs()) {
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
-                            , getEditableText(binding.etLoginPassword.getText()), responseBody -> {
-                                Toast.makeText(mActivity, "ورود با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
-                                dialog.dismiss();
+                            , getEditableText(binding.etLoginPassword.getText()), new OnResponse() {
+                                @Override
+                                public void onSuccess(String responseBody) {
+                                    Toast.makeText(mActivity, "ورود با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
+                                    stopLoadingAnimation();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+                                    Toast.makeText(mActivity, message, Toast.LENGTH_LONG, Toast.TYPE_ERROR).show();
+                                    stopLoadingAnimation();
+                                }
                             });
 
                 } else if (step == STEP_REGISTER) {
@@ -140,15 +153,25 @@ public class RegisterLoginDialog extends MyDialog {
                     String lastName = getEditableText(binding.etLoginLastName.getText());
                     String email = getEditableText(binding.etLoginEmail.getText());
                     authController.register(email,
-                            getEditableText(binding.etLoginPassword.getText()), name, lastName, responseBody -> {
-                                Toast.makeText(mActivity, "ثبت‌نام با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
-                                dialog.dismiss();
+                            getEditableText(binding.etLoginPassword.getText()), name, lastName, new OnResponse() {
+                                @Override
+                                public void onSuccess(String responseBody) {
+                                    Toast.makeText(mActivity, "ثبت‌نام با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
+                                    stopLoadingAnimation();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+                                    Toast.makeText(mActivity, message, Toast.LENGTH_LONG, Toast.TYPE_ERROR).show();
+                                    stopLoadingAnimation();
+                                }
                             });
                     //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
-                        showToast("لطفا کد فعالسازی را وارد کنید", false);
+
                         return;
                     }
                     //todo: send active code
@@ -237,16 +260,8 @@ public class RegisterLoginDialog extends MyDialog {
         return mActivity;
     }
 
-    public void showToast(String message, boolean isSuccessful) {
-        mActivity.runOnUiThread(() -> {
-            stopLoadingAnimation();
-            Toast.makeText(mActivity, message, Toast.LENGTH_LONG,
-                    isSuccessful ? Toast.TYPE_SUCCESS : Toast.TYPE_ERROR).show();
-        });
-    }
-
     public void startLoadingAnimation() {
-        binding.btnLogin.setTextColor(Utils.getThemePrimaryColor(mActivity));
+        binding.btnLogin.setTextColor(mActivity.getColor(R.color.colorTransparent));
         binding.loadingLogin.setVisibility(VISIBLE);
         loading = true;
     }

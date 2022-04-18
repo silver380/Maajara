@@ -53,7 +53,7 @@ public class ProfileImageView extends MaterialCardView {
     @SuppressLint("SetTextI18n")
     public void update(){
         if (user != null){
-            textView.setText(user.getName().charAt(0) + " "  + user.getLastName().charAt(0));
+            textView.setText(user.getName().charAt(0) + "‌"  + user.getLast_name().charAt(0));
             noImageState();
         }
     }

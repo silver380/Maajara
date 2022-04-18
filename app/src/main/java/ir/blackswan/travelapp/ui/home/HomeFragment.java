@@ -1,37 +1,39 @@
 package ir.blackswan.travelapp.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import ir.blackswan.travelapp.R;
 
+import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButton;
+import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Dialogs.AuthDialog;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private AuthActivity authActivity;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        authActivity = ((AuthActivity) getActivity());
 
         binding.toggleHome.selectButton(R.id.btn_home_passenger);
 
-        final TextView textView = binding.textHome;
-        textView.setText("home");
+        /*
+
+
+         */
+
+    //    loadUser();
 
         return root;
     }
@@ -40,5 +42,19 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void loadUser() {
+        if (
+                !authActivity.getAuthController().loadUser(getContext(), user -> {
+                    binding.pivHomeProfile.setUser(user);
+                })
+        ) {
+            AuthDialog rlDialog = authActivity.getAuthDialog();
+            rlDialog.show();
+            rlDialog.setOnDismissListener(dialog -> binding.pivHomeProfile.setUser(
+                    AuthController.getUser()
+            ));
+        }
     }
 }

@@ -2,12 +2,18 @@ package ir.blackswan.travelapp.ui;
 
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
+import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.ActivityAddTourBinding;
 
-public class AddTourActivity extends HasToolbarActivity {
+public class AddTourActivity extends ToolbarActivity {
     ActivityAddTourBinding binding;
     GroupButtons groupPlace, groupFood, groupVehicle;
     MaterialPersianDateChooser startDate, finalDate;
@@ -20,6 +26,22 @@ public class AddTourActivity extends HasToolbarActivity {
         setupGroupButtons();
         setupDateChooses();
         setListeners();
+
+        Tour tour = FakeData.getFakeTours().get(0);
+        //todo: remove these lines
+        TourController tourController = new TourController(this);
+        tourController.createTour(tour, new OnResponse() {
+            @Override
+            public void onSuccess(String responseBody) {
+                finish();
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
     }
 
     private void setupDateChooses() {

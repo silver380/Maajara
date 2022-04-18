@@ -7,25 +7,31 @@ import java.util.List;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 
 public class User {
+    //2022-04-18 07:16:31.250 8012-8012/ir.blackswan.travelapp D/Response: onSuccess: {"id":7,"email":"abc@def.com","first_name":"ا","last_name":"ب","date_of_birth":null,"gender":"Male","biography":"","languages":"","phone_number":"","telegram_id":"","whatsapp_id":""}
     private String token;
+    private int id;
     private boolean isBanned, isValidatedByAdmin;
-    private String name, lastName, email;
+    private String first_name, last_name, email;
     private boolean isTourGuide;
     private Path profilePicturePath;
     private int ticket;
-    private long birthDay;
-    private boolean sex;
-    private String bio;
+    private long date_of_birth;
+    private String gender;
+    private String biography;
     private Path policeClearanceDocPath;
     private List<String> languages;
-    private String phoneNumber, telegramUsername, whatsappNumber;
+    private String phone_number, telegram_id, whatsapp_id;
     private List<Path> relatedDocsPaths;
     private double rate;
 
     public User(String name, String lastName, String email) {
-        this.name = name;
-        this.lastName = lastName;
+        this.first_name = name;
+        this.last_name = lastName;
         this.email = email;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public User(Context context, String token) {
@@ -57,16 +63,16 @@ public class User {
         this.ticket = ticket;
     }
 
-    public void setBirthDay(long birthDay) {
-        this.birthDay = birthDay;
+    public void setDate_of_birth(long date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
     public void setPoliceClearanceDocPath(Path policeClearanceDocPath) {
@@ -77,16 +83,16 @@ public class User {
         this.languages = languages;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
-    public void setTelegramUsername(String telegramUsername) {
-        this.telegramUsername = telegramUsername;
+    public void setTelegram_id(String telegram_id) {
+        this.telegram_id = telegram_id;
     }
 
-    public void setWhatsappNumber(String whatsappNumber) {
-        this.whatsappNumber = whatsappNumber;
+    public void setWhatsapp_id(String whatsapp_id) {
+        this.whatsapp_id = whatsapp_id;
     }
 
     public void setRelatedDocsPaths(List<Path> relatedDocsPaths) {
@@ -105,12 +111,16 @@ public class User {
         return isValidatedByAdmin;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
     }
 
     public String getEmail() {
@@ -129,16 +139,16 @@ public class User {
         return ticket;
     }
 
-    public long getBirthDay() {
-        return birthDay;
+    public long getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public boolean isSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public String getBio() {
-        return bio;
+    public String getBiography() {
+        return biography;
     }
 
     public Path getPoliceClearanceDocPath() {
@@ -149,16 +159,16 @@ public class User {
         return languages;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public String getTelegramUsername() {
-        return telegramUsername;
+    public String getTelegram_id() {
+        return telegram_id;
     }
 
-    public String getWhatsappNumber() {
-        return whatsappNumber;
+    public String getWhatsapp_id() {
+        return whatsapp_id;
     }
 
     public double getRate() {
@@ -166,25 +176,25 @@ public class User {
     }
 
     public String getNameAndLastname() {
-        return name + " " + lastName;
+        return first_name + " " + last_name;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "token='" + token + '\'' +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + first_name + '\'' +
+                ", lastName='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", isTourGuide=" + isTourGuide +
-                ", birthDay=" + birthDay +
-                ", sex=" + sex +
-                ", bio='" + bio + '\'' +
+                ", birthDay=" + date_of_birth +
+                ", sex=" + gender +
+                ", bio='" + biography + '\'' +
                 ", policeClearanceDocPath=" + policeClearanceDocPath +
                 ", languages=" + languages +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", telegramUsername='" + telegramUsername + '\'' +
-                ", whatsappNumber='" + whatsappNumber + '\'' +
+                ", phoneNumber='" + phone_number + '\'' +
+                ", telegramUsername='" + telegram_id + '\'' +
+                ", whatsappNumber='" + whatsapp_id + '\'' +
                 ", relatedDocsPaths=" + relatedDocsPaths +
                 ", rate=" + rate +
                 '}';

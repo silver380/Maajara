@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,13 +9,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import ir.blackswan.travelapp.Controller.AuthController;
-import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
+import ir.blackswan.travelapp.ui.Dialogs.ResponseMessageDialog;
 
-public class MainActivity extends HasLoginDialogActivity {
+public class MainActivity extends AuthActivity {
 
     private ActivityMainBinding binding;
 
@@ -33,17 +33,15 @@ public class MainActivity extends HasLoginDialogActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        loadUser();
+        //new ResponseMessageDialog(this).show();
+
+        startActivity(new Intent(this , AddTourActivity.class));
 
         Log.d("Response", "onCreate: ");
-        getRegisterLoginDialog().show();
+        //getAuthDialog().show();
     }
 
-    private void loadUser() {
-        AuthController.loadUser(this, user -> {
 
-        });
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

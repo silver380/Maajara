@@ -63,14 +63,13 @@ public class WebImageView extends FrameLayout {
         gradient = new View(getContext());
         gradient.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bac_grad_black));
         addView(gradient);
-        setGradientVisible();
+        gradient.setVisibility(GONE);
 
         errorContainer = findViewById(R.id.ll_image_not_found_wiv);
         errorContainer.setVisibility(GONE);
         downloadAgain = findViewById(R.id.iv_download_again_wiv);
         loadingView = findViewById(R.id.loading_wiv);
         tvError = findViewById(R.id.tv_error_wiv);
-        gradient = findViewById(R.id.iv_gradient_wiv);
 
     }
 
@@ -80,6 +79,8 @@ public class WebImageView extends FrameLayout {
     }
 
     private void setGradientVisible() {
+        if(loadingView.getVisibility() == VISIBLE)
+            return;
         gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 
@@ -118,6 +119,7 @@ public class WebImageView extends FrameLayout {
         imageView.setVisibility(GONE);
         loadingView.setVisibility(VISIBLE);
         errorContainer.setVisibility(GONE);
+        gradient.setVisibility(GONE);
         setGradientVisible();
     }
 
@@ -125,6 +127,7 @@ public class WebImageView extends FrameLayout {
         imageView.setVisibility(GONE);
         loadingView.setVisibility(GONE);
         errorContainer.setVisibility(VISIBLE);
+        gradient.setVisibility(GONE);
         if (againVisibility) {
             downloadAgain.setVisibility(VISIBLE);
             tvError.setText(R.string.picture_download_failed);

@@ -18,8 +18,8 @@
     <dimen name="card_elevation_medium">6dp</dimen>
     <dimen name="card_elevation_long">10dp</dimen>
 
-    <dimen name="profile_view_size">70dp</dimen>
-    <dimen name="profile_view_half_size">35dp</dimen>
+    <dimen name="profile_view_size">60dp</dimen>
+    <dimen name="profile_view_half_size">30dp</dimen>
 
     <dimen name="primary_icon_size">50dp</dimen>
     <dimen name="half_primary_icon_size">25dp</dimen>
@@ -42,5 +42,6 @@
     <dimen name="btn_large_horizontal_padding">45dp</dimen>
     <dimen name="btn_large_padding_vertical">6dp</dimen>
     <dimen name="icons_padding">7dp</dimen>
+    <dimen name="icons_padding_large">10dp</dimen>
 
 </resources>

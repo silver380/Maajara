@@ -4,10 +4,17 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface Api {
+
+    @POST("/tour")
+    @FormUrlEncoded
+    Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);
+
+
 
     @POST("/auth/register/")
     @FormUrlEncoded
@@ -28,6 +35,8 @@ public interface Api {
                                @Field("phone_number") String phoneNumber,
                                @Field("telegram_id") String telegramId,
                                @Field("whatsapp_id") String whatsappId);
+    @GET("/auth/info/")
+    Call<ResponseBody> info(@Header("Authorization") String token);
 
 
 

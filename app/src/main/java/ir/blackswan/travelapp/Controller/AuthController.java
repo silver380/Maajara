@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.Controller;
 
+import static ir.blackswan.travelapp.Controller.MyCallBack.TAG;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -20,15 +22,12 @@ public class AuthController {
     private Context context;
     private Api api;
 
-    public static boolean loadUser(Context context , OnUserLoad onUserLoad) {
-        SharedPrefManager sh = new SharedPrefManager(context);
-        String token = sh.getString(SharedPrefManager.USER_TOKEN);
-        if (token != null) {
-            user = new User(context, token);
-            onUserLoad.onLoad(user);
-            return true;
-        }
-        return false;
+    public static String getUserToken() {
+        return "Token " + user.getToken();
+    }
+
+    public static User getUser() {
+        return user;
     }
 
     public AuthController(Context context) {
@@ -43,31 +42,73 @@ public class AuthController {
         return map.get("token");
     }
 
-    public void login(String email, String password, onSuccessAuth onSuccessAuth) {
-        api.token(email, password).enqueue(new MyCallBack(context, responseBody -> {
-            if (user == null)
-                user = new User(context, getTokenFromResponseBody(responseBody));
-            else
-                user.setToken(context , getTokenFromResponseBody(responseBody));
-            Log.d(MyCallBack.TAG, "login: " + user);
-            onSuccessAuth.onSuccess(responseBody);
+    public void login(String email, String password, OnResponse onResponse) {
+        api.token(email, password).enqueue(new MyCallBack(context, new OnResponse(){
+            @Override
+            public void onSuccess(String responseBody) {
+                if (user == null)
+                    user = new User(context, getTokenFromResponseBody(responseBody));
+                else
+                    user.setToken(context, getTokenFromResponseBody(responseBody));
+                Log.d(TAG, "login: " + user);
+                onResponse.onSuccess(responseBody);
+            }
+
+            @Override
+            public void onFailed(String message) {
+                onResponse.onFailed(message);
+            }
         }));
 
     }
 
-    public void register(String email, String password, String firstName, String lastName, onSuccessAuth onSuccessAuth) {
-        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(context, responseBody -> {
-            user = new User(firstName , lastName , email);
-            login(email, password, onSuccessAuth);
+    public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
+        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(context, new OnResponse() {
+            @Override
+            public void onSuccess(String responseBody) {
+                user = new User(firstName, lastName, email);
+                login(email, password, onResponse);
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
+        }));
+    }
+
+    public boolean loadUser(Context context, OnUserLoad onUserLoad) {
+        SharedPrefManager sh = new SharedPrefManager(context);
+        String token = sh.getString(SharedPrefManager.USER_TOKEN);
+        if (token != null) {
+            user = new User(context, token);
+            completeUserInfo(onUserLoad);
+            return true;
+        }
+        return false;
+    }
+
+    private void completeUserInfo(OnUserLoad onUserLoad) {
+        String tokenString = getUserToken();
+        Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
+        api.info(tokenString).enqueue(new MyCallBack(context, new OnResponse() {
+            @Override
+            public void onSuccess(String responseBody) {
+                Log.d(TAG, "onSuccess: " + responseBody);
+
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
         }));
     }
 
 
-    public interface onSuccessAuth {
-        void onSuccess(String responseBody);
-    }
 
-    public interface OnUserLoad{
+
+    public interface OnUserLoad {
         void onLoad(User user);
     }
 }
