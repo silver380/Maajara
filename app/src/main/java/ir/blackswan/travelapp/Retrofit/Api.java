@@ -6,14 +6,18 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public interface Api {
 
-    @POST("/tour")
+    @POST("/tour/")
     @FormUrlEncoded
-    Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);
+    Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test
 
+///tour/all/
+    @GET("/tour/all/")
+    Call<ResponseBody> getAllTour(@Header("Authorization") String token);
 
 
     @POST("/auth/register/")
@@ -37,8 +41,6 @@ public interface Api {
                                @Field("whatsapp_id") String whatsappId);
     @GET("/auth/info/")
     Call<ResponseBody> info(@Header("Authorization") String token);
-
-
 
 
 }

@@ -29,6 +29,8 @@
     <dimen name="quantity_icon_size">20dp</dimen>
     <dimen name="placeImageSize">70dp</dimen>
     <dimen name="place_icon_size">25dp</dimen>
+    <dimen name="place_image_w">150dp</dimen>
+    <dimen name="place_image_h">200dp</dimen>
 
     <dimen name="lines_extra_space">1.5dp</dimen>
 

@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class WebDownloader extends AsyncTask<String , Void , File > {
+public class WebDownloader extends AsyncTask<String, Void, File> {
 
     Context context;
     OnDownloadFinishListener onFinish;
 
-    public WebDownloader(Context context , OnDownloadFinishListener onFinish) {
+    public WebDownloader(Context context, OnDownloadFinishListener onFinish) {
         this.context = context;
         this.onFinish = onFinish;
     }
@@ -46,6 +46,7 @@ public class WebDownloader extends AsyncTask<String , Void , File > {
             fos.flush();
             fos.close();
         } catch (IOException e) {
+
             Log.e("WebDownloader", "downloadFile: ", e);
             return null; // swallow a 404
         }
@@ -63,7 +64,7 @@ public class WebDownloader extends AsyncTask<String , Void , File > {
         onFinish.onFinish(file);
     }
 
-    public interface OnDownloadFinishListener{
+    public interface OnDownloadFinishListener {
         void onFinish(File downloadedFile);
     }
 }

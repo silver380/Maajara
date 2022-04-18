@@ -9,33 +9,22 @@
     android:layout_marginVertical="@dimen/margin_small"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ir.blackswan.travelapp.Views.WebImageView
+        android:id="@+id/place_vh_iv"
+        android:layout_width="@dimen/place_image_w"
+        android:layout_height="@dimen/place_image_h"
+        android:scaleType="centerCrop"
+
+        />
+
+    <TextView
+        android:id="@+id/place_vh_tv"
+        style="@style/textTittleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/padding_small"
-        android:paddingHorizontal="@dimen/padding_medium"
-        android:orientation="vertical">
-
-
-        <ir.blackswan.travelapp.Views.WebImageView
-            android:id="@+id/place_vh_iv"
-            android:layout_height="@dimen/placeImageSize"
-            android:layout_width="@dimen/placeImageSize"
-            android:src="@color/colorHint"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/radius_small"
-
-            />
-
-        <TextView
-            android:id="@+id/place_vh_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            style="@style/textSmall"
-            android:text="مکان"
-            />
-
-    </LinearLayout>
+        android:layout_gravity="center|bottom"
+        android:text="مکان"
+        android:layout_marginBottom="@dimen/margin_medium"
+        />
 
 </com.google.android.material.card.MaterialCardView>

@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
@@ -35,12 +38,28 @@ public class MainActivity extends AuthActivity {
 
         //new ResponseMessageDialog(this).show();
 
-        startActivity(new Intent(this , AddTourActivity.class));
+        getAuthDialog().show();
 
-        Log.d("Response", "onCreate: ");
+        getAuthDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+
+
+                new TourController(MainActivity.this).getAllTour(new OnResponse() {
+                    @Override
+                    public void onSuccess(String responseBody) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+        });
         //getAuthDialog().show();
     }
-
 
 
     @Override
