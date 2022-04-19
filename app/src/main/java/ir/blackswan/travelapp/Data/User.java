@@ -7,7 +7,19 @@ import java.util.List;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 
 public class User {
-    //2022-04-18 07:16:31.250 8012-8012/ir.blackswan.travelapp D/Response: onSuccess: {"id":7,"email":"abc@def.com","first_name":"ا","last_name":"ب","date_of_birth":null,"gender":"Male","biography":"","languages":"","phone_number":"","telegram_id":"","whatsapp_id":""}
+    /*
+     "id": 1,
+    "email": "a@b.com",
+    "first_name": "1",
+    "last_name": "1",
+    "date_of_birth": "1900-10-10",
+    "gender": "Female",
+    "biography": "a",
+    "languages": "a",
+    "phone_number": "123",
+    "telegram_id": "",
+    "whatsapp_id": ""
+     */
     private String token;
     private int id;
     private boolean isBanned, isValidatedByAdmin;
@@ -15,11 +27,11 @@ public class User {
     private boolean isTourGuide;
     private Path profilePicturePath;
     private int ticket;
-    private long date_of_birth;
+    private String date_of_birth;
     private String gender;
     private String biography;
     private Path policeClearanceDocPath;
-    private List<String> languages;
+    private String languages;
     private String phone_number, telegram_id, whatsapp_id;
     private List<Path> relatedDocsPaths;
     private double rate;
@@ -63,10 +75,6 @@ public class User {
         this.ticket = ticket;
     }
 
-    public void setDate_of_birth(long date_of_birth) {
-        this.date_of_birth = date_of_birth;
-    }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -79,9 +87,7 @@ public class User {
         this.policeClearanceDocPath = policeClearanceDocPath;
     }
 
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
-    }
+
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
@@ -139,7 +145,11 @@ public class User {
         return ticket;
     }
 
-    public long getDate_of_birth() {
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getDate_of_birth() {
         return date_of_birth;
     }
 
@@ -155,9 +165,6 @@ public class User {
         return policeClearanceDocPath;
     }
 
-    public List<String> getLanguages() {
-        return languages;
-    }
 
     public String getPhone_number() {
         return phone_number;

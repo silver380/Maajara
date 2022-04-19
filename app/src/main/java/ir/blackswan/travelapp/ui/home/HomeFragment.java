@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.AuthActivity;
@@ -44,17 +45,13 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    private void loadUser() {
-        if (
-                !authActivity.getAuthController().loadUser(getContext(), user -> {
-                    binding.pivHomeProfile.setUser(user);
-                })
-        ) {
-            AuthDialog rlDialog = authActivity.getAuthDialog();
-            rlDialog.show();
-            rlDialog.setOnDismissListener(dialog -> binding.pivHomeProfile.setUser(
-                    AuthController.getUser()
-            ));
-        }
+
+    public void setupWithUser(User user){
+        binding.pivHomeProfile.setUser(user);
     }
+
+    public void invisibleToggle(){
+        binding.toggleHome.setVisibility(View.INVISIBLE);
+    }
+
 }

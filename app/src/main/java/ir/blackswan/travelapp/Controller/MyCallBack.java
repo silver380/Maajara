@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.ResponseMessageDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -16,16 +17,16 @@ import retrofit2.Response;
 
 public class MyCallBack implements Callback<ResponseBody> {
     public static final String TAG = "Response";
-    private final Context context;
+    private final AuthActivity authActivity;
     private final OnResponse onResponse;
     private ResponseMessageDialog responseMessageDialog;
 
-    public MyCallBack(Context context, OnResponse onResponse) {
-        this.context = context;
+    public MyCallBack(AuthActivity authActivity, OnResponse onResponse) {
+        this.authActivity = authActivity;
         this.onResponse = onResponse;
     }
-    public MyCallBack(Context context, OnResponse onResponse , ResponseMessageDialog responseMessageDialog) {
-        this.context = context;
+    public MyCallBack(AuthActivity authActivity, OnResponse onResponse , ResponseMessageDialog responseMessageDialog) {
+        this.authActivity = authActivity;
         this.onResponse = onResponse;
         this.responseMessageDialog = responseMessageDialog;
     }
@@ -39,7 +40,7 @@ public class MyCallBack implements Callback<ResponseBody> {
         stopLoading();
         if (response.code() / 100 == 4) {
             try {
-                onResponse.onFailed(ErrorHandler.getStringErrors(context , response.errorBody().string()));
+                onResponse.onFailed(ErrorHandler.getStringErrors(authActivity, response.errorBody().string()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -57,7 +58,7 @@ public class MyCallBack implements Callback<ResponseBody> {
     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
         Log.e(TAG, "onFailure: ", t);
         stopLoading();
-        onResponse.onFailed(context.getString(R.string.error_connection_lost));
+        onResponse.onFailed(authActivity.getString(R.string.error_connection_lost));
     }
 
     private void stopLoading(){

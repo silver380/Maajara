@@ -21,8 +21,7 @@ public class FakeData {
             fakePlaces.add(new Place("مکان‍‍۱", "شهر۱", "توضیحات",
                     null,
                     "https://panel.safarmarket.com/storage/img/tours/1649138747448.jpg"));
-            fakeTours.add(new Tour(fakeUser , "لورم ایپسوم" , 17 , "آذربایجان غربی" ,
-                    startDate.getTimestamp() , finalDate.getTimestamp() , fakePlaces , 12000));
+
         }
     }
 

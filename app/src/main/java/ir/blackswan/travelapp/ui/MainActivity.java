@@ -1,21 +1,16 @@
 package ir.blackswan.travelapp.ui;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import ir.blackswan.travelapp.Controller.OnResponse;
-import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
-import ir.blackswan.travelapp.ui.Dialogs.ResponseMessageDialog;
+import ir.blackswan.travelapp.ui.home.HomeFragment;
 
 public class MainActivity extends AuthActivity {
 
@@ -36,29 +31,17 @@ public class MainActivity extends AuthActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+        HomeFragment homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
+
+        auth(user -> {
+            homeFragment.setupWithUser(user);
+        });
+
+
         //new ResponseMessageDialog(this).show();
 
-        getAuthDialog().show();
 
-        getAuthDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-
-
-                new TourController(MainActivity.this).getAllTour(new OnResponse() {
-                    @Override
-                    public void onSuccess(String responseBody) {
-
-                    }
-
-                    @Override
-                    public void onFailed(String message) {
-
-                    }
-                });
-            }
-        });
-        //getAuthDialog().show();
     }
 
 

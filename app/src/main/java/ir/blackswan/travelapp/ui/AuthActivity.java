@@ -20,4 +20,10 @@ public abstract class AuthActivity extends AppCompatActivity {
             authController = new AuthController(this);
         return authController;
     }
+
+    public void auth(AuthController.OnAuthorization onAuthorization){
+        //if (!getAuthController().loadUser(this , onAuthorization)) getAuthDialog().show();
+
+
+    }
 }

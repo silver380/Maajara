@@ -15,24 +15,34 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.Retrofit.Api;
 import ir.blackswan.travelapp.Retrofit.RetrofitClient;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.ui.AuthActivity;
 
-public class AuthController {
+public class AuthController extends Controller {
+
     private static User user;
-    private static Gson gson = new Gson();
-    private Context context;
-    private Api api;
+
+    public AuthController(AuthActivity authActivity){
+        super(authActivity);
+    }
 
     public static String getUserToken() {
-        return "Token " + user.getToken();
+        //todo: return "Token " + user.getToken();
+        return "Token e798c795e07649dd603039f8b6c624479854fa34";
     }
 
     public static User getUser() {
         return user;
     }
 
-    public AuthController(Context context) {
-        this.context = context;
-        api = RetrofitClient.getApi();
+    public boolean loadUser(Context context , OnAuthorization onAuthorization ) {
+        SharedPrefManager sh = new SharedPrefManager(context);
+        String token = sh.getString(SharedPrefManager.USER_TOKEN);
+        if (token != null) {
+            user = new User(context, token);
+            completeUserInfo(onAuthorization);
+            return true;
+        }
+        return false;
     }
 
     private String getTokenFromResponseBody(String responseBody) {
@@ -43,13 +53,13 @@ public class AuthController {
     }
 
     public void login(String email, String password, OnResponse onResponse) {
-        api.token(email, password).enqueue(new MyCallBack(context, new OnResponse(){
+        api.token(email, password).enqueue(new MyCallBack(authActivity, new OnResponse(){
             @Override
             public void onSuccess(String responseBody) {
                 if (user == null)
-                    user = new User(context, getTokenFromResponseBody(responseBody));
+                    user = new User(authActivity, getTokenFromResponseBody(responseBody));
                 else
-                    user.setToken(context, getTokenFromResponseBody(responseBody));
+                    user.setToken(authActivity, getTokenFromResponseBody(responseBody));
                 Log.d(TAG, "login: " + user);
                 onResponse.onSuccess(responseBody);
             }
@@ -63,7 +73,7 @@ public class AuthController {
     }
 
     public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
-        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(context, new OnResponse() {
+        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
                 user = new User(firstName, lastName, email);
@@ -77,30 +87,23 @@ public class AuthController {
         }));
     }
 
-    public boolean loadUser(Context context, OnUserLoad onUserLoad) {
-        SharedPrefManager sh = new SharedPrefManager(context);
-        String token = sh.getString(SharedPrefManager.USER_TOKEN);
-        if (token != null) {
-            user = new User(context, token);
-            completeUserInfo(onUserLoad);
-            return true;
-        }
-        return false;
-    }
 
-    private void completeUserInfo(OnUserLoad onUserLoad) {
+
+    private void completeUserInfo(OnAuthorization onAuthorization) {
+        responseMessageDialog.show();
         String tokenString = getUserToken();
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
-        api.info(tokenString).enqueue(new MyCallBack(context, new OnResponse() {
+        api.info(tokenString).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
-                Log.d(TAG, "onSuccess: " + responseBody);
-
+                user = gson.fromJson(responseBody , User.class);
+                onAuthorization.onAuth(user);
+                responseMessageDialog.dismiss();
             }
 
             @Override
             public void onFailed(String message) {
-
+                responseMessageDialog.dismiss(); //todo: try again for login
             }
         }));
     }
@@ -108,7 +111,7 @@ public class AuthController {
 
 
 
-    public interface OnUserLoad {
-        void onLoad(User user);
+    public interface OnAuthorization {
+        void onAuth(User user);
     }
 }

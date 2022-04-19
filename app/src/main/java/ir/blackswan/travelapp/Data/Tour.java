@@ -3,28 +3,42 @@ package ir.blackswan.travelapp.Data;
 import java.util.List;
 
 public class Tour {
-    private int tour_id;
-    private User creator;
-    private String tourName;
-    private int capacity;
+    /*
+     "id": 1,
+        "tour_name": "Number1",
+        "tour_capacity": 10,
+        "destination": "a",
+        "residence": "HS",
+        "start_date": "1900-10-10",
+        "end_date": "1900-10-11",
+        "has_breakfast": true,
+        "has_lunch": false,
+        "has_dinner": true,
+        "has_transportation": "MB",
+        "creator": 3
+     */
+    private int id;
+    private User creatorT;
+    private String tour_name;
+    private int tour_capacity;
     private int registerCount;
-    private String city;
-    private long startDate , finalDate;
+    private String destination;
+    private String start_date, end_date;
     private List<Place> places;
     private long price;
-    private boolean hotel , sweet , house , villa;
-    private boolean breakfast , lunch , dinner;
-    private boolean car , minibus , bus , van;
+    private String residence ;
+    private boolean has_breakfast , has_lunch ,has_dinner ;
+    private String has_transportation;
     private List<User> requestedUsers;
     private List<User> registeredUses;
 
-    public Tour(User creator, String tourName, int capacity, String city, long startDate, long finalDate, List<Place> places, long price) {
-        this.creator = creator;
-        this.tourName = tourName;
-        this.capacity = capacity;
-        this.city = city;
-        this.startDate = startDate;
-        this.finalDate = finalDate;
+    public Tour(User creator, String tourName, int capacity, String city, String startDate, String finalDate, List<Place> places, long price) {
+        this.creatorT = creator;
+        this.tour_name = tourName;
+        this.tour_capacity = capacity;
+        this.destination = city;
+        this.start_date = startDate;
+        this.end_date = finalDate;
         this.places = places;
         this.price = price;
     }
@@ -33,85 +47,48 @@ public class Tour {
         this.requestedUsers = requestedUsers;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
     public void setRegisteredUses(List<User> registeredUses) {
         this.registeredUses = registeredUses;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getCreatorT() {
+        return creatorT;
     }
 
-    public String getTourName() {
-        return tourName;
+    public String getTour_name() {
+        return tour_name;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getTour_capacity() {
+        return tour_capacity;
     }
 
     public int getRegisterCount() {
         return registerCount;
     }
 
-    public String getCity() {
-        return city;
+    public String getDestination() {
+        return destination;
     }
 
-    public long getStartDate() {
-        return startDate;
-    }
-
-    public long getFinalDate() {
-        return finalDate;
-    }
 
     public List<Place> getPlaces() {
         return places;
     }
 
-    public boolean isHotel() {
-        return hotel;
-    }
 
-    public boolean isSweet() {
-        return sweet;
-    }
-
-    public boolean isHouse() {
-        return house;
-    }
-
-    public boolean isVilla() {
-        return villa;
-    }
-
-    public boolean isBreakfast() {
-        return breakfast;
-    }
-
-    public boolean isLunch() {
-        return lunch;
-    }
-
-    public boolean isDinner() {
-        return dinner;
-    }
-
-    public boolean isCar() {
-        return car;
-    }
-
-    public boolean isMinibus() {
-        return minibus;
-    }
-
-    public boolean isBus() {
-        return bus;
-    }
-
-    public boolean isVan() {
-        return van;
-    }
 
     public long getPrice() {
         return price;
@@ -123,5 +100,28 @@ public class Tour {
 
     public List<User> getRegisteredUses() {
         return registeredUses;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", creatorT=" + creatorT +
+                ", tour_name='" + tour_name + '\'' +
+                ", tour_capacity=" + tour_capacity +
+                ", registerCount=" + registerCount +
+                ", destination='" + destination + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", places=" + places +
+                ", price=" + price +
+                ", residence='" + residence + '\'' +
+                ", has_breakfast=" + has_breakfast +
+                ", has_lunch=" + has_lunch +
+                ", has_dinner=" + has_dinner +
+                ", has_transportation='" + has_transportation + '\'' +
+                ", requestedUsers=" + requestedUsers +
+                ", registeredUses=" + registeredUses +
+                '}';
     }
 }

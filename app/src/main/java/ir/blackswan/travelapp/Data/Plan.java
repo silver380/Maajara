@@ -5,7 +5,7 @@ import java.util.List;
 public class Plan {
     private User creator;
     private String city;
-    private long startDate,finalDate;
+    private String startDate,finalDate;
     private List<String> requestedThings;
     private List<User> requestedGuides;
     private User registeredUser;
@@ -18,11 +18,11 @@ public class Plan {
         return city;
     }
 
-    public long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public long getFinalDate() {
+    public String getFinalDate() {
         return finalDate;
     }
 
