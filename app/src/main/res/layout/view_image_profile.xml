@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/profile_view_size"
-    android:layout_height="@dimen/profile_view_size"
-    app:cardElevation="0dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/profile_view_half_size"
-    app:cardBackgroundColor="@color/colorIconTint"
-    >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/test_picture"
-        android:scaleType="centerCrop"
-        android:translationZ="10dp"
-        android:visibility="gone"
-        />
+    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_card"
+        android:layout_width="@dimen/profile_view_size"
+        android:layout_height="@dimen/profile_view_size"
+        app:cardCornerRadius="@dimen/profile_view_half_size"
+        android:elevation="0dp"
+        android:translationZ="0dp"
+        app:cardBackgroundColor="@color/colorIconTint"
+        app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/profile_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="م ف"
-        android:gravity="center"
-        style="@style/textTittleBold"
-        android:textColor="@color/colorWhite"
-        />
 
-</com.google.android.material.card.MaterialCardView>
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_picture"
+            android:translationZ="10dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/profile_text"
+            style="@style/textTittleBold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="م ف"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

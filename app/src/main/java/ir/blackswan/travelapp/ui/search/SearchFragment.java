@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment {
 
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         TourController tourController = new TourController(authActivity);
-        tourController.getAllTour(new OnResponse() {
+        tourController.getAllTourFromServer(new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
                 TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), tourController.getAllTours());

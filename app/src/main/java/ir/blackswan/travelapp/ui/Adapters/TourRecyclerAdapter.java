@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
@@ -40,7 +41,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         //1900-10-10
         String date = tour.getStart_date().replace("-" , "/");
 
-//        holder.image.setImagePath(tour.getPlaces().get(0).getPicturePath());
+        holder.image.setImagePath(FakeData.getRandomImagePath());
         holder.price.setText(tour.getPrice() + "");
         holder.startDate.setText(date);
         holder.location.setText(tour.getDestination());

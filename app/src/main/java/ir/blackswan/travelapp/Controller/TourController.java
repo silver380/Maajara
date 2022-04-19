@@ -5,8 +5,8 @@ import ir.blackswan.travelapp.ui.AuthActivity;
 
 public class TourController extends Controller {
 
-    Tour[] allTours;
-    Tour[] createdTours;
+    static Tour[] allTours;
+    static Tour[] createdTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
@@ -22,37 +22,37 @@ public class TourController extends Controller {
 
      */
 
-    public void getAllTour(OnResponse onResponse){
-        responseMessageDialog.show();
+    public void getAllTourFromServer(OnResponse onResponse){
+        loadingDialog.show();
         api.getAllTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
                 allTours = gson.fromJson(responseBody , Tour[].class);
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
                 onResponse.onSuccess(responseBody);
             }
 
             @Override
             public void onFailed(String message) {
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
                 onResponse.onFailed(message);
             }
         }));
     }
 
-    public void getCreatedTour(OnResponse onResponse){
-        responseMessageDialog.show();
+    public void getCreatedTourFromServer(OnResponse onResponse){
+        loadingDialog.show();
         api.getCreatedTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
                 createdTours = gson.fromJson(responseBody , Tour[].class);
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
                 onResponse.onSuccess(responseBody);
             }
 
             @Override
             public void onFailed(String message) {
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
                 onResponse.onFailed(message);
             }
         }));

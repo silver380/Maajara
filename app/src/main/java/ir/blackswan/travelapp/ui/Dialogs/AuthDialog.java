@@ -49,8 +49,9 @@ public class AuthDialog extends MyDialog {
     }
 
     private AuthController authController;
+    private AuthController.OnAuthorization onAuthorization;
 
-    public AuthDialog(AuthActivity activity, boolean forLogin) {
+    public AuthDialog(AuthActivity activity, AuthController.OnAuthorization onAuthorization, boolean forLogin) {
         binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
@@ -59,6 +60,8 @@ public class AuthDialog extends MyDialog {
             step = STEP_REGISTER;
 
         authController = new AuthController(activity);
+
+        this.onAuthorization = onAuthorization;
 
         mActivity = activity;
         errors = new String[]
@@ -159,6 +162,7 @@ public class AuthDialog extends MyDialog {
                                     Toast.makeText(mActivity, "ثبت‌نام با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
                                     stopLoadingAnimation();
                                     dialog.dismiss();
+                                    onAuthorization.onAuth(AuthController.getUser());
                                 }
 
                                 @Override

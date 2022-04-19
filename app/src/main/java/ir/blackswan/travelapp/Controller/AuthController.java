@@ -5,16 +5,14 @@ import static ir.blackswan.travelapp.Controller.MyCallBack.TAG;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ir.blackswan.travelapp.Data.User;
-import ir.blackswan.travelapp.Retrofit.Api;
-import ir.blackswan.travelapp.Retrofit.RetrofitClient;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.ui.AuthActivity;
 
 public class AuthController extends Controller {
@@ -26,8 +24,11 @@ public class AuthController extends Controller {
     }
 
     public static String getUserToken() {
-        //todo: return "Token " + user.getToken();
-        return "Token e798c795e07649dd603039f8b6c624479854fa34";
+        //return "Token e798c795e07649dd603039f8b6c624479854fa34";
+        String token = user.getToken();
+        if (token == null)
+            return null;
+        return "Token " + user.getToken();
     }
 
     public static User getUser() {
@@ -90,24 +91,28 @@ public class AuthController extends Controller {
 
 
     private void completeUserInfo(OnAuthorization onAuthorization) {
-        responseMessageDialog.show();
+        loadingDialog.show();
         String tokenString = getUserToken();
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
         api.info(tokenString).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
+                Log.d(TAG, "completeUserInfo: onSuccess: " + responseBody);
+                String token = user.getToken();
                 user = gson.fromJson(responseBody , User.class);
+                user.setToken(authActivity , token);
+                Log.d(TAG, "completeUserInfo: onSuccess user: " + user);
                 onAuthorization.onAuth(user);
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
             }
 
             @Override
             public void onFailed(String message) {
-                responseMessageDialog.dismiss(); //todo: try again for login
+                loadingDialog.dismiss(); //todo: try again for login
+                authActivity.showAuthDialog(onAuthorization);
             }
         }));
     }
-
 
 
 

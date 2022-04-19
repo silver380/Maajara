@@ -121,10 +121,6 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return first_name;
-    }
-
     public String getLast_name() {
         return last_name;
     }
@@ -191,18 +187,23 @@ public class User {
     public String toString() {
         return "User{" +
                 "token='" + token + '\'' +
-                ", name='" + first_name + '\'' +
-                ", lastName='" + last_name + '\'' +
+                ", id=" + id +
+                ", isBanned=" + isBanned +
+                ", isValidatedByAdmin=" + isValidatedByAdmin +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", isTourGuide=" + isTourGuide +
-                ", birthDay=" + date_of_birth +
-                ", sex=" + gender +
-                ", bio='" + biography + '\'' +
+                ", profilePicturePath=" + profilePicturePath +
+                ", ticket=" + ticket +
+                ", date_of_birth='" + date_of_birth + '\'' +
+                ", gender='" + gender + '\'' +
+                ", biography='" + biography + '\'' +
                 ", policeClearanceDocPath=" + policeClearanceDocPath +
-                ", languages=" + languages +
-                ", phoneNumber='" + phone_number + '\'' +
-                ", telegramUsername='" + telegram_id + '\'' +
-                ", whatsappNumber='" + whatsapp_id + '\'' +
+                ", languages='" + languages + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", telegram_id='" + telegram_id + '\'' +
+                ", whatsapp_id='" + whatsapp_id + '\'' +
                 ", relatedDocsPaths=" + relatedDocsPaths +
                 ", rate=" + rate +
                 '}';

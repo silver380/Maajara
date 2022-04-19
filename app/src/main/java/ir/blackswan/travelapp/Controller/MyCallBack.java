@@ -1,6 +1,5 @@
 package ir.blackswan.travelapp.Controller;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,7 @@ import java.io.IOException;
 
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.ui.AuthActivity;
-import ir.blackswan.travelapp.ui.Dialogs.ResponseMessageDialog;
+import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,16 +18,16 @@ public class MyCallBack implements Callback<ResponseBody> {
     public static final String TAG = "Response";
     private final AuthActivity authActivity;
     private final OnResponse onResponse;
-    private ResponseMessageDialog responseMessageDialog;
+    private LoadingDialog loadingDialog;
 
     public MyCallBack(AuthActivity authActivity, OnResponse onResponse) {
         this.authActivity = authActivity;
         this.onResponse = onResponse;
     }
-    public MyCallBack(AuthActivity authActivity, OnResponse onResponse , ResponseMessageDialog responseMessageDialog) {
+    public MyCallBack(AuthActivity authActivity, OnResponse onResponse , LoadingDialog loadingDialog) {
         this.authActivity = authActivity;
         this.onResponse = onResponse;
-        this.responseMessageDialog = responseMessageDialog;
+        this.loadingDialog = loadingDialog;
     }
 
 
@@ -62,7 +61,7 @@ public class MyCallBack implements Callback<ResponseBody> {
     }
 
     private void stopLoading(){
-        if(responseMessageDialog != null)
-            responseMessageDialog.dismiss();
+        if(loadingDialog != null)
+            loadingDialog.dismiss();
     }
 }

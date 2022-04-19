@@ -18,8 +18,8 @@
     <dimen name="card_elevation_medium">6dp</dimen>
     <dimen name="card_elevation_long">10dp</dimen>
 
-    <dimen name="profile_view_size">60dp</dimen>
-    <dimen name="profile_view_half_size">30dp</dimen>
+    <dimen name="profile_view_size">50dp</dimen>
+    <dimen name="profile_view_half_size">25dp</dimen>
 
     <dimen name="primary_icon_size">50dp</dimen>
     <dimen name="half_primary_icon_size">25dp</dimen>
