@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.HomeFragment"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+            android:id="@+id/toggle_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:background="@drawable/rec_medium_raidus_no_fill"
+            app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn_home_passenger"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:toggle_backgroundColor="@color/colorTransparent"
+                app:toggle_btnCornerRadius="@dimen/radius_medium"
+                app:toggle_fontFamily="vazir_medium.ttf"
+                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_text="مسافر" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn_home_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:toggle_backgroundColor="@color/colorTransparent"
+                app:toggle_btnCornerRadius="@dimen/radius_medium"
+                app:toggle_fontFamily="vazir_medium.ttf"
+                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_text="راهنما" />
+
+
+        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+
+        <ir.blackswan.travelapp.Views.ProfileImageView
+            android:id="@+id/piv_home_profile"
+            android:layout_width="@dimen/profile_view_size"
+            android:layout_height="@dimen/profile_view_size"
+            android:layout_margin="@dimen/margin_small" />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="قطعی شده‌ها"
+        style="@style/textTittleMedium"
+        android:layout_margin="@dimen/margin_small"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_accepted_tour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@color/colorBackgroundDarker"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="در انتظار تایید"
+        style="@style/textTittleMedium"
+        android:layout_margin="@dimen/margin_small"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_waiting_tour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@color/colorBackgroundDarker"
+        />
+</LinearLayout>
