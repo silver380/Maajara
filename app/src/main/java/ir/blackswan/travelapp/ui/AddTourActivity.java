@@ -27,20 +27,7 @@ public class AddTourActivity extends ToolbarActivity {
         setupDateChooses();
         setListeners();
 
-        Tour tour = FakeData.getFakeTours().get(0);
-        //todo: remove these lines
-        TourController tourController = new TourController(this);
-        tourController.createTour(tour, new OnResponse() {
-            @Override
-            public void onSuccess(String responseBody) {
-                finish();
-            }
 
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
 
     }
 

@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.ui.Adapters;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import java.util.List;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
 
 public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.ViewHolder> {
@@ -27,6 +29,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = activity.getLayoutInflater().inflate(R.layout.tour_view_holder , parent , false);
+        view.getLayoutParams().width = Utils.getScreenWidth() * 40 /100;
         return new ViewHolder(view);
     }
 

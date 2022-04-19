@@ -7,13 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import ir.blackswan.travelapp.Controller.AuthController;
+import java.util.Arrays;
+import java.util.List;
+
+import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
+import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
-import ir.blackswan.travelapp.ui.Dialogs.AuthDialog;
 
 public class HomeFragment extends Fragment {
 
@@ -29,12 +36,36 @@ public class HomeFragment extends Fragment {
 
         binding.toggleHome.selectButton(R.id.btn_home_passenger);
 
+        binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(authActivity,
+                LinearLayoutManager.HORIZONTAL, false));
+
+        TourController tourController = new TourController(authActivity);
+
+
+        TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), FakeData.getFakeTours().toArray(
+                new Tour[FakeData.getFakeTours().size()]
+        ));
+        binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+
+        /*
+        tourController.getCreatedTour(new OnResponse() {
+            @Override
+            public void onSuccess(String responseBody) {
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+
+         */
         /*
 
 
          */
 
-    //    loadUser();
+        //    loadUser();
 
         return root;
     }
@@ -46,11 +77,11 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void setupWithUser(User user){
+    public void setupWithUser(User user) {
         binding.pivHomeProfile.setUser(user);
     }
 
-    public void invisibleToggle(){
+    public void invisibleToggle() {
         binding.toggleHome.setVisibility(View.INVISIBLE);
     }
 

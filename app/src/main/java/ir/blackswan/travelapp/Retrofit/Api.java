@@ -15,10 +15,11 @@ public interface Api {
     @FormUrlEncoded
     Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test
 
-///tour/all/
     @GET("/tour/all/")
     Call<ResponseBody> getAllTour(@Header("Authorization") String token);
 
+    @GET("/tour/createdtours/")
+    Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);
 
     @POST("/auth/register/")
     @FormUrlEncoded

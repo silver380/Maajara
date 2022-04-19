@@ -9,12 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
-import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
@@ -38,7 +34,7 @@ public class SearchFragment extends Fragment {
         tourController.getAllTour(new OnResponse() {
             @Override
             public void onSuccess(String responseBody) {
-                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), tourController.getTours());
+                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), tourController.getAllTours());
                 binding.rclSearch.setAdapter(tourRecyclerAdapter);
             }
 

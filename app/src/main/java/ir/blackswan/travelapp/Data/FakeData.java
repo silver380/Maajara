@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Data;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
@@ -21,6 +22,17 @@ public class FakeData {
             fakePlaces.add(new Place("مکان‍‍۱", "شهر۱", "توضیحات",
                     null,
                     "https://panel.safarmarket.com/storage/img/tours/1649138747448.jpg"));
+
+            fakeTours = Arrays.asList(new Tour(FakeData.getFakeUser(), "dfdf", 4,
+                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
+                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+                    ,
+                    new Tour(FakeData.getFakeUser(), "dfdf", 4,
+                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
+                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100));
+
 
         }
     }

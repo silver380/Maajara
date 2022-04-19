@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tour_view_holder.xml" value="0.10364583333333334" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_small_radius_filled.xml" value="0.242" />
