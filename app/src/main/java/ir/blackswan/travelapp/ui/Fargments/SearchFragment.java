@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui.search;
+package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

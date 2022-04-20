@@ -10,7 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
-import ir.blackswan.travelapp.ui.home.HomeFragment;
+import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 
 public class MainActivity extends AuthActivity {
 
@@ -37,10 +37,6 @@ public class MainActivity extends AuthActivity {
         auth(user -> {
             homeFragment.setupWithUser();
         });
-
-
-        //new ResponseMessageDialog(this).show();
-
 
     }
 

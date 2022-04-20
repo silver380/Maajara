@@ -19,12 +19,13 @@
 
     <TextView
         android:id="@+id/place_vh_tv"
-        style="@style/textTittleMedium"
+        style="@style/textRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:text="مکان"
-        android:layout_marginBottom="@dimen/margin_medium"
+        android:textColor="@color/colorWhite"
+        android:layout_marginBottom="@dimen/margin_very_small"
         />
 
 </com.google.android.material.card.MaterialCardView>

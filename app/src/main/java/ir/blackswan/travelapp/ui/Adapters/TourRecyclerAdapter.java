@@ -1,20 +1,20 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import static ir.blackswan.travelapp.ui.TourPageActivity.EXTRA_TOUR;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.MyPersianCalender;
+import ir.blackswan.travelapp.ui.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
 
@@ -38,7 +38,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Tour tour = tours[position];
        // MyPersianCalender persianDate = new MyPersianCalender(tour.getStart_date());
-        //1900-10-10
+
         String date = tour.getStart_date().replace("-" , "/");
 
         holder.image.setImagePath(FakeData.getRandomImagePath());
@@ -47,8 +47,11 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         holder.location.setText(tour.getDestination());
         holder.image.setScale(.5f);
         holder.image.setGradient(true);
+        holder.itemView.setOnClickListener(v -> {
+            activity.startActivity(new Intent(activity , TourPageActivity.class)
+            .putExtra(EXTRA_TOUR , tour));
+        });
 
-        //holder.itemView.setLayoutParams(new ViewGroup.LayoutParams());
         //holder.duration.setText();
     }
 

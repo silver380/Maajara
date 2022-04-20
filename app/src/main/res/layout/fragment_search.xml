@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/padding_medium"
     android:background="@color/colorBackgroundDarker"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.Fargments.SearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_search"

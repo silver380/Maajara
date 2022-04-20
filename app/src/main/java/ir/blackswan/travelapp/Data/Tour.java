@@ -1,8 +1,9 @@
 package ir.blackswan.travelapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Tour {
+public class Tour implements Serializable {
     /*
      "id": 1,
         "tour_name": "Number1",

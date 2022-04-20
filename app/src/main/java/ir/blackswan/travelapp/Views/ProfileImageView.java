@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +29,7 @@ public class ProfileImageView extends FrameLayout {
 
     ImageView imageView;
     TextView textView;
+    MaterialCardView cardView;
     @Nullable
     User user;
 
@@ -49,10 +53,19 @@ public class ProfileImageView extends FrameLayout {
         init();
     }
 
+    public void setSize(int size){
+        FrameLayout.LayoutParams params = (LayoutParams) cardView.getLayoutParams();
+        params.width = size;
+        params.height = size;
+        cardView.setRadius(size / 2f);
+        cardView.setLayoutParams(params);
+    }
+
     private void init() {
         inflate(getContext(), R.layout.view_image_profile, this);
         textView = findViewById(R.id.profile_text);
         imageView = findViewById(R.id.profile_image);
+        cardView = findViewById(R.id.profile_card);
     }
 
     public void setUser(User user) {
@@ -73,6 +86,10 @@ public class ProfileImageView extends FrameLayout {
         imageView.setImageDrawable(drawable);
         imageState();
 
+    }
+
+    public MaterialCardView getCardView() {
+        return cardView;
     }
 
     private void noImageState() {
