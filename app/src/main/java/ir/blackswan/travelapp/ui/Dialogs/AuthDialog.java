@@ -136,41 +136,14 @@ public class AuthDialog extends MyDialog {
             if (checkInputs()) {
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
-                            , getEditableText(binding.etLoginPassword.getText()), new OnResponse() {
-                                @Override
-                                public void onSuccess(String responseBody) {
-                                    Toast.makeText(mActivity, "ورود با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
-                                    stopLoadingAnimation();
-                                    dialog.dismiss();
-                                }
-
-                                @Override
-                                public void onFailed(String message) {
-                                    Toast.makeText(mActivity, message, Toast.LENGTH_LONG, Toast.TYPE_ERROR).show();
-                                    stopLoadingAnimation();
-                                }
-                            });
+                            , getEditableText(binding.etLoginPassword.getText()),);
 
                 } else if (step == STEP_REGISTER) {
                     String name = getEditableText(binding.etLoginName.getText());
                     String lastName = getEditableText(binding.etLoginLastName.getText());
                     String email = getEditableText(binding.etLoginEmail.getText());
                     authController.register(email,
-                            getEditableText(binding.etLoginPassword.getText()), name, lastName, new OnResponse() {
-                                @Override
-                                public void onSuccess(String responseBody) {
-                                    Toast.makeText(mActivity, "ثبت‌نام با موفقیت انجام شد", Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
-                                    stopLoadingAnimation();
-                                    dialog.dismiss();
-                                    onAuthorization.onAuth(AuthController.getUser());
-                                }
-
-                                @Override
-                                public void onFailed(String message) {
-                                    Toast.makeText(mActivity, message, Toast.LENGTH_LONG, Toast.TYPE_ERROR).show();
-                                    stopLoadingAnimation();
-                                }
-                            });
+                            getEditableText(binding.etLoginPassword.getText()), name, lastName, );
                     //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();

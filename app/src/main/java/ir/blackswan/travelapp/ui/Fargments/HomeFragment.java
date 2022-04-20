@@ -66,17 +66,7 @@ public class HomeFragment extends Fragment {
         User user = AuthController.getUser();
         if (user != null && user.getFirst_name() != null) {
             binding.profileImageView.setUser(user);
-            tourController.getCreatedTourFromServer(new OnResponse() {
-                @Override
-                public void onSuccess(String responseBody) {
-                    setupRecyclers();
-                }
-
-                @Override
-                public void onFailed(String message) {
-
-                }
-            });
+            tourController.getCreatedTourFromServer();
         }
     }
 

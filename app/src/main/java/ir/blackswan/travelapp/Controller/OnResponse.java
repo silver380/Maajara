@@ -1,7 +1,11 @@
 package ir.blackswan.travelapp.Controller;
 
-public interface OnResponse {
-    void onSuccess(String responseBody);
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
-    void onFailed(String message);
+public interface OnResponse {
+
+    void onSuccess(Call<ResponseBody> call, String responseBody);
+
+    void onFailed(Call<ResponseBody> call, String message);
 }

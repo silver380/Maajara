@@ -39,13 +39,13 @@ public class MyCallBack implements Callback<ResponseBody> {
         stopLoading();
         if (response.code() / 100 == 4) {
             try {
-                onResponse.onFailed(ErrorHandler.getStringErrors(authActivity, response.errorBody().string()));
+                onResponse.onFailed(call , ErrorHandler.getStringErrors(authActivity, response.errorBody().string()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (response.code() / 100 == 2) {
             try {
-                onResponse.onSuccess(response.body().string());
+                onResponse.onSuccess(call , response.body().string());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -57,7 +57,7 @@ public class MyCallBack implements Callback<ResponseBody> {
     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
         Log.e(TAG, "onFailure: ", t);
         stopLoading();
-        onResponse.onFailed(authActivity.getString(R.string.error_connection_lost));
+        onResponse.onFailed(call , authActivity.getString(R.string.error_connection_lost));
     }
 
     private void stopLoading(){

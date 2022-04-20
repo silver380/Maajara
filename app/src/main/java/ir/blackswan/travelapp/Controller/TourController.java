@@ -2,6 +2,8 @@ package ir.blackswan.travelapp.Controller;
 
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class TourController extends Controller {
 
@@ -26,16 +28,16 @@ public class TourController extends Controller {
         loadingDialog.show();
         api.getAllTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
+            public void onSuccess(Call<ResponseBody> call,String responseBody) {
                 allTours = gson.fromJson(responseBody , Tour[].class);
                 loadingDialog.dismiss();
-                onResponse.onSuccess(responseBody);
+                onResponse.onSuccess(call , responseBody);
             }
 
             @Override
-            public void onFailed(String message) {
+            public void onFailed(Call<ResponseBody> call,String message) {
                 loadingDialog.dismiss();
-                onResponse.onFailed(message);
+                onResponse.onFailed(call , message);
             }
         }));
     }
@@ -44,16 +46,16 @@ public class TourController extends Controller {
         loadingDialog.show();
         api.getCreatedTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
+            public void onSuccess(Call<ResponseBody> call,String responseBody) {
                 createdTours = gson.fromJson(responseBody , Tour[].class);
                 loadingDialog.dismiss();
-                onResponse.onSuccess(responseBody);
+                onResponse.onSuccess(call , responseBody);
             }
 
             @Override
-            public void onFailed(String message) {
+            public void onFailed(Call<ResponseBody> call, String message) {
                 loadingDialog.dismiss();
-                onResponse.onFailed(message);
+                onResponse.onFailed(call , message);
             }
         }));
     }
