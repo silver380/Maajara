@@ -16,6 +16,7 @@ import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AuthController extends Controller {
 
@@ -58,18 +59,18 @@ public class AuthController extends Controller {
     public void login(String email, String password, OnResponse onResponse) {
         api.token(email, password).enqueue(new MyCallBack(authActivity, new OnResponse(){
             @Override
-            public void onSuccess(Call<ResponseBody> call,  String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,  String responseBody) {
                 if (user == null)
                     user = new User(authActivity, getTokenFromResponseBody(responseBody));
                 else
                     user.setToken(authActivity, getTokenFromResponseBody(responseBody));
                 Log.d(TAG, "login: " + user);
-                onResponse.onSuccess(call ,responseBody);
+                onResponse.onSuccess(call ,callback,responseBody);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call,String message) {
-                onResponse.onFailed(call ,message);
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
+                onResponse.onFailed(call ,callback,message);
             }
         }));
 
@@ -78,13 +79,13 @@ public class AuthController extends Controller {
     public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
         api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call,String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
                 user = new User(firstName, lastName, email);
                 login(email, password, onResponse);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call,String message) {
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
 
             }
         }));
@@ -98,7 +99,7 @@ public class AuthController extends Controller {
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
         api.info(tokenString).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call,String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
                 Log.d(TAG, "completeUserInfo: onSuccess: " + responseBody);
                 String token = user.getToken();
                 user = gson.fromJson(responseBody , User.class);
@@ -109,7 +110,7 @@ public class AuthController extends Controller {
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call,String message) {
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
                 loadingDialog.dismiss(); //todo: try again for login
                 authActivity.showAuthDialog(onAuthorization);
             }
