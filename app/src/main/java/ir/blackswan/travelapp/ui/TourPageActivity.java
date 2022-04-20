@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp;
+package ir.blackswan.travelapp.ui;
 
 import static ir.blackswan.travelapp.Utils.Utils.dp2px;
 import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
@@ -22,14 +22,14 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
-import ir.blackswan.travelapp.ui.AuthActivity;
 
 public class TourPageActivity extends AuthActivity {
-
+    public static final String EXTRA_TOUR = "tour";
     ActivityTourPagePictureBinding binding;
     boolean bottomViewIsOpen = false;
     int topNamesMarginRight;
@@ -54,7 +54,11 @@ public class TourPageActivity extends AuthActivity {
 
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
-        binding.llTourPageLeader.addView(new TourLeaderVerticalView(this).setData(FakeData.getFakeUser()));
+        TourLeaderVerticalView tourLeaderView = new TourLeaderVerticalView(this).setData(FakeData.getFakeUser());
+        tourLeaderView.getProfileImageView().setSize(dp2px(this ,
+                getResources().getDimension(R.dimen.profile_view_size_large)));
+
+        binding.llTourPageLeader.addView(tourLeaderView);
 
         binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this ,
                 FakeData.getFakePlaces()));
@@ -181,6 +185,14 @@ public class TourPageActivity extends AuthActivity {
 
 
     private void prepareActivity() {
+        binding.ivTourPageImage.setImagePath(FakeData.getRandomImagePath());
+        binding.cardBackTourPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeBottomView();
+                onBackPressed();
+            }
+        });
         binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

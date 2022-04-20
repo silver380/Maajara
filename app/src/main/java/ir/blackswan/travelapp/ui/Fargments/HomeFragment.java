@@ -1,6 +1,7 @@
-package ir.blackswan.travelapp.ui.home;
+package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.Arrays;
-import java.util.List;
-
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
-import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
@@ -26,6 +24,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private AuthActivity authActivity;
+    private TourController tourController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,35 +38,21 @@ public class HomeFragment extends Fragment {
         binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
-        TourController tourController = new TourController(authActivity);
+        tourController = new TourController(authActivity);
+        setupWithUser();
+        setupRecyclers();
 
-
-        TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), FakeData.getFakeTours().toArray(
-                new Tour[FakeData.getFakeTours().size()]
-        ));
-        binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
-
-        /*
-        tourController.getCreatedTour(new OnResponse() {
-            @Override
-            public void onSuccess(String responseBody) {
-            }
-
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-         */
-        /*
-
-
-         */
-
-        //    loadUser();
 
         return root;
+    }
+
+    private void setupRecyclers() {
+        Tour[] createdTours = tourController.getCreatedTours();
+        Log.d("TourRecycler", "setupRecyclers: " + createdTours);
+        if (createdTours != null) {
+            TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), createdTours);
+            binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+        }
     }
 
     @Override
@@ -77,12 +62,17 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void setupWithUser(User user) {
-        binding.pivHomeProfile.setUser(user);
+    public void setupWithUser() {
+        User user = AuthController.getUser();
+        if (user != null && user.getFirst_name() != null) {
+            binding.profileImageView.setUser(user);
+            tourController.getCreatedTourFromServer();
+        }
     }
 
     public void invisibleToggle() {
         binding.toggleHome.setVisibility(View.INVISIBLE);
     }
+
 
 }

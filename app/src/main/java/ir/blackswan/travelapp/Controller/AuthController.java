@@ -5,17 +5,18 @@ import static ir.blackswan.travelapp.Controller.MyCallBack.TAG;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ir.blackswan.travelapp.Data.User;
-import ir.blackswan.travelapp.Retrofit.Api;
-import ir.blackswan.travelapp.Retrofit.RetrofitClient;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AuthController extends Controller {
 
@@ -26,8 +27,11 @@ public class AuthController extends Controller {
     }
 
     public static String getUserToken() {
-        //todo: return "Token " + user.getToken();
-        return "Token e798c795e07649dd603039f8b6c624479854fa34";
+        //return "Token e798c795e07649dd603039f8b6c624479854fa34";
+        String token = user.getToken();
+        if (token == null)
+            return null;
+        return "Token " + user.getToken();
     }
 
     public static User getUser() {
@@ -55,18 +59,18 @@ public class AuthController extends Controller {
     public void login(String email, String password, OnResponse onResponse) {
         api.token(email, password).enqueue(new MyCallBack(authActivity, new OnResponse(){
             @Override
-            public void onSuccess(String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,  String responseBody) {
                 if (user == null)
                     user = new User(authActivity, getTokenFromResponseBody(responseBody));
                 else
                     user.setToken(authActivity, getTokenFromResponseBody(responseBody));
                 Log.d(TAG, "login: " + user);
-                onResponse.onSuccess(responseBody);
+                onResponse.onSuccess(call ,callback,responseBody);
             }
 
             @Override
-            public void onFailed(String message) {
-                onResponse.onFailed(message);
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
+                onResponse.onFailed(call ,callback,message);
             }
         }));
 
@@ -75,13 +79,13 @@ public class AuthController extends Controller {
     public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
         api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
                 user = new User(firstName, lastName, email);
                 login(email, password, onResponse);
             }
 
             @Override
-            public void onFailed(String message) {
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
 
             }
         }));
@@ -90,24 +94,28 @@ public class AuthController extends Controller {
 
 
     private void completeUserInfo(OnAuthorization onAuthorization) {
-        responseMessageDialog.show();
+        loadingDialog.show();
         String tokenString = getUserToken();
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
         api.info(tokenString).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
+                Log.d(TAG, "completeUserInfo: onSuccess: " + responseBody);
+                String token = user.getToken();
                 user = gson.fromJson(responseBody , User.class);
+                user.setToken(authActivity , token);
+                Log.d(TAG, "completeUserInfo: onSuccess user: " + user);
                 onAuthorization.onAuth(user);
-                responseMessageDialog.dismiss();
+                loadingDialog.dismiss();
             }
 
             @Override
-            public void onFailed(String message) {
-                responseMessageDialog.dismiss(); //todo: try again for login
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
+                loadingDialog.dismiss(); //todo: try again for login
+                authActivity.showAuthDialog(onAuthorization);
             }
         }));
     }
-
 
 
 

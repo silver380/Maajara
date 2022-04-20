@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui.add;
+package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import ir.blackswan.travelapp.databinding.FragmentAddBinding;
 
+import ir.blackswan.travelapp.databinding.FragmentArchiveBinding;
 
-public class AddFragment extends Fragment {
+public class ArchiveFragment extends Fragment {
 
-    private FragmentAddBinding binding;
+    private FragmentArchiveBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentAddBinding.inflate(inflater, container, false);
+        binding = FragmentArchiveBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textAdd;
-        textView.setText("add");
+        final TextView textView = binding.textArchive;
+        textView.setText("archive");
         return root;
     }
 

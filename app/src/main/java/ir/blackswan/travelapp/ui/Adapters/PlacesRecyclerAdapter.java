@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
+import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
 
 public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder> {
      List<Place> places;
@@ -32,8 +34,12 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
      @Override
      public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
           Place place = places.get(position);
-          holder.placeImage.setImagePath(places.get(position).getPicturePath());
+          holder.placeImage.setImagePath(FakeData.getRandomImagePath());
+          holder.placeImage.setGradient(true);
           holder.placeName.setText(place.getName());
+          holder.itemView.setOnClickListener(v -> {
+               new PlaceDialog(activity , place).show();
+          });
      }
 
      @Override

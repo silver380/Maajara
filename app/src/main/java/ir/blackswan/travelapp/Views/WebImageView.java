@@ -79,8 +79,9 @@ public class WebImageView extends FrameLayout {
     }
 
     private void setGradientVisible() {
-        if(loadingView.getVisibility() == VISIBLE)
-            return;
+        if(loadingView.getVisibility() == VISIBLE) {
+            gradient.setVisibility(GONE);
+        }else
         gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 

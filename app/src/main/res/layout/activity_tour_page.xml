@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/margin_medium"
     android:paddingTop="@dimen/padding_large"
-    tools:context=".TourPageDialog">
+    tools:context=".ui.TourPageDialog">
 
     <LinearLayout
         android:layout_width="match_parent"

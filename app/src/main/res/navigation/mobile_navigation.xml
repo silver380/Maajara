@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ir.blackswan.travelapp.ui.home.HomeFragment"
+        android:name="ir.blackswan.travelapp.ui.Fargments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="ir.blackswan.travelapp.ui.search.SearchFragment"
+        android:name="ir.blackswan.travelapp.ui.Fargments.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="ir.blackswan.travelapp.ui.add.AddFragment"
+        android:name="ir.blackswan.travelapp.ui.Fargments.AddFragment"
         android:label="@string/title_add"
         tools:layout="@layout/fragment_add" />
 
     <fragment
         android:id="@+id/navigation_archive"
-        android:name="ir.blackswan.travelapp.ui.archive.ArchiveFragment"
+        android:name="ir.blackswan.travelapp.ui.Fargments.ArchiveFragment"
         android:label="@string/title_archive"
         tools:layout="@layout/fragment_archive" />
 </navigation>

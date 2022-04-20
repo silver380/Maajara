@@ -9,11 +9,6 @@ public abstract class AuthActivity extends AppCompatActivity {
     private AuthDialog authDialog;
     private AuthController authController;
 
-    public AuthDialog getAuthDialog() {
-        if (authDialog == null)
-            authDialog = new AuthDialog(this , true);
-        return authDialog;
-    }
 
     public AuthController getAuthController() {
         if (authController == null)
@@ -21,9 +16,16 @@ public abstract class AuthActivity extends AppCompatActivity {
         return authController;
     }
 
-    public void auth(AuthController.OnAuthorization onAuthorization){
-        //if (!getAuthController().loadUser(this , onAuthorization)) getAuthDialog().show();
+    public void auth(AuthController.OnAuthorization onAuthorization) {
+        if (!getAuthController().loadUser(this, onAuthorization))
+            showAuthDialog(onAuthorization);
 
 
+    }
+
+    public void showAuthDialog(AuthController.OnAuthorization onAuthorization){
+        if (authDialog == null)
+            authDialog = new AuthDialog(this , onAuthorization ,true);
+        authDialog.show();
     }
 }

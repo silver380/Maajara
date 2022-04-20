@@ -15,16 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
-            android:name=".HomeTravelerFragment"
+            android:name=".ui.Fargments.HomeTravelerFragment"
             android:exported="false" />
         <activity
-            android:name=".TourPageDialog"
+            android:name=".ui.TourPageDialog"
             android:exported="false" />
         <activity
             android:name=".ui.AddTourActivity"
             android:exported="false" />
         <activity
-            android:name=".TourPageActivity"
+            android:name=".ui.TourPageActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

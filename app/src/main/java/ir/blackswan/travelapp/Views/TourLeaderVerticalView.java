@@ -13,7 +13,7 @@ import ir.blackswan.travelapp.R;
 
 public class TourLeaderVerticalView extends MaterialCardView {
 
-    WebImageView image;
+    ProfileImageView image;
     TextView name , bio , rate;
     ImageView telegram , whatsapp , mail , phone;
 
@@ -35,22 +35,12 @@ public class TourLeaderVerticalView extends MaterialCardView {
 
     public TourLeaderVerticalView setData(User user){
         name.setText(user.getNameAndLastname());
-        updateImageViewRadius();
         return this;
         //bio.setText(user.getBio());
         //rate.setText(user.getRate() + "");
         //image.setImagePath(user.getProfilePicturePath());
     }
 
-    private void updateImageViewRadius(){
-        image.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                image.setCornerRadius(image.getWidth()/2f);
-                image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
-    }
 
     private void init(){
         inflate(getContext() , R.layout.tl_vertical_view_holer , this);
@@ -60,8 +50,11 @@ public class TourLeaderVerticalView extends MaterialCardView {
         rate = findViewById(R.id.tv_tl_rate);
         telegram = findViewById(R.id.tel_iv);
         whatsapp = findViewById(R.id.w_app_iv);
-        updateImageViewRadius();
 
 
+    }
+
+    public ProfileImageView getProfileImageView() {
+        return image;
     }
 }

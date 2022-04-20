@@ -2,11 +2,14 @@ package ir.blackswan.travelapp.Controller;
 
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class TourController extends Controller {
 
-    Tour[] allTours;
-    Tour[] createdTours;
+    static Tour[] allTours;
+    static Tour[] createdTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
@@ -22,38 +25,39 @@ public class TourController extends Controller {
 
      */
 
-    public void getAllTour(OnResponse onResponse){
-        responseMessageDialog.show();
+    public void getAllTourFromServer(OnResponse onResponse) {
+        loadingDialog.show();
         api.getAllTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
-                allTours = gson.fromJson(responseBody , Tour[].class);
-                responseMessageDialog.dismiss();
-                onResponse.onSuccess(responseBody);
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback, String responseBody) {
+                allTours = gson.fromJson(responseBody, Tour[].class);
+                loadingDialog.dismiss();
+
+                onResponse.onSuccess(call, callback, responseBody);
             }
 
             @Override
-            public void onFailed(String message) {
-                responseMessageDialog.dismiss();
-                onResponse.onFailed(message);
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
+                loadingDialog.dismiss();
+                onResponse.onFailed(call, callback, message);
             }
         }));
     }
 
-    public void getCreatedTour(OnResponse onResponse){
-        responseMessageDialog.show();
+    public void getCreatedTourFromServer(OnResponse onResponse) {
+        loadingDialog.show();
         api.getCreatedTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(String responseBody) {
-                createdTours = gson.fromJson(responseBody , Tour[].class);
-                responseMessageDialog.dismiss();
-                onResponse.onSuccess(responseBody);
+            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback, String responseBody) {
+                createdTours = gson.fromJson(responseBody, Tour[].class);
+                loadingDialog.dismiss();
+                onResponse.onSuccess(call, callback, responseBody);
             }
 
             @Override
-            public void onFailed(String message) {
-                responseMessageDialog.dismiss();
-                onResponse.onFailed(message);
+            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
+                loadingDialog.dismiss();
+                onResponse.onFailed(call, callback, message);
             }
         }));
     }

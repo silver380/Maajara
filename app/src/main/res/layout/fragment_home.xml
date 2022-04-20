@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.home.HomeFragment"
+    tools:context=".ui.Fargments.HomeFragment"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackgroundDarker"
     >
 
     <FrameLayout
@@ -47,7 +48,7 @@
 
 
         <ir.blackswan.travelapp.Views.ProfileImageView
-            android:id="@+id/piv_home_profile"
+            android:id="@+id/profileImageView"
             android:layout_width="@dimen/profile_view_size"
             android:layout_height="@dimen/profile_view_size"
             android:layout_margin="@dimen/margin_small" />
@@ -67,6 +68,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_small"
-        android:background="@color/colorBackgroundDarker"
-        />
+        android:background="@color/colorBackgroundDarker" />
 </LinearLayout>

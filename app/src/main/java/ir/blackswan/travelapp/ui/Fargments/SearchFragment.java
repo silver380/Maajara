@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui.search;
+package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,18 +31,7 @@ public class SearchFragment extends Fragment {
 
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         TourController tourController = new TourController(authActivity);
-        tourController.getAllTour(new OnResponse() {
-            @Override
-            public void onSuccess(String responseBody) {
-                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), tourController.getAllTours());
-                binding.rclSearch.setAdapter(tourRecyclerAdapter);
-            }
-
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
+        tourController.getAllTourFromServer();
 
 
         return root;
