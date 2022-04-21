@@ -40,4 +40,4 @@ class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         exclude = ('pending_registered_tours', 'confirmed_registered_tours', 'is_admin',
-                   'is_tour_leader', 'last_login', 'password')
+                   'last_login', 'password')

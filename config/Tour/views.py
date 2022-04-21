@@ -29,10 +29,27 @@ class Register(GenericAPIView):
         if not (request.user and self.request.user.is_authenticated):
             return Response(status=401, data={"error": "Invalid user"})
 
-        if 'tour_id' not in request.data:
+        if 'id' not in request.data:
             return Response(status=400, data={"error": "Invalid tour"})
 
-        request.user.pending_registered_tours.add(Tour.objects.get(pk=request.data['tour_id']))
-        return Response(request.user.email)
+        if not Tour.objects.get(pk=request.data['id']):
+            return Response(status=400, data={"error": "Invalid tour"})
 
+        request.user.pending_registered_tours.add(Tour.objects.get(pk=request.data['id']))
+        return Response(status=200)
+# TODO: fix
+
+
+class MyConfirmedTours(ListAPIView):
+    serializer_class = TourSerializers
+
+    def get_queryset(self):
+        return self.request.user.confirmed_registered_tours
+
+
+class MyPendingTours(ListAPIView):
+    serializer_class = TourSerializers
+
+    def get_queryset(self):
+        return self.request.user.pending_registered_tours
 
