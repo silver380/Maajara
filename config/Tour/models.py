@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Tour(models.Model):
     tour_name = models.CharField(max_length=60, blank=False)
@@ -22,6 +23,6 @@ class Tour(models.Model):
     # Javad
     creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
 
-    #Reza
+    # Reza
     pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_users')
     confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_users')

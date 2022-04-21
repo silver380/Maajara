@@ -1,14 +1,7 @@
 from django.db import models
-import Tour.models
 
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
-
-# TODO: change database
-# TODO: add other fields
-# TODO: check if user can be added from view, login page
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
@@ -37,7 +30,6 @@ class MyUser(AbstractBaseUser):
     gender = models.TextField(choices=[('Female', 'F'), ('Male', 'M')], default='Male')
     biography = models.CharField(max_length=1003, default='')
     languages = models.CharField(max_length=500, default='')
-    # TODO: should be changed to array
 
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
@@ -45,8 +37,8 @@ class MyUser(AbstractBaseUser):
     is_tour_leader = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
-    pending_registered_tours = models.ManyToManyField(Tour.models.Tour, related_name='pending_registered_tours')
-    confirmed_registered_tours = models.ManyToManyField(Tour.models.Tour, related_name='confirmed_registered_tours')
+    pending_registered_tours = models.ManyToManyField('Tour.Tour', related_name='pending_registered_tours')
+    confirmed_registered_tours = models.ManyToManyField('Tour.Tour', related_name='confirmed_registered_tours')
 
     objects = MyUserManager()
 
@@ -72,17 +64,13 @@ class MyUser(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin
-

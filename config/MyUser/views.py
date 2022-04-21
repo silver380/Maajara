@@ -1,7 +1,7 @@
 from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from .serializer import UserSerializer, UserUpgradeSerializer, UserInfoSerializer
+from .serializers import UserSerializer, UserUpgradeSerializer, UserInfoSerializer
 from rest_framework import permissions
 
 
