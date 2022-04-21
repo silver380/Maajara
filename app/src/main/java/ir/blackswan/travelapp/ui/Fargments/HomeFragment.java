@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ir.blackswan.travelapp.Controller.AuthController;
-import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
@@ -19,6 +18,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 
 public class HomeFragment extends Fragment {
 
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         User user = AuthController.getUser();
         if (user != null && user.getFirst_name() != null) {
             binding.profileImageView.setUser(user);
-            tourController.getCreatedTourFromServer();
+            tourController.getCreatedTourFromServer(new OnResponseDialog(authActivity));
         }
     }
 

@@ -22,13 +22,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Stack;
 
 import ir.blackswan.travelapp.Controller.AuthController;
-import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 
 public class AuthDialog extends MyDialog {
@@ -49,9 +51,9 @@ public class AuthDialog extends MyDialog {
     }
 
     private AuthController authController;
-    private AuthController.OnAuthorization onAuthorization;
+    private OnAuthComplete onAuthComplete;
 
-    public AuthDialog(AuthActivity activity, AuthController.OnAuthorization onAuthorization, boolean forLogin) {
+    public AuthDialog(AuthActivity activity, OnAuthComplete onAuthorization, boolean forLogin) {
         binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
@@ -61,7 +63,7 @@ public class AuthDialog extends MyDialog {
 
         authController = new AuthController(activity);
 
-        this.onAuthorization = onAuthorization;
+        this.onAuthComplete = onAuthorization;
 
         mActivity = activity;
         errors = new String[]
@@ -134,16 +136,23 @@ public class AuthDialog extends MyDialog {
             startLoadingAnimation();
 
             if (checkInputs()) {
+                OnResponseDialog onResponseDialog = new OnResponseDialog(mActivity){
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        onAuthComplete.onCompleted();
+                    }
+                };
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
-                            , getEditableText(binding.etLoginPassword.getText()),);
+                            , getEditableText(binding.etLoginPassword.getText()), onResponseDialog);
 
                 } else if (step == STEP_REGISTER) {
                     String name = getEditableText(binding.etLoginName.getText());
                     String lastName = getEditableText(binding.etLoginLastName.getText());
                     String email = getEditableText(binding.etLoginEmail.getText());
                     authController.register(email,
-                            getEditableText(binding.etLoginPassword.getText()), name, lastName, );
+                            getEditableText(binding.etLoginPassword.getText()), name, lastName, onResponseDialog);
                     //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
@@ -279,6 +288,10 @@ public class AuthDialog extends MyDialog {
         }
 
         return success;
+    }
+
+    public interface OnAuthComplete{
+        void onCompleted();
     }
 
     public class ActiveCodeTimer {

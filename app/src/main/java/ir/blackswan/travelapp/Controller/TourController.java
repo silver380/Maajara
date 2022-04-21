@@ -4,7 +4,6 @@ import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 
 public class TourController extends Controller {
 
@@ -26,40 +25,39 @@ public class TourController extends Controller {
      */
 
     public void getAllTourFromServer(OnResponse onResponse) {
-        loadingDialog.show();
-        api.getAllTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
-            @Override
-            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback, String responseBody) {
-                allTours = gson.fromJson(responseBody, Tour[].class);
-                loadingDialog.dismiss();
 
-                onResponse.onSuccess(call, callback, responseBody);
+        api.getAllTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                allTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
-                loadingDialog.dismiss();
-                onResponse.onFailed(call, callback, message);
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                onResponse.onFailed(call, callback, response);
             }
-        }));
+        }).showLoadingDialog());
     }
 
     public void getCreatedTourFromServer(OnResponse onResponse) {
-        loadingDialog.show();
-        api.getCreatedTour(AuthController.getUserToken()).enqueue(new MyCallBack(authActivity, new OnResponse() {
+
+        api.getCreatedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback, String responseBody) {
-                createdTours = gson.fromJson(responseBody, Tour[].class);
-                loadingDialog.dismiss();
-                onResponse.onSuccess(call, callback, responseBody);
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                createdTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
-                loadingDialog.dismiss();
-                onResponse.onFailed(call, callback, message);
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                onResponse.onFailed(call, callback, response);
             }
-        }));
+        }).showLoadingDialog());
     }
 
     public Tour[] getAllTours() {

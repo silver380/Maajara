@@ -1,6 +1,6 @@
 package ir.blackswan.travelapp.Controller;
 
-import static ir.blackswan.travelapp.Controller.MyCallBack.TAG;
+import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Toast;
 
 public class ErrorHandler {
     public static final Gson gson = new Gson();

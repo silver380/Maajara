@@ -1,6 +1,6 @@
 package ir.blackswan.travelapp.Controller;
 
-import static ir.blackswan.travelapp.Controller.MyCallBack.TAG;
+import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,38 +12,40 @@ import java.util.Map;
 
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 
 public class AuthController extends Controller {
 
     private static User user;
+    private static String token;
 
-    public AuthController(AuthActivity authActivity){
+    public AuthController(AuthActivity authActivity) {
         super(authActivity);
     }
 
-    public static String getUserToken() {
+    public static String getTokenString() {
         //return "Token e798c795e07649dd603039f8b6c624479854fa34";
-        String token = user.getToken();
         if (token == null)
             return null;
-        return "Token " + user.getToken();
+        return "Token " + token;
+    }
+
+    private static void setToken(Context context ,String token){
+        AuthController.token = token;
+        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN, token);
     }
 
     public static User getUser() {
         return user;
     }
 
-    public boolean loadUser(Context context , OnAuthorization onAuthorization ) {
+    public boolean loadUser(Context context, OnResponse onResponse) {
         SharedPrefManager sh = new SharedPrefManager(context);
-        String token = sh.getString(SharedPrefManager.USER_TOKEN);
+        token = sh.getString(SharedPrefManager.USER_TOKEN);
         if (token != null) {
-            user = new User(context, token);
-            completeUserInfo(onAuthorization);
+            completeUserInfo(onResponse);
             return true;
         }
         return false;
@@ -57,69 +59,57 @@ public class AuthController extends Controller {
     }
 
     public void login(String email, String password, OnResponse onResponse) {
-        api.token(email, password).enqueue(new MyCallBack(authActivity, new OnResponse(){
+        api.token(email, password).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,  String responseBody) {
-                if (user == null)
-                    user = new User(authActivity, getTokenFromResponseBody(responseBody));
-                else
-                    user.setToken(authActivity, getTokenFromResponseBody(responseBody));
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                setToken(authActivity , getTokenFromResponseBody(response.getResponseBody()));
+                completeUserInfo(onResponse);
                 Log.d(TAG, "login: " + user);
-                onResponse.onSuccess(call ,callback,responseBody);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
-                onResponse.onFailed(call ,callback,message);
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
             }
         }));
 
     }
 
     public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
-        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallBack(authActivity, new OnResponse() {
+        api.registerUser(email, password, firstName, lastName).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
-                user = new User(firstName, lastName, email);
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 login(email, password, onResponse);
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback,String message) {
-
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
             }
         }));
     }
 
 
-
-    private void completeUserInfo(OnAuthorization onAuthorization) {
-        loadingDialog.show();
-        String tokenString = getUserToken();
+    private void completeUserInfo(OnResponse onResponse) {
+        
+        String tokenString = getTokenString();
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
-        api.info(tokenString).enqueue(new MyCallBack(authActivity, new OnResponse() {
+        api.info(tokenString).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
-            public void onSuccess(Call<ResponseBody> call, Callback<ResponseBody> callback,String responseBody) {
-                Log.d(TAG, "completeUserInfo: onSuccess: " + responseBody);
-                String token = user.getToken();
-                user = gson.fromJson(responseBody , User.class);
-                user.setToken(authActivity , token);
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                Log.d(TAG, "completeUserInfo: onSuccess: " + response);
+                user = gson.fromJson(response.getResponseBody(), User.class);
                 Log.d(TAG, "completeUserInfo: onSuccess user: " + user);
-                onAuthorization.onAuth(user);
-                loadingDialog.dismiss();
+                onResponse.onSuccess(call, callback, response);
+                
             }
 
             @Override
-            public void onFailed(Call<ResponseBody> call, Callback<ResponseBody> callback, String message) {
-                loadingDialog.dismiss(); //todo: try again for login
-                authActivity.showAuthDialog(onAuthorization);
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+                
             }
-        }));
+        }).showLoadingDialog());
     }
 
-
-
-    public interface OnAuthorization {
-        void onAuth(User user);
-    }
 }

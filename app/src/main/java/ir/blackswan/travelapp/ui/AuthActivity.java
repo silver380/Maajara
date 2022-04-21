@@ -3,7 +3,12 @@ package ir.blackswan.travelapp.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.ui.Dialogs.AuthDialog;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public abstract class AuthActivity extends AppCompatActivity {
     private AuthDialog authDialog;
@@ -16,16 +21,23 @@ public abstract class AuthActivity extends AppCompatActivity {
         return authController;
     }
 
-    public void auth(AuthController.OnAuthorization onAuthorization) {
-        if (!getAuthController().loadUser(this, onAuthorization))
-            showAuthDialog(onAuthorization);
+    public void auth(AuthDialog.OnAuthComplete onAuthComplete) {
+        if (!getAuthController().loadUser(this, new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                onAuthComplete.onCompleted();
+            }
+
+        }))
+            showAuthDialog(onAuthComplete);
 
 
     }
 
-    public void showAuthDialog(AuthController.OnAuthorization onAuthorization){
+    public void showAuthDialog(AuthDialog.OnAuthComplete onAuthComplete) {
         if (authDialog == null)
-            authDialog = new AuthDialog(this , onAuthorization ,true);
+            authDialog = new AuthDialog(this, onAuthComplete, true);
         authDialog.show();
     }
 }

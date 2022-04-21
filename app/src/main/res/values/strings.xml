@@ -22,5 +22,6 @@
     <string name="picture_not_found">تصویر پیدا نشد</string>
     <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را برسی کنید</string>
     <string name="error_email_exist">با این ایمیل قبلا ثبت‌نام شده است</string>
+    <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره سعی کنید</string>
 
 </resources>

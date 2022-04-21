@@ -8,17 +8,17 @@ import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 
+
 public abstract class Controller {
 
     AuthActivity authActivity;
     static Gson gson = new Gson();
     Api api;
-    LoadingDialog loadingDialog;
+
 
     public Controller(AuthActivity authActivity) {
         this.authActivity = authActivity;
         api = RetrofitClient.getApi();
-        loadingDialog = new LoadingDialog(authActivity);
     }
 
     public void showErrorWithToast(String message){

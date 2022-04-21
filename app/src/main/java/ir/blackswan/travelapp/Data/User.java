@@ -20,7 +20,6 @@ public class User {
     "telegram_id": "",
     "whatsapp_id": ""
      */
-    private String token;
     private int id;
     private boolean isBanned, isValidatedByAdmin;
     private String first_name, last_name, email;
@@ -37,22 +36,10 @@ public class User {
     private double rate;
 
     public User(String name, String lastName, String email) {
+
         this.first_name = name;
         this.last_name = lastName;
         this.email = email;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public User(Context context, String token) {
-        setToken(context, token);
-    }
-
-    public void setToken(Context context, String token) {
-        this.token = token;
-        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN, token);
     }
 
     public void setBanned(boolean banned) {
@@ -186,8 +173,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "token='" + token + '\'' +
-                ", id=" + id +
+                "id=" + id +
                 ", isBanned=" + isBanned +
                 ", isValidatedByAdmin=" + isValidatedByAdmin +
                 ", first_name='" + first_name + '\'' +

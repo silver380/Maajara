@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
+import ir.blackswan.travelapp.ui.Dialogs.AuthDialog;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 
 public class MainActivity extends AuthActivity {
@@ -34,9 +35,7 @@ public class MainActivity extends AuthActivity {
 
         HomeFragment homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-        auth(user -> {
-            homeFragment.setupWithUser();
-        });
+        auth(homeFragment::setupWithUser);
 
     }
 
