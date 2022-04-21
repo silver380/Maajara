@@ -1,6 +1,4 @@
 from django.db import models
-import MyUser.models
-
 
 # Create your models here.
 class Tour(models.Model):
@@ -23,3 +21,7 @@ class Tour(models.Model):
 
     # Javad
     creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
+
+    #Reza
+    pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_users')
+    confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_users')

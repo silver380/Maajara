@@ -1,6 +1,8 @@
+from telnetlib import STATUS
+from urllib import response
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.response import Response
-from .serializers import TourSerializers
+from .serializers import TourSerializers, UserInfoSerializer
 from rest_framework import permissions
 from .permissions import IsTourLeader
 from .models import Tour
@@ -34,8 +36,10 @@ class Register(GenericAPIView):
 
         if not Tour.objects.get(pk=request.data['id']):
             return Response(status=400, data={"error": "Invalid tour"})
-
-        request.user.pending_registered_tours.add(Tour.objects.get(pk=request.data['id']))
+       
+        registered_tour = Tour.objects.get(pk=request.data['id'])
+        request.user.pending_registered_tours.add(registered_tour)
+        registered_tour.pending_users.add(request.user)
         return Response(status=200)
 # TODO: fix
 
@@ -52,4 +56,22 @@ class MyPendingTours(ListAPIView):
 
     def get_queryset(self):
         return self.request.user.pending_registered_tours
+
+class MyPendingUsers(GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+    serializer_class = UserInfoSerializer
+    def get(self, request):
+        Return_Data = {}
+        for tour in Tour.objects.filter(creator=request.user):
+            Return_pending_users = []
+            for user in tour.pending_users.all():
+                print(user)
+                serializer = UserInfoSerializer(data=user)
+                if serializer.is_valid():
+                    Return_pending_users.append(serializer.data)
+                # else:
+                #     return Response(status=400, data={"Invalid User"})
+            Return_Data[tour.id] = Return_pending_users
+        return Response(Return_Data)
+            
 
