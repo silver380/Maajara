@@ -27,7 +27,6 @@ public class HomeTravelerFragment extends Fragment {
         tourController = new TourController(authActivity);
 
 
-
         return root;
     }
 

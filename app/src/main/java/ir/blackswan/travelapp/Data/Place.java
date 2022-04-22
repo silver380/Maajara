@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
 public class Place {
+    private int place_id;
     private String name ,cityName , details;
     private Path picturePath;
     private Tag tag;

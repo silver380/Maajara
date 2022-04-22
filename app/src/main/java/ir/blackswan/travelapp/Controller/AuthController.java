@@ -20,6 +20,7 @@ public class AuthController extends Controller {
 
     private static User user;
     private static String token;
+    private static boolean loadingUser = false;
 
     public AuthController(AuthActivity authActivity) {
         super(authActivity);
@@ -91,7 +92,7 @@ public class AuthController extends Controller {
 
 
     private void completeUserInfo(OnResponse onResponse) {
-        
+        loadingUser = true;
         String tokenString = getTokenString();
         Log.d(TAG, "completeUserInfo:TOKEN: " + tokenString);
         api.info(tokenString).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -100,6 +101,7 @@ public class AuthController extends Controller {
                 Log.d(TAG, "completeUserInfo: onSuccess: " + response);
                 user = gson.fromJson(response.getResponseBody(), User.class);
                 Log.d(TAG, "completeUserInfo: onSuccess user: " + user);
+                loadingUser = false;
                 onResponse.onSuccess(call, callback, response);
                 
             }
@@ -112,4 +114,7 @@ public class AuthController extends Controller {
         }).showLoadingDialog());
     }
 
+    public static boolean isLoadingUser() {
+        return loadingUser;
+    }
 }

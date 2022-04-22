@@ -11,12 +11,13 @@ import retrofit2.http.POST;
 
 public interface Api {
 
+    @GET("/place/all/")
+    Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
+
     @POST("/tour/")
     @FormUrlEncoded
     Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test
 
-    @GET("/place/all/")
-    Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
     @GET("/tour/all/")
     Call<ResponseBody> getAllTour(@Header("Authorization") String token);

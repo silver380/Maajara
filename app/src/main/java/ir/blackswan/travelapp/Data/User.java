@@ -1,10 +1,6 @@
 package ir.blackswan.travelapp.Data;
 
-import android.content.Context;
-
 import java.util.List;
-
-import ir.blackswan.travelapp.Utils.SharedPrefManager;
 
 public class User {
     /*
@@ -20,10 +16,10 @@ public class User {
     "telegram_id": "",
     "whatsapp_id": ""
      */
-    private int id;
+    private int user_id;
     private boolean isBanned, isValidatedByAdmin;
     private String first_name, last_name, email;
-    private boolean isTourGuide;
+    private boolean is_tour_leader;
     private Path profilePicturePath;
     private int ticket;
     private String date_of_birth;
@@ -50,8 +46,8 @@ public class User {
         isValidatedByAdmin = validatedByAdmin;
     }
 
-    public void setTourGuide(boolean tourGuide) {
-        isTourGuide = tourGuide;
+    public void setIs_tour_leader(boolean is_tour_leader) {
+        this.is_tour_leader = is_tour_leader;
     }
 
     public void setProfilePicturePath(Path profilePicturePath) {
@@ -104,8 +100,8 @@ public class User {
         return isValidatedByAdmin;
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
     public String getLast_name() {
@@ -116,8 +112,8 @@ public class User {
         return email;
     }
 
-    public boolean isTourGuide() {
-        return isTourGuide;
+    public boolean isIs_tour_leader() {
+        return is_tour_leader;
     }
 
     public Path getProfilePicturePath() {
@@ -173,13 +169,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "user_id=" + user_id +
                 ", isBanned=" + isBanned +
                 ", isValidatedByAdmin=" + isValidatedByAdmin +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", isTourGuide=" + isTourGuide +
+                ", is_tour_leader=" + is_tour_leader +
                 ", profilePicturePath=" + profilePicturePath +
                 ", ticket=" + ticket +
                 ", date_of_birth='" + date_of_birth + '\'' +

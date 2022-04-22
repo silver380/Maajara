@@ -37,17 +37,23 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         authActivity = ((AuthActivity) getActivity());
 
-        binding.toggleHome.selectButton(R.id.btn_home_passenger);
+        binding.toggleHome.selectButton(R.id.btn_home_guide);
 
         binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
         tourController = new TourController(authActivity);
-        setupWithUser();
-        setCreatedToursRecycler();
+        reload();
 
 
         return root;
+    }
+
+    public void reload() {
+        if (!AuthController.isLoadingUser()) {
+            setupWithUser();
+            setCreatedToursRecycler();
+        }
     }
 
     private void setRecyclers() {
@@ -75,11 +81,10 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void setupWithUser() {
+    private void setupWithUser() {
         User user = AuthController.getUser();
         if (user != null && user.getFirst_name() != null) {
             binding.profileImageView.setUser(user);
-            tourController.getCreatedTourFromServer(new OnResponseDialog(authActivity));
         }
     }
 

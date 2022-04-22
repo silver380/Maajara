@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -12,17 +13,20 @@ import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.ActivityAddTourBinding;
+import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
 
 public class AddTourActivity extends ToolbarActivity {
     ActivityAddTourBinding binding;
     GroupButtons groupPlace, groupFood, groupVehicle;
     MaterialPersianDateChooser startDate, finalDate;
+    SelectPlacesDialog selectPlacesDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         binding = ActivityAddTourBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
+        selectPlacesDialog = new SelectPlacesDialog(this);
         setupGroupButtons();
         setupDateChooses();
         setListeners();
@@ -59,7 +63,9 @@ public class AddTourActivity extends ToolbarActivity {
     }
 
     private void setListeners() {
-
+        binding.ivAddTourAddPlace.setOnClickListener(v -> {
+            selectPlacesDialog.show();
+        });
     }
 
 }

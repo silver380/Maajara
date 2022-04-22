@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
+import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -30,6 +32,7 @@ public class SearchFragment extends Fragment {
     private AuthActivity authActivity;
     private boolean toggleTours = true;
     private TourController tourController;
+    private PlaceController placeController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class SearchFragment extends Fragment {
             return Unit.INSTANCE;
         });
         tourController = new TourController(authActivity);
+        placeController = new PlaceController(authActivity);
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         reload();
 
@@ -73,12 +77,18 @@ public class SearchFragment extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
 
-                binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, tourController.getAllTours()));
+                binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, TourController.getAllTours()));
             }
         });
     }
 
     private void reloadPlaces() {
-
+        placeController.getAllPlacesFromServer(new OnResponseDialog(authActivity){
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+              //  binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity , PlaceController.getAllPlaces()));
+            }
+        });
     }
 }

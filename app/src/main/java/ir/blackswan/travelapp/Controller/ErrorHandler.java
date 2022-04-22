@@ -44,7 +44,8 @@ public class ErrorHandler {
                 return context.getString(R.string.error_email_exist);
             case "Unable to log in with provided credentials.":
                 return "ایمیل یا رمز عبور نادرست است";
-
+            case "Invalid token.":
+                return "برای ادامه باید دوباره وارد برنامه شوید";
 
         }
         return msg;

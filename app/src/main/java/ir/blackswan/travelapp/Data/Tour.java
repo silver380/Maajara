@@ -18,7 +18,7 @@ public class Tour implements Serializable {
         "has_transportation": "MB",
         "creator": 3
      */
-    private int id;
+    private int tour_id;
     private User creatorT;
     private String tour_name;
     private int tour_capacity;
@@ -48,8 +48,8 @@ public class Tour implements Serializable {
         this.requestedUsers = requestedUsers;
     }
 
-    public int getId() {
-        return id;
+    public int getTour_id() {
+        return tour_id;
     }
 
     public String getStart_date() {
@@ -106,7 +106,7 @@ public class Tour implements Serializable {
     @Override
     public String toString() {
         return "Tour{" +
-                "id=" + id +
+                "id=" + tour_id +
                 ", creatorT=" + creatorT +
                 ", tour_name='" + tour_name + '\'' +
                 ", tour_capacity=" + tour_capacity +

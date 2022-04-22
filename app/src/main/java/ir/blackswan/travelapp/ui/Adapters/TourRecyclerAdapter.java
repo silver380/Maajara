@@ -57,6 +57,8 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
 
     @Override
     public int getItemCount() {
+        if (tours == null)
+            return 0;
         return tours.length;
     }
 

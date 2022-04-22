@@ -60,8 +60,7 @@ public class TourPageActivity extends AuthActivity {
 
         binding.llTourPageLeader.addView(tourLeaderView);
 
-        binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this ,
-                FakeData.getFakePlaces()));
+        //binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this , FakeData.getFakePlaces())); //todo: getTourPlaces
         binding.rycTourPagePlaces.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
     }
 

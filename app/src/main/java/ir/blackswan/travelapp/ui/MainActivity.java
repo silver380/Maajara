@@ -35,7 +35,7 @@ public class MainActivity extends AuthActivity {
 
         HomeFragment homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-        auth(homeFragment::setupWithUser);
+        auth(homeFragment::reload);
 
     }
 

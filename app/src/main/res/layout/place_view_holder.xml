@@ -9,6 +9,16 @@
     android:layout_marginVertical="@dimen/margin_small"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/place_vh_select"
+        android:layout_width="@dimen/place_image_w"
+        android:layout_height="@dimen/place_image_h"
+        android:translationZ="1dp"
+        android:background="?attr/colorPrimary"
+        android:alpha=".3"
+        android:visibility="gone"
+        />
+
     <ir.blackswan.travelapp.Views.WebImageView
         android:id="@+id/place_vh_iv"
         android:layout_width="@dimen/place_image_w"
@@ -20,6 +30,7 @@
     <TextView
         android:id="@+id/place_vh_tv"
         style="@style/textRegular"
+        android:translationZ="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"

@@ -39,14 +39,15 @@ public class MyCallback implements Callback<ResponseBody> {
     @Override
     public void onResponse(@NonNull Call<ResponseBody> call, Response<ResponseBody> response) {
         Log.d(TAG, "onResponse: " + "ResponseMessage:" +
-                response.message() + "\nResponseCode" + response.code() + " body: " + response.body()
-                + "errorBody: " + response.errorBody());
+                response.message() + "\nResponseCode" + response.code() );
         stopLoading();
 
         if (response.code() / 100 == 2) {
             try {
+                String responseBody = response.body().string();
+                Log.d(TAG, "onResponse: BODY: " + responseBody );
                 onResponse.onSuccess(call, this, new MyResponse(response.code(),
-                        response.body().string(), true));
+                        responseBody, true));
             } catch (IOException e) {
                 e.printStackTrace();
             }

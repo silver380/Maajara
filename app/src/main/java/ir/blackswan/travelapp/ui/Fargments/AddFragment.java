@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import ir.blackswan.travelapp.databinding.FragmentAddBinding;
+import ir.blackswan.travelapp.ui.AddTourActivity;
 
 
 public class AddFragment extends Fragment {
@@ -24,7 +26,9 @@ public class AddFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textAdd;
-        textView.setText("add");
+        textView.setText("comingSoon");
+
+        startActivity(new Intent(getActivity() , AddTourActivity.class));
         return root;
     }
 
