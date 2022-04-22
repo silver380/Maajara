@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
+import ir.blackswan.travelapp.databinding.FragmentHomeTravelerBinding;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -21,7 +23,7 @@ import retrofit2.Call;
 
 public class HomeTravelerFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentHomeTravelerBinding binding;
     private AuthActivity authActivity;
     private TourController tourController;
     private Tour[] pendingTours;
@@ -29,19 +31,21 @@ public class HomeTravelerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeTravelerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         authActivity = ((AuthActivity) getActivity());
+
+        binding.rclPendingTour.setLayoutManager(new LinearLayoutManager(authActivity,
+                LinearLayoutManager.HORIZONTAL, false));
         tourController = new TourController(authActivity);
-
-
+        setPendingToursRecycler();
 
         return root;
     }
 
     private void setRecyclers() {
         TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), pendingTours);
-        binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+        binding.rclPendingTour.setAdapter(tourRecyclerAdapter);
     }
 
     private void setPendingToursRecycler() {
