@@ -33,7 +33,7 @@ public class TourController extends Controller {
         api.addTour(AuthController.getTokenString(), tour.getTour_name(), tour.getTour_capacity(),
                 tour.getResidence(), tour.getDestination(), tour.getStart_date(), tour.getEnd_date(),
                 tour.isHas_breakfast(), tour.isHas_lunch(), tour.isHas_dinner(), tour.getHas_transportation()
-                , tour.getPlaces().toArray(new Place[0]))
+                , tour.getPlaces())
                 .enqueue(new MyCallback(authActivity, onResponse));
 
     }

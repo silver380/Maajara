@@ -112,7 +112,7 @@ public class User {
         return email;
     }
 
-    public boolean isIs_tour_leader() {
+    public boolean is_tour_leader() {
         return is_tour_leader;
     }
 

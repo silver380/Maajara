@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
@@ -21,7 +22,7 @@ import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-public class HomeTravelerFragment extends Fragment {
+public class HomeFragmentPassenger extends Fragment {
 
     private FragmentHomeTravelerBinding binding;
     private AuthActivity authActivity;
@@ -29,16 +30,21 @@ public class HomeTravelerFragment extends Fragment {
     private Tour[] pendingTours;
     private Tour[] confirmedTours;
 
+
+    public HomeFragmentPassenger(AuthActivity authActivity){
+        this.authActivity = authActivity;
+        tourController = new TourController(authActivity);
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeTravelerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        authActivity = ((AuthActivity) getActivity());
+
 
         binding.rclPendingTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
-        tourController = new TourController(authActivity);
+
         setPendingToursRecycler();
         binding.rclConfirmedTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
@@ -47,6 +53,13 @@ public class HomeTravelerFragment extends Fragment {
         return root;
     }
 
+
+    public void reload() {
+        if (!AuthController.isLoadingUser()) {
+            setConfirmedToursRecycler();
+            setPendingToursRecycler();
+        }
+    }
 
     private void setPendingToursRecycler() {
 
