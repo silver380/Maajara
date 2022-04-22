@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Tour
 from django.contrib.auth import get_user_model
+from Place.serializers import PlaceSerializers
 
 
 class TourCreatSerializer(serializers.ModelSerializer):
@@ -39,6 +40,7 @@ class CreatorSerializer(serializers.ModelSerializer):
 
 class TourSerializers(serializers.ModelSerializer):
     creator = CreatorSerializer(read_only=True)
+    places = PlaceSerializers
 
     class Meta:
         model = Tour

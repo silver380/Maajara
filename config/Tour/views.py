@@ -97,7 +97,10 @@ class AddTour(GenericAPIView):
 
         serializer = TourCreatSerializer(data=request.data)
         if serializer.is_valid():
-            Tour.objects.create(**serializer.data, creator_id=request.user.user_id)
+            new_tour = Tour.objects.create(**serializer.data, creator_id=request.user.user_id)
+            for id in request.data['places']:
+                #place = Place.objects.get(pk=id)
+                new_tour.places.add(id)
             return Response(status=200, data={"Tour added successfully."})
         else:
             return Response(status=400, data={"Unable to add tour."})
