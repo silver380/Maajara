@@ -7,6 +7,7 @@ from rest_framework import permissions
 from .permissions import IsTourLeader
 from .models import Tour
 from django.core import serializers
+from django.contrib.auth import get_user_model
 
 from django.forms.models import model_to_dict
 
@@ -86,6 +87,36 @@ class MyConfirmedUsers(GenericAPIView):
             return_data[tour.tour_id] = serializer.data
         return Response(return_data)
 
+class AcceptUser(GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+    serializer_class = UserInfoSerializer
+
+    def post(self, request):
+        if not (request.user and self.request.user.is_authenticated):
+            return Response(status=401, data={"error": "Invalid user"})
+
+        if 'tour_id' not in request.data or not Tour.objects.filter(pk=request.data['tour_id']).exists():
+            return Response(status=400, data={"error": "Invalid tour"})
+         
+        if 'user_id' not in request.data or not get_user_model().objects.filter(pk=request.data['user_id']).exists():
+            return Response(status=400, data={"error": "Invalid user id"})
+
+        if get_user_model().objects.get(pk=request.data['user_id']) not in Tour.objects.get(pk=request.data['tour_id']).pending_users:
+            return Response(status=400, data={"error": "Invalid pending user"})
+
+        if Tour.objects.get(pk=request.data['tour_id']) not in get_user_model().objects.get(pk=request.data['user_id']).pending_registered_tours:
+            return Response(status=400, data={"error": "Invalid pending tour"})
+        
+        registerd_user = get_user_model().objects.get(pk=request.data['user_id'])
+        registered_tour = Tour.objects.get(pk=request.data['tour_id'])
+        registered_tour.confirmed_user.add(registerd_user)
+        registered_tour.pending_users.pop(registerd_user)
+        registerd_user.pending_registered_tours.pop(registered_tour)
+        registerd_user.confirmed_registered_tours.add(registered_tour)
+        return Response(status=200)
+
+
+
 
 class AddTour(GenericAPIView):
     serializer_class = TourSerializers
@@ -104,3 +135,4 @@ class AddTour(GenericAPIView):
             return Response(status=200, data={"Tour added successfully."})
         else:
             return Response(status=400, data={"Unable to add tour."})
+
