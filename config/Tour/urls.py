@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours,\
+from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
     MyPendingUsers, MyConfirmedUsers, AddTour
 
 app_name = 'Tour'
@@ -11,5 +11,5 @@ urlpatterns = [
     path('pendingtours/', MyPendingTours.as_view(), name="created_tours"),
     path('pendingusers/', MyPendingUsers.as_view(), name="created_tours"),
     path('confirmedusers/', MyConfirmedUsers.as_view(), name="created_tours"),
-    path('addtour/', AddTour.as_view(), name = "add_tour"),
+    path('addtour/', AddTour.as_view(), name="add_tour"),
 ]
