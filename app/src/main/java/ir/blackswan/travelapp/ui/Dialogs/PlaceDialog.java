@@ -16,7 +16,7 @@ public class PlaceDialog extends MyDialog {
         //binding.ivPlaceImage.setImagePath(place.getPicturePath());
         binding.ivPlaceImage.setImagePath(FakeData.getRandomImagePath());
         binding.tvPlaceName.setText(place.getName());
-        binding.tvPlaceCity.setText(place.getCityName());
-        binding.tvPlaceText.setText(place.getDetails());
+        binding.tvPlaceCity.setText(place.getCity());
+        binding.tvPlaceText.setText(place.getDescription());
     }
 }

@@ -25,7 +25,7 @@ public class Tour implements Serializable {
     private int registerCount;
     private String destination;
     private String start_date, end_date;
-    private List<Place> places;
+    private Place[] places;
     private long price;
     private String residence ;
     private boolean has_breakfast , has_lunch ,has_dinner ;
@@ -33,7 +33,7 @@ public class Tour implements Serializable {
     private List<User> requestedUsers;
     private List<User> registeredUses;
 
-    public Tour(User creator, String tourName, int capacity, String city, String startDate, String finalDate, List<Place> places, long price) {
+    public Tour(User creator, String tourName, int capacity, String city, String startDate, String finalDate, Place[] places, long price) {
         this.creatorT = creator;
         this.tour_name = tourName;
         this.tour_capacity = capacity;
@@ -85,7 +85,7 @@ public class Tour implements Serializable {
     }
 
 
-    public List<Place> getPlaces() {
+    public Place[] getPlaces() {
         return places;
     }
 

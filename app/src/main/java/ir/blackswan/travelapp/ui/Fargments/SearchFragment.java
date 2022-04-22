@@ -20,8 +20,6 @@ import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButton;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -63,7 +61,7 @@ public class SearchFragment extends Fragment {
         binding = null;
     }
 
-    private void reload(){
+    private void reload() {
         if (toggleTours)
             reloadTours();
         else
@@ -83,11 +81,11 @@ public class SearchFragment extends Fragment {
     }
 
     private void reloadPlaces() {
-        placeController.getAllPlacesFromServer(new OnResponseDialog(authActivity){
+        placeController.getAllPlacesFromServer(new OnResponseDialog(authActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-              //  binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity , PlaceController.getAllPlaces()));
+                binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity, PlaceController.getAllPlaces()));
             }
         });
     }

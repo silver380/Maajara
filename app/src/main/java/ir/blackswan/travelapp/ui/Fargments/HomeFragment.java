@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -44,7 +48,6 @@ public class HomeFragment extends Fragment {
 
         tourController = new TourController(authActivity);
         reload();
-
 
         return root;
     }
