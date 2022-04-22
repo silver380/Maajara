@@ -10,6 +10,7 @@ public class TourController extends Controller {
     static Tour[] allTours;
     static Tour[] createdTours;
     static Tour[] pendingTours;
+    static Tour[] confirmedTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
@@ -77,6 +78,21 @@ public class TourController extends Controller {
         }).showLoadingDialog());
     }
 
+    public void getConfirmedTourFromServer(OnResponse onResponse) {
+        api.getConfirmedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                confirmedTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
+    }
+
     public Tour[] getAllTours() {
         return allTours;
     }
@@ -86,5 +102,7 @@ public class TourController extends Controller {
     }
 
     public Tour[] getPendingTours() { return pendingTours; }
+
+    public Tour[] getConfirmedTours() { return confirmedTours; }
 }
 

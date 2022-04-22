@@ -11,7 +11,10 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    @GET("/tour/pendingtours")
+    @GET("/tour/confirmedtours/")
+    Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);
+
+    @GET("/tour/pendingtours/")
     Call<ResponseBody> getPendingTour(@Header("Authorization") String token);
 
     @POST("/tour/")

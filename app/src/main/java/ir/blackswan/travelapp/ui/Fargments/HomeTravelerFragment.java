@@ -27,6 +27,7 @@ public class HomeTravelerFragment extends Fragment {
     private AuthActivity authActivity;
     private TourController tourController;
     private Tour[] pendingTours;
+    private Tour[] confirmedTours;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +40,9 @@ public class HomeTravelerFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false));
         tourController = new TourController(authActivity);
         setPendingToursRecycler();
+        binding.rclConfirmedTour.setLayoutManager(new LinearLayoutManager(authActivity,
+                LinearLayoutManager.HORIZONTAL, false));
+        setConfirmedToursRecycler();
 
         return root;
     }
@@ -46,6 +50,9 @@ public class HomeTravelerFragment extends Fragment {
     private void setRecyclers() {
         TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), pendingTours);
         binding.rclPendingTour.setAdapter(tourRecyclerAdapter);
+
+        TourRecyclerAdapter tourRecyclerAdapter2 = new TourRecyclerAdapter(getActivity(), confirmedTours);
+        binding.rclConfirmedTour.setAdapter(tourRecyclerAdapter2);
     }
 
     private void setPendingToursRecycler() {
@@ -60,5 +67,17 @@ public class HomeTravelerFragment extends Fragment {
         });
     }
 
+    private void setConfirmedToursRecycler() {
+
+        tourController.getConfirmedTourFromServer(new OnResponseDialog(authActivity){
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                confirmedTours = tourController.getConfirmedTours();
+                setRecyclers();
+            }
+        });
+
+    }
 
 }
