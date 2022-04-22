@@ -6,6 +6,9 @@ from .serializers import TourCreatSerializer, UserInfoSerializer, TourSerializer
 from rest_framework import permissions
 from .permissions import IsTourLeader
 from .models import Tour
+from django.core import serializers
+
+from django.forms.models import model_to_dict
 
 
 # Create your views here.
@@ -34,13 +37,15 @@ class Register(GenericAPIView):
         if 'id' not in request.data:
             return Response(status=400, data={"error": "Invalid tour"})
 
-        if not Tour.objects.get(pk=request.data['id']):
+        if not Tour.objects.filter(pk=request.data['id']).exists():
             return Response(status=400, data={"error": "Invalid tour"})
-       
+
         registered_tour = Tour.objects.get(pk=request.data['id'])
         request.user.pending_registered_tours.add(registered_tour)
         registered_tour.pending_users.add(request.user)
         return Response(status=200)
+
+
 # TODO: fix
 
 
@@ -57,22 +62,31 @@ class MyPendingTours(ListAPIView):
     def get_queryset(self):
         return self.request.user.pending_registered_tours
 
+
 class MyPendingUsers(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
     serializer_class = UserInfoSerializer
+
     def get(self, request):
-        Return_Data = {}
+        return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
-            Return_pending_users = []
-            for user in tour.pending_users.all():
-                print(user)
-                serializer = UserInfoSerializer(data=user)
-                if serializer.is_valid():
-                    Return_pending_users.append(serializer.data)
-                # else:
-                #     return Response(status=400, data={"Invalid User"})
-            Return_Data[tour.id] = Return_pending_users
-        return Response(Return_Data)
+            serializer = UserInfoSerializer(tour.pending_users.all(), many=True)
+            return_data[tour.id] = serializer.data
+        return Response(return_data)
+
+
+class MyConfirmedUsers(GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+    serializer_class = UserInfoSerializer
+
+    def get(self, request):
+        return_data = {}
+        for tour in Tour.objects.filter(creator=request.user):
+            serializer = UserInfoSerializer(tour.confirmed_users.all(), many=True)
+            return_data[tour.id] = serializer.data
+        return Response(return_data)
+
+
 class AddTour(GenericAPIView):
     serializer_class = TourSerializers
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
@@ -80,12 +94,12 @@ class AddTour(GenericAPIView):
     def post(self, request):
         if not (request.user and self.request.user.is_authenticated and self.request.user.is_tour_leader):
             return Response(status=401, data={"error": "Invalid user"})
-            
+
         serializer = TourCreatSerializer(data=request.data)
         if serializer.is_valid():
             Tour.objects.create(**serializer.data, creator_id = request.user.id)
             return Response(status=200, data={"Tour added successfully."})
         else:
             return Response(status=400, data={"Unable to add tour."})
-     
+
 
