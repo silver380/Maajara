@@ -23,6 +23,7 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    user_id = models.AutoField(primary_key=True)
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=50, default='')
     last_name = models.CharField(max_length=50, default='')

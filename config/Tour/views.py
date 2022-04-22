@@ -34,13 +34,13 @@ class Register(GenericAPIView):
         if not (request.user and self.request.user.is_authenticated):
             return Response(status=401, data={"error": "Invalid user"})
 
-        if 'id' not in request.data:
+        if 'tour_id' not in request.data:
             return Response(status=400, data={"error": "Invalid tour"})
 
-        if not Tour.objects.filter(pk=request.data['id']).exists():
+        if not Tour.objects.filter(pk=request.data['tour_id']).exists():
             return Response(status=400, data={"error": "Invalid tour"})
 
-        registered_tour = Tour.objects.get(pk=request.data['id'])
+        registered_tour = Tour.objects.get(pk=request.data['tour_id'])
         request.user.pending_registered_tours.add(registered_tour)
         registered_tour.pending_users.add(request.user)
         return Response(status=200)
@@ -71,7 +71,7 @@ class MyPendingUsers(GenericAPIView):
         return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
             serializer = UserInfoSerializer(tour.pending_users.all(), many=True)
-            return_data[tour.id] = serializer.data
+            return_data[tour.tour_id] = serializer.data
         return Response(return_data)
 
 
@@ -83,7 +83,7 @@ class MyConfirmedUsers(GenericAPIView):
         return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
             serializer = UserInfoSerializer(tour.confirmed_users.all(), many=True)
-            return_data[tour.id] = serializer.data
+            return_data[tour.tour_id] = serializer.data
         return Response(return_data)
 
 
@@ -97,7 +97,7 @@ class AddTour(GenericAPIView):
 
         serializer = TourCreatSerializer(data=request.data)
         if serializer.is_valid():
-            Tour.objects.create(**serializer.data, creator_id=request.user.id)
+            Tour.objects.create(**serializer.data, creator_id=request.user.user_id)
             return Response(status=200, data={"Tour added successfully."})
         else:
             return Response(status=400, data={"Unable to add tour."})
