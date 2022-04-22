@@ -11,6 +11,9 @@ import retrofit2.http.POST;
 
 public interface Api {
 
+    @GET("/tour/pendingtours")
+    Call<ResponseBody> getPendingTour(@Header("Authorization") String token);
+
     @POST("/tour/")
     @FormUrlEncoded
     Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test
