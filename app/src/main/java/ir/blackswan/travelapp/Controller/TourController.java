@@ -28,6 +28,14 @@ public class TourController extends Controller {
 
      */
 
+    public void addTourToServer(Tour tour, OnResponse onResponse){
+        api.addTour(AuthController.getTokenString(), tour.getTour_name(), tour.getTour_capacity(),
+                tour.getResidence(), tour.getDestination(), tour.getStart_date(), tour.getEnd_date(),
+                tour.isHas_breakfast(), tour.isHas_lunch(), tour.isHas_dinner(), tour.getHas_transportation())
+                .enqueue(new MyCallback(authActivity, onResponse));
+
+    }
+
     public void getAllTourFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getAllTourFromServer: ");
         api.getAllTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -63,7 +71,6 @@ public class TourController extends Controller {
             }
         }).showLoadingDialog());
     }
-
 
     public void getPendingTourFromServer(OnResponse onResponse) {
 

@@ -14,6 +14,21 @@ public interface Api {
     @GET("/place/all/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
+    @POST("/tour/addtour/")
+    @FormUrlEncoded
+    Call<ResponseBody> addTour(@Header("Authorization") String token,
+                               @Field("tour_name") String tour_name,
+                               @Field("tour_capacity") int tour_capacity,
+                               @Field("destination") String destination,
+                               @Field("residence") String residence,
+                               @Field("start_date") String start_date,
+                               @Field("end_date") String end_date,
+                               @Field("has_breakfast") boolean has_breakfast,
+                               @Field("has_lunch") boolean has_lunch,
+                               @Field("has_dinner") boolean has_dinner,
+                               @Field("has_transportation") String has_transportation
+    );
+
     @GET("/tour/confirmedtours/")
     Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);
 
