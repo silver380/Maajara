@@ -18,7 +18,7 @@ class Tour(models.Model):
     has_dinner = models.BooleanField(default=False)
     has_transportation = models.TextField(choices=[('Car', 'C'),
                                                    ('Bus', 'B'), ('Minibus', 'MB'),
-                                                   ('Van', 'V'), ('None', 'N')],اف
+                                                   ('Van', 'V'), ('None', 'N')],
                                           default='N')
     places = models.ManyToManyField('Place.Place',related_name ='places', blank = True, null = True )
     # Javad
