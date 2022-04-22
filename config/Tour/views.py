@@ -1,5 +1,6 @@
 from telnetlib import STATUS
 from urllib import response
+
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.response import Response
 from .serializers import TourCreatSerializer, UserInfoSerializer, TourSerializers
@@ -92,6 +93,7 @@ class AcceptUser(GenericAPIView):
     serializer_class = UserInfoSerializer
 
     def post(self, request):
+        
         if not (request.user and self.request.user.is_authenticated):
             return Response(status=401, data={"error": "Invalid user"})
 
@@ -101,17 +103,22 @@ class AcceptUser(GenericAPIView):
         if 'user_id' not in request.data or not get_user_model().objects.filter(pk=request.data['user_id']).exists():
             return Response(status=400, data={"error": "Invalid user id"})
 
-        if get_user_model().objects.get(pk=request.data['user_id']) not in Tour.objects.get(pk=request.data['tour_id']).pending_users:
+        registerd_user = get_user_model().objects.get(pk=request.data['user_id'])
+        registered_tour = Tour.objects.get(pk=request.data['tour_id'])    
+
+        if registerd_user not in registered_tour.pending_users.all():
             return Response(status=400, data={"error": "Invalid pending user"})
 
-        if Tour.objects.get(pk=request.data['tour_id']) not in get_user_model().objects.get(pk=request.data['user_id']).pending_registered_tours:
+        if registered_tour not in registerd_user.pending_registered_tours.all():
             return Response(status=400, data={"error": "Invalid pending tour"})
+
+        if registered_tour.creator != request.user:
+            return Response(status=401, data={"error": "invalid tour leader"})
         
-        registerd_user = get_user_model().objects.get(pk=request.data['user_id'])
-        registered_tour = Tour.objects.get(pk=request.data['tour_id'])
-        registered_tour.confirmed_user.add(registerd_user)
-        registered_tour.pending_users.pop(registerd_user)
-        registerd_user.pending_registered_tours.pop(registered_tour)
+        
+        registered_tour.confirmed_users.add(registerd_user)
+        registered_tour.pending_users.remove(registerd_user)
+        registerd_user.pending_registered_tours.remove(registered_tour)
         registerd_user.confirmed_registered_tours.add(registered_tour)
         return Response(status=200)
 
