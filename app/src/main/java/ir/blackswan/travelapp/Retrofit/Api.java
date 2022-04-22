@@ -14,6 +14,12 @@ public interface Api {
     @GET("/place/all/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
+    @GET("/tour/confirmedtours/")
+    Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);
+
+    @GET("/tour/pendingtours/")
+    Call<ResponseBody> getPendingTour(@Header("Authorization") String token);
+
     @POST("/tour/")
     @FormUrlEncoded
     Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test

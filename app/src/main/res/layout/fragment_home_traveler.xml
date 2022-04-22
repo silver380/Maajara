@@ -63,7 +63,7 @@
         android:layout_margin="@dimen/margin_small"
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcl_accepted_tour"
+        android:id="@+id/rcl_confirmed_tour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_small"
@@ -78,7 +78,7 @@
         android:layout_margin="@dimen/margin_small"
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcl_waiting_tour"
+        android:id="@+id/rcl_pending_tour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_small"

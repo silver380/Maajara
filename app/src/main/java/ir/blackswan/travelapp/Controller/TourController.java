@@ -11,6 +11,8 @@ public class TourController extends Controller {
 
     static Tour[] allTours;
     static Tour[] createdTours;
+    static Tour[] pendingTours;
+    static Tour[] confirmedTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
@@ -33,7 +35,6 @@ public class TourController extends Controller {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
 
                 allTours = gson.fromJson(response.getResponseBody(), Tour[].class);
-
                 onResponse.onSuccess(call, callback, response);
             }
 
@@ -63,6 +64,38 @@ public class TourController extends Controller {
         }).showLoadingDialog());
     }
 
+
+    public void getPendingTourFromServer(OnResponse onResponse) {
+
+        api.getPendingTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                pendingTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }).showLoadingDialog());
+    }
+
+    public void getConfirmedTourFromServer(OnResponse onResponse) {
+        api.getConfirmedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                confirmedTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
+    }
+
     public static Tour[] getAllTours() {
         return allTours;
     }
@@ -70,5 +103,9 @@ public class TourController extends Controller {
     public static Tour[] getCreatedTours() {
         return createdTours;
     }
+
+    public static Tour[] getPendingTours() { return pendingTours; }
+
+    public static Tour[] getConfirmedTours() { return confirmedTours; }
 }
 
