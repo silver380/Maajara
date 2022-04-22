@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.Fargments.HomeFragment"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/colorBackgroundDarker"
-    >
+    android:orientation="vertical"
+    tools:context=".ui.Fargments.HomeFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-    >
+        android:layout_height="wrap_content">
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
             android:id="@+id/toggle_home"
@@ -57,12 +55,12 @@
     </FrameLayout>
 
     <TextView
+        style="@style/textTittleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="تورهای من"
-        style="@style/textTittleMedium"
         android:layout_margin="@dimen/margin_small"
-        />
+        android:text="تورهای من" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_created_tour"
         android:layout_width="wrap_content"

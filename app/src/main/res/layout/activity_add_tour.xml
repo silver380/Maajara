@@ -17,6 +17,18 @@
         app:title="اضافه کردن تور">
 
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_tour_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="ذخیره"
+            style="@style/button.TextButton"
+            android:textColor="@color/colorWhite"
+            app:rippleColor="@color/colorWhite"
+            />
+
+
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -172,6 +184,17 @@
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small">
 
+                <ImageButton
+                    android:id="@+id/iv_add_tour_add_place"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_very_small"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:src="@drawable/ic_plus"
+                    app:tint="@color/colorIconTint" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -187,7 +210,7 @@
                         android:text="@string/places" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/places_recycler"
+                        android:id="@+id/rcl_add_tour_places"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
@@ -229,34 +252,33 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:text="محل اسکان"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_hotel"
                             style="@style/button.outLineButton"
-                            android:layout_height="wrap_content"
                             android:layout_width="0dp"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_place"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_sweet"
+                            android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:text="هتل" />
+                            android:text="هتل"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_sweet"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_place" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_sweet"
                             style="@style/button.outLineButton"
-                            android:layout_height="wrap_content"
                             android:layout_width="0dp"
-                            app:layout_constraintHorizontal_weight="1"
+                            android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:text="سوییت"
-                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_hotel"
-                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_hotel"
+                            app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintLeft_toRightOf="@id/btn_add_tour_home"
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_hotel"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_hotel"
 
                             />
 
@@ -265,25 +287,25 @@
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
                             android:layout_marginHorizontal="@dimen/margin_small"
-                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_sweet"
-                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_sweet"
+                            android:text="خانه"
+                            app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            android:text="خانه" />
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_sweet"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_sweet" />
 
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_add_tour_vila"
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
                             android:layout_marginHorizontal="@dimen/margin_small"
-                            app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_hotel"
-                            app:layout_constraintRight_toRightOf="parent"
-                            android:id="@+id/btn_add_tour_vila"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:text="ویلا" />
+                            android:text="ویلا"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_hotel" />
 
 
                         <CheckBox
@@ -291,12 +313,11 @@
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/margin_small"
                             android:clickable="false"
                             android:text="غذا"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_vila"
-                            android:layout_marginVertical="@dimen/margin_small"
-                            />
+                            app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_vila" />
 
 
                         <com.google.android.material.button.MaterialButton
@@ -304,25 +325,25 @@
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_food"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_lunch"
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:text="صبحانه" />
+                            android:text="صبحانه"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_lunch"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_food" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_lunch"
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_small"
+                            android:text="ناهار"
                             app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_dinner"
                             app:layout_constraintRight_toLeftOf="@id/btn_add_tour_breakfast"
                             app:layout_constraintTop_toTopOf="@id/btn_add_tour_breakfast"
-                            android:layout_marginHorizontal="@dimen/margin_small"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_dinner"
-                            android:text="ناهار"
 
                             />
 
@@ -331,12 +352,12 @@
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_breakfast"
-                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_lunch"
-                            app:layout_constraintLeft_toLeftOf="parent"
                             android:layout_marginHorizontal="@dimen/margin_small"
-                            android:text="شام" />
+                            android:text="شام"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_lunch"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_breakfast" />
 
 
                         <CheckBox
@@ -344,11 +365,11 @@
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
-                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_breakfast"
                             android:layout_marginVertical="@dimen/margin_small"
+                            android:clickable="false"
+                            android:text="وسیله نقلیه"
                             app:layout_constraintRight_toRightOf="parent"
-                            android:text="وسیله نقلیه" />
+                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_breakfast" />
 
 
                         <com.google.android.material.button.MaterialButton
@@ -356,89 +377,88 @@
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_vehicle"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_minibus"
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:text="خودرو شخصی" />
+                            android:text="خودرو شخصی"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_minibus"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_vehicle" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_minibus"
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_car"
-                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_car"
                             android:layout_marginHorizontal="@dimen/margin_small"
-                            app:layout_constraintLeft_toLeftOf="parent"
                             android:text="مینی بوس"
-                            />
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_car"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_car" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_bus"
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_car"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_van"
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:text="اتوبوس" />
+                            android:text="اتوبوس"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_van"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_car" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_tour_van"
                             style="@style/button.outLineButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_small"
+                            android:text="ون"
                             app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toLeftOf="@id/btn_add_tour_bus"
                             app:layout_constraintTop_toTopOf="@id/btn_add_tour_bus"
-                            android:layout_marginHorizontal="@dimen/margin_small"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            android:text="ون"
 
                             />
 
-<!--                        <com.google.android.material.button.MaterialButton-->
-<!--                            android:id="@+id/btn_add_tour_minibus"-->
-<!--                            style="@style/button.outLineButton"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:layout_constraintHorizontal_weight="1"-->
-<!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_car"-->
-<!--                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_vehicle"-->
-<!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-<!--                            android:text="مینی‌بوس"-->
+                        <!--                        <com.google.android.material.button.MaterialButton-->
+                        <!--                            android:id="@+id/btn_add_tour_minibus"-->
+                        <!--                            style="@style/button.outLineButton"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            app:layout_constraintHorizontal_weight="1"-->
+                        <!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_car"-->
+                        <!--                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_vehicle"-->
+                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
+                        <!--                            android:text="مینی‌بوس"-->
 
-<!--                            />-->
+                        <!--                            />-->
 
-<!--                        <com.google.android.material.button.MaterialButton-->
-<!--                            android:id="@+id/btn_add_tour_bus"-->
-<!--                            style="@style/button.outLineButton"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:layout_constraintHorizontal_weight="1"-->
-<!--                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_car"-->
-<!--                            app:layout_constraintRight_toRightOf="parent"-->
-<!--                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_van"-->
-<!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-<!--                            android:text="اتوبوس" />-->
+                        <!--                        <com.google.android.material.button.MaterialButton-->
+                        <!--                            android:id="@+id/btn_add_tour_bus"-->
+                        <!--                            style="@style/button.outLineButton"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            app:layout_constraintHorizontal_weight="1"-->
+                        <!--                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_car"-->
+                        <!--                            app:layout_constraintRight_toRightOf="parent"-->
+                        <!--                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_van"-->
+                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
+                        <!--                            android:text="اتوبوس" />-->
 
-<!--                        <com.google.android.material.button.MaterialButton-->
-<!--                            android:id="@+id/btn_add_tour_van"-->
-<!--                            style="@style/button.outLineButton"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:layout_constraintHorizontal_weight="1"-->
-<!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_bus"-->
-<!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-<!--                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_bus"-->
-<!--                            android:text="ون" />-->
+                        <!--                        <com.google.android.material.button.MaterialButton-->
+                        <!--                            android:id="@+id/btn_add_tour_van"-->
+                        <!--                            style="@style/button.outLineButton"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            app:layout_constraintHorizontal_weight="1"-->
+                        <!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_bus"-->
+                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
+                        <!--                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_bus"-->
+                        <!--                            android:text="ون" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>

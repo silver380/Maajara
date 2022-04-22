@@ -141,6 +141,7 @@ public class AuthDialog extends MyDialog {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         onAuthComplete.onCompleted();
+                        dialog.dismiss();
                     }
                 };
                 if (step == STEP_LOGIN) {

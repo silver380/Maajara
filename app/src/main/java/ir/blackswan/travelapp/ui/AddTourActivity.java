@@ -28,7 +28,6 @@ public class AddTourActivity extends ToolbarActivity {
         setListeners();
 
 
-
     }
 
     private void setupDateChooses() {
@@ -60,7 +59,6 @@ public class AddTourActivity extends ToolbarActivity {
     }
 
     private void setListeners() {
-
 
     }
 
