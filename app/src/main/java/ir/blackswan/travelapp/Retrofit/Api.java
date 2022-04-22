@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.Retrofit;
 
+import ir.blackswan.travelapp.Data.Place;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -14,11 +15,33 @@ public interface Api {
     @GET("/place/all/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
+    @POST("/tour/addtour/")
+    @FormUrlEncoded
+    Call<ResponseBody> addTour(@Header("Authorization") String token,
+                               @Field("tour_name") String tour_name,
+                               @Field("tour_capacity") int tour_capacity,
+                               @Field("destination") String destination,
+                               @Field("residence") String residence,
+                               @Field("start_date") String start_date,
+                               @Field("end_date") String end_date,
+                               @Field("has_breakfast") boolean has_breakfast,
+                               @Field("has_lunch") boolean has_lunch,
+                               @Field("has_dinner") boolean has_dinner,
+                               @Field("has_transportation") String has_transportation,
+                               @Field("places") Place[] tour_places
+    );
+
     @GET("/tour/confirmedtours/")
     Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);
 
     @GET("/tour/pendingtours/")
     Call<ResponseBody> getPendingTour(@Header("Authorization") String token);
+
+    @GET("/pendingusers/")
+    Call<ResponseBody> getPendingUsers(@Header("Authorization") String token);
+
+    @GET("/confirmedusers/")
+    Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
     @POST("/tour/")
     @FormUrlEncoded

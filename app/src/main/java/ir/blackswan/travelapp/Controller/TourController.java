@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Controller;
 
 import android.util.Log;
 
+import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import okhttp3.ResponseBody;
@@ -27,6 +28,15 @@ public class TourController extends Controller {
     }
 
      */
+
+    public void addTourToServer(Tour tour, OnResponse onResponse){
+        api.addTour(AuthController.getTokenString(), tour.getTour_name(), tour.getTour_capacity(),
+                tour.getResidence(), tour.getDestination(), tour.getStart_date(), tour.getEnd_date(),
+                tour.isHas_breakfast(), tour.isHas_lunch(), tour.isHas_dinner(), tour.getHas_transportation()
+                , tour.getPlaces().toArray(new Place[0]))
+                .enqueue(new MyCallback(authActivity, onResponse));
+
+    }
 
     public void getAllTourFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getAllTourFromServer: ");
@@ -63,7 +73,6 @@ public class TourController extends Controller {
             }
         }).showLoadingDialog());
     }
-
 
     public void getPendingTourFromServer(OnResponse onResponse) {
 

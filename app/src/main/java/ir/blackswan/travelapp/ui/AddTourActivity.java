@@ -78,6 +78,10 @@ public class AddTourActivity extends ToolbarActivity {
         binding.ivAddTourAddPlace.setOnClickListener(v -> {
             selectPlacesDialog.show();
         });
+        binding.btnAddTourSubmit.setOnClickListener(view -> {
+            //todo add Tour
+        });
     }
+
 
 }

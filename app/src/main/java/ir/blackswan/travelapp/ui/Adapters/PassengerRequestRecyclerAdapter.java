@@ -12,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
 
-public class TRequestRecyclerAdapter extends RecyclerView.Adapter<TRequestRecyclerAdapter.ViewHolder> {
+public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder> {
     List<User> req_of_users;
     Activity activity;
 
-    public TRequestRecyclerAdapter(List<User> req_of_users, Activity activity) {
+    public PassengerRequestRecyclerAdapter(List<User> req_of_users, Activity activity) {
         this.req_of_users = req_of_users;
         this.activity = activity;
     }
