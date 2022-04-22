@@ -2,7 +2,7 @@ from telnetlib import STATUS
 from urllib import response
 from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.response import Response
-from .serializers import TourSerializers, UserInfoSerializer
+from .serializers import TourCreatSerializer, UserInfoSerializer, TourSerializers
 from rest_framework import permissions
 from .permissions import IsTourLeader
 from .models import Tour
@@ -73,5 +73,19 @@ class MyPendingUsers(GenericAPIView):
                 #     return Response(status=400, data={"Invalid User"})
             Return_Data[tour.id] = Return_pending_users
         return Response(Return_Data)
+class AddTour(GenericAPIView):
+    serializer_class = TourSerializers
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+
+    def post(self, request):
+        if not (request.user and self.request.user.is_authenticated and self.request.user.is_tour_leader):
+            return Response(status=401, data={"error": "Invalid user"})
             
+        serializer = TourCreatSerializer(data=request.data)
+        if serializer.is_valid():
+            Tour.objects.create(**serializer.data, creator_id = request.user.id)
+            return Response(status=200, data={"Tour added successfully."})
+        else:
+            return Response(status=400, data={"Unable to add tour."})
+     
 
