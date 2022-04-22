@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.Retrofit;
 
+import ir.blackswan.travelapp.Data.Place;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -26,7 +27,8 @@ public interface Api {
                                @Field("has_breakfast") boolean has_breakfast,
                                @Field("has_lunch") boolean has_lunch,
                                @Field("has_dinner") boolean has_dinner,
-                               @Field("has_transportation") String has_transportation
+                               @Field("has_transportation") String has_transportation,
+                               @Field("places") Place[] tour_places
     );
 
     @GET("/tour/confirmedtours/")
