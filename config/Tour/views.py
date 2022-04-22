@@ -125,12 +125,14 @@ class AddTour(GenericAPIView):
     def post(self, request):
         if not (request.user and self.request.user.is_authenticated and self.request.user.is_tour_leader):
             return Response(status=401, data={"error": "Invalid user"})
-
-        serializer = TourCreatSerializer(data=request.data)
+        id_place = request.data['places']
+        #the format of id_places should change
+        data = request.data.copy()
+        data.pop('places')
+        serializer = TourCreatSerializer(data=data)
         if serializer.is_valid():
             new_tour = Tour.objects.create(**serializer.data, creator_id=request.user.user_id)
-            for id in request.data['places']:
-                #place = Place.objects.get(pk=id)
+            for id in id_place:
                 new_tour.places.add(id)
             return Response(status=200, data={"Tour added successfully."})
         else:

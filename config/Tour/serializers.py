@@ -7,7 +7,7 @@ from Place.serializers import PlaceSerializers
 class TourCreatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tour
-        exclude = ('creator', 'pending_users', 'confirmed_users')
+        exclude = ('creator', 'pending_users', 'confirmed_users', 'places')
 
     tour_name = serializers.CharField(max_length=60, required=True)
     tour_capacity = serializers.IntegerField(required=True)
@@ -40,7 +40,7 @@ class CreatorSerializer(serializers.ModelSerializer):
 
 class TourSerializers(serializers.ModelSerializer):
     creator = CreatorSerializer(read_only=True)
-    places = PlaceSerializers
+    places = PlaceSerializers(many=True)
 
     class Meta:
         model = Tour
