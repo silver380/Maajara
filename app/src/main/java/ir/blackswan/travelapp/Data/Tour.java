@@ -89,7 +89,25 @@ public class Tour implements Serializable {
         return places;
     }
 
+    public String getResidence() {
+        return residence;
+    }
 
+    public String getHas_transportation() {
+        return has_transportation;
+    }
+
+    public boolean isHas_breakfast() {
+        return has_breakfast;
+    }
+
+    public boolean isHas_lunch() {
+        return has_lunch;
+    }
+
+    public boolean isHas_dinner() {
+        return has_dinner;
+    }
 
     public long getPrice() {
         return price;
