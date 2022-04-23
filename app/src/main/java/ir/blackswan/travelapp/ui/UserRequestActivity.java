@@ -26,8 +26,8 @@ public class UserRequestActivity extends ToolbarActivity{
     private User[] confirmedUsers;
     private User[] pendingUsers;
     List<User> tourUsers;
-    Intent intent = getIntent();
-    int tour_id = intent.getIntExtra("tour_id", -1);
+    Intent intent;
+    int tour_id;
 
 
     @Override
@@ -37,6 +37,8 @@ public class UserRequestActivity extends ToolbarActivity{
         setContentView(binding.getRoot());
         passengerRequestsController = new PassengerRequestsController(this);
         setPendingUsersRecycler();
+        intent = getIntent();
+        tour_id = intent.getIntExtra("tour_id", -1);
     }
 
     private void setRecyclers() {

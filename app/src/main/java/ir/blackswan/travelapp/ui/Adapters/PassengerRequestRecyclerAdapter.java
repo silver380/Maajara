@@ -38,6 +38,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
         this.confirmedUsers = confirmedUsers;
         this.activity = activity;
         this.tour_id = tour_id;
+        passengerRequestsController = new PassengerRequestsController(activity);
     }
 
     @NonNull
@@ -65,6 +66,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                         public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                             super.onSuccess(call, callback, response);
                             acceptUser(holder, user);
+                            confirmedUsers.add(user);
                         }
                     });
 
