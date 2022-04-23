@@ -34,12 +34,6 @@ public class UserRequestActivity extends ToolbarActivity{
         setContentView(binding.getRoot());
         passengerRequestsController = new PassengerRequestsController(this);
         setPendingUsersRecycler();
-        setConfirmedUsersRecycler();
-
-        tourUsers = Arrays.asList(confirmedUsers);
-        tourUsers.addAll(Arrays.asList(pendingUsers));
-
-        setRecyclers();
     }
 
     private void setRecyclers() {
@@ -56,6 +50,7 @@ public class UserRequestActivity extends ToolbarActivity{
                 //pendingUsers = passengerRequestsController.getPendingUsers();
                 Map<String, User[]> allPendingUsers_map = passengerRequestsController.getAllPendingUsers();
                 pendingUsers = allPendingUsers_map.get("0"); //todo edit the element 0
+                setConfirmedUsersRecycler();
             }
         });
 
@@ -68,6 +63,10 @@ public class UserRequestActivity extends ToolbarActivity{
                 super.onSuccess(call, callback, response);
                 Map<String, User[]> allConfirmedUsers_map = passengerRequestsController.getAllConfirmedUsers();
                 confirmedUsers = allConfirmedUsers_map.get("0"); //todo edit the element 0
+
+                tourUsers = Arrays.asList(confirmedUsers);
+                tourUsers.addAll(Arrays.asList(pendingUsers));
+                setRecyclers();
             }
         });
     }
