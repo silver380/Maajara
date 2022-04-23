@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.ui.Dialogs;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.View;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -39,15 +40,24 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
 
     @Override
     public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-        if (response.getCode() == 401){
+        if (response.getCode() == 401) {
             showErrorToast(response.getErrorMessage());
             activity.showAuthDialog(() -> call.clone().enqueue(callback.reload()));
-        }else {
+        }
+        else if (response.getCode() == MyResponse.NETWORK_ERROR) {
             show();
             Log.d("ResponseDialog", "onFailed: " + response);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
+            binding.btnOnResponseTryAgain.setText("تلاش مجدد");
             binding.btnOnResponseTryAgain.setOnClickListener(view -> {
                 call.clone().enqueue(callback.reload());
+                getDialog().dismiss();
+            });
+            getDialog().setCancelable(false);
+        }else {
+            binding.btnOnResponseTryAgain.setText("باشه");
+            getDialog().setCancelable(true);
+            binding.btnOnResponseTryAgain.setOnClickListener(v -> {
                 getDialog().dismiss();
             });
         }

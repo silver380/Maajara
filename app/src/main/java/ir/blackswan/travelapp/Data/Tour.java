@@ -33,13 +33,11 @@ public class Tour implements Serializable {
     private List<User> requestedUsers;
     private List<User> registeredUses;
 
-    public Tour(String tour_name, int tour_capacity, long tour_price , String destination,
+    public Tour( String tour_name, int tour_capacity, String destination,
                 String start_date, String end_date, Place[] places, String residence,
                 boolean has_breakfast, boolean has_lunch, boolean has_dinner, String has_transportation) {
         this.tour_name = tour_name;
         this.tour_capacity = tour_capacity;
-        this.price = tour_price;
-        // price is int or long??. also in "api"
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
