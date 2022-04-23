@@ -95,7 +95,7 @@ public class AddTourActivity extends ToolbarActivity {
 
             int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
 
-            int price = Integer.parseInt(binding.etAddTourPrice.getText().toString());
+            long price = Long.parseLong(binding.etAddTourPrice.getText().toString());
 
             String destination = binding.etAddTourDestination.getText().toString();
 
