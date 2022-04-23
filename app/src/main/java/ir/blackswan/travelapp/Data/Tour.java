@@ -33,11 +33,9 @@ public class Tour implements Serializable {
     private List<User> requestedUsers;
     private List<User> registeredUses;
 
-    public Tour(int tour_id, User creatorT, String tour_name, int tour_capacity, String destination,
+    public Tour( String tour_name, int tour_capacity, String destination,
                 String start_date, String end_date, Place[] places, String residence,
                 boolean has_breakfast, boolean has_lunch, boolean has_dinner, String has_transportation) {
-        this.tour_id = tour_id;
-        this.creatorT = creatorT;
         this.tour_name = tour_name;
         this.tour_capacity = tour_capacity;
         this.destination = destination;
