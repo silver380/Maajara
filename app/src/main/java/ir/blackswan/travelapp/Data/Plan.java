@@ -1,8 +1,9 @@
 package ir.blackswan.travelapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Plan {
+public class Plan implements Serializable {
     private User creator;
     private String city;
     private String startDate,finalDate;

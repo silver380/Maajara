@@ -1,8 +1,9 @@
 package ir.blackswan.travelapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     /*
      "id": 1,
     "email": "a@b.com",

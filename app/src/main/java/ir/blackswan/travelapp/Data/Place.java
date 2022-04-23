@@ -1,6 +1,8 @@
 package ir.blackswan.travelapp.Data;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
     private int place_id;
     private String name , city, description;
     private Path picturePath;

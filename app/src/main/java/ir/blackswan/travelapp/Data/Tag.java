@@ -1,6 +1,8 @@
 package ir.blackswan.travelapp.Data;
 
-public class Tag {
+import java.io.Serializable;
+
+public class Tag implements Serializable {
     private String name;
 
     public String getName() {
