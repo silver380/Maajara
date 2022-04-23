@@ -31,9 +31,9 @@ public class TourController extends Controller {
 
     public void addTourToServer(Tour tour, OnResponse onResponse){
         api.addTour(AuthController.getTokenString(), tour.getTour_name(), tour.getTour_capacity(),
-                tour.getResidence(), tour.getDestination(), tour.getStart_date(), tour.getEnd_date(),
-                tour.isHas_breakfast(), tour.isHas_lunch(), tour.isHas_dinner(), tour.getHas_transportation()
-                , tour.getPlaces())
+                tour.getPrice(), tour.getResidence(), tour.getDestination(), tour.getStart_date(),
+                tour.getEnd_date(), tour.isHas_breakfast(), tour.isHas_lunch(), tour.isHas_dinner(),
+                tour.getHas_transportation(), tour.getPlaces())
                 .enqueue(new MyCallback(authActivity, onResponse));
 
     }

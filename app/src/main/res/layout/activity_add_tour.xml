@@ -74,6 +74,7 @@
                         app:startIconDrawable="@drawable/ic_flag">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_add_tour_name"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,10 +105,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
+                        android:hint="قیمت"
+                        app:startIconDrawable="@drawable/ic_price">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_add_tour_price"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                             />
+<!--                            max length ??-->
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
                         android:hint="مقصد"
                         app:startIconDrawable="@drawable/ic_location">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_add_tour_destination"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
