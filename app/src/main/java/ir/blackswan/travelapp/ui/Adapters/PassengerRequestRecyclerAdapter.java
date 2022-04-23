@@ -12,16 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ir.blackswan.travelapp.Controller.PassengerRequestsController;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
 
 public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder> {
-    List<User> req_of_users;
+    List<User> allRequestedUsers;
+    List<User> confirmedUsers;
     Activity activity;
+    private PassengerRequestsController passengerRequestsController;
 
-    public PassengerRequestRecyclerAdapter(List<User> req_of_users, Activity activity) {
-        this.req_of_users = req_of_users;
+    public PassengerRequestRecyclerAdapter(List<User> req_of_users, List<User> confirmedUsers, Activity activity) {
+        this.allRequestedUsers = req_of_users;
+        this.confirmedUsers = confirmedUsers;
         this.activity = activity;
     }
 
@@ -34,23 +38,35 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = req_of_users.get(position);
+        User user = allRequestedUsers.get(position);
         holder.userImage.setImagePath(user.getProfilePicturePath());
         holder.userName_Lastname.setText(user.getNameAndLastname());
-        //todo: check user accepted or not
-        holder.accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //todo: request for accept
-                holder.accept.setText("تایید شده");
-                holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
-            }
-        });
+        if(confirmedUsers.contains(user))
+            acceptUser(holder, user);
+        else
+            holder.accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //todo: request for accept
+
+                    passengerRequestsController.addAcceptedUserToServer();
+                    onSuccess {
+                        confirmedUsers.add(user);
+                        acceptUser(holder, user);
+                    }
+                }
+            });
+    }
+
+    private void acceptUser(ViewHolder holder , User user){
+        holder.accept.setText("تایید شده");
+        holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
+
     }
 
     @Override
     public int getItemCount() {
-        return req_of_users.size();
+        return allRequestedUsers.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

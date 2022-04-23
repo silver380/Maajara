@@ -37,7 +37,7 @@ public class UserRequestActivity extends ToolbarActivity{
     }
 
     private void setRecyclers() {
-        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers, this);
+        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers, Arrays.asList(confirmedUsers) ,this);
         binding.rscUserReq.setAdapter(userRecyclerAdapter);
     }
 

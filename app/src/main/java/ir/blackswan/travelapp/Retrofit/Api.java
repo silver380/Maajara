@@ -31,6 +31,13 @@ public interface Api {
                                @Field("places") Place[] tour_places
     );
 
+    @POST("/tour/acceptuser/")
+    @FormUrlEncoded
+    Call<ResponseBody> acceptUser(@Header("Authorization") String token,
+                                  @Field("tour_id") int tour_id,
+                                  @Field("user_id") int user_id
+                                  );
+
     @GET("/tour/confirmedtours/")
     Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);
 
