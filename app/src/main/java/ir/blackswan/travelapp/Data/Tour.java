@@ -27,21 +27,28 @@ public class Tour implements Serializable {
     private String start_date, end_date;
     private List<Place> places;
     private long price;
-    private String residence ;
-    private boolean has_breakfast , has_lunch ,has_dinner ;
+    private String residence;
+    private boolean has_breakfast, has_lunch, has_dinner;
     private String has_transportation;
     private List<User> requestedUsers;
     private List<User> registeredUses;
 
-    public Tour(User creator, String tourName, int capacity, String city, String startDate, String finalDate, List<Place> places, long price) {
-        this.creatorT = creator;
-        this.tour_name = tourName;
-        this.tour_capacity = capacity;
-        this.destination = city;
-        this.start_date = startDate;
-        this.end_date = finalDate;
+    public Tour(int tour_id, User creatorT, String tour_name, int tour_capacity, String destination,
+                String start_date, String end_date, List<Place> places, String residence,
+                boolean has_breakfast, boolean has_lunch, boolean has_dinner, String has_transportation) {
+        this.tour_id = tour_id;
+        this.creatorT = creatorT;
+        this.tour_name = tour_name;
+        this.tour_capacity = tour_capacity;
+        this.destination = destination;
+        this.start_date = start_date;
+        this.end_date = end_date;
         this.places = places;
-        this.price = price;
+        this.residence = residence;
+        this.has_breakfast = has_breakfast;
+        this.has_lunch = has_lunch;
+        this.has_dinner = has_dinner;
+        this.has_transportation = has_transportation;
     }
 
     public void setRequestedUsers(List<User> requestedUsers) {

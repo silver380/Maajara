@@ -25,16 +25,16 @@ public class FakeData {
                     null,
                     "https://panel.safarmarket.com/storage/img/tours/1649138747448.jpg"));
 
-            fakeTours = Arrays.asList(new Tour(FakeData.getFakeUser(), "dfdf", 4,
-                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
-                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
-                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
-                    ,
-                    new Tour(FakeData.getFakeUser(), "dfdf", 4,
-                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
-                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
-                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100));
-
+//            fakeTours = Arrays.asList(new Tour(FakeData.getFakeUser(), "dfdf", 4,
+//                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+//                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
+//                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+//                    ,
+//                    new Tour(FakeData.getFakeUser(), "dfdf", 4,
+//                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100)
+//                    , new Tour(FakeData.getFakeUser(), "dfdf", 4,
+//                            "ssss", "1900-01-01", "1900-01-01", FakeData.getFakePlaces(), 100));
+//
 
             fakeImagePath = Arrays.asList(
                     new Path(

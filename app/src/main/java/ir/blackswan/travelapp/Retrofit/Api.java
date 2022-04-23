@@ -43,11 +43,6 @@ public interface Api {
     @GET("/confirmedusers/")
     Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
-    @POST("/tour/")
-    @FormUrlEncoded
-    Call<ResponseBody> createTour(@Header("Authorization") String token , @Field("tour") String tour);//test
-
-
     @GET("/tour/all/")
     Call<ResponseBody> getAllTour(@Header("Authorization") String token);
 
