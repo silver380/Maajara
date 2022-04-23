@@ -1,6 +1,5 @@
-from django.db import models
-
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db import models
 
 
 class MyUserManager(BaseUserManager):
@@ -37,9 +36,6 @@ class MyUser(AbstractBaseUser):
     whatsapp_id = models.CharField(max_length=50, default='')
     is_tour_leader = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-
-    pending_registered_tours = models.ManyToManyField('Tour.Tour', related_name='pending_registered_tours')
-    confirmed_registered_tours = models.ManyToManyField('Tour.Tour', related_name='confirmed_registered_tours')
 
     objects = MyUserManager()
 

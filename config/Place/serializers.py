@@ -5,4 +5,4 @@ from .models import Place
 class PlaceSerializers(serializers.ModelSerializer):
     class Meta:
         model = Place
-        fields = '__all__'  # it should change
+        fields = '__all__'

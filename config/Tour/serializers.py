@@ -39,7 +39,6 @@ class TourSerializers(serializers.ModelSerializer):
     class Meta:
         model = Tour
         exclude = ('pending_users', 'confirmed_users')
-        # fields = '__all__'  # it should change
 
     tour_name = serializers.CharField(max_length=60, required=True)
     tour_capacity = serializers.IntegerField(required=True)
@@ -61,5 +60,4 @@ class TourSerializers(serializers.ModelSerializer):
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        exclude = ('pending_registered_tours', 'confirmed_registered_tours', 'is_admin',
-                   'last_login', 'password')
+        exclude = ('is_admin', 'last_login', 'password')

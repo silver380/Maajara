@@ -1,14 +1,12 @@
 from django.db import models
 
 
-# Create your models here.
 class Tour(models.Model):
-
     tour_id = models.AutoField(primary_key=True)
     tour_name = models.CharField(max_length=60, blank=False)
     tour_capacity = models.IntegerField(blank=False)
     destination = models.CharField(max_length=60, blank=False, default='')
-    price = models.IntegerField(blank = False)
+    price = models.IntegerField(blank=False)
     residence = models.TextField(choices=[('Hotel', 'HT'),
                                           ('Suite', 'S'), ('House', 'HS'),
                                           ('Villa', 'V'), ('None', 'N')],
@@ -22,12 +20,7 @@ class Tour(models.Model):
                                                    ('Bus', 'B'), ('Minibus', 'MB'),
                                                    ('Van', 'V'), ('None', 'N')],
                                           default='N')
-    places = models.ManyToManyField('Place.Place',related_name ='places', blank = True, null = True )
-    # Javad
+    places = models.ManyToManyField('Place.Place', related_name='places', blank=True, null=True)
     creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
-
-    # Reza
-    pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_users', blank=True, null=True)
-    confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_users', blank=True, null=True)
-
-
+    pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_tours', blank=True, null=True)
+    confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_tours', blank=True, null=True)
