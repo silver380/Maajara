@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -25,6 +26,8 @@ public class UserRequestActivity extends ToolbarActivity{
     private User[] confirmedUsers;
     private User[] pendingUsers;
     List<User> tourUsers;
+    Intent intent = getIntent();
+    int tour_id = intent.getIntExtra("tour_id", -1);
 
 
     @Override
@@ -37,7 +40,7 @@ public class UserRequestActivity extends ToolbarActivity{
     }
 
     private void setRecyclers() {
-        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers, Arrays.asList(confirmedUsers) ,this);
+        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers, Arrays.asList(confirmedUsers) ,this, tour_id);
         binding.rscUserReq.setAdapter(userRecyclerAdapter);
     }
 
@@ -49,7 +52,7 @@ public class UserRequestActivity extends ToolbarActivity{
                 super.onSuccess(call, callback, response);
                 //pendingUsers = passengerRequestsController.getPendingUsers();
                 Map<String, User[]> allPendingUsers_map = passengerRequestsController.getAllPendingUsers();
-                pendingUsers = allPendingUsers_map.get("0"); //todo edit the element 0
+                pendingUsers = allPendingUsers_map.get(tour_id + ""); //todo edit the element 0
                 setConfirmedUsersRecycler();
             }
         });
@@ -62,7 +65,7 @@ public class UserRequestActivity extends ToolbarActivity{
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 Map<String, User[]> allConfirmedUsers_map = passengerRequestsController.getAllConfirmedUsers();
-                confirmedUsers = allConfirmedUsers_map.get("0"); //todo edit the element 0
+                confirmedUsers = allConfirmedUsers_map.get(tour_id + ""); //todo edit the element 0
 
                 tourUsers = Arrays.asList(confirmedUsers);
                 tourUsers.addAll(Arrays.asList(pendingUsers));

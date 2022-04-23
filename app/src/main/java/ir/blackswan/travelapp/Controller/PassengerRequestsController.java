@@ -66,8 +66,8 @@ public class PassengerRequestsController extends Controller {
     public static Map<String, User[]> getAllPendingUsers(){return map_TID_UserPending;}
     public static Map<String, User[]> getAllConfirmedUsers(){return  map_TID_UserConfirmed;}
 
-    public void addAcceptedUserToServer(User user, Tour tour, OnResponse onResponse){
-        api.acceptUser(AuthController.getTokenString(), tour.getTour_id(), user.getUser_id())
+    public void addAcceptedUserToServer(User user, int tour_id, OnResponse onResponse){
+        api.acceptUser(AuthController.getTokenString(), tour_id, user.getUser_id())
         .enqueue(new MyCallback(authActivity, onResponse));
 
     }

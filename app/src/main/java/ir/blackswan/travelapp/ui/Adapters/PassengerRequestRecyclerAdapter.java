@@ -1,7 +1,9 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,21 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.PassengerRequestsController;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
+import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder> {
     List<User> allRequestedUsers;
     List<User> confirmedUsers;
-    Activity activity;
+    AuthActivity activity;
     private PassengerRequestsController passengerRequestsController;
+    int tour_id;
 
-    public PassengerRequestRecyclerAdapter(List<User> req_of_users, List<User> confirmedUsers, Activity activity) {
+    public PassengerRequestRecyclerAdapter(List<User> req_of_users, List<User> confirmedUsers, AuthActivity activity, int tour_id) {
         this.allRequestedUsers = req_of_users;
         this.confirmedUsers = confirmedUsers;
         this.activity = activity;
+        this.tour_id = tour_id;
     }
 
     @NonNull
@@ -49,11 +60,14 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                 public void onClick(View view) {
                     //todo: request for accept
 
-                    passengerRequestsController.addAcceptedUserToServer();
-                    onSuccess {
-                        confirmedUsers.add(user);
-                        acceptUser(holder, user);
-                    }
+                    passengerRequestsController.addAcceptedUserToServer(user, tour_id, new OnResponseDialog(activity){
+                        @Override
+                        public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                            super.onSuccess(call, callback, response);
+                            acceptUser(holder, user);
+                        }
+                    });
+
                 }
             });
     }
