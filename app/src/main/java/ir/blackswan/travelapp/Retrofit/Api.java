@@ -20,6 +20,7 @@ public interface Api {
     Call<ResponseBody> addTour(@Header("Authorization") String token,
                                @Field("tour_name") String tour_name,
                                @Field("tour_capacity") int tour_capacity,
+                               @Field("price") long price,
                                @Field("destination") String destination,
                                @Field("residence") String residence,
                                @Field("start_date") String start_date,
