@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/place_image_w"
+    android:layout_height="@dimen/place_image_h"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/radius_medium"
     app:cardElevation="@dimen/card_elevation_small"
@@ -11,8 +11,8 @@
 
     <View
         android:id="@+id/place_vh_select"
-        android:layout_width="@dimen/place_image_w"
-        android:layout_height="@dimen/place_image_h"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:translationZ="1dp"
         android:background="?attr/colorPrimary"
         android:alpha=".3"
@@ -21,8 +21,8 @@
 
     <ir.blackswan.travelapp.Views.WebImageView
         android:id="@+id/place_vh_iv"
-        android:layout_width="@dimen/place_image_w"
-        android:layout_height="@dimen/place_image_h"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
 
         />

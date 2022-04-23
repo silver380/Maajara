@@ -1,15 +1,17 @@
 package ir.blackswan.travelapp.Data;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
     private int place_id;
-    private String name ,cityName , details;
+    private String name , city, description;
     private Path picturePath;
     private Tag tag;
 
-    public Place(String name, String cityName, String details, String localPicturePath , String serverPicturePath) {
+    public Place(String name, String city, String description, String localPicturePath , String serverPicturePath) {
         this.name = name;
-        this.cityName = cityName;
-        this.details = details;
+        this.city = city;
+        this.description = description;
         this.picturePath = new Path(serverPicturePath , localPicturePath);
     }
 
@@ -17,12 +19,12 @@ public class Place {
         return name;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getCity() {
+        return city;
     }
 
-    public String getDetails() {
-        return details;
+    public String getDescription() {
+        return description;
     }
 
     public Path getPicturePath() {

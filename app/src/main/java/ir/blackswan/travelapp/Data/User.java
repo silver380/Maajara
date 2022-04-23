@@ -1,8 +1,9 @@
 package ir.blackswan.travelapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     /*
      "id": 1,
     "email": "a@b.com",
@@ -112,7 +113,7 @@ public class User {
         return email;
     }
 
-    public boolean isIs_tour_leader() {
+    public boolean is_tour_leader() {
         return is_tour_leader;
     }
 

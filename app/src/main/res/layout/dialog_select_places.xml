@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        style="@style/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:title="انتخاب مکان" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_medium">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:hint="جستجو"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="@integer/max_tour_name_length" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_select_places"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:orientation="vertical" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_select_place_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tick"
+                app:elevation="0dp"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="@dimen/margin_very_small"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,8 @@
 package ir.blackswan.travelapp.Data;
 
-public class PlanRequest {
+import java.io.Serializable;
+
+public class PlanRequest implements Serializable {
     private User guide;
     private Plan plan;
     private int price;

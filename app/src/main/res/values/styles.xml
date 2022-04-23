@@ -82,10 +82,13 @@
     </style>
 
 
+    <style name="activity_toolbar" parent="toolbar">
+        <item name="navigationIcon">@drawable/ic_back</item>
+    </style>
+
     <style name="toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:height">?android:attr/actionBarSize</item>
-        <item name="navigationIcon">@drawable/ic_back</item>
         <item name="titleTextAppearance">@style/textTittleBold</item>
         <item name="android:background">?attr/colorPrimary</item>
         <item name="titleTextColor">@color/colorWhite</item>

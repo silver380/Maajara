@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
-            android:name=".ui.Fargments.HomeTravelerFragment"
+            android:name=".ui.Fargments.HomeFragmentPassenger"
             android:exported="false" />
         <activity
             android:name=".ui.TourPageDialog"

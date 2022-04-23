@@ -25,10 +25,10 @@ public class Tour implements Serializable {
     private int registerCount;
     private String destination;
     private String start_date, end_date;
-    private List<Place> places;
+    private Place[] places;
     private long price;
-    private String residence;
-    private boolean has_breakfast, has_lunch, has_dinner;
+    private String residence ;
+    private boolean has_breakfast , has_lunch ,has_dinner ;
     private String has_transportation;
     private List<User> requestedUsers;
     private List<User> registeredUses;
@@ -92,7 +92,7 @@ public class Tour implements Serializable {
     }
 
 
-    public List<Place> getPlaces() {
+    public Place[] getPlaces() {
         return places;
     }
 

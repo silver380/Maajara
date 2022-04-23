@@ -13,6 +13,7 @@ import java.util.HashSet;
 import ir.blackswan.travelapp.Data.FakeData;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
 import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
 
@@ -32,10 +33,19 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         this.forSelect = forSelect;
     }
 
+    public HashSet<Place> getSelectedPlaces() {
+        return selectedPlaces;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = activity.getLayoutInflater().inflate(R.layout.place_view_holder, parent, false);
+        int size = (int) (Utils.getScreenWidth() * 35f / 100);
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = size;
+        params.width = size;
+        view.setLayoutParams(params);
         return new ViewHolder(view);
     }
 
@@ -51,8 +61,13 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
 
         holder.itemView.setOnClickListener(v -> {
             if (forSelect) {
-                selectedPlaces.add(place);
-                holder.selectView.setVisibility(View.VISIBLE);
+                if (selectedPlaces.contains(place)){
+                    selectedPlaces.remove(place);
+                    holder.selectView.setVisibility(View.GONE);
+                }else {
+                    selectedPlaces.add(place);
+                    holder.selectView.setVisibility(View.VISIBLE);
+                }
             } else
                 new PlaceDialog(activity, place).show();
         });

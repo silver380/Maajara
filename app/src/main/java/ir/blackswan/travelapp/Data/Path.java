@@ -1,6 +1,8 @@
 package ir.blackswan.travelapp.Data;
 
-public class Path {
+import java.io.Serializable;
+
+public class Path implements Serializable {
     private String serverPath , localPath;
 
     public Path(String serverPath, String localPath) {
