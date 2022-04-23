@@ -51,7 +51,6 @@ public class AddTourActivity extends ToolbarActivity {
         finalDate = new MaterialPersianDateChooser(binding.etAddTourFinalDate);
     }
 
-
     private void setupGroupButtons() {
 
         groupPlace = new GroupButtons(true,
@@ -79,7 +78,7 @@ public class AddTourActivity extends ToolbarActivity {
             selectPlacesDialog.show();
         });
         binding.btnAddTourSubmit.setOnClickListener(view -> {
-            //todo add Tour
+            //Tour tour = new Tour();
         });
     }
 

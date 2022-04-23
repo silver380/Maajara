@@ -64,6 +64,14 @@ public class GroupButtons {
         return selected;
     }
 
+    public int getFirstSelectedIndex(){
+        for (int i = 0; i < selected.length; i++) {
+            if (selected[i])
+                return i;
+        }
+        return -1;
+    }
+
     public boolean hasOneSelected(){
         for (boolean select : selected) {
             if (select)
