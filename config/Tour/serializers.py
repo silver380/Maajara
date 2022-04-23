@@ -12,6 +12,7 @@ class TourCreatSerializer(serializers.ModelSerializer):
     tour_name = serializers.CharField(max_length=60, required=True)
     tour_capacity = serializers.IntegerField(required=True)
     destination = serializers.CharField(max_length=60, required=True)
+    price = serializers.IntegerField(required=True)
     residence = serializers.ChoiceField(choices=[('Hotel', 'HT'),
                                                  ('Suite', 'S'), ('House', 'HS'),
                                                  ('Villa', 'V'), ('None', 'N')], required=True)
@@ -28,14 +29,7 @@ class TourCreatSerializer(serializers.ModelSerializer):
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id']
-
-    first_name = serializers.CharField(max_length=50, required=True)
-    last_name = serializers.CharField(max_length=50, required=True)
-    biography = serializers.CharField(max_length=1003, required=True)
-    phone_number = serializers.CharField(max_length=50, required=True)
-    telegram_id = serializers.CharField(max_length=50, required=False)
-    whatsapp_id = serializers.CharField(max_length=50, required=False)
+        fields = ['first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id']
 
 
 class TourSerializers(serializers.ModelSerializer):
@@ -50,6 +44,7 @@ class TourSerializers(serializers.ModelSerializer):
     tour_name = serializers.CharField(max_length=60, required=True)
     tour_capacity = serializers.IntegerField(required=True)
     destination = serializers.CharField(max_length=60, required=True)
+    price = serializers.IntegerField(required=True)
     residence = serializers.ChoiceField(choices=[('Hotel', 'HT'),
                                                  ('Suite', 'S'), ('House', 'HS'),
                                                  ('Villa', 'V'), ('None', 'N')], required=True)
