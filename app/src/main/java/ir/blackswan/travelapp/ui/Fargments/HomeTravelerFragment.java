@@ -62,7 +62,7 @@ public class HomeTravelerFragment extends Fragment {
         });
     }
 
-    private void setConfirmedToursRecycler() C{
+    private void setConfirmedToursRecycler(){
 
         tourController.getConfirmedTourFromServer(new OnResponseDialog(authActivity){
             @Override
