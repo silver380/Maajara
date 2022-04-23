@@ -47,13 +47,6 @@ public class HomeTravelerFragment extends Fragment {
         return root;
     }
 
-    private void setRecyclers() {
-        TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), pendingTours);
-        binding.rclPendingTour.setAdapter(tourRecyclerAdapter);
-
-        TourRecyclerAdapter tourRecyclerAdapter2 = new TourRecyclerAdapter(getActivity(), confirmedTours);
-        binding.rclConfirmedTour.setAdapter(tourRecyclerAdapter2);
-    }
 
     private void setPendingToursRecycler() {
 
@@ -62,19 +55,23 @@ public class HomeTravelerFragment extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 pendingTours = tourController.getPendingTours();
-                setRecyclers();
+
+                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), pendingTours);
+                binding.rclPendingTour.setAdapter(tourRecyclerAdapter);
             }
         });
     }
 
-    private void setConfirmedToursRecycler() {
+    private void setConfirmedToursRecycler() C{
 
         tourController.getConfirmedTourFromServer(new OnResponseDialog(authActivity){
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 confirmedTours = tourController.getConfirmedTours();
-                setRecyclers();
+
+                TourRecyclerAdapter tourRecyclerAdapter2 = new TourRecyclerAdapter(getActivity(), confirmedTours);
+                binding.rclConfirmedTour.setAdapter(tourRecyclerAdapter2);
             }
         });
 
