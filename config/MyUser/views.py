@@ -27,7 +27,7 @@ class UpgradeToTL(GenericAPIView):
             request.user.upgrade(serializer.data)
             return Response(status=200, data={"User upgraded successfully."})
         else:
-            return Response(status=400, data={"Unable to upgrade user."})
+            return Response(status=400, data={"error": serializer.errors})
 
 
 class UserInfo(RetrieveAPIView):
