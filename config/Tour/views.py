@@ -117,6 +117,6 @@ class AddTour(GenericAPIView):
             except Exception as e:
                 print(e)
 
-            return Response(status=200, data={"Tour added successfully."})
+            return Response(status=200, data={"detail": "Tour added successfully.", "data": request.data})
         else:
             return Response(status=400, data={"error": serializer.errors})
