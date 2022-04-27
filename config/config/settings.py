@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Tour.apps.TourConfig',
     'Place.apps.PlaceConfig',
+    'TravelPlan.apps.TravelplanConfig',
     
 ]
 
