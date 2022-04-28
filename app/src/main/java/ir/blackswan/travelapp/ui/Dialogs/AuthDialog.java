@@ -146,10 +146,9 @@ public class AuthDialog extends MyDialog {
         binding.btnLogin.setOnClickListener(v -> {
             if (loading)
                 return;
-            startLoadingAnimation();
 
             if (checkInputs()) {
-
+                startLoadingAnimation();
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
                             , getEditableText(binding.etLoginPassword.getText()), onResponseDialog);
@@ -164,7 +163,7 @@ public class AuthDialog extends MyDialog {
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
-
+                        stopLoadingAnimation();
                         return;
                     }
                     //todo: send active code
