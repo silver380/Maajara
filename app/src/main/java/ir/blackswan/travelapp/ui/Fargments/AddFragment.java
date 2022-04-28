@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.databinding.FragmentAddBinding;
 import ir.blackswan.travelapp.ui.AddTourActivity;
 
@@ -28,7 +29,8 @@ public class AddFragment extends Fragment {
         final TextView textView = binding.textAdd;
         textView.setText("comingSoon");
 
-        startActivity(new Intent(getActivity() , AddTourActivity.class));
+        if (AuthController.getUser().is_tour_leader())
+            startActivity(new Intent(getActivity() , AddTourActivity.class));
         return root;
     }
 

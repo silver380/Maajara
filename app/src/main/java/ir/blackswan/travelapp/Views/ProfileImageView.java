@@ -66,6 +66,12 @@ public class ProfileImageView extends FrameLayout {
         textView = findViewById(R.id.profile_text);
         imageView = findViewById(R.id.profile_image);
         cardView = findViewById(R.id.profile_card);
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                cardView.setRadius(cardView.getWidth()/2f);
+            }
+        });
     }
 
     public void setUser(User user) {

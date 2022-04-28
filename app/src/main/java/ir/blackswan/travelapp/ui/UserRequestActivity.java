@@ -2,9 +2,12 @@ package ir.blackswan.travelapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +28,16 @@ public class UserRequestActivity extends ToolbarActivity{
     private PassengerRequestsController passengerRequestsController;
     private User[] confirmedUsers;
     private User[] pendingUsers;
-    List<User> tourUsers;
+    ArrayList<User> tourUsers;
     Intent intent;
     int tour_id;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         binding = ActivityUserRequestsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        super.onCreate(savedInstanceState);
         passengerRequestsController = new PassengerRequestsController(this);
         setPendingUsersRecycler();
         intent = getIntent();
@@ -42,7 +45,9 @@ public class UserRequestActivity extends ToolbarActivity{
     }
 
     private void setRecyclers() {
-        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers, Arrays.asList(confirmedUsers) ,this, tour_id);
+        PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers,
+                new ArrayList<>(Arrays.asList(confirmedUsers)) ,this, tour_id);
+        binding.rscUserReq.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
         binding.rscUserReq.setAdapter(userRecyclerAdapter);
     }
 
@@ -52,9 +57,10 @@ public class UserRequestActivity extends ToolbarActivity{
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                //pendingUsers = passengerRequestsController.getPendingUsers();
+
                 Map<String, User[]> allPendingUsers_map = passengerRequestsController.getAllPendingUsers();
-                pendingUsers = allPendingUsers_map.get(tour_id + ""); //todo edit the element 0
+                pendingUsers = allPendingUsers_map.get(tour_id + "");
+                Log.d("Response", "onSuccess: " + Arrays.toString(pendingUsers));
                 setConfirmedUsersRecycler();
             }
         });
@@ -68,9 +74,11 @@ public class UserRequestActivity extends ToolbarActivity{
                 super.onSuccess(call, callback, response);
                 Map<String, User[]> allConfirmedUsers_map = passengerRequestsController.getAllConfirmedUsers();
                 confirmedUsers = allConfirmedUsers_map.get(tour_id + ""); //todo edit the element 0
-
-                tourUsers = Arrays.asList(confirmedUsers);
-                tourUsers.addAll(Arrays.asList(pendingUsers));
+                tourUsers = new ArrayList<>();
+                if (confirmedUsers != null)
+                    tourUsers.addAll(Arrays.asList(confirmedUsers));
+                if (pendingUsers != null)
+                    tourUsers.addAll(Arrays.asList(pendingUsers));
                 setRecyclers();
             }
         });

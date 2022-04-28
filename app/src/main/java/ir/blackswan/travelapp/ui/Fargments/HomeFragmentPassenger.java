@@ -9,12 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
-import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.databinding.FragmentHomeTravelerBinding;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
@@ -31,10 +29,11 @@ public class HomeFragmentPassenger extends Fragment {
     private Tour[] confirmedTours;
 
 
-    public HomeFragmentPassenger(AuthActivity authActivity){
+    public HomeFragmentPassenger(AuthActivity authActivity) {
         this.authActivity = authActivity;
         tourController = new TourController(authActivity);
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,20 +44,17 @@ public class HomeFragmentPassenger extends Fragment {
         binding.rclPendingTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
-        setPendingToursRecycler();
         binding.rclConfirmedTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
-        setConfirmedToursRecycler();
+        reload();
+
 
         return root;
     }
 
 
     public void reload() {
-        if (!AuthController.isLoadingUser()) {
-            setConfirmedToursRecycler();
-            setPendingToursRecycler();
-        }
+        setConfirmedToursRecycler();
     }
 
     private void setPendingToursRecycler() {
@@ -75,9 +71,9 @@ public class HomeFragmentPassenger extends Fragment {
         });
     }
 
-    private void setConfirmedToursRecycler(){
+    private void setConfirmedToursRecycler() {
 
-        tourController.getConfirmedTourFromServer(new OnResponseDialog(authActivity){
+        tourController.getConfirmedTourFromServer(new OnResponseDialog(authActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
@@ -85,6 +81,7 @@ public class HomeFragmentPassenger extends Fragment {
 
                 TourRecyclerAdapter tourRecyclerAdapter2 = new TourRecyclerAdapter(getActivity(), confirmedTours);
                 binding.rclConfirmedTour.setAdapter(tourRecyclerAdapter2);
+                setPendingToursRecycler();
             }
         });
 

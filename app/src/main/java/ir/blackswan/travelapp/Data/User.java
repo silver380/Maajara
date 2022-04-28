@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class User implements Serializable {
     /*
@@ -17,7 +18,7 @@ public class User implements Serializable {
     "telegram_id": "",
     "whatsapp_id": ""
      */
-    private int user_id;
+    private int user_id = -1;
     private boolean isBanned, isValidatedByAdmin;
     private String first_name, last_name, email;
     private boolean is_tour_leader;
@@ -190,5 +191,18 @@ public class User implements Serializable {
                 ", relatedDocsPaths=" + relatedDocsPaths +
                 ", rate=" + rate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return user_id == user.user_id ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user_id);
     }
 }

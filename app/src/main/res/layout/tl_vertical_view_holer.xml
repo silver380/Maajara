@@ -22,7 +22,7 @@
 
             <ir.blackswan.travelapp.Views.ProfileImageView
                 android:id="@+id/tl_iv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
@@ -53,12 +53,14 @@
             <TextView
                 android:id="@+id/tv_tl_bio"
                 style="@style/textHint"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_very_small"
                 android:layout_marginRight="@dimen/margin_very_small"
+                android:maxLines="3"
                 android:text="@string/biography"
                 app:layout_constraintRight_toRightOf="@id/tl_name"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_name" />
 
             <ImageView

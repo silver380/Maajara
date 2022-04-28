@@ -35,10 +35,10 @@ public class TourLeaderVerticalView extends MaterialCardView {
 
     public TourLeaderVerticalView setData(User user){
         name.setText(user.getNameAndLastname());
+        bio.setText(user.getBiography());
+        rate.setText(user.getRate() + "");
+        image.setUser(user);
         return this;
-        //bio.setText(user.getBio());
-        //rate.setText(user.getRate() + "");
-        //image.setImagePath(user.getProfilePicturePath());
     }
 
 

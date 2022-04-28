@@ -17,17 +17,6 @@
         app:title="اضافه کردن تور">
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_tour_submit"
-            style="@style/button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="ذخیره"
-            android:textColor="@color/colorWhite"
-            app:rippleColor="@color/colorWhite" />
-
-
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -58,7 +47,7 @@
                     android:paddingVertical="@dimen/padding_small">
 
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,8 +103,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:maxLength="9"
                              />
-<!--                            max length ??-->
+
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,7 +144,7 @@
                     android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -219,10 +209,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:minHeight="100dp"
                     android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -234,6 +225,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -253,7 +249,7 @@
                     android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -268,9 +264,9 @@
                         <CheckBox
                             android:id="@+id/cb_add_tour_place"
                             style="@style/textSmall"
+                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
                             android:text="محل اسکان"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -296,7 +292,7 @@
                             android:layout_marginHorizontal="@dimen/margin_small"
                             android:text="سوییت"
                             app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_home"
+                            app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toLeftOf="@id/btn_add_tour_hotel"
                             app:layout_constraintTop_toTopOf="@id/btn_add_tour_hotel"
 
@@ -311,8 +307,8 @@
                             android:text="خانه"
                             app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_sweet"
-                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_sweet" />
+                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_vila"
+                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_vila" />
 
 
                         <com.google.android.material.button.MaterialButton
@@ -325,16 +321,17 @@
                             android:text="ویلا"
                             app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_home"
                             app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_hotel" />
 
 
                         <CheckBox
                             android:id="@+id/cb_add_tour_food"
-                            style="@style/editText.oneLine"
+                            style="@style/textSmall"
+                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/margin_small"
-                            android:clickable="false"
                             android:text="غذا"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/btn_add_tour_vila" />
@@ -382,7 +379,7 @@
 
                         <CheckBox
                             android:id="@+id/cb_add_tour_vehicle"
-                            style="@style/editText.oneLine"
+                            style="@style/textSmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/margin_small"
@@ -444,46 +441,23 @@
 
                             />
 
-                        <!--                        <com.google.android.material.button.MaterialButton-->
-                        <!--                            android:id="@+id/btn_add_tour_minibus"-->
-                        <!--                            style="@style/button.outLineButton"-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            app:layout_constraintHorizontal_weight="1"-->
-                        <!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_car"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@id/cb_add_tour_vehicle"-->
-                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-                        <!--                            android:text="مینی‌بوس"-->
-
-                        <!--                            />-->
-
-                        <!--                        <com.google.android.material.button.MaterialButton-->
-                        <!--                            android:id="@+id/btn_add_tour_bus"-->
-                        <!--                            style="@style/button.outLineButton"-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            app:layout_constraintHorizontal_weight="1"-->
-                        <!--                            app:layout_constraintTop_toBottomOf="@id/btn_add_tour_car"-->
-                        <!--                            app:layout_constraintRight_toRightOf="parent"-->
-                        <!--                            app:layout_constraintLeft_toRightOf="@id/btn_add_tour_van"-->
-                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-                        <!--                            android:text="اتوبوس" />-->
-
-                        <!--                        <com.google.android.material.button.MaterialButton-->
-                        <!--                            android:id="@+id/btn_add_tour_van"-->
-                        <!--                            style="@style/button.outLineButton"-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            app:layout_constraintHorizontal_weight="1"-->
-                        <!--                            app:layout_constraintRight_toLeftOf="@id/btn_add_tour_bus"-->
-                        <!--                            android:layout_marginHorizontal="@dimen/margin_small"-->
-                        <!--                            app:layout_constraintTop_toTopOf="@id/btn_add_tour_bus"-->
-                        <!--                            android:text="ون" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_tour_submit"
+                style="@style/button.primaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_small"
+                android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+                android:paddingVertical="@dimen/btn_large_padding_vertical"
+                android:text="تایید"
+                android:textColor="@color/colorWhite"
+                />
         </LinearLayout>
     </ScrollView>
 

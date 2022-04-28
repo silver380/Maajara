@@ -42,6 +42,7 @@
     <style name="editText" parent="textRegular" />
     <style name="editText.oneLine" parent="editText">
         <item name="android:maxLines">1</item>
+        <item name="android:inputType">textShortMessage</item>
     </style>
 
     <style name="textTittleBold">

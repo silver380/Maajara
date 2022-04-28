@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_city"
                 app:tint="@color/colorIconTint" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_name_label"
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                 app:layout_constraintRight_toLeftOf="@id/iv_location"
                 app:layout_constraintTop_toTopOf="@id/iv_location" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_city_label"
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 app:layout_constraintRight_toLeftOf="@id/iv_city"
                 app:layout_constraintTop_toTopOf="@id/iv_city" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_text_label"
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_place_text" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_name"
                 style="@style/textSmall"
                 android:layout_width="0dp"
@@ -102,7 +102,7 @@
                 app:layout_constraintRight_toRightOf="@id/tv_place_text"
                 app:layout_constraintTop_toTopOf="@id/tv_place_name_label" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_city"
                 style="@style/textSmall"
                 android:layout_width="0dp"
@@ -112,7 +112,7 @@
                 app:layout_constraintRight_toRightOf="@id/tv_place_text"
                 app:layout_constraintTop_toTopOf="@id/tv_place_city_label" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_text"
                 style="@style/textSmall"
                 android:layout_width="0dp"

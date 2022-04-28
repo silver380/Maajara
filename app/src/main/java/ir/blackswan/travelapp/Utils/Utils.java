@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.util.DisplayMetrics;
@@ -18,6 +19,9 @@ import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import ir.blackswan.travelapp.R;
 
@@ -51,6 +55,14 @@ public class Utils {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(activity.getResources().getColor(colorID));
 
+    }
+
+    public static void setStatusBarColorToTheme(Activity activity) {
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        final TypedValue value = new TypedValue();
+        activity.getTheme().resolveAttribute(androidx.appcompat.R.attr.colorPrimaryDark, value, true);
+        window.setStatusBarColor(value.data);
     }
 
     public static String getEditableText(Editable editable) {
@@ -141,4 +153,29 @@ public class Utils {
         }
         return result;
     }
+
+
+    public static long numDaysBetween(long fromTime , long toTime) {
+        GregorianCalendar c = new GregorianCalendar();
+        int result = 0 , sign = 1;
+        if (toTime < fromTime) {
+            sign = -1;
+            long t = fromTime;
+            fromTime = toTime;
+            toTime = t;
+        }
+        c.setTimeInMillis(toTime);
+        final int toYear = c.get(Calendar.YEAR);
+        result += c.get(Calendar.DAY_OF_YEAR);
+        c.setTimeInMillis(fromTime);
+        result -= c.get(Calendar.DAY_OF_YEAR);
+        while (c.get(Calendar.YEAR) < toYear) {
+            result += c.getActualMaximum(Calendar.DAY_OF_YEAR);
+            c.add(Calendar.YEAR, 1);
+        }
+        result *= sign;
+        return result;
+
+    }
+
 }

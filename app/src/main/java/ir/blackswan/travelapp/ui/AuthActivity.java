@@ -35,9 +35,19 @@ public abstract class AuthActivity extends AppCompatActivity {
 
     }
 
-    public void showAuthDialog(AuthDialog.OnAuthComplete onAuthComplete) {
+    public AuthDialog getAuthDialog(){
         if (authDialog == null)
-            authDialog = new AuthDialog(this, onAuthComplete, true);
+            authDialog = new AuthDialog(this, true);
+        return authDialog;
+    }
+
+    public void showAuthDialog(AuthDialog.OnAuthComplete onAuthComplete) {
+        getAuthDialog();
+        authDialog.setOnAuthComplete(onAuthComplete);
         authDialog.show();
+    }
+
+    public boolean isAuthing(){
+        return AuthController.isLoadingUser() || getAuthDialog().isShowing();
     }
 }

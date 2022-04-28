@@ -19,6 +19,10 @@ public class Place implements Serializable {
         return name;
     }
 
+    public int getPlace_id() {
+        return place_id;
+    }
+
     public String getCity() {
         return city;
     }

@@ -1,6 +1,10 @@
 package ir.blackswan.travelapp.Data;
 
+import android.content.Context;
+
 import java.io.Serializable;
+
+import ir.blackswan.travelapp.Controller.PathController;
 
 public class Path implements Serializable {
     private String serverPath , localPath;
@@ -10,8 +14,9 @@ public class Path implements Serializable {
         this.localPath = localPath;
     }
 
-    public void setLocalPath(String localPath) {
+    public void setLocalPath(Context context ,String localPath) {
         this.localPath = localPath;
+        PathController.save(context);
         //updateServer
     }
 

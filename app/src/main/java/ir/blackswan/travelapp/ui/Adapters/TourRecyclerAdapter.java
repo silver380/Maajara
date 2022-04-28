@@ -11,9 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Controller.PathController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.MyPersianCalender;
 import ir.blackswan.travelapp.ui.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
@@ -39,14 +40,18 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         Tour tour = tours[position];
        // MyPersianCalender persianDate = new MyPersianCalender(tour.getStart_date());
 
-        String date = tour.getStart_date().replace("-" , "/");
+        MyPersianCalender startDate = tour.getPersianStartDate();
+        MyPersianCalender endDate = tour.getPersianEndDate();
+        long daysBetween = Utils.numDaysBetween(startDate.getTimestamp() , endDate.getTimestamp());
+        String startDateString = startDate.getShortDate();
 
-        holder.image.setImagePath(FakeData.getRandomImagePath());
-        holder.price.setText(tour.getPrice() + "");
-        holder.startDate.setText(date);
+        holder.image.setImagePath(PathController.getRandomPath(activity));
+        holder.price.setText(tour.getShortPriceString());
+        holder.startDate.setText(startDateString);
         holder.location.setText(tour.getDestination());
         holder.image.setScale(.5f);
         holder.image.setGradient(true);
+        holder.duration.setText(daysBetween + "");
         holder.itemView.setOnClickListener(v -> {
             activity.startActivity(new Intent(activity , TourPageActivity.class)
             .putExtra(EXTRA_TOUR , tour));

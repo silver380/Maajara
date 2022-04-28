@@ -36,33 +36,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_select_places"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/margin_very_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical" />
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcl_select_places"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginHorizontal="@dimen/margin_medium"
-                android:orientation="vertical" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_select_place_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_tick"
-                app:elevation="0dp"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="@dimen/margin_very_small"
-                />
-
-        </FrameLayout>
-
+        <Button
+            android:id="@+id/btn_select_place_submit"
+            style="@style/button.primaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/margin_very_small"
+            android:text="تایید"
+            app:elevation="0dp" />
 
     </LinearLayout>
+
+
 </LinearLayout>

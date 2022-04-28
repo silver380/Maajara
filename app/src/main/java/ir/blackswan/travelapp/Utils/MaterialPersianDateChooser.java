@@ -3,6 +3,8 @@ package ir.blackswan.travelapp.Utils;
 import android.content.Context;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import ir.blackswan.travelapp.R;
@@ -28,6 +30,7 @@ public class MaterialPersianDateChooser {
                 .setTodayButtonVisible(true)
                 .setMinYear(PersianDatePickerDialog.THIS_YEAR)
                 .setActionTextColor(Utils.getThemePrimaryColor(context))
+                .setTitleColor(ContextCompat.getColor(context , R.color.colorNormalText))
                 .setTypeFace(Utils.fontToTypeFace(context , R.font.vazir_bold))
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setListener(new PersianPickerListener() {

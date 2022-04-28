@@ -27,7 +27,6 @@ public class AuthController extends Controller {
     }
 
     public static String getTokenString() {
-        //return "Token e798c795e07649dd603039f8b6c624479854fa34";
         if (token == null)
             return null;
         return "Token " + token;
@@ -40,6 +39,11 @@ public class AuthController extends Controller {
 
     public static User getUser() {
         return user;
+    }
+
+    public static void logout(Context context) {
+        AuthController.token = null;
+        new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN, null);
     }
 
     public boolean loadUser(Context context, OnResponse onResponse) {
@@ -60,12 +64,12 @@ public class AuthController extends Controller {
     }
 
     public void login(String email, String password, OnResponse onResponse) {
+        Log.d(TAG, "login: " + email);
         api.token(email, password).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 setToken(authActivity , getTokenFromResponseBody(response.getResponseBody()));
                 completeUserInfo(onResponse);
-                Log.d(TAG, "login: " + user);
             }
 
             @Override
@@ -77,6 +81,7 @@ public class AuthController extends Controller {
     }
 
     public void register(String email, String password, String firstName, String lastName, OnResponse onResponse) {
+        Log.d(TAG, "Register " + email);
         api.registerUser(email, password, firstName, lastName).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -98,7 +103,7 @@ public class AuthController extends Controller {
         api.info(tokenString).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                Log.d(TAG, "completeUserInfo: onSuccess: " + response);
+
                 user = gson.fromJson(response.getResponseBody(), User.class);
                 Log.d(TAG, "completeUserInfo: onSuccess user: " + user);
                 loadingUser = false;

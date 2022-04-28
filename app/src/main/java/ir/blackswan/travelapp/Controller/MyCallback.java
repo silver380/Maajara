@@ -38,18 +38,16 @@ public class MyCallback implements Callback<ResponseBody> {
     }
     @Override
     public void onResponse(@NonNull Call<ResponseBody> call, Response<ResponseBody> response) {
-        Log.d(TAG, "onResponse: " + "ResponseMessage:" +
-                response.message() + "\nResponseCode" + response.code() );
         stopLoading();
-
         if (response.code() / 100 == 2) {
             try {
                 String responseBody = response.body().string();
-                Log.d(TAG, "onResponse: BODY: " + responseBody );
                 onResponse.onSuccess(call, this, new MyResponse(response.code(),
                         responseBody, true));
             } catch (IOException e) {
-                e.printStackTrace();
+                onResponse.onFailed(call , this , new MyResponse(response.code(),
+                        authActivity.getString(R.string.somthing_went_wrong) , false));
+                Log.e(TAG, "onResponse: ", e);
             }
         } else if (response.code() == 500) { //something went wrong
             onResponse.onFailed(call, this, new MyResponse(response.code(),
@@ -59,7 +57,7 @@ public class MyCallback implements Callback<ResponseBody> {
                 onResponse.onFailed(call, this, new MyResponse(response.code(),
                         ErrorHandler.getStringErrors(authActivity, response.errorBody().string()), false));
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "onResponse: ", e);
             }
         }
     }

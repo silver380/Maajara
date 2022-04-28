@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.ui.Adapters;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashSet;
 
-import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Controller.PathController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
@@ -33,27 +34,36 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         this.forSelect = forSelect;
     }
 
-    public HashSet<Place> getSelectedPlaces() {
-        return selectedPlaces;
+    public Place[] getSelectedPlaces() {
+        return selectedPlaces.toArray(
+                new Place[selectedPlaces.size()]);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = activity.getLayoutInflater().inflate(R.layout.place_view_holder, parent, false);
-        int size = (int) (Utils.getScreenWidth() * 35f / 100);
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        params.height = size;
-        params.width = size;
-        view.setLayoutParams(params);
+        parent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int size = (int) (parent.getWidth() * 45f / 100);
+                ViewGroup.LayoutParams params = view.getLayoutParams();
+                params.height = size;
+                params.width = size;
+                view.setLayoutParams(params);
+                parent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place place = places[position];
-        holder.placeImage.setImagePath(FakeData.getRandomImagePath());
+        holder.placeImage.setImagePath(PathController.getRandomPath(activity));
         holder.placeImage.setGradient(true);
+        holder.placeImage.setScale(.5f);
         holder.placeName.setText(place.getName());
         holder.selectView.setVisibility(selectedPlaces.contains(place) ?
                 View.VISIBLE : View.GONE);

@@ -17,6 +17,9 @@ public abstract class MyDialog {
     public static final int DIALOG_TYPE_ALERT = 0,DIALOG_TYPE_BOTTOM_SHEET = 1 ,  DIALOG_TYPE_ROUNDED_BOTTOM_SHEET = 2;
     Dialog dialog;
 
+    public boolean isShowing(){
+        return dialog.isShowing();
+    }
 
     public void init(Context context, View view, int type) {
         switch (type) {
@@ -71,6 +74,9 @@ public abstract class MyDialog {
         dialog.show();
     }
 
+    public void dismiss(){
+        dialog.dismiss();
+    }
 
     public Dialog getDialog() {
         return dialog;

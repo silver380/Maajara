@@ -46,7 +46,7 @@
 
 
         <ir.blackswan.travelapp.Views.ProfileImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/iv_home_profile"
             android:layout_width="@dimen/profile_view_size"
             android:layout_height="@dimen/profile_view_size"
             android:layout_margin="@dimen/margin_small" />

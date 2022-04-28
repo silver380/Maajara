@@ -60,7 +60,7 @@ public class PassengerRequestsController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        })));
+        })).showLoadingDialog());
     }
 
     public static Map<String, User[]> getAllPendingUsers(){return map_TID_UserPending;}

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -20,6 +22,7 @@ import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.PassengerRequestsController;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Views.ProfileImageView;
 import ir.blackswan.travelapp.Views.WebImageView;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -27,13 +30,13 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder> {
-    List<User> allRequestedUsers;
-    List<User> confirmedUsers;
+    ArrayList<User> allRequestedUsers;
+    ArrayList<User> confirmedUsers;
     AuthActivity activity;
     private PassengerRequestsController passengerRequestsController;
     int tour_id;
 
-    public PassengerRequestRecyclerAdapter(List<User> req_of_users, List<User> confirmedUsers, AuthActivity activity, int tour_id) {
+    public PassengerRequestRecyclerAdapter(ArrayList<User> req_of_users, ArrayList<User> confirmedUsers, AuthActivity activity, int tour_id) {
         this.allRequestedUsers = req_of_users;
         this.confirmedUsers = confirmedUsers;
         this.activity = activity;
@@ -51,15 +54,15 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = allRequestedUsers.get(position);
-        holder.userImage.setImagePath(user.getProfilePicturePath());
+       // holder.userImage.setImagePath(user.getProfilePicturePath());
         holder.userName_Lastname.setText(user.getNameAndLastname());
+        holder.userImage.setUser(user);
         if(confirmedUsers.contains(user))
             acceptUser(holder, user);
         else
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //todo: request for accept
 
                     passengerRequestsController.addAcceptedUserToServer(user, tour_id, new OnResponseDialog(activity){
                         @Override
@@ -86,7 +89,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        WebImageView userImage;
+        ProfileImageView userImage;
         TextView userName_Lastname;
         Button accept;
         public ViewHolder(@NonNull View itemView) {

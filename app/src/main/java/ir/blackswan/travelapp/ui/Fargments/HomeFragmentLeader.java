@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
@@ -49,9 +48,9 @@ public class HomeFragmentLeader extends Fragment {
     }
 
     public void reload() {
-        if (!AuthController.isLoadingUser()) {
-            setCreatedToursRecycler();
-        }
+
+        setCreatedToursRecycler();
+
     }
 
     private void setRecyclers() {

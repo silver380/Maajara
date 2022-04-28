@@ -2,7 +2,7 @@
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    app:cardBackgroundColor="@color/colorBackgroundDarker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,17 +11,16 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_small">
         
-        <com.makeramen.roundedimageview.RoundedImageView
+        <ir.blackswan.travelapp.Views.ProfileImageView
             android:id="@+id/user_iv"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/profile_view_size"
+            android:layout_height="@dimen/profile_view_size"
             android:scaleType="centerCrop"
-            android:src="@drawable/test_picture"
             app:layout_constraintDimensionRatio="1:1"
-            app:riv_corner_radius="70dp"
+            app:riv_corner_radius="@dimen/profile_view_half_size"
             />
         
         <TextView

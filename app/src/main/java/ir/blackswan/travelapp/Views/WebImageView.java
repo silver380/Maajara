@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -92,7 +93,7 @@ public class WebImageView extends FrameLayout {
             if (imageFile.exists())
                 setImageByFile(new File(path.getLocalPath()));
             else {
-                path.setLocalPath(null);
+                path.setLocalPath(getContext() , null);
                 setImagePath(path);
             }
         } else if (path.getServerPath() != null) {
@@ -100,7 +101,7 @@ public class WebImageView extends FrameLayout {
             new WebDownloader(getContext(), downloadedFile -> {
                 if (downloadedFile != null) {
                     setImageByFile(downloadedFile);
-                    path.setLocalPath(downloadedFile.getPath());
+                    path.setLocalPath(getContext() , downloadedFile.getPath());
                     Log.d("WebDownloader", "setImageLocalPath: " + downloadedFile.getPath());
                 } else {
                     errorContainer.setOnClickListener(v -> {
@@ -154,10 +155,28 @@ public class WebImageView extends FrameLayout {
     }
 
     public void setImageByFile(File pictureFile) {
-        Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
-        setImageBitmap(myBitmap);
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loadingState();
+            }
 
-        imageState();
+            @Override
+            protected Bitmap doInBackground(Void... voids) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
+                return myBitmap;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                super.onPostExecute(bitmap);
+                setImageBitmap(bitmap);
+                imageState();
+            }
+        }.execute();
+
+
     }
 
     public void setImageBitmap(Bitmap bitmap) {

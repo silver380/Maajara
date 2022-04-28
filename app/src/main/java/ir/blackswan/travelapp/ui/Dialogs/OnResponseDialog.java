@@ -17,6 +17,7 @@ import retrofit2.Call;
 public class OnResponseDialog extends MyDialog implements OnResponse {
     AuthActivity activity;
     DialogOnResponseBinding binding;
+    private static boolean showing = false;
 
     public OnResponseDialog(AuthActivity activity ) {
         binding = DialogOnResponseBinding.inflate(activity.getLayoutInflater());
@@ -25,7 +26,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
         getDialog().getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT)
         );
-     //   getDialog().setCancelable(false); todo: active this
+
     }
 
 
@@ -39,9 +40,24 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
     }
 
     @Override
+    public void show() {
+        if (!showing) {
+            showing = true;
+            super.show();
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        showing = false;
+        super.dismiss();
+    }
+
+    @Override
     public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
         if (response.getCode() == 401) {
             showErrorToast(response.getErrorMessage());
+            Log.d(MyCallback.TAG, "onFailed: UnAuth  showAuthDialog:");
             activity.showAuthDialog(() -> call.clone().enqueue(callback.reload()));
         }
         else if (response.getCode() == MyResponse.NETWORK_ERROR) {
@@ -51,14 +67,16 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             binding.btnOnResponseTryAgain.setText("تلاش مجدد");
             binding.btnOnResponseTryAgain.setOnClickListener(view -> {
                 call.clone().enqueue(callback.reload());
-                getDialog().dismiss();
+                dismiss();
             });
             getDialog().setCancelable(false);
         }else {
             binding.btnOnResponseTryAgain.setText("باشه");
             getDialog().setCancelable(true);
+            binding.tvOnResponseMessage.setText(response.getErrorMessage());
+            show();
             binding.btnOnResponseTryAgain.setOnClickListener(v -> {
-                getDialog().dismiss();
+                dismiss();
             });
         }
     }

@@ -1,16 +1,17 @@
 package ir.blackswan.travelapp.ui;
 
-import static ir.blackswan.travelapp.Utils.Utils.dp2px;
+import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -18,35 +19,52 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-import ir.blackswan.travelapp.Data.FakeData;
+import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.PathController;
+import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
-import ir.blackswan.travelapp.databinding.ActivityTourPagePictureBinding;
+import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
-public class TourPageActivity extends AuthActivity {
+public class TourPageActivity extends ToolbarActivity {
     public static final String EXTRA_TOUR = "tour";
-    ActivityTourPagePictureBinding binding;
+    private static final int REQUEST_USERS_ACTIVITY = 0;
+    ActivityTourPageBinding binding;
     boolean bottomViewIsOpen = false;
-    int topNamesMarginRight;
     int maxScrollY;
-    int namesPadding;
-
+    Tour tour;
+    HashSet<Tour> pendingTours, confirmTours;
+    private TourController tourController;
+    private int actionBarHeight;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
-        binding = ActivityTourPagePictureBinding.inflate(getLayoutInflater());
+        binding = ActivityTourPageBinding.inflate(getLayoutInflater());
+        fullScreen();
         setContentView(binding.getRoot());
+        super.onCreate(savedInstanceState);
+        tourController = new TourController(this);
+        user = AuthController.getUser();
+        setPendingUsers();
+        tour = (Tour) getIntent().getSerializableExtra(EXTRA_TOUR);
+        setTourData();
 
-        prepareActivity();
+        setGlobalTree();
 
         setScrollListener();
 
@@ -54,36 +72,105 @@ public class TourPageActivity extends AuthActivity {
 
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
-        TourLeaderVerticalView tourLeaderView = new TourLeaderVerticalView(this).setData(FakeData.getFakeUser());
-        tourLeaderView.getProfileImageView().setSize(dp2px(this ,
-                getResources().getDimension(R.dimen.profile_view_size_large)));
+        TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        }
 
-        binding.llTourPageLeader.addView(tourLeaderView);
+    }
 
-        //binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this , FakeData.getFakePlaces())); //todo: getTourPlaces
-        binding.rycTourPagePlaces.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
+    private void setGlobalTree() {
+        binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        binding.viewForShowingImage.setLayoutParams(new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT, getScreenHeight()
+                        ));
+
+                        binding.viewForShowingImage.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                maxScrollY = binding.getRoot().getHeight();
+                                closeBottomView();
+                                Log.d("scroll", "setScrollListener: " + maxScrollY);
+
+                                binding.scTourPageBottom.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                        getScreenHeight()));
+                                binding.scTourPage.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                        getScreenHeight()));
+
+
+                                binding.viewForShowingImage.getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
+                            }
+                        });
+
+
+                        binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
+                    }
+                });
+
     }
 
 
-    private void changeBackBottomVisibility() {
-        /*
-        if (backBottomVisibility)
-            invisibleBackBottom();
-        else
-            visibleBackBottom();
+    private void setPendingUsers() {
 
-         */
+        tourController.getPendingTourFromServer(new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                Tour[] tours = TourController.getPendingTours();
+                if (tours != null)
+                    pendingTours = new HashSet<>(Arrays.asList(tours));
+                else
+                    pendingTours = new HashSet<>();
+
+                setConfirmTours();
+            }
+        });
+
+    }
+
+    private void setConfirmTours() {
+        tourController.getConfirmedTourFromServer(new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                Tour[] tours = TourController.getConfirmedTours();
+                if (tours != null)
+                    confirmTours = new HashSet<>(Arrays.asList(tours));
+                else
+                    confirmTours = new HashSet<>();
+                Log.d(TAG, "onSuccess: " + confirmTours);
+                onLoadUsers();
+            }
+        });
+    }
+
+
+    private void fullScreen() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    private void actionBar() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
     private void openBottomView() {
+
         binding.scTourPage.post(() -> {
             binding.scTourPage.smoothScrollTo(0, maxScrollY);
         });
+
+        Utils.setStatusBarColorToTheme(this);
         bottomViewIsOpen = true;
     }
 
     private void closeBottomView() {
         binding.scTourPage.post(() -> binding.scTourPage.smoothScrollTo(0, 0));
+
         bottomViewIsOpen = false;
     }
 
@@ -106,12 +193,11 @@ public class TourPageActivity extends AuthActivity {
                 else if (dTime < 150 && !scrollUp && absDy > 70)
                     closeBottomView();
                 else if (absDy < 10 && event.getY() < binding.llTourPageNames.getHeight()) {
-                    changeBackBottomVisibility();
                     closeBottomView();
                 } else {
                     if (scrollUp && binding.scTourPage.getScrollY() > getScreenHeight() * 10 / 100)
                         openBottomView();
-                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 60 / 100)
+                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 90 / 100)
                         closeBottomView();
                     else if (bottomViewIsOpen)
                         openBottomView();
@@ -163,60 +249,145 @@ public class TourPageActivity extends AuthActivity {
         binding.scTourPage.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (binding.scTourPage.getHeight() == 0)
                 return;
-            if (scrollY > maxScrollY)
-                maxScrollY = scrollY;
+
+            if (scrollY < maxScrollY) {
+                fullScreen();
+            } else
+                actionBar();
+
             float unit = (float) scrollY / maxScrollY;
+            float unitRe = (float) (maxScrollY - scrollY) / maxScrollY;
 
             binding.viewTourPageAlpha.setAlpha(unit * .7f);
 
-            float max2 = maxScrollY * 80 / 100f;
-            float scroll2 = scrollY - max2;
-            int margin = 0;
-            if (scroll2 > -1) {
-                float maxScroll2 = maxScrollY - max2;
-                margin = (int) (scroll2 / maxScroll2 * topNamesMarginRight);
-            }
+            LinearLayout.LayoutParams tbParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    actionBarHeight);
+            tbParams.setMargins(0, (int) (-1 * (unitRe * actionBarHeight)), 0, 0);
+            binding.tbActivity.setLayoutParams(tbParams);
 
-            binding.llTourPageNames.setPadding(namesPadding, namesPadding, namesPadding + margin, namesPadding);
+            binding.cardBackTourPage.setAlpha(unitRe * .6f);
 
         });
     }
 
-
-    private void prepareActivity() {
-        binding.ivTourPageImage.setImagePath(FakeData.getRandomImagePath());
-        binding.cardBackTourPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeBottomView();
-                onBackPressed();
-            }
-        });
-        binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
+    private void onLoadUsers() {
+        if (tour.getCreator().getUser_id() == user.getUser_id()) {
+            binding.btnTourPageRegister.setText("درخواست‌ها");
+            binding.btnTourPageRegister.setEnabled(true);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+                startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour_id", tour.getTour_id())
+                        , REQUEST_USERS_ACTIVITY);
+            });
+        } else if (confirmTours.contains(tour)) {
+            binding.btnTourPageRegister.setText("قطعی شده");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
+        } else if (pendingTours.contains(tour)) {
+            binding.btnTourPageRegister.setText("در انتظار تایید");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
+        } else {
+            binding.btnTourPageRegister.setText("ثبت‌نام");
+            binding.btnTourPageRegister.setEnabled(true);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+                tourController.register(tour.getTour_id(), new OnResponseDialog(this) {
                     @Override
-                    public void onGlobalLayout() {
-                        binding.viewForShowingImage.setLayoutParams(new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT, getScreenHeight()
-                        ));
-
-                        maxScrollY = binding.scTourPage.getChildAt(0).getHeight() - getScreenHeight();
-
-                        binding.scTourPageBottom.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                        getScreenHeight() - Utils.getStatusBarHeight(TourPageActivity.this) -
-                                                binding.llTourPageNames.getHeight() -
-                                                dp2px(TourPageActivity.this, getResources().getDimension(R.dimen.margin_small))));
-
-                        topNamesMarginRight = ((FrameLayout.LayoutParams) binding.cardBackTourPage.getLayoutParams()).rightMargin
-                                + binding.cardBackTourPage.getWidth();
-                        namesPadding = binding.llTourPageNames.getPaddingLeft();
-
-
-                        binding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        pendingTours.add(tour);
+                        onLoadUsers();
                     }
                 });
+            });
+        }
 
-        //binding.ivTourPageBack.setOnClickListener(v -> { closeBottomView();onBackPressed(); });
+    }
+
+    private void setTourData() {
+        binding.ivTourPageImage.setImagePath(PathController.getRandomPath(this));
+        binding.tvTourPageName.setText(tour.getTour_name());
+        binding.tbActivity.setTitle(tour.getTour_name());
+        binding.tvTourPageLeaderName.setText(tour.getCreator().getNameAndLastname());
+
+        //details
+        binding.tvTourPagePrice.setText(tour.getPriceString());
+        binding.tvTourPageStartDate.setText(tour.getPersianStartDate().getShortDate());
+        binding.tvTourPageFinalDate.setText(tour.getPersianEndDate().getShortDate());
+        binding.tvTourPageCity.setText(tour.getDestination());
+
+        //options
+        boolean breakfast = tour.isHas_breakfast(), lunch = tour.isHas_lunch(), dinner = tour.isHas_dinner();
+        String foods = "";
+        String resident = translate(tour.getResidence());
+        String vehicle = translate(tour.getHas_transportation());
+        if (breakfast)
+            foods += "صبحانه";
+        if (lunch) {
+            if (breakfast)
+                foods += "،" + " ";
+            foods += "ناهار";
+        }
+        if (dinner) {
+            if (!foods.isEmpty())
+                foods += "،" + " ";
+            foods += "شام";
+        }
+        if (foods.isEmpty())
+            binding.groupTourPageFood.setVisibility(View.GONE);
+        else
+            binding.tvTourPageFood.setText(foods);
+
+        if (resident.isEmpty())
+            binding.groupTourPagePlace.setVisibility(View.GONE);
+        else
+            binding.tvTourPagePlace.setText(resident);
+
+        if (vehicle.isEmpty())
+            binding.groupTourPageVehicle.setVisibility(View.GONE);
+        else
+            binding.tvTourPageVehicle.setText(vehicle);
+
+
+        Log.d("tourPlaces", "setTourData: " + Arrays.toString(tour.getPlaces()));
+        binding.rycTourPagePlaces.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.rycTourPagePlaces.setAdapter(new PlacesRecyclerAdapter(this, tour.getPlaces()));
+
+
+        TourLeaderVerticalView tourLeaderView = new TourLeaderVerticalView(this).setData(tour.getCreator());
+
+        binding.llTourPageLeader.addView(tourLeaderView);
+
+        binding.cardBackTourPage.setOnClickListener(v -> {
+            closeBottomView();
+            onBackPressed();
+        });
+
+    }
+
+    private String translate(String word) {
+        switch (word) {
+            case "None":
+                return "";
+            case "House":
+                return "خانه";
+            case "Hotel":
+                return "هتل";
+            case "Villa":
+                return "ویلا";
+            case "Suite":
+                return "سوئیت";
+            case "Car":
+                return "ماشین";
+            case "Minibus":
+                return "مینی بوس";
+            case "Bus":
+                return "اتوبوس";
+            case "Van":
+                return "ون";
+        }
+        return word;
     }
 
     @Override

@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' //retrofit
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0' //retrofit
     implementation 'com.google.code.gson:gson:2.9.0' //gson
+    implementation "com.github.skydoves:powermenu:2.2.0" //popup menu
 
 
 }

@@ -4,6 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#0A9894</item>
         <item name="colorPrimaryVariant">#097B78</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorBackgroundDarker</item>
 
         <!-- Secondary brand color. -->

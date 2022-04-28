@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.Controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ir.blackswan.travelapp.Retrofit.Api;
 import ir.blackswan.travelapp.Retrofit.RetrofitClient;
@@ -13,6 +14,7 @@ public abstract class Controller {
 
     AuthActivity authActivity;
     static Gson gson = new Gson();
+    Gson gsonExpose = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     Api api;
 
 

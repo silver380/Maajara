@@ -8,7 +8,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ir.blackswan.travelapp.R;
@@ -18,24 +20,28 @@ public class ErrorHandler {
 
     public static String getStringErrors(Context context, String gsonError) {
         Log.d(TAG, "getStringErrors:" + "  " + gsonError);
-
-        Map<String, Object> retMap = gson.fromJson(
-                gsonError, new TypeToken<HashMap<String, Object>>() {
-                }.getType()
-        );
-        StringBuilder errors = new StringBuilder();
-        for (String key : retMap.keySet()) {
-            Object obj = retMap.get(key);
-            if (obj instanceof String[]) {
-                String[] messages = (String[]) obj;
-                for (String msg : messages) {
-                    errors.append(translate(context, msg)).append("\n");
-                }
-            }else if (obj instanceof String)
-                errors.append(translate(context , (String) obj));
+        try {
+            Map<String, Object> retMap = gson.fromJson(
+                    gsonError, new TypeToken<HashMap<String, Object>>() {
+                    }.getType()
+            );
+            StringBuilder errors = new StringBuilder();
+            for (String key : retMap.keySet()) {
+                Object obj = retMap.get(key);
+                if (obj instanceof List) {
+                    List<String> messages = (List<String>) obj;
+                    for (String msg : messages) {
+                        errors.append(translate(context, msg)).append("\n");
+                    }
+                } else if (obj instanceof String)
+                    errors.append(translate(context, (String) obj));
+            }
+            Log.d(TAG, "getStringErrors:" + "  " + errors);
+            return errors.toString().trim();
+        } catch (Exception e) {
+            Log.e(TAG, "getStringErrors: ", e);
         }
-        Log.d(TAG, "getStringErrors:" + "  " + errors);
-        return errors.toString().trim();
+        return context.getString(R.string.somthing_went_wrong);
     }
 
     private static String translate(Context context, String msg) {
@@ -50,7 +56,6 @@ public class ErrorHandler {
         }
         return msg;
     }
-
 
 
 }

@@ -12,6 +12,7 @@ public class MyPersianCalender extends PersianDateImpl {
         setDate(timeInMillis);
     }
     public String getShortDate(){
-        return String.format("%2d/%2d/%2d" , getPersianYear() , getPersianMonth() , getPersianDay());
+        return String.format("%d/%d/%d" , getPersianYear() , getPersianMonth() , getPersianDay());
     }
+
 }

@@ -1,11 +1,12 @@
 package ir.blackswan.travelapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CheckBox;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.HashSet;
+import com.google.android.material.textfield.TextInputEditText;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -27,7 +28,7 @@ public class AddTourActivity extends ToolbarActivity {
     GroupButtons groupPlace, groupFood, groupVehicle;
     MaterialPersianDateChooser startDate, finalDate;
     SelectPlacesDialog selectPlacesDialog;
-    static String[] residents = {"Hotel" , "Suite", "House", "Villa"};
+    static String[] residents = {"Hotel", "Suite", "House", "Villa"};
     static String[] vehicle = {"Car", "Minibus", "Bus", "Van"};
     private TourController tourController;
 
@@ -38,9 +39,9 @@ public class AddTourActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         binding.rclAddTourPlaces.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         selectPlacesDialog = new SelectPlacesDialog(this, v -> {
-            HashSet<Place> selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
+            Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclAddTourPlaces.setAdapter(
-                    new PlacesRecyclerAdapter(this, selectedPlaces.toArray(new Place[0]))
+                    new PlacesRecyclerAdapter(this, selectedPlaces)
             );
         });
         tourController = new TourController(this);
@@ -83,51 +84,70 @@ public class AddTourActivity extends ToolbarActivity {
             selectPlacesDialog.show();
         });
         binding.btnAddTourSubmit.setOnClickListener(view -> {
-            String tourName = binding.etAddTourName.getText().toString();
 
-            String sDate = startDate.getCalendar().getPersianYear() + "-" +
-                    startDate.getCalendar().getPersianMonth() + "-" +
-                    startDate.getCalendar().getPersianDay();
+            if (checkInputs()) {
 
-            String fDate = finalDate.getCalendar().getPersianYear() + "-" +
-                    finalDate.getCalendar().getPersianMonth() + "-" +
-                    finalDate.getCalendar().getPersianDay();
+                String tourName = binding.etAddTourName.getText().toString();
 
-            int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
+                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
+                        startDate.getCalendar().getGregorianMonth() + "-" +
+                        startDate.getCalendar().getGregorianDay();
 
-            long price = Long.parseLong(binding.etAddTourPrice.getText().toString());
+                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
+                        finalDate.getCalendar().getGregorianMonth() + "-" +
+                        finalDate.getCalendar().getGregorianDay();
 
-            String destination = binding.etAddTourDestination.getText().toString();
+                int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
 
-            Place[] places = (Place[]) selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces().toArray();
+                int price = Integer.parseInt(binding.etAddTourPrice.getText().toString());
 
-            int residenceIndex =  groupPlace.getFirstSelectedIndex();
-            String residence = residenceIndex == -1 ? "None" : residents[residenceIndex];
+                String destination = binding.etAddTourDestination.getText().toString();
 
-            int tranIndex = groupVehicle.getFirstSelectedIndex();
-            String transportation = tranIndex == -1? "None": vehicle[tranIndex];
+                Place[] places = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
 
-            boolean[] food = groupFood.getSelected();
+                int residenceIndex = groupPlace.getFirstSelectedIndex();
+                String residence = residenceIndex == -1 ? "None" : residents[residenceIndex];
 
-            Tour tour = new Tour(tourName, capacity , price , destination , sDate , fDate , places , residence ,
-                    food[0] , food[1] , food[2] , transportation);
+                int tranIndex = groupVehicle.getFirstSelectedIndex();
+                String transportation = tranIndex == -1 ? "None" : vehicle[tranIndex];
 
-            tourController.addTourToServer(tour , new OnResponseDialog(this){
-                @Override
-                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                    super.onSuccess(call, callback, response);
-                    Toast.makeText(AddTourActivity.this , "تور با موفقیت اضافه شد" ,
-                            Toast.LENGTH_SHORT , Toast.TYPE_SUCCESS).show();
-                    finish();
-                }
+                boolean[] food = groupFood.getSelected();
 
-                @Override
-                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                    super.onFailed(call, callback, response);
-                }
-            });
+                Tour tour = new Tour(tourName, capacity, price, destination, sDate, fDate, places, residence,
+                        food[0], food[1], food[2], transportation);
+
+                tourController.addTourToServer(tour, new OnResponseDialog(this) {
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
+                        Toast.makeText(AddTourActivity.this, "تور با موفقیت اضافه شد",
+                                Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
+                        finish();
+                    }
+
+                });
+
+            } else {
+                Toast.makeText(this, "لطفا تمام مقادیر را وراد کنید", Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+            }
 
         });
+
+    }
+
+    private boolean checkInputs() {
+        TextInputEditText[] inputEditTexts = new TextInputEditText[]{
+                binding.etAddTourName, binding.etAddTourCapacity, binding.etAddTourPrice, binding.etAddTourDestination,
+                binding.etAddTourStartDate, binding.etAddTourFinalDate,
+        };
+
+        for (TextInputEditText input : inputEditTexts) {
+            if (input.getText().toString().isEmpty())
+                return false;
+        }
+        return binding.rclAddTourPlaces.getChildCount() > 0;
+
     }
 
 

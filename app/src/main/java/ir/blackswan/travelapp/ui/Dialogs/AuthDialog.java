@@ -9,7 +9,6 @@ import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_PASSWORD;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,9 +50,9 @@ public class AuthDialog extends MyDialog {
     }
 
     private AuthController authController;
-    private OnAuthComplete onAuthComplete;
+    private OnResponseDialog onResponseDialog;
 
-    public AuthDialog(AuthActivity activity, OnAuthComplete onAuthorization, boolean forLogin) {
+    public AuthDialog(AuthActivity activity, boolean forLogin) {
         binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
@@ -63,7 +62,6 @@ public class AuthDialog extends MyDialog {
 
         authController = new AuthController(activity);
 
-        this.onAuthComplete = onAuthorization;
 
         mActivity = activity;
         errors = new String[]
@@ -84,6 +82,24 @@ public class AuthDialog extends MyDialog {
 
     }
 
+    public void setOnAuthComplete(OnAuthComplete onAuthComplete) {
+        onResponseDialog = new OnResponseDialog(mActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                AuthDialog.this.dismiss();
+                onAuthComplete.onCompleted(); //IMPORTANT: call this after dismiss!!!!
+                Log.d(MyCallback.TAG, "onAuthComplete onSuccess: ");
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                stopLoadingAnimation();
+            }
+        };
+    }
+
     private void changeTypeAndStep(boolean forLogin, int step, boolean back) {
         dialog.dismiss();
         if (!back)
@@ -97,9 +113,6 @@ public class AuthDialog extends MyDialog {
         dialog.show();
     }
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener dismissListener){
-        dialog.setOnDismissListener(dismissListener);
-    }
 
     public boolean isLoading() {
         return loading;
@@ -136,14 +149,7 @@ public class AuthDialog extends MyDialog {
             startLoadingAnimation();
 
             if (checkInputs()) {
-                OnResponseDialog onResponseDialog = new OnResponseDialog(mActivity){
-                    @Override
-                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                        super.onSuccess(call, callback, response);
-                        onAuthComplete.onCompleted();
-                        dialog.dismiss();
-                    }
-                };
+
                 if (step == STEP_LOGIN) {
                     authController.login(getEditableText(binding.etLoginEmail.getText())
                             , getEditableText(binding.etLoginPassword.getText()), onResponseDialog);
@@ -291,7 +297,7 @@ public class AuthDialog extends MyDialog {
         return success;
     }
 
-    public interface OnAuthComplete{
+    public interface OnAuthComplete {
         void onCompleted();
     }
 
