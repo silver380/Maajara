@@ -35,3 +35,7 @@ class TravelPlanSerializer(serializers.ModelSerializer):
 
 
     
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        exclude = ('is_admin', 'last_login', 'password')
