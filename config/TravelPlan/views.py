@@ -21,7 +21,7 @@ class CreatedTravelPlans(ListAPIView):
     def get_queryset(self):
         return TravelPlan.objects.filter(plan_creator=self.request.user)
 
-class Register(GenericAPIView):
+class Register(GenericAPIView): #it should change > pending leaders 
     serializer_class = TravelPlanSerializer
     permission_classes = [permissions.IsAuthenticated and IsTourLeader] 
 
@@ -36,7 +36,7 @@ class Register(GenericAPIView):
         registered_plan.pending_leaders.add(request.user)
         return Response(status=200)
 
-class MyPendingLeaders(GenericAPIView):
+class MyPendingLeaders(GenericAPIView): # it should change.
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserInfoSerializer
 

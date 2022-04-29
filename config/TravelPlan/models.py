@@ -8,5 +8,5 @@ class TravelPlan(models.Model):
 	end_date = models.DateField(blank=False, null=True)
 	plan_creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
 	wanted_list = models.TextField(null = True)
-	pending_leaders = models.ManyToManyField('MyUser.MyUser', related_name='pending_leaders', blank=True, null=True)
+	pending_leaders = models.ManyToManyField('MyUser.MyUser', related_name='pending_leaders', blank=True, null=True) #TODO: it should change
     # TODO: confirmed_leader = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_users', blank=True, null=True)
