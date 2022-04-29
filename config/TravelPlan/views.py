@@ -46,18 +46,9 @@ class MyPendingLeaders(GenericAPIView): # it should change.
             serializer = UserInfoSerializer(plan.pending_leaders.all(), many=True)
             return_data[plan.plan_id] = serializer.data
         return Response(return_data)
-class AddPlan(GenericAPIView):
+
+
+class AddPlan(CreateAPIView):
+    model = TravelPlan
     serializer_class = TravelPlanSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    def post(self, request):    
-
-        serializer = TravelPlanCreatSerializer(data=request.data)
-        if serializer.is_valid():
-            TravelPlan.objects.create(**serializer.data, plan_creator=request.user)
-
-            return Response(status=200, data={"detail": "Travel plan added successfully.", "data": request.data})
-        else:
-            return Response(status=400, data={"error": serializer.errors})
-
-

@@ -33,6 +33,9 @@ class TravelPlanSerializer(serializers.ModelSerializer):
     end_date = serializers.DateField(required=True)
     wanted_list = serializers.CharField() 
 
+    def create(self, validated_data):
+        plan = TravelPlan.objects.create(**validated_data, plan_creator=self.context['request'].user)
+        return plan
 
     
 class UserInfoSerializer(serializers.ModelSerializer):
