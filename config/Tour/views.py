@@ -1,5 +1,5 @@
 from .serializers import TourCreatSerializer, UserInfoSerializer, TourSerializers
-from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import permissions
@@ -120,3 +120,8 @@ class AddTour(GenericAPIView):
             return Response(status=200, data={"detail": "Tour added successfully.", "data": request.data})
         else:
             return Response(status=400, data={"error": serializer.errors})
+
+class Add(CreateAPIView):
+    model = Tour
+    serializer_class = TourSerializers
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]

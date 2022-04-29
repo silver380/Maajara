@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Tour
+from Place.models import Place
 from django.contrib.auth import get_user_model
 from Place.serializers import PlaceSerializers
 
@@ -55,8 +56,16 @@ class TourSerializers(serializers.ModelSerializer):
     has_transportation = serializers.ChoiceField(choices=[('Car', 'C'),
                                                           ('Bus', 'B'), ('Minibus', 'MB'),
                                                           ('Van', 'V'), ('None', 'N')], required=True)
-
-
+    def create(self, validated_data):
+        id_place = validated_data.pop('places')
+        print(id_place)
+        tour = Tour.objects.create(**validated_data,  creator_id=self.context['request'].user.user_id)
+        try:
+           # for p_id in id_place:
+           #TODO
+        except Exception as e:
+                print(e)
+        return tour
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
-    MyPendingUsers, MyConfirmedUsers, AddTour, AcceptUser
+    MyPendingUsers, MyConfirmedUsers, AddTour, AcceptUser, Add
 
 app_name = 'Tour'
 urlpatterns = [
@@ -11,6 +11,6 @@ urlpatterns = [
     path('pendingtours/', MyPendingTours.as_view(), name="created_tours"),
     path('pendingusers/', MyPendingUsers.as_view(), name="created_tours"),
     path('confirmedusers/', MyConfirmedUsers.as_view(), name="created_tours"),
-    path('addtour/', AddTour.as_view(), name="add_tour"),
+    path('addtour/', Add.as_view(), name="add_tour"),
     path('acceptuser/', AcceptUser.as_view(), name="accept_user"),
 ]
