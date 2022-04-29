@@ -9,4 +9,5 @@ urlpatterns = [
     path('auth/', include('MyUser.urls')),
     path('tour/', include('Tour.urls')),
     path('place/', include('Place.urls')),
+    path('travelplan/', include('TravelPlan.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

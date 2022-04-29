@@ -10,7 +10,7 @@ class CreatorSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'last_name', 'user_id']
 
 
-class TravelPlan(serializers.ModelSerializer):
+class TravelPlanSerializer(serializers.ModelSerializer):
     creator = CreatorSerializer(read_only=True)
 
     class Meta:
@@ -21,5 +21,5 @@ class TravelPlan(serializers.ModelSerializer):
     destination = serializers.CharField(max_length=60, required=True)
     start_date = serializers.DateField(required=True)
     end_date = serializers.DateField(required=True)
-    wanted_list = serializers.TextField() 
+    wanted_list = serializers.CharField() 
     
