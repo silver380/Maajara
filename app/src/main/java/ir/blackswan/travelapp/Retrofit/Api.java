@@ -13,6 +13,11 @@ import retrofit2.http.POST;
 
 public interface Api {
 
+    @POST("/travelplan/addplan")
+    Call<ResponseBody> addPlan(@Header("Authorization") String token,
+                            @Body RequestBody plan
+            );
+
     @GET("/place/all/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
