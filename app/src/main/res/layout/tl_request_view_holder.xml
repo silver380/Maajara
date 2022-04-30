@@ -6,14 +6,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_small"
+        >
 
 
         <ir.blackswan.travelapp.Views.ProfileImageView
             android:id="@+id/iv_tl"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_small"
             android:layout_marginHorizontal="@dimen/margin_small"
             android:src="@drawable/test_picture"
             android:scaleType="centerCrop"
@@ -22,6 +23,7 @@
             app:layout_constraintLeft_toRightOf="@id/view_column2"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/confirm_button"
             app:riv_corner_radius="100dp"
             />
 
