@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/place_image_w"
+    android:layout_height="@dimen/travel_plan_icon_h"
+    android:layout_marginHorizontal="@dimen/margin_very_small"
+    android:layout_marginVertical="@dimen/margin_small"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/radius_medium"
+    app:cardElevation="@dimen/card_elevation_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_travel_plan"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/margin_very_small"
+            app:tint="@color/colorIconTint" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_location"
+                app:tint="@color/colorIconTint"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                style="@style/textSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="شهر" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="@dimen/margin_very_small"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_duration"
+                app:tint="@color/colorIconTint"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
+                />
+
+            <TextView
+                style="@style/textSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="تاریخ سفر" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@color/colorDividers"
+            android:layout_marginBottom="@dimen/margin_very_small"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/textSmall"
+            android:text="درخواستها"
+            />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
