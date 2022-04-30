@@ -34,6 +34,8 @@
     <dimen name="place_image_w">150dp</dimen>
     <dimen name="place_image_h">120dp</dimen>
 
+    <dimen name="travel_plan_icon_h">135dp</dimen>
+
     <dimen name="lines_extra_space">1.5dp</dimen>
 
     <integer name="duration_short">150</integer>
