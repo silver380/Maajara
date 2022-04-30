@@ -23,7 +23,7 @@ class CreatedTours(ListAPIView):
 
 class Register(GenericAPIView):
     serializer_class = TourSerializers
-    permission_classes = [permissions.AllowAny] 
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         if 'tour_id' not in request.data:
@@ -120,6 +120,7 @@ class AddTour(GenericAPIView):
             return Response(status=200, data={"detail": "Tour added successfully.", "data": request.data})
         else:
             return Response(status=400, data={"error": serializer.errors})
+
 
 class Add(CreateAPIView):
     model = Tour

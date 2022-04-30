@@ -1,18 +1,17 @@
-from django.shortcuts import render
-from .serializers import CreatorSerializer, TravelPlanSerializer, TravelPlanCreatSerializer, UserInfoSerializer
-from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
-from django.contrib.auth import get_user_model
-from rest_framework.response import Response
 from rest_framework import permissions
-from .permissions import IsTourLeader
+from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
+from rest_framework.response import Response
+
 from .models import TravelPlan
-from rest_framework.mixins import CreateModelMixin
+from .permissions import IsTourLeader
+from .serializers import TravelPlanSerializer, UserInfoSerializer
 
 
 class TravelPlanListAPIView(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = TravelPlan.objects.all()
     serializer_class = TravelPlanSerializer
+
 
 class CreatedTravelPlans(ListAPIView):
     serializer_class = TravelPlanSerializer
@@ -21,9 +20,10 @@ class CreatedTravelPlans(ListAPIView):
     def get_queryset(self):
         return TravelPlan.objects.filter(plan_creator=self.request.user)
 
-class Register(GenericAPIView): #it should change > pending leaders 
+
+class Register(GenericAPIView):  # it should change > pending leaders
     serializer_class = TravelPlanSerializer
-    permission_classes = [permissions.IsAuthenticated and IsTourLeader] 
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
 
     def post(self, request):
         if 'plan_id' not in request.data:
@@ -36,7 +36,8 @@ class Register(GenericAPIView): #it should change > pending leaders
         registered_plan.pending_leaders.add(request.user)
         return Response(status=200)
 
-class MyPendingLeaders(GenericAPIView): # it should change.
+
+class MyPendingLeaders(GenericAPIView):  # it should change.
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserInfoSerializer
 

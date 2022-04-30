@@ -21,6 +21,6 @@ class Tour(models.Model):
                                                    ('Van', 'V'), ('None', 'N')],
                                           default='N')
     places = models.ManyToManyField('Place.Place', related_name='places', blank=True, null=True)
-    creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
+    creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, blank=True)
     pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_tours', blank=True, null=True)
     confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_tours', blank=True, null=True)
