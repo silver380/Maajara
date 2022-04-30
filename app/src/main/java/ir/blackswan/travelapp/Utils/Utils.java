@@ -208,11 +208,11 @@ public class Utils {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_EMAIL,  new String[]{"blackswan@gmail.com"});
+            intent.putExtra(Intent.EXTRA_EMAIL,  new String[]{email});
             intent.setPackage("com.google.android.gm");
             context.startActivity(Intent.createChooser(intent, "ارسال ایمیل"));
         } catch (ActivityNotFoundException e) {
-            //TODO smth
+
         }
     }
 }

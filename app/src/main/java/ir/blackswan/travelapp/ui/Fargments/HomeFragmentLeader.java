@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.databinding.FragmentHomeLeaderBinding;
+import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -41,6 +43,9 @@ public class HomeFragmentLeader extends Fragment {
         binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
+        binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(authActivity,
+                LinearLayoutManager.HORIZONTAL, false));
+        binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans())); //todo: FAKE RECYCLES
 
         reload();
 

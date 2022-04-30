@@ -3,31 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_add_tour.xml" value="0.16510416666666666" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_main.xml" value="0.19739583333333333" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_tour_page.xml" value="0.16510416666666666" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_user_requests.xml" value="0.20104166666666667" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home_leader.xml" value="0.19739583333333333" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home_traveler.xml" value="0.19739583333333333" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_request_tl.xml" value="0.20104166666666667" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/place_view_holder.xml" value="0.23072916666666668" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tl_request_view_holder.xml" value="0.4" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.4" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tour_view_holder.xml" value="0.10364583333333334" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.6" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/user_req_view_holder.xml" value="0.43337195828505215" />
-        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.25" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_on_response.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_small_radius_filled.xml" value="0.242" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/telegram_back.xml" value="0.1275" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.29739776951672864" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.22314911366006257" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_fullscreen.xml" value="0.2359375" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_test.xml" value="0.25" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.25" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.264" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.136" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_user_requests.xml" value="0.12447916666666667" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
@@ -47,10 +35,12 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading_spin.xml" value="0.12158054711246201" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading_view.xml" value="0.12158054711246201" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/place_view_holder.xml" value="0.152" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.2" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.16799999999999998" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.264" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.4862119013062409" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tour_view_holder.xml" value="0.176" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/view_image_profile.xml" value="0.4" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.4" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/user_req_view_holder.xml" value="0.2" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/view_image_profile.xml" value="0.12" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/web_image_view.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
       </map>

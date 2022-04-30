@@ -40,6 +40,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_pvh_city"
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,6 +66,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_pvh_startdate"
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
