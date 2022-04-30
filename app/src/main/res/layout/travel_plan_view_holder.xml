@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/place_image_w"
-    android:layout_height="@dimen/travel_plan_icon_h"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_very_small"
     android:layout_marginVertical="@dimen/margin_small"
     android:orientation="vertical"
@@ -27,6 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_small"
             android:orientation="horizontal">
 
             <ImageView
@@ -42,6 +43,7 @@
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_very_small"
                 android:text="شهر" />
         </LinearLayout>
 
@@ -49,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginVertical="@dimen/margin_very_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_very_small"
             >
 
             <ImageView
@@ -65,6 +68,7 @@
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_very_small"
                 android:text="تاریخ سفر" />
         </LinearLayout>
 
@@ -78,10 +82,14 @@
 
         <TextView
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             style="@style/textSmall"
-            android:text="درخواستها"
+            android:text="درخواست‌ها"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_very_small"
             />
 
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>
