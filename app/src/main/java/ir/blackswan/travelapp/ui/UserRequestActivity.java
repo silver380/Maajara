@@ -73,7 +73,7 @@ public class UserRequestActivity extends ToolbarActivity{
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 Map<String, User[]> allConfirmedUsers_map = passengerRequestsController.getAllConfirmedUsers();
-                confirmedUsers = allConfirmedUsers_map.get(tour_id + ""); //todo edit the element 0
+                confirmedUsers = allConfirmedUsers_map.get(tour_id + "");
                 tourUsers = new ArrayList<>();
                 if (confirmedUsers != null)
                     tourUsers.addAll(Arrays.asList(confirmedUsers));

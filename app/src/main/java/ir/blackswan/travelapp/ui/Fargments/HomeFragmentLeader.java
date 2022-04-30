@@ -44,6 +44,7 @@ public class HomeFragmentLeader extends Fragment {
 
         reload();
 
+
         return root;
     }
 

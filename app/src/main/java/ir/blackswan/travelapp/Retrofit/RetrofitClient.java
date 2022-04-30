@@ -13,8 +13,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitClient {
     private static Retrofit instance;
     private final static String URL = "https://tourleaderapp.herokuapp.com/";
+    private final static String LOCAL_URL = "http://10.0.2.2:8000/";
     private static final Api api;
-//
+
     static {
         Retrofit retrofit = RetrofitClient.getInstance();
         api = retrofit.create(Api.class);

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
 import java.util.Stack;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -150,13 +151,13 @@ public class AuthDialog extends MyDialog {
             if (checkInputs()) {
                 startLoadingAnimation();
                 if (step == STEP_LOGIN) {
-                    authController.login(getEditableText(binding.etLoginEmail.getText())
+                    authController.login(getEditableText(binding.etLoginEmail.getText()).toLowerCase()
                             , getEditableText(binding.etLoginPassword.getText()), onResponseDialog);
 
                 } else if (step == STEP_REGISTER) {
                     String name = getEditableText(binding.etLoginName.getText());
                     String lastName = getEditableText(binding.etLoginLastName.getText());
-                    String email = getEditableText(binding.etLoginEmail.getText());
+                    String email = getEditableText(binding.etLoginEmail.getText()).toLowerCase();
                     authController.register(email,
                             getEditableText(binding.etLoginPassword.getText()), name, lastName, onResponseDialog);
                     //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
@@ -176,10 +177,16 @@ public class AuthDialog extends MyDialog {
         });
 
         binding.btnLoginGoToAnother.setOnClickListener(v -> {
-            if (forLogin)
+            if (forLogin) {
                 changeTypeAndStep(false, STEP_REGISTER, false);
-            else
+                binding.etLoginName.requestFocus();
+                clearError();
+            }
+            else {
                 changeTypeAndStep(true, STEP_LOGIN, false);
+                binding.etLoginEmail.requestFocus();
+                clearError();
+            }
 
         });
 
@@ -216,10 +223,22 @@ public class AuthDialog extends MyDialog {
         }
     }
 
+    public void restart(){
+        for (TextInputEditText ti : textInputs) {
+            ti.setText("");
+        }
+        stopLoadingAnimation();
+        stepsStack.clear();
+        changeTypeAndStep(true , STEP_LOGIN , true);
+        binding.etLoginEmail.requestFocus();
+        clearError();
+    }
 
     private void setTexts() {
         final String login = "ورود", register = "ثبت‌نام",
-                goToLogin = "قبلا ثبت نام کرده‌اید؟", goToRegister = "حسابی در تراش ندارید؟";
+                goToLogin = "قبلا ثبت نام کرده‌اید؟";
+        final String goToRegister = String.format("حسابی در %s ندارید؟" , mActivity.getString(R.string.app_name));
+
         if (forLogin) {
             binding.tvLoginTittle.setText(login);
             binding.btnLogin.setText(login);

@@ -1,15 +1,18 @@
 package ir.blackswan.travelapp.Utils;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.text.Editable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,7 +21,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -155,9 +157,9 @@ public class Utils {
     }
 
 
-    public static long numDaysBetween(long fromTime , long toTime) {
+    public static long numDaysBetween(long fromTime, long toTime) {
         GregorianCalendar c = new GregorianCalendar();
-        int result = 0 , sign = 1;
+        int result = 0, sign = 1;
         if (toTime < fromTime) {
             sign = -1;
             long t = fromTime;
@@ -178,4 +180,39 @@ public class Utils {
 
     }
 
+
+    public static boolean openTelegram(Context context, String id) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=" + id));
+            context.startActivity(intent);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void openWhatsapp(Context context, String number) {
+        String url = "https://api.whatsapp.com/send?phone=" + number;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        context.startActivity(i);
+    }
+
+    public static void openPhone(Context context, String number) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + number));
+        context.startActivity(intent);
+    }
+
+    public static void openGmail(Context context, String email) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL,  new String[]{"blackswan@gmail.com"});
+            intent.setPackage("com.google.android.gm");
+            context.startActivity(Intent.createChooser(intent, "ارسال ایمیل"));
+        } catch (ActivityNotFoundException e) {
+            //TODO smth
+        }
+    }
 }

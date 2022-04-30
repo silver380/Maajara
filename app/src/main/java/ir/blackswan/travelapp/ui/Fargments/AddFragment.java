@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.databinding.FragmentAddBinding;
 import ir.blackswan.travelapp.ui.AddTourActivity;
+import ir.blackswan.travelapp.ui.MainActivity;
 
 
 public class AddFragment extends Fragment {
@@ -26,11 +27,17 @@ public class AddFragment extends Fragment {
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textAdd;
-        textView.setText("comingSoon");
+        binding.testBtnAddTour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , AddTourActivity.class));
+            }
+        });
 
-        if (AuthController.getUser().is_tour_leader())
-            startActivity(new Intent(getActivity() , AddTourActivity.class));
+
+        if (!((MainActivity)getActivity()).getHomeFragment().isTourLeader() ) {
+            binding.testBtnAddTour.setVisibility(View.GONE);
+        }
         return root;
     }
 

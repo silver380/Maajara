@@ -148,15 +148,20 @@ public class User implements Serializable {
 
 
     public String getPhone_number() {
-        return phone_number;
+        return getNullifEmpty(phone_number);
     }
 
     public String getTelegram_id() {
-        return telegram_id;
+        return getNullifEmpty(telegram_id);
     }
 
+    public String getNullifEmpty(String str){
+        if (str == null || str.equals(""))
+            return null;
+        return str;
+    }
     public String getWhatsapp_id() {
-        return whatsapp_id;
+        return getNullifEmpty(whatsapp_id);
     }
 
     public double getRate() {

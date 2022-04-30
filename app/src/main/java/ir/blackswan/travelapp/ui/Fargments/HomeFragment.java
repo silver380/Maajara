@@ -71,7 +71,12 @@ public class HomeFragment extends Fragment {
         });
 
 
+
         return root;
+    }
+
+    public boolean isTourLeader() {
+        return tourLeader;
     }
 
     private void setCurrentFragment() {
