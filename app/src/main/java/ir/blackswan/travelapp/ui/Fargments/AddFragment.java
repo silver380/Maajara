@@ -35,7 +35,7 @@ public class AddFragment extends Fragment {
         });
 
 
-        if (!((MainActivity)getActivity()).getHomeFragment().isTourLeader() ) {
+        if (!HomeFragment.isTourLeader() ) {
             binding.testBtnAddTour.setVisibility(View.GONE);
         }
         return root;

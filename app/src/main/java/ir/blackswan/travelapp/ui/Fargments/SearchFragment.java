@@ -9,13 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
+import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -26,9 +31,10 @@ import retrofit2.Call;
 
 public class SearchFragment extends Fragment {
 
+    private final static int TOGGLE_TOUR = 0, TOGGLE_PLACE = 1, TOGGLE_PLAN = 2;
+    private static int toggle = -1;
     private FragmentSearchBinding binding;
     private AuthActivity authActivity;
-    private boolean toggleTours = true;
     private TourController tourController;
     private PlaceController placeController;
 
@@ -40,10 +46,30 @@ public class SearchFragment extends Fragment {
         View root = binding.getRoot();
         authActivity = (AuthActivity) getActivity();
 
-        binding.toggleSearch.selectButton(R.id.btn_search_tour);
+        if (HomeFragment.isTourLeader()) {
+            binding.btnSearchTour.setVisibility(View.GONE);
+            binding.btnSearchPlan.setVisibility(View.VISIBLE);
+            binding.toggleSearch.selectButton(R.id.btn_search_plan);
+
+            toggle = TOGGLE_PLAN;
+        } else {
+            binding.btnSearchTour.setVisibility(View.VISIBLE);
+            binding.btnSearchPlan.setVisibility(View.GONE);
+            binding.toggleSearch.selectButton(R.id.btn_search_tour);
+
+            toggle = TOGGLE_TOUR;
+        }
+
         binding.toggleSearch.setOnSelectListener(themedButton -> {
-            toggleTours = !toggleTours;
+            if (themedButton.getId() == R.id.btn_search_tour)
+                toggle = TOGGLE_TOUR;
+            else if (themedButton.getId() == R.id.btn_search_plan)
+                toggle = TOGGLE_PLAN;
+            else if (themedButton.getId() == R.id.btn_search_place)
+                toggle = TOGGLE_PLACE;
+
             reload();
+
             return Unit.INSTANCE;
         });
         tourController = new TourController(authActivity);
@@ -62,10 +88,17 @@ public class SearchFragment extends Fragment {
     }
 
     private void reload() {
-        if (toggleTours)
+        if (toggle == TOGGLE_TOUR)
             reloadTours();
-        else
+        else if (toggle == TOGGLE_PLAN)
+            reloadPlans();
+        else if (toggle == TOGGLE_PLACE)
             reloadPlaces();
+    }
+
+    private void reloadPlans() {
+        //todo: remove these and request for get all tours
+        binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity, PlanController.getAllPlans()));
     }
 
     private void reloadTours() {

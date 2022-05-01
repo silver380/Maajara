@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private AuthActivity authActivity;
-    private boolean tourLeader = true;
+    private static boolean tourLeader = true;
     private HomeFragmentLeader homeFragmentLeader;
     private HomeFragmentPassenger homeFragmentPassenger;
 
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    public boolean isTourLeader() {
+    public static boolean isTourLeader() {
         return tourLeader;
     }
 

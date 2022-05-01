@@ -45,6 +45,16 @@
             app:toggle_text="تور" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn_search_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/colorTransparent"
+            app:toggle_btnCornerRadius="@dimen/radius_medium"
+            app:toggle_fontFamily="vazir_medium.ttf"
+            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+            app:toggle_text="برنامه ‌سفر" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btn_search_place"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
