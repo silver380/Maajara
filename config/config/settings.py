@@ -32,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'tourleaderapp.herokuapp.com',
     '127.0.0.1',
+    'javadjafari1.pythonanywhere.com'
 ]
 
 
