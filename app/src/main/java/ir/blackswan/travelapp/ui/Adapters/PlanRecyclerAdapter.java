@@ -18,6 +18,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
 
 public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder> {
 
@@ -60,6 +61,11 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
 
         holder.startDate.setText(startDate.getShortDate());
         holder.city.setText(plan.getDestination());
+        PlanDialog planDialog = new PlanDialog(authActivity , plan);
+        holder.itemView.setOnClickListener(v -> planDialog.show());
+        holder.requests.setOnClickListener(v->{
+            //todo: start TourLeaderRequests activity
+        });
     }
 
     @Override
@@ -68,11 +74,12 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView city , startDate;
+        TextView city , startDate , requests;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             city = itemView.findViewById(R.id.tv_pvh_city);
             startDate = itemView.findViewById(R.id.tv_pvh_startdate);
+            requests = itemView.findViewById(R.id.tv_pvh_requests);
         }
     }
 }

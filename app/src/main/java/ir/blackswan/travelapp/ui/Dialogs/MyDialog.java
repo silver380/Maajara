@@ -4,6 +4,7 @@ package ir.blackswan.travelapp.ui.Dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 
 import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialog;
@@ -33,6 +34,12 @@ public abstract class MyDialog {
                 buildBottomSheet(context, view);
                 break;
         }
+    }
+
+    public void setTransparent(){
+        dialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT)
+        );
     }
 
     private void buildAlertDialog(Context context, View view) {

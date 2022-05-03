@@ -21,6 +21,7 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_on_response.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_place.xml" value="0.2" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_plan.xml" value="0.264" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_register_login.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_response_messge.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_select_places.xml" value="0.25" />
@@ -39,9 +40,10 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.264" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.4862119013062409" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tour_view_holder.xml" value="0.176" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.4" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.152" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/user_req_view_holder.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/view_image_profile.xml" value="0.12" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/view_request.xml" value="0.536" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/web_image_view.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
       </map>
