@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
 
+from django.urls import path, include, re_path
+from MyUser.views import place_picture
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,4 +9,5 @@ urlpatterns = [
     path('tour/', include('Tour.urls')),
     path('place/', include('Place.urls')),
     path('travelplan/', include('TravelPlan.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    re_path(r'^media/(?P<folder>.*)/(?P<file_name>.*)$', place_picture),
+]

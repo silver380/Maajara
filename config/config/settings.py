@@ -30,9 +30,7 @@ SECRET_KEY = 'django-insecure-8zeyfx3v^o_)g=xxkyk8yslcjt+tp^=_jwrp*3yoic!ox@3@9w
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'tourleaderapp.herokuapp.com',
-    '127.0.0.1',
-    'javadjafari1.pythonanywhere.com'
+    '*'
 ]
 
 
