@@ -84,9 +84,14 @@ class MyPendingReqs(GenericAPIView):
     def get(self, request):
         return_data = {}
         for travel_plan in TravelPlan.objects.filter(plan_creator = request.user):
+            data = []
             for req in TravelPlanReq.objects.filter(travel_plan_id = travel_plan.travel_plan_id):
                 serialized_data = TravelPlanReqSerializer(req)
-                return_data[travel_plan.travel_plan_id].append(serialized_data)  
+                data.append(serialized_data.data)
+                #print(serialized_data.data)
+            return_data[travel_plan.travel_plan_id] = data
+                
+       
         return Response(return_data)        
 
 

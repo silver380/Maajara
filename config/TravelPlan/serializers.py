@@ -40,7 +40,7 @@ class TravelPlanReqSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TravelPlanReq
-        #exclude = ('tour_leader',)  # + 'confirmed_leade'
+        #exclude = ('travel_plan_id',)  # + 'confirmed_leade'
         fields = '__all__'
 
    
