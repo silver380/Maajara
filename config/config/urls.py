@@ -10,4 +10,6 @@ urlpatterns = [
     path('place/', include('Place.urls')),
     path('travelplan/', include('TravelPlan.urls')),
     re_path(r'^media/(?P<folder>.*)/(?P<file_name>.*)$', PlacePicture.as_view()),
+    re_path(r'^auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

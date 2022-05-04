@@ -17,6 +17,7 @@ class MyUserManager(BaseUserManager):
     def create_superuser(self, email, password, **kwargs):
         u = self.create_user(email, password, **kwargs)
         u.is_admin = True
+        u.is_active = True
         u.save(using=self._db)
         return u
 
@@ -24,8 +25,8 @@ class MyUserManager(BaseUserManager):
 class MyUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=50, default='')
-    last_name = models.CharField(max_length=50, default='')
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.TextField(choices=[('Female', 'F'), ('Male', 'M')], default='Male')
     biography = models.CharField(max_length=1003, default='')
@@ -34,7 +35,11 @@ class MyUser(AbstractBaseUser):
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
     whatsapp_id = models.CharField(max_length=50, default='')
+
     is_tour_leader = models.BooleanField(default=False)
+
+    # todo default should be false
+    is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
