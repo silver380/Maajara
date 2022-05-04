@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
+            android:name=".ui.TLeaderRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.AddTourActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
