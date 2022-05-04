@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
             android:text="قیمت پیشنهادی"
-            app:layout_constraintBottom_toTopOf="@id/confirm_button"
+            app:layout_constraintBottom_toTopOf="@id/confirm_button_tl"
             app:layout_constraintRight_toRightOf="@id/bio_tv"
             app:layout_constraintTop_toBottomOf="@id/bio_tv" />
 
@@ -181,7 +181,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/confirm_button"
+            android:id="@+id/confirm_button_tl"
             style="@style/button.primaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
