@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseForbidden, FileResponse
 from rest_framework import permissions
 from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from config.settings import MEDIA_ROOT
 from .serializers import UserSerializer, UserUpgradeSerializer, UserInfoSerializer
@@ -42,10 +43,3 @@ class UserInfo(RetrieveAPIView):
         return self.request.user
 
 
-def place_picture(request, file_name, folder):
-    if not request.user or not request.user.is_authenticated:
-        return HttpResponseForbidden('Not authorized to access this media.')
-
-    absolute_path = MEDIA_ROOT + '/' + folder + '/' + file_name
-    response = FileResponse(open(absolute_path, 'rb'), as_attachment=True)
-    return response
