@@ -33,8 +33,15 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Application definition
+DJOSER = {
+    # todo: recover
+    # "SEND_ACTIVATION_EMAIL": True,
+    # "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
+}
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -47,10 +54,10 @@ INSTALLED_APPS = [
     'MyUser.apps.MyuserConfig',
     'rest_framework.authtoken',
     'rest_framework',
+    'djoser',
     'Tour.apps.TourConfig',
     'Place.apps.PlaceConfig',
     'TravelPlan.apps.TravelplanConfig',
-    
 ]
 
 MIDDLEWARE = [
@@ -90,30 +97,25 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+# todo: recover
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 LANGUAGE_CODE = 'en-us'
 
@@ -122,7 +124,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -145,4 +146,3 @@ REST_FRAMEWORK = {
 # WhiteNoise
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # STATIC_HOST = ""
-

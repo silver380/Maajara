@@ -1,10 +1,9 @@
-from django.contrib.auth import get_user_model
-from django.http import HttpResponseForbidden, FileResponse
+import requests
 from rest_framework import permissions
-from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from config.settings import MEDIA_ROOT
+from django.contrib.auth import get_user_model
+from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
 from .serializers import UserSerializer, UserUpgradeSerializer, UserInfoSerializer
 
 
@@ -43,3 +42,13 @@ class UserInfo(RetrieveAPIView):
         return self.request.user
 
 
+class ActivateUser(APIView):
+    def get(self, request, uid, token):
+        payload = {'uid': uid, 'token': token}
+        url = "http://localhost:8000/auth/users/activation/"
+        response = requests.post(url, data=payload)
+
+        if response.status_code == 204:
+            return Response({}, response.status_code)
+        else:
+            return Response(response.json())
