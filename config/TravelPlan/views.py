@@ -79,7 +79,6 @@ class AddPlanReq(CreateAPIView):
 
 class MyPendingReqs(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserInfoSerializer
 
     def get(self, request):
         return_data = {}
@@ -88,10 +87,24 @@ class MyPendingReqs(GenericAPIView):
             for req in TravelPlanReq.objects.filter(travel_plan_id = travel_plan.travel_plan_id):
                 serialized_data = TravelPlanReqSerializer(req)
                 data.append(serialized_data.data)
-                #print(serialized_data.data)
             return_data[travel_plan.travel_plan_id] = data
                 
        
-        return Response(return_data)        
+        return Response(return_data) 
+
+class MyPendingTravelPlans(GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+
+
+    def get(self, request):
+        travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
+        return_data = []
+        for req in travel_plans_reqs:
+            serialized_data = TravelPlanSerializer(req.travel_plan_id)
+            return_data.append(serialized_data.data)
+
+        #serialized_data = TravelPlanSerializer(TravelPlanReq.objects.filter(tour_leader=request.user))
+        #return serialized_data.data
+        return Response(return_data)
 
 

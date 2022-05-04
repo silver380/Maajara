@@ -1,7 +1,7 @@
 from django.urls import path
 
 #from config.TravelPlan.models import TravelPlanReq
-from .views import TravelPlanListAPIView, CreatedTravelPlans, AddPlan, Register, MyPendingLeaders, AddPlanReq, MyPendingReqs
+from .views import TravelPlanListAPIView, CreatedTravelPlans, AddPlan, Register, MyPendingLeaders, AddPlanReq, MyPendingReqs, MyPendingTravelPlans
     
 
 app_name = 'TravelPlan'
@@ -13,5 +13,6 @@ urlpatterns = [
     path('pendingleaders/', MyPendingLeaders.as_view(), name="pending_leaders"),
     path('addplanreq/', AddPlanReq.as_view(), name="addplanreq"),
     path('mypendingreqs/',MyPendingReqs.as_view(), name="mypendingreqs"),
+    path('mypendingplans/',MyPendingTravelPlans.as_view(), name="mypendingplans"),
 
 ]
