@@ -6,28 +6,15 @@ from django.contrib.auth import get_user_model
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'user_id']
-
-
-class TravelPlanCreatSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TravelPlan
-        exclude = ('pending_leaders', 'plan_creator')  # + 'confirmed_leade'
-
-    travel_plan_name = serializers.CharField(max_length=60, required=True)
-    destination = serializers.CharField(max_length=60, required=True)
-    start_date = serializers.DateField(required=True)
-    end_date = serializers.DateField(required=True)
-    wanted_list = serializers.CharField()
+        fields = ['email', 'first_name', 'last_name', 'user_id']
 
 
 class TravelPlanSerializer(serializers.ModelSerializer):
     plan_creator = CreatorSerializer(read_only=True)
-    
 
     class Meta:
         model = TravelPlan
-        exclude = ('pending_leaders',)  # + 'confirmed_leade'
+        exclude = ('pending_leaders',)  # + 'confirmed_leader'
 
     travel_plan_name = serializers.CharField(max_length=60, required=True)
     destination = serializers.CharField(max_length=60, required=True)
@@ -59,7 +46,5 @@ class TravelPlanReqSerializer(serializers.ModelSerializer):
    
 
     def create(self, validated_data):
-        #travel_planid = validated_data.pop('travel_plan_idd')
         plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user)
-        #plan_req.travel_plan_id.add(travel_planid)
         return plan_req
