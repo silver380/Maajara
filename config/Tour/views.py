@@ -1,4 +1,4 @@
-from .serializers import TourCreatSerializer, UserInfoSerializer, TourSerializers
+from .serializers import  UserInfoSerializer, TourSerializers
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
@@ -98,28 +98,6 @@ class AcceptUser(GenericAPIView):
         registered_tour.confirmed_users.add(registered_user)
         registered_tour.pending_users.remove(registered_user)
         return Response(status=200)
-
-
-class AddTour(GenericAPIView):
-    serializer_class = TourSerializers
-    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
-
-    def post(self, request):
-        id_place = request.data['places']
-        data = request.data.copy()
-        data.pop('places')
-        serializer = TourCreatSerializer(data=data)
-        if serializer.is_valid():
-            new_tour = Tour.objects.create(**serializer.data, creator_id=request.user.user_id)
-            try:
-                for p_id in id_place:
-                    new_tour.places.add(p_id)
-            except Exception as e:
-                print(e)
-
-            return Response(status=200, data={"detail": "Tour added successfully.", "data": request.data})
-        else:
-            return Response(status=400, data={"error": serializer.errors})
 
 
 class Add(CreateAPIView):
