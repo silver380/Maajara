@@ -1,5 +1,8 @@
+from pyexpat import model
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models
+
+# from config.TravelPlan.models import TravelPlan
 
 
 class MyUserManager(BaseUserManager):
@@ -41,6 +44,9 @@ class MyUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    #Travel Plan
+    travel_plans = models.ManyToManyField('TravelPlan.TravelPlan', related_name='travel_plans', blank=True,null = True)
 
     def upgrade(self, data):
         # required fields
