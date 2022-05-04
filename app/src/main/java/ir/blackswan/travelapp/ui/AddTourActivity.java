@@ -129,7 +129,7 @@ public class AddTourActivity extends ToolbarActivity {
                 });
 
             } else {
-                Toast.makeText(this, "لطفا تمام مقادیر را وراد کنید", Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+                Toast.makeText(this, "لطفا تمام مقادیر را وارد کنید", Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
 
         });
