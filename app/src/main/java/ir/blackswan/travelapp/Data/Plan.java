@@ -20,13 +20,17 @@ public class Plan implements Serializable {
     private List<String> requestedThings;
     private List<User> requestedGuides;
     private User registeredUser;
+    @Expose
+    private Place[] places;
 
 
-    public Plan(String destination, String start_date, String end_date, List<String> requestedThings) {
+    public Plan(String destination, String start_date, String end_date, List<String> requestedThings,
+                Place[] places) {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
         this.requestedThings = requestedThings;
+        this.places = places;
     }
 
     public User getCreator() {
@@ -76,6 +80,8 @@ public class Plan implements Serializable {
         }
         return null;
     }
+
+    public Place[] getPlaces() { return places; }
 
     private Date convertStringToDate(String date) throws ParseException {
 
