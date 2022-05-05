@@ -5,6 +5,7 @@
     <style name="button.primaryButton" parent="Widget.MaterialComponents.Button">
         <item name="android:fontFamily">@font/vazir_medium</item>
         <item name="android:textSize">20sp</item>
+        <item name="cornerRadius">@dimen/radius_buttons</item>
     </style>
 
 
@@ -17,11 +18,13 @@
         <item name="android:fontFamily">@font/vazir_medium</item>
         <item name="android:textSize">15sp</item>
         <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="cornerRadius">@dimen/radius_buttons</item>
     </style>
 
     <style name="button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:fontFamily">@font/vazir_medium</item>
         <item name="android:textSize">15sp</item>
+        <item name="cornerRadius">@dimen/radius_buttons</item>
     </style>
 
     <style name="button.TextButton.small" parent="button.TextButton">
@@ -43,6 +46,11 @@
     <style name="editText.oneLine" parent="editText">
         <item name="android:maxLines">1</item>
         <item name="android:inputType">textShortMessage</item>
+    </style>
+
+    <style name="editText.nonInput" parent="editText">
+        <item name="android:focusable">false</item>
+        <item name="android:inputType">none</item>
     </style>
 
     <style name="textTittleBold">

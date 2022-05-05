@@ -27,11 +27,13 @@ import ir.blackswan.travelapp.R;
 
 public class ProfileImageView extends FrameLayout {
 
-    ImageView imageView;
-    TextView textView;
-    MaterialCardView cardView;
+    private ImageView imageView;
+    private AutoResizeTextView textView;
+    private MaterialCardView cardView;
     @Nullable
-    User user;
+    private User user;
+    private float maxTextSize = 60;
+
 
     public ProfileImageView(@NonNull Context context) {
         super(context);
@@ -53,19 +55,13 @@ public class ProfileImageView extends FrameLayout {
         init();
     }
 
-    public void setSize(int size){
-        FrameLayout.LayoutParams params = (LayoutParams) cardView.getLayoutParams();
-        params.width = size;
-        params.height = size;
-        cardView.setRadius(size / 2f);
-        cardView.setLayoutParams(params);
-    }
 
     private void init() {
         inflate(getContext(), R.layout.view_image_profile, this);
         textView = findViewById(R.id.profile_text);
         imageView = findViewById(R.id.profile_image);
         cardView = findViewById(R.id.profile_card);
+
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -84,7 +80,12 @@ public class ProfileImageView extends FrameLayout {
         if (user != null) {
             textView.setText(user.getFirst_name().charAt(0) + "‌" + user.getLast_name().charAt(0));
             noImageState();
+            textView.setMaxTextSize(maxTextSize);
         }
+    }
+    public void setMaxTextSize(float textSize){
+        textView.setMaxTextSize(textSize);
+        maxTextSize = textSize;
     }
 
 
@@ -109,7 +110,6 @@ public class ProfileImageView extends FrameLayout {
     private void setImageByFile(File pictureFile) {
         Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
         setImageBitmap(myBitmap);
-
         imageState();
     }
 

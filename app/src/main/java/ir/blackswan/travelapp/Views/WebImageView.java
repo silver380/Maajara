@@ -19,8 +19,10 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Data.Path;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Cacher;
 import ir.blackswan.travelapp.Utils.WebDownloader;
 
 public class WebImageView extends FrameLayout {
@@ -86,31 +88,33 @@ public class WebImageView extends FrameLayout {
         gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 
-    public void setImagePath(Path path) {
+    public void setImagePath(String serverPath) {
         loadingState();
-        if (path.getLocalPath() != null) {
-            File imageFile = new File(path.getLocalPath());
+        Cacher cacher = new Cacher(getContext());
+        String localPath = cacher.getLocalPathByServerPath(serverPath);
+        if (localPath != null) {
+            File imageFile = new File(localPath);
             if (imageFile.exists())
-                setImageByFile(new File(path.getLocalPath()));
+                setImageByFile(new File(localPath));
             else {
-                path.setLocalPath(getContext() , null);
-                setImagePath(path);
+                cacher.saveLocalPath(serverPath , null);
+                setImagePath(serverPath);
             }
-        } else if (path.getServerPath() != null) {
+        } else if (serverPath != null) {
 
-            new WebDownloader(getContext(), downloadedFile -> {
+            new WebDownloader(getContext(), AuthController.getTokenString(), downloadedFile -> {
                 if (downloadedFile != null) {
-                    setImageByFile(downloadedFile);
-                    path.setLocalPath(getContext() , downloadedFile.getPath());
+                    setImageByFile(downloadedFile );
+                    cacher.saveLocalPath(serverPath , downloadedFile.getPath());
                     Log.d("WebDownloader", "setImageLocalPath: " + downloadedFile.getPath());
                 } else {
                     errorContainer.setOnClickListener(v -> {
-                        setImagePath(path);
+                        setImagePath(serverPath);
                     });
                     errorState(true);
                 }
                 Log.d("WebDownloader", "setImagePath: onDownloadFinish");
-            }).execute(path.getServerPath());
+            }).execute(serverPath);
         } else {
             errorState(false);
         }

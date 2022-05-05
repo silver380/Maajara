@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ir.blackswan.travelapp.Controller.PathController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
@@ -45,7 +44,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         long daysBetween = Utils.numDaysBetween(startDate.getTimestamp() , endDate.getTimestamp());
         String startDateString = startDate.getShortDate();
 
-        holder.image.setImagePath(PathController.getRandomPath(activity));
+        holder.image.setImagePath(tour.getPlaces()[0].getPicture());
         holder.price.setText(tour.getShortPriceString());
         holder.startDate.setText(startDateString);
         holder.location.setText(tour.getDestination());
