@@ -139,6 +139,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="مواردی که میخواهم" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cv_plan_sth_container"
+                android:orientation="vertical"
+
+                />
+
 
 
 

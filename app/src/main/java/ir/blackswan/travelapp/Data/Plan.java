@@ -21,10 +21,12 @@ public class Plan implements Serializable {
     private List<User> requestedGuides;
     private User registeredUser;
 
-    public Plan(String destination, String start_date, String end_date) {
+
+    public Plan(String destination, String start_date, String end_date, List<String> requestedThings) {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.requestedThings = requestedThings;
     }
 
     public User getCreator() {

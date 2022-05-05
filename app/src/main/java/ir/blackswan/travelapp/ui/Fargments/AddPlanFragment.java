@@ -13,12 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.FragmentAddBinding;
@@ -33,6 +37,8 @@ public class AddPlanFragment extends Fragment {
     private FragmentAddPlanBinding binding;
     MaterialPersianDateChooser startDate, finalDate;
     private PlanController planController;
+    private AuthActivity authActivity;
+    ArrayList<TextInputEditText> inputEditTexts = new ArrayList<TextInputEditText>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +46,10 @@ public class AddPlanFragment extends Fragment {
         binding = FragmentAddPlanBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         super.onCreate(savedInstanceState);
-        planController = new PlanController((AuthActivity) getActivity());
+        authActivity = ((AuthActivity) getActivity());
+        planController = new PlanController(authActivity);
         setupDateChooses();
-//        setListeners();
+        setListeners();
 
         return root;
     }
@@ -53,44 +60,53 @@ public class AddPlanFragment extends Fragment {
         binding = null;
     }
 
-//    private void setListeners(){
-//        binding.btnPlanSubmit.setOnClickListener(view ->{
-//            if (checkInputs()) {
-//
-//                String Destination = binding.etPlanDestination.getText().toString();
-//
-//                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
-//                        startDate.getCalendar().getGregorianMonth() + "-" +
-//                        startDate.getCalendar().getGregorianDay();
-//
-//                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
-//                        finalDate.getCalendar().getGregorianMonth() + "-" +
-//                        finalDate.getCalendar().getGregorianDay();
-//
-//                //todo mavaredi ke mikhagham
-//                Plan plan = new Plan(Destination, sDate, fDate);
-//
-//              todo context??
-//
-//                planController.addPlanToServer(plan, new OnResponseDialog(this) {
-//                    @Override
-//                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-//                        super.onSuccess(call, callback, response);
-//                        Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-//                        Toast.makeText(AddPlanFragment.this, "برنامه سفر با موفقیت اضافه شد",
-//                                Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
-//                        finish();
-//                    }
-//
-//                });
-//
-//            }
-//            else {
-//                Toast.makeText(this, "لطفا تمام مقادیر را وارد کنید",
-//                        Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
-//            }
-//        });
-//    }
+    private void setListeners(){
+        binding.ivAddSth.setOnClickListener(v ->{
+            View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
+            binding.cvPlanSthContainer.addView(aCase);
+            TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
+            inputEditTexts.add(inputEditText);
+        });
+
+        binding.btnPlanSubmit.setOnClickListener(view ->{
+            if (checkInputs()) {
+
+                String Destination = binding.etPlanDestination.getText().toString();
+
+                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
+                        startDate.getCalendar().getGregorianMonth() + "-" +
+                        startDate.getCalendar().getGregorianDay();
+
+                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
+                        finalDate.getCalendar().getGregorianMonth() + "-" +
+                        finalDate.getCalendar().getGregorianDay();
+
+                ArrayList<String> requestedThings = new ArrayList<>();
+                for (TextInputEditText t:
+                        inputEditTexts) {
+                    requestedThings.add(t.getText().toString());
+                }
+
+                Plan plan = new Plan(Destination, sDate, fDate, requestedThings);
+
+                planController.addPlanToServer(plan, new OnResponseDialog(authActivity) {
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
+                        Toast.makeText(authActivity, "برنامه سفر با موفقیت اضافه شد",
+                                Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
+                    }
+
+                });
+
+            }
+            else {
+                Toast.makeText(authActivity, "لطفا تمام مقادیر را وارد کنید",
+                        Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+            }
+        });
+    }
 
     private void setupDateChooses() {
         startDate = new MaterialPersianDateChooser(binding.etPlanStartDate);
