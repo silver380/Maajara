@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -30,12 +28,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.PathController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
@@ -339,7 +335,7 @@ public class TourPageActivity extends ToolbarActivity {
     }
 
     private void setTourData() {
-        binding.ivTourPageImage.setImagePath(PathController.getRandomPath(this));
+        binding.ivTourPageImage.setImagePath(tour.getPlaces()[0].getPicture());
         binding.tvTourPageName.setText(tour.getTour_name());
         binding.tbActivity.setTitle(tour.getTour_name());
         binding.tvTourPageLeaderName.setText(tour.getCreator().getNameAndLastname());

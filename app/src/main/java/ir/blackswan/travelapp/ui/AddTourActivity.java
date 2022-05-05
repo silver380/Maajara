@@ -53,8 +53,8 @@ public class AddTourActivity extends ToolbarActivity {
     }
 
     private void setupDateChooses() {
-        startDate = new MaterialPersianDateChooser(binding.etAddTourStartDate);
-        finalDate = new MaterialPersianDateChooser(binding.etAddTourFinalDate);
+        startDate = new MaterialPersianDateChooser(this, binding.etAddTourStartDate);
+        finalDate = new MaterialPersianDateChooser(this, binding.etAddTourFinalDate);
     }
 
     private void setupGroupButtons() {

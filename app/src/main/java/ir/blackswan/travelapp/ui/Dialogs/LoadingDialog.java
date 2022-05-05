@@ -18,9 +18,7 @@ public class LoadingDialog extends MyDialog {
     public LoadingDialog(Activity activity) {
         binding = DialogResponseMessgeBinding.inflate(activity.getLayoutInflater());
         init(activity, binding.getRoot(), DIALOG_TYPE_ALERT);
-        getDialog().getWindow().setBackgroundDrawable(
-                new ColorDrawable(android.graphics.Color.TRANSPARENT)
-        );
+        setTransparent();
         getDialog().setCancelable(false);
     }
 

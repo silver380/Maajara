@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ public class MainActivity extends AuthActivity {
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
         auth(homeFragment::reload);
+
+
 
 
     }

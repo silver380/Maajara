@@ -25,6 +25,7 @@ public class Plan implements Serializable {
     private int travel_plan_id;
 
 
+
     public Plan(String destination, String start_date, String end_date, List<String> requestedThings,
                 Place[] places) {
         this.destination = destination;
@@ -32,8 +33,7 @@ public class Plan implements Serializable {
         this.end_date = end_date;
         this.wanted_list = requestedThings;
         this.places = places;
-    }
-
+}
     public User getCreator() {
         return creator;
     }

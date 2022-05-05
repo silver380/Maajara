@@ -1,37 +1,35 @@
 package ir.blackswan.travelapp.Utils;
 
-import android.content.Context;
-import android.view.View;
+import android.app.Activity;
 
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import ir.blackswan.travelapp.R;
-import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class MaterialPersianDateChooser {
     private TextInputEditText materialEditText;
-    private PersianDatePickerDialog dialog;
+    private final PersianDatePickerDialog dialog;
     private PersianPickerDate calendar;
-    private Context context;
+    private Activity activity;
 
-    public MaterialPersianDateChooser(TextInputEditText materialEditText){
+    public MaterialPersianDateChooser(Activity activity , TextInputEditText materialEditText){
         this.materialEditText = materialEditText;
-        context = materialEditText.getContext();
-        dialog = new PersianDatePickerDialog(context)
+        materialEditText.setShowSoftInputOnFocus(false);
+        this.activity = activity;
+        dialog = new PersianDatePickerDialog(activity)
                 .setPositiveButtonString("انتخاب")
                 .setNegativeButton("لغو")
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
                 .setMinYear(PersianDatePickerDialog.THIS_YEAR)
-                .setActionTextColor(Utils.getThemePrimaryColor(context))
-                .setTitleColor(ContextCompat.getColor(context , R.color.colorNormalText))
-                .setTypeFace(Utils.fontToTypeFace(context , R.font.vazir_bold))
+                .setActionTextColor(Utils.getThemePrimaryColor(this.activity))
+                .setTitleColor(ContextCompat.getColor(this.activity, R.color.colorNormalText))
+                .setTypeFace(Utils.fontToTypeFace(this.activity, R.font.vazir_bold))
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setListener(new PersianPickerListener() {
 
@@ -49,7 +47,9 @@ public class MaterialPersianDateChooser {
                 .setShowInBottomSheet(true);
 
         materialEditText.setFocusable(false);
-        materialEditText.setOnClickListener(v -> showPicker());
+        materialEditText.setOnClickListener(v -> {
+            showPicker();
+        });
     }
 
     private void showPicker(){
@@ -61,4 +61,6 @@ public class MaterialPersianDateChooser {
     public PersianPickerDate getCalendar() {
         return calendar;
     }
+
+
 }
