@@ -5,6 +5,8 @@ import java.util.List;
 
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class PlanController extends Controller {
 
@@ -22,13 +24,16 @@ public class PlanController extends Controller {
                 new Plan("کاشان" , "2022-04-13" , "2022-05-15" , requestedThing),
                 new Plan("اردکان" , "2022-05-10" , "2022-05-10" , requestedThing),
         };
+
     }
 
     public PlanController(AuthActivity authActivity) { super(authActivity); }
 
     public void addPlanToServer(Plan plan, OnResponse onResponse){
-//        todo
-//        api.addPlan(AuthController.getTokenString(), ?? )
+        String json = gsonExpose.toJson(plan);
+        json = json.replace("\"places_ids\":" ,"\"places\":" );
+        api.addPlan(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog() );
     }
 
     public static Plan[] getAllPlans(){ return allPlans; }
