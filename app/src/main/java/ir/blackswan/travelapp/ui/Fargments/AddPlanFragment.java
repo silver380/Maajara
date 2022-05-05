@@ -144,8 +144,6 @@ public class AddPlanFragment extends Fragment {
                 return false;
         }
 
-//        return binding.rclPlanPlaces.getChildCount() > 0;
-
-        return true;
+        return binding.rclPlanPlaces.getChildCount() > 0;
     }
 }
