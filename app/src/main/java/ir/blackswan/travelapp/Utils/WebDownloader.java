@@ -12,17 +12,22 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+
+import ir.blackswan.travelapp.Controller.MyCallback;
 
 public class WebDownloader extends AsyncTask<String, Void, File> {
 
     Context context;
     OnDownloadFinishListener onFinish;
+    String token;
 
-    public WebDownloader(Context context, OnDownloadFinishListener onFinish) {
+    public WebDownloader(Context context , String token, OnDownloadFinishListener onFinish) {
         this.context = context;
         this.onFinish = onFinish;
+        this.token = token;
     }
 
     @Nullable
@@ -30,7 +35,11 @@ public class WebDownloader extends AsyncTask<String, Void, File> {
         File outputFile;
         try {
             URL u = new URL(url);
-            URLConnection conn = u.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            Log.d("WebDownloader", "downloadFile:TOKEN " + token);
+            conn.setRequestProperty("Authorization", token);
+            conn.setRequestMethod("GET");
+
             int contentLength = conn.getContentLength();
 
             DataInputStream stream = new DataInputStream(u.openStream());
