@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.Views;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,8 +20,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
 
-import ir.blackswan.travelapp.Controller.AuthController;
-import ir.blackswan.travelapp.Data.Path;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Cacher;
 import ir.blackswan.travelapp.Utils.WebDownloader;
@@ -82,10 +81,10 @@ public class WebImageView extends FrameLayout {
     }
 
     private void setGradientVisible() {
-        if(loadingView.getVisibility() == VISIBLE) {
+        if (loadingView.getVisibility() == VISIBLE) {
             gradient.setVisibility(GONE);
-        }else
-        gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
+        } else
+            gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 
     public void setImagePath(String serverPath) {
@@ -97,15 +96,15 @@ public class WebImageView extends FrameLayout {
             if (imageFile.exists())
                 setImageByFile(new File(localPath));
             else {
-                cacher.saveLocalPath(serverPath , null);
+                cacher.saveLocalPath(serverPath, null);
                 setImagePath(serverPath);
             }
         } else if (serverPath != null) {
 
-            new WebDownloader(getContext(), AuthController.getTokenString(), downloadedFile -> {
+            WebDownloader.downloadFile(getContext(), serverPath, "Image ", ".jpg", downloadedFile -> {
                 if (downloadedFile != null) {
-                    setImageByFile(downloadedFile );
-                    cacher.saveLocalPath(serverPath , downloadedFile.getPath());
+                    setImageByFile(downloadedFile);
+                    cacher.saveLocalPath(serverPath, downloadedFile.getPath());
                     Log.d("WebDownloader", "setImageLocalPath: " + downloadedFile.getPath());
                 } else {
                     errorContainer.setOnClickListener(v -> {
@@ -114,7 +113,7 @@ public class WebImageView extends FrameLayout {
                     errorState(true);
                 }
                 Log.d("WebDownloader", "setImagePath: onDownloadFinish");
-            }).execute(serverPath);
+            });
         } else {
             errorState(false);
         }
@@ -192,5 +191,6 @@ public class WebImageView extends FrameLayout {
     public void setCornerRadius(float radius) {
         imageView.setCornerRadius(radius);
     }
+
 
 }

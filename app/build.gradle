@@ -55,8 +55,8 @@ dependencies {
     implementation 'io.github.anylifezlb:ScrollTextView:2.0.0' //scroll textView
     //implementation 'com.google.android.material:material:<version>'
 
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' //retrofit
-    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0' //retrofit
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.2' //retrofit
+    implementation 'com.squareup.retrofit2:converter-scalars:2.8.2' //retrofit
     implementation 'com.google.code.gson:gson:2.9.0' //gson
     implementation "com.github.skydoves:powermenu:2.2.0" //popup menu
     implementation 'me.grantland:autofittextview:0.2.0' //auto size text view
