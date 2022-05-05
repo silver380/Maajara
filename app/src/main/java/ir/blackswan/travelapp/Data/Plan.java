@@ -17,11 +17,12 @@ public class Plan implements Serializable {
     @Expose
     private String start_date, end_date;
     @Expose
-    private List<String> requestedThings;
+    private List<String> wanted_list;
     private List<User> requestedGuides;
     private User registeredUser;
     @Expose
     private Place[] places;
+    private int travel_plan_id;
 
 
     public Plan(String destination, String start_date, String end_date, List<String> requestedThings,
@@ -29,7 +30,7 @@ public class Plan implements Serializable {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.requestedThings = requestedThings;
+        this.wanted_list = requestedThings;
         this.places = places;
     }
 
@@ -49,8 +50,8 @@ public class Plan implements Serializable {
         return end_date;
     }
 
-    public List<String> getRequestedThings() {
-        return requestedThings;
+    public List<String> getWanted_list() {
+        return wanted_list;
     }
 
     public List<User> getRequestedGuides() {
