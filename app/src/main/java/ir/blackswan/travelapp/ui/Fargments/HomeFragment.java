@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.SettingActivity;
 import kotlin.Unit;
 
 public class HomeFragment extends Fragment {
@@ -52,24 +54,28 @@ public class HomeFragment extends Fragment {
         reload();
 
         PowerMenuItem powerMenuItem = new PowerMenuItem("خروج");
-        powerMenuItem.setIcon(R.drawable.ic_logout);
-        List<PowerMenuItem> powerMenuItems = Arrays.asList(powerMenuItem);
+        powerMenuItem.setIcon(R.drawable.ic_logout_padding);
+        PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
+        pmiSetting.setIcon(R.drawable.ic_logout_padding);
+        List<PowerMenuItem> powerMenuItems = Arrays.asList(pmiSetting , powerMenuItem);
         binding.ivHomeProfile.setOnClickListener(v -> {
             PowerMenu powerMenu = PopupMenuCreator.create(authActivity, powerMenuItems, v);
             powerMenu.showAsDropDown(v);
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
                 switch (position) {
-                    case 0:
+                    case 1:
                         AuthController.logout(authActivity);
                         authActivity.showAuthDialog(() -> {
                             reload();
                         });
                         break;
+                    case 0:
+                        startActivity(new Intent(authActivity, SettingActivity.class));
+                        break;
                 }
             });
         });
-
 
 
         return root;

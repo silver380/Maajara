@@ -1,70 +1,94 @@
 package ir.blackswan.travelapp.Utils;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.Nullable;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-public class WebDownloader extends AsyncTask<String, Void, File> {
+import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Retrofit.RetrofitClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    Context context;
-    OnDownloadFinishListener onFinish;
+public class WebDownloader {
 
-    public WebDownloader(Context context, OnDownloadFinishListener onFinish) {
-        this.context = context;
-        this.onFinish = onFinish;
-    }
+    public static void downloadFile(Context context , String url, String filePrefix,
+                                    String fileSuffix, OnDownloadFinishListener onDownloadFinishListener) {
 
-    @Nullable
-    public File downloadFile(String url) {
-        File outputFile;
-        try {
-            URL u = new URL(url);
-            URLConnection conn = u.openConnection();
-            int contentLength = conn.getContentLength();
+        Call<ResponseBody> call = RetrofitClient.getApi().downloadFile(AuthController.getTokenString(), url);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
-            DataInputStream stream = new DataInputStream(u.openStream());
+                try {
+                    File outputFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
+                            File.separator + filePrefix + System.currentTimeMillis() + fileSuffix);
 
-            byte[] buffer = new byte[contentLength];
-            stream.readFully(buffer);
-            stream.close();
-            outputFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
-                    File.separator + "Image" + System.currentTimeMillis() / 1000 + ".jpg");
+                    InputStream inputStream = null;
+                    OutputStream outputStream = null;
 
-            DataOutputStream fos = new DataOutputStream(new FileOutputStream(outputFile));
-            fos.write(buffer);
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
+                    try {
+                        byte[] fileReader = new byte[4096];
+                        if (response.body() != null) {
+                            long fileSize = response.body().contentLength();
+                            long fileSizeDownloaded = 0;
 
-            Log.e("WebDownloader", "downloadFile: ", e);
-            return null; // swallow a 404
-        }
-        return outputFile;
-    }
+                            inputStream = response.body().byteStream();
+                            outputStream = new FileOutputStream(outputFile);
 
-    @Override
-    protected File doInBackground(String... path) {
-        return downloadFile(path[0]);
-    }
+                            while (true) {
+                                int read = inputStream.read(fileReader);
+                                if (read == -1) {
+                                    break;
+                                }
+                                outputStream.write(fileReader, 0, read);
+                                fileSizeDownloaded += read;
+                                Log.d(MyCallback.TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
+                            }
+                            outputStream.flush();
+                            onDownloadFinishListener.onFinish(outputFile);
 
-    @Override
-    protected void onPostExecute(File file) {
-        super.onPostExecute(file);
-        onFinish.onFinish(file);
+                        } else {
+                            Log.e(MyCallback.TAG, "downloadFile: BODY NULL");
+                        }
+
+                    } catch (IOException e) {
+                        Log.e(MyCallback.TAG, "downloadFile: ", e);
+                    } finally {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                        if (outputStream != null) {
+                            outputStream.close();
+                        }
+                        onDownloadFinishListener.onFinish(null);
+                    }
+                } catch (IOException e) {
+                    Log.e(MyCallback.TAG, "downloadFile: ", e);
+                    onDownloadFinishListener.onFinish(null);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                onDownloadFinishListener.onFinish(null);
+            }
+        });
     }
 
     public interface OnDownloadFinishListener {
-        void onFinish(File downloadedFile);
+        void onFinish(@Nullable File downloadedFile);
     }
 }

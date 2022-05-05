@@ -4,6 +4,7 @@
     <dimen name="radius_medium">10dp</dimen>
     <dimen name="radius_large">15dp</dimen>
     <dimen name="radius_text_input">10dp</dimen>
+    <dimen name="radius_buttons">10dp</dimen>
 
     <dimen name="margin_very_small">5dp</dimen>
     <dimen name="margin_small">10dp</dimen>

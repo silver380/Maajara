@@ -5,14 +5,14 @@ import java.io.Serializable;
 public class Place implements Serializable {
     private int place_id;
     private String name , city, description;
-    private Path picturePath;
+    private String picture;
     private Tag tag;
 
     public Place(String name, String city, String description, String localPicturePath , String serverPicturePath) {
         this.name = name;
         this.city = city;
         this.description = description;
-        this.picturePath = new Path(serverPicturePath , localPicturePath);
+        picture = serverPicturePath;
     }
 
     public String getName() {
@@ -31,8 +31,8 @@ public class Place implements Serializable {
         return description;
     }
 
-    public Path getPicturePath() {
-        return picturePath;
+    public String getPicture() {
+        return picture;
     }
 
     public Tag getTag() {
