@@ -6,12 +6,15 @@
     android:background="@color/colorBackgroundDarker"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_activity"
-        style="@style/activity_toolbar"
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        app:title="برنامه سفر"/>
+        android:layout_height="wrap_content"
+        android:text="برنامه سفر"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        style="@style/textTittleBold"
+        />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -136,10 +139,80 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="مواردی که میخواهم" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cv_plan_sth_container"
+                android:orientation="vertical"
+
+                />
+
+
 
 
         </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/colorBackgroundLighter"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="@dimen/card_elevation_small">
+
+                <ImageButton
+                    android:id="@+id/iv_plan_add_place"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_very_small"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:src="@drawable/ic_plus"
+                    app:tint="@color/colorIconTint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:minHeight="100dp"
+                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingVertical="@dimen/padding_small">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textTittleMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/places" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcl_plan_places"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_plan_submit"
+                style="@style/button.primaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_small"
+                android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+                android:paddingVertical="@dimen/btn_large_padding_vertical"
+                android:text="تایید"
+                android:textColor="@color/colorWhite"
+                />
 
 
         </LinearLayout>

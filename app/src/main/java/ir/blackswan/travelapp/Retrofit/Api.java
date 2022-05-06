@@ -15,13 +15,15 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 
-    @POST("/travelplan/addplan/")
+
+
+    @POST("/travelplan/addplan")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
-                            @Body RequestBody plan
-            );
+                            @Body RequestBody plan);
 
     @GET("/place/all/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
