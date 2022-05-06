@@ -17,8 +17,8 @@ class TravelPlan(models.Model):
 
 class TravelPlanReq(models.Model):
     class Meta:
-        unique_together = [['tour_leader', 'travel_plan_id']]
+        unique_together = [['tour_leader', 'travel_plan']]
 
     tour_leader = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
-    travel_plan_id = models.ForeignKey('TravelPlan.TravelPlan', on_delete=models.CASCADE)
+    travel_plan = models.ForeignKey('TravelPlan.TravelPlan', on_delete=models.CASCADE)
     suggested_price = models.IntegerField(default=0)
