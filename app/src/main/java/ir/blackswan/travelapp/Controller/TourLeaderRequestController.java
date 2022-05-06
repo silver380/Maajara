@@ -40,6 +40,7 @@ public class TourLeaderRequestController extends Controller {
         }).showLoadingDialog());
     }
 
+
     public static Map<String, PlanRequest[]> getMap_planRequests() {
         return map_planRequests;
     }
