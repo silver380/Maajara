@@ -7,15 +7,12 @@ class TravelPlan(models.Model):
     destination = models.CharField(max_length=60, blank=False, default='')
     start_date = models.DateField(blank=False, null=True)
     end_date = models.DateField(blank=False, null=True)
-    plan_creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
+    plan_creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, related_name='plan_creator')
     wanted_list = models.TextField(null=True)
-    accepted_price = models.IntegerField(blank=True, null=True)
-    # pending_leaders = models.ManyToManyField('MyUser.MyUser', related_name='pending_leaders', blank=True,
-    # null=True)  # TODO: it should change
-    # confirmed_leader = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_leader', blank=True,
-    # null=True)
     pending_leaders = models.ManyToManyField('MyUser.MyUser', through='TravelPlanReq', related_name='pending_leaders',
                                              blank=True, null=True)
+    confirmed_tour_leader = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, null=True)
+    accepted_price = models.IntegerField(blank=True, null=True)
 
 
 class TravelPlanReq(models.Model):
