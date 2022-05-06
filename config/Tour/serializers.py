@@ -12,6 +12,21 @@ class CreatorSerializer(serializers.ModelSerializer):
 
 
 class TourSerializers(serializers.ModelSerializer):
+    creator = CreatorSerializer(required=False)
+    places = PlaceSerializers(many=True, required=False)
+
+    class Meta:
+        model = Tour
+        exclude = ('pending_users', 'confirmed_users')
+
+    def create(self, validated_data):
+        id_place = validated_data.pop('places')
+        tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
+        tour.places.add(*id_place)
+        return tour
+
+
+class AddTourSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Tour

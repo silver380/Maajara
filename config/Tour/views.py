@@ -1,4 +1,4 @@
-from .serializers import  UserInfoSerializer, TourSerializers
+from .serializers import *
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
@@ -102,5 +102,15 @@ class AcceptUser(GenericAPIView):
 
 class Add(CreateAPIView):
     model = Tour
-    serializer_class = TourSerializers
+    serializer_class = AddTourSerializers
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+
+    def perform_create(self, serializer):
+        return serializer.save()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self.perform_create(serializer)
+        instance_serializer = TourSerializers(instance)
+        return Response(instance_serializer.data)
