@@ -65,11 +65,11 @@ public class TourController extends Controller {
     }
 
     public void getCreatedTourFromServer(OnResponse onResponse) {
-        Log.d(MyCallback.TAG, "getCreatedTourFromServer: ");
+        Log.d(MyCallback.TAG, "getCreatedTourFromServer...: ");
         api.getCreatedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
+                Log.d(TAG, "getCreatedTourFromServer: onSuccess: " + response.getResponseBody());
                 createdTours = gson.fromJson(response.getResponseBody(), Tour[].class);
                 onResponse.onSuccess(call, callback, response);
             }
@@ -99,10 +99,11 @@ public class TourController extends Controller {
     }
 
     public void getConfirmedTourFromServer(OnResponse onResponse) {
-        Log.d(MyCallback.TAG, "getConfirmedTourFromServer: ");
+        Log.d(MyCallback.TAG, "getConfirmedTourFromServer:...");
         api.getConfirmedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                Log.d(MyCallback.TAG, "getConfirmedTourFromServerSuccess: ConfirmedTour: " + response.getResponseBody());
                 confirmedTours = gson.fromJson(response.getResponseBody(), Tour[].class);
                 onResponse.onSuccess(call, callback, response);
             }

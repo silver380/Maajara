@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,19 +8,27 @@ import android.text.TextWatcher;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 
+import com.google.gson.Gson;
 import com.skydoves.powermenu.PowerMenuItem;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.MyInputTypes;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.SettingsActivityBinding;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class SettingActivity extends ToolbarActivity {
     private static final int FILE_CHOOSE_REQUEST = 1;
@@ -28,6 +37,8 @@ public class SettingActivity extends ToolbarActivity {
     private static final int BIO_MAX_LENGTH = 350;
     private MaterialPersianDateChooser birthDate;
     private File selectedClearanceDoc;
+    private List<Boolean> gender;
+    private AuthController authController;
 
 
     @Override
@@ -36,6 +47,7 @@ public class SettingActivity extends ToolbarActivity {
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
         user = AuthController.getUser();
+        authController = new AuthController(this);
         setVisibilities(false);
         setDataToInputs();
         setInputTypes();
@@ -44,7 +56,7 @@ public class SettingActivity extends ToolbarActivity {
 
     private void setInputTypes() {
         birthDate = new MaterialPersianDateChooser(this, binding.etSettingBirthday);
-        MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
+        gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
                 new PowerMenuItem("زن")));
 
         MyInputTypes.showFileChooser(binding.etSettingClearanceDoc, this, result -> {
@@ -111,6 +123,54 @@ public class SettingActivity extends ToolbarActivity {
                 binding.tvSettingBioCounter.setText(s.length() + "/" + BIO_MAX_LENGTH);
             }
         });
+        CompoundButton.OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
+
+            if (buttonView.getId() == R.id.cb_setting_telegram)
+                binding.etSettingTelegram.setEnabled(isChecked);
+            if (buttonView.getId() == R.id.cb_setting_mobile)
+                binding.etSettingMobile.setEnabled(isChecked);
+            if (buttonView.getId() == R.id.cb_setting_whatsapp)
+                binding.etSettingWhatsapp.setEnabled(isChecked);
+        };
+        binding.cbSettingMobile.setOnCheckedChangeListener(onCheckedChangeListener);
+        binding.cbSettingTelegram.setOnCheckedChangeListener(onCheckedChangeListener);
+        binding.cbSettingWhatsapp.setOnCheckedChangeListener(onCheckedChangeListener);
+
+        binding.btnSettingLeaderSubmit.setOnClickListener(v -> {
+            if (checkInputs()) {
+                String gender = this.gender.get(0) ? "Male" : "Female";
+                List<String> connectStrings = getConnectStrings();
+                User user = new User(binding.etSettingName.getText().toString(), binding.etSettingLastname.getText().toString(),
+                        binding.etSettingEmail.getText().toString(), birthDate.getGregorianY_M_D(), gender
+                        , binding.etSettingBio.getText().toString(), new Gson().toJson(binding.etSettingLanguageSkills.toString().split("\\n"))
+                        , connectStrings.get(0), connectStrings.get(1), connectStrings.get(2));
+
+                authController.upgrade(user , new OnResponseDialog(this){
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+
+                        binding.tvLeaderInfoStatus.setText("در انتظار تایید");
+                        binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorWarning)));
+                    }
+                });
+            }
+        });
+    }
+
+    private List<String> getConnectStrings() {
+
+        return Arrays.asList(binding.cbSettingMobile.isChecked() ? addIranCode(binding.etSettingMobile.getText().toString()) : null,
+                binding.cbSettingTelegram.isChecked() ? binding.etSettingTelegram.getText().toString() : null,
+                binding.cbSettingWhatsapp.isChecked() ? addIranCode(binding.etSettingMobile.getText().toString()) : null);
+    }
+
+    private String addIranCode(String number) {
+        return "+98" + number;
+    }
+
+    private boolean checkInputs() {
+        return true;//todo: Check inputs setting
     }
 
     private void setDataToInputs() {

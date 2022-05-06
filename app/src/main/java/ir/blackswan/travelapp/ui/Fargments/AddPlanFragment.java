@@ -1,6 +1,5 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -21,14 +19,11 @@ import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Plan;
-import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.Toast;
-import ir.blackswan.travelapp.databinding.FragmentAddBinding;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
-import ir.blackswan.travelapp.ui.AddTourActivity;
 import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
@@ -52,7 +47,7 @@ public class AddPlanFragment extends Fragment {
         authActivity = ((AuthActivity) getActivity());
 
         binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL,
-                                                                        false));
+                false));
         selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
             Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclPlanPlaces.setAdapter(
@@ -73,9 +68,9 @@ public class AddPlanFragment extends Fragment {
         binding = null;
     }
 
-    private void setListeners(){
+    private void setListeners() {
         //wanted list
-        binding.ivAddSth.setOnClickListener(v ->{
+        binding.ivAddSth.setOnClickListener(v -> {
             View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
             binding.cvPlanSthContainer.addView(aCase);
             TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
@@ -88,7 +83,7 @@ public class AddPlanFragment extends Fragment {
         });
 
         //create button
-        binding.btnPlanSubmit.setOnClickListener(view ->{
+        binding.btnPlanSubmit.setOnClickListener(view -> {
             if (checkInputs()) {
 
                 String Destination = binding.etPlanDestination.getText().toString();
@@ -102,7 +97,7 @@ public class AddPlanFragment extends Fragment {
                         finalDate.getCalendar().getGregorianDay();
 
                 ArrayList<String> requestedThings = new ArrayList<>();
-                for (TextInputEditText t:
+                for (TextInputEditText t :
                         inputEditTexts) {
                     requestedThings.add(t.getText().toString());
                 }
@@ -130,8 +125,8 @@ public class AddPlanFragment extends Fragment {
     }
 
     private void setupDateChooses() {
-        startDate = new MaterialPersianDateChooser(binding.etPlanStartDate);
-        finalDate = new MaterialPersianDateChooser(binding.etPlanFinalDate);
+        startDate = new MaterialPersianDateChooser(authActivity, binding.etPlanStartDate);
+        finalDate = new MaterialPersianDateChooser(authActivity, binding.etPlanFinalDate);
     }
 
     private boolean checkInputs() {

@@ -251,7 +251,7 @@ public class AuthDialog extends MyDialog {
             binding.btnLoginGoToAnother.setText(login);
         }
         if (step == STEP_REGISTER) {
-            binding.btnLogin.setText("ارسال کد تایید");
+            binding.btnLogin.setText("ارسال ایمیل تایید");
 
         } else if (step == STEP_VERIFY) {
             binding.btnLogin.setText("تایید");

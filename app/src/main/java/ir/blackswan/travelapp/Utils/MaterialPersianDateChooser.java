@@ -17,7 +17,7 @@ public class MaterialPersianDateChooser {
     private PersianPickerDate calendar;
     private Activity activity;
 
-    public MaterialPersianDateChooser(Activity activity , TextInputEditText materialEditText){
+    public MaterialPersianDateChooser(Activity activity, TextInputEditText materialEditText) {
         this.materialEditText = materialEditText;
         materialEditText.setShowSoftInputOnFocus(false);
         this.activity = activity;
@@ -39,6 +39,7 @@ public class MaterialPersianDateChooser {
                         materialEditText.setText(calendar.getPersianLongDate());
 
                     }
+
                     @Override
                     public void onDismissed() {
 
@@ -52,9 +53,9 @@ public class MaterialPersianDateChooser {
         });
     }
 
-    private void showPicker(){
+    private void showPicker() {
         if (calendar != null)
-            dialog.setInitDate(calendar , true);
+            dialog.setInitDate(calendar, true);
         dialog.show();
     }
 
@@ -63,4 +64,8 @@ public class MaterialPersianDateChooser {
     }
 
 
+    public String getGregorianY_M_D() {
+        return calendar.getGregorianYear() + "-" +
+                calendar.getGregorianMonth() + "-" + calendar.getGregorianDay();
+    }
 }

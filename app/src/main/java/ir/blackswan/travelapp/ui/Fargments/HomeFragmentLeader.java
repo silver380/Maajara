@@ -45,7 +45,7 @@ public class HomeFragmentLeader extends Fragment {
 
         binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(authActivity,
                 LinearLayoutManager.HORIZONTAL, false));
-        binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans())); //todo: FAKE RECYCLES
+
 
         reload();
 

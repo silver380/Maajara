@@ -20,6 +20,14 @@ public interface Api {
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 
 
+    @POST("/travelplan/addplanreq/")
+    Call<ResponseBody> addPlanReq(@Header("Authorization") String token , @Body  RequestBody planRequest);
+
+    @GET("/travelplan/createdplans/")
+    Call<ResponseBody> getCreatedPlans(@Header("Authorization") String token);
+
+    @GET("/travelplan/all/")
+    Call<ResponseBody> getAllPlans(@Header("Authorization") String token);
 
     @POST("/travelplan/addplan")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
@@ -64,25 +72,20 @@ public interface Api {
     @GET("/tour/createdtours/")
     Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);
 
-    @POST("/auth/register/")
+    @POST("/auth/users/")
     @FormUrlEncoded
     Call<ResponseBody> registerUser(@Field("email") String email, @Field("password") String password
             , @Field("first_name") String firstName, @Field("last_name") String lastName);
 
-    @POST("/auth/token/")
+    @POST("/auth/token/login/")
     @FormUrlEncoded
-    Call<ResponseBody> token(@Field("username") String email, @Field("password") String password);
+    Call<ResponseBody> token(@Field("email") String email, @Field("password") String password);
 
     @POST("/auth/upgrade/")
-    @FormUrlEncoded
+
     Call<ResponseBody> upgrade(@Header("Authorization") String token,
-                               @Field("date-of-birth") String date,
-                               @Field("gender") String gender,
-                               @Field("biography") String biography,
-                               @Field("languages") String languages,
-                               @Field("phone_number") String phoneNumber,
-                               @Field("telegram_id") String telegramId,
-                               @Field("whatsapp_id") String whatsappId);
+                               @Body RequestBody user);
+
 
     @GET("/auth/info/")
     Call<ResponseBody> info(@Header("Authorization") String token);

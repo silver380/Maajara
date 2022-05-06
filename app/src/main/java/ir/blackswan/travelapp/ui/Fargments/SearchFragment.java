@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment {
     private AuthActivity authActivity;
     private TourController tourController;
     private PlaceController placeController;
+    private PlanController planController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class SearchFragment extends Fragment {
             return Unit.INSTANCE;
         });
         tourController = new TourController(authActivity);
+        planController = new PlanController(authActivity);
         placeController = new PlaceController(authActivity);
+
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         reload();
 
@@ -97,8 +100,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void reloadPlans() {
-        //todo: remove these and request for get all tours
-        binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity, PlanController.getAllPlans()));
+        planController.getAllPlanFromServer(new OnResponseDialog(authActivity){
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans()));
+            }
+        });
     }
 
     private void reloadTours() {

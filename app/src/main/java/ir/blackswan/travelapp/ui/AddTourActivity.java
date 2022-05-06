@@ -89,13 +89,9 @@ public class AddTourActivity extends ToolbarActivity {
 
                 String tourName = binding.etAddTourName.getText().toString();
 
-                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
-                        startDate.getCalendar().getGregorianMonth() + "-" +
-                        startDate.getCalendar().getGregorianDay();
+                String sDate = startDate.getGregorianY_M_D();
 
-                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
-                        finalDate.getCalendar().getGregorianMonth() + "-" +
-                        finalDate.getCalendar().getGregorianDay();
+                String fDate = startDate.getGregorianY_M_D();
 
                 int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
 

@@ -11,31 +11,33 @@ import java.util.List;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 
 public class Plan implements Serializable {
-    private User creator;
+    private User plan_creator;
     @Expose
     private String destination;
     @Expose
     private String start_date, end_date;
     @Expose
-    private List<String> wanted_list;
+    private String wanted_list;
     private List<User> requestedGuides;
     private User registeredUser;
     @Expose
     private Place[] places;
     private int travel_plan_id;
 
-
+    public int getTravel_plan_id() {
+        return travel_plan_id;
+    }
 
     public Plan(String destination, String start_date, String end_date, List<String> requestedThings,
                 Place[] places) {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.wanted_list = requestedThings;
+        this.wanted_list = requestedThings.toString();
         this.places = places;
 }
-    public User getCreator() {
-        return creator;
+    public User getPlan_creator() {
+        return plan_creator;
     }
 
     public String getDestination() {
@@ -50,8 +52,8 @@ public class Plan implements Serializable {
         return end_date;
     }
 
-    public List<String> getWanted_list() {
-        return wanted_list;
+    public String[] getWanted_list() {
+        return wanted_list.split("\\n");
     }
 
     public List<User> getRequestedGuides() {

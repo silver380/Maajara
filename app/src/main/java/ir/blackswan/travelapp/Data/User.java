@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -17,27 +19,51 @@ public class User implements Serializable {
     "phone_number": "123",
     "telegram_id": "",
     "whatsapp_id": ""
+
+     /*
+    @Field("date-of-birth") String date,
+                               @Field("gender") String gender,
+                               @Field("biography") String biography,
+                               @Field("languages") String languages,
+                               @Field("phone_number") String phoneNumber,
+                               @Field("telegram_id") String telegramId,
+                               @Field("whatsapp_id") String whatsappId
      */
+
     private int user_id = -1;
     private boolean isBanned, isValidatedByAdmin;
+    @Expose
     private String first_name, last_name, email;
+    @Expose
+    private String date_of_birth;
+    @Expose
+    private String gender;
+    @Expose
+    private String biography;
+    @Expose
+    private String languages;
+    @Expose
+    private String phone_number, telegram_id, whatsapp_id;
+
     private boolean is_tour_leader;
     private Path profilePicturePath;
     private int ticket;
-    private String date_of_birth;
-    private String gender;
-    private String biography;
     private Path policeClearanceDocPath;
-    private String languages;
-    private String phone_number, telegram_id, whatsapp_id;
-    private List<Path> relatedDocsPaths;
     private double rate;
 
-    public User(String name, String lastName, String email) {
-
-        this.first_name = name;
-        this.last_name = lastName;
+    public User(String first_name, String last_name, String email, String date_of_birth,
+                String gender, String biography, String languages,
+                String phone_number, String telegram_id, String whatsapp_id) {
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
+        this.biography = biography;
+        this.languages = languages;
+        this.phone_number = phone_number;
+        this.telegram_id = telegram_id;
+        this.whatsapp_id = whatsapp_id;
     }
 
     public void setBanned(boolean banned) {
@@ -84,10 +110,6 @@ public class User implements Serializable {
 
     public void setWhatsapp_id(String whatsapp_id) {
         this.whatsapp_id = whatsapp_id;
-    }
-
-    public void setRelatedDocsPaths(List<Path> relatedDocsPaths) {
-        this.relatedDocsPaths = relatedDocsPaths;
     }
 
     public void setRate(double rate) {
@@ -182,18 +204,17 @@ public class User implements Serializable {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", is_tour_leader=" + is_tour_leader +
-                ", profilePicturePath=" + profilePicturePath +
-                ", ticket=" + ticket +
                 ", date_of_birth='" + date_of_birth + '\'' +
                 ", gender='" + gender + '\'' +
                 ", biography='" + biography + '\'' +
-                ", policeClearanceDocPath=" + policeClearanceDocPath +
                 ", languages='" + languages + '\'' +
                 ", phone_number='" + phone_number + '\'' +
                 ", telegram_id='" + telegram_id + '\'' +
                 ", whatsapp_id='" + whatsapp_id + '\'' +
-                ", relatedDocsPaths=" + relatedDocsPaths +
+                ", is_tour_leader=" + is_tour_leader +
+                ", profilePicturePath=" + profilePicturePath +
+                ", ticket=" + ticket +
+                ", policeClearanceDocPath=" + policeClearanceDocPath +
                 ", rate=" + rate +
                 '}';
     }
