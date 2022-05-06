@@ -15,7 +15,10 @@ import retrofit2.http.Url;
 
 public interface Api {
 
-    @POST("/travelplan/addplan")
+    @GET("/travelplan/mypendingreqs/")
+    Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
+
+    @POST("/travelplan/addplan/")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
                             @Body RequestBody plan
             );

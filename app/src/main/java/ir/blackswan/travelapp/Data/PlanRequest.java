@@ -3,19 +3,22 @@ package ir.blackswan.travelapp.Data;
 import java.io.Serializable;
 
 public class PlanRequest implements Serializable {
-    private User guide;
-    private Plan plan;
-    private int price;
+    private String id;
+    private User tour_leader;
+    private Plan travel_plan;
+    private int suggested_price;
 
-    public User getGuide() {
-        return guide;
+    public String getId() { return id; }
+
+    public User getTour_leader() {
+        return tour_leader;
     }
 
-    public Plan getPlan() {
-        return plan;
+    public Plan getTravel_plan() {
+        return travel_plan;
     }
 
-    public int getPrice() {
-        return price;
+    public int getSuggested_price() {
+        return suggested_price;
     }
 }

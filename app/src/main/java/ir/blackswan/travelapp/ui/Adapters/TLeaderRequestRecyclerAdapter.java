@@ -3,7 +3,6 @@ package ir.blackswan.travelapp.ui.Adapters;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ir.blackswan.travelapp.Controller.PassengerRequestsController;
 import ir.blackswan.travelapp.Data.PlanRequest;
-import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.ProfileImageView;
 import ir.blackswan.travelapp.ui.AuthActivity;
@@ -46,7 +43,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.leaderImageView.setUser(tourLeader_req.getGuide());
         holder.userName_Lastname.setText(tourLeader_req.getGuide().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getGuide().getBiography());
-        holder.price.setText(tourLeader_req.getPrice());
+        holder.price.setText(tourLeader_req.getSuggested_price());
         if(confirmedTourLeaders.contains(tourLeader_req)){
             acceptTourLeader(holder);
         } else {
