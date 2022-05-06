@@ -2,10 +2,11 @@ from rest_framework import permissions
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
 
+from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
 from .permissions import IsTourLeader
 from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReqSerializer
-
+from django.contrib.auth import get_user_model
 
 class TravelPlanListAPIView(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -64,23 +65,20 @@ class AcceptTourLeader(GenericAPIView):
     serializer_class = UserInfoSerializer
 
     def post(self, request):
-        pass
-        # if 'tour_id' not in request.data or not Tour.objects.filter(pk=request.data['tour_id']).exists():
-        #     return Response(status=400, data={"error": "Invalid tour"})
+        
+        #get a user_id travel_plan_id
+        #print(request.data)
+        if 'travel_plan_id' not in request.data or 'user_id' not in request.data :
+            return Response(status=401, data={"error": "invalid data"})
 
-        # if 'user_id' not in request.data or not get_user_model().objects.filter(pk=request.data['user_id']).exists():
-        #     return Response(status=400, data={"error": "Invalid user id"})
-
-        # registered_user = get_user_model().objects.get(pk=request.data['user_id'])
-        # registered_tour = Tour.objects.get(pk=request.data['tour_id'])
-
-        # if registered_user not in registered_tour.pending_users.all():
-        #     return Response(status=400, data={"error": "Invalid pending user"})
-
-        # if registered_tour.creator != request.user:
-        #     return Response(status=401, data={"error": "invalid tour leader"})
-
-        # registered_tour.confirmed_users.add(registered_user)
-        # registered_tour.pending_users.remove(registered_user)
-        # return Response(status=200)
+        travel_plan = get_object_or_404(TravelPlan, pk = request.data['travel_plan_id'])
+        if travel_plan.confirmed_tour_leader != None :
+            return Response(status=401, data={"error": "already confirmed Tour leader"})
+        
+        tour_leader =  get_object_or_404(get_user_model(), pk = request.data['user_id'])
+        travel_plan.confirmed_tour_leader = tour_leader
+        travel_plan_req = TravelPlanReq.objects.filter(tour_leader=request.data['user_id'], travel_plan_id = request.data['travel_plan_id'])[0]
+        travel_plan.accepted_price = travel_plan_req.suggested_price
+        travel_plan.save()
+        return Response(status=200)
 
