@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -73,8 +74,10 @@ public class AddPlanFragment extends Fragment {
         binding.ivAddSth.setOnClickListener(v -> {
             View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
             binding.cvPlanSthContainer.addView(aCase);
+            TextInputLayout til = aCase.findViewById(R.id.til_case);
             TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
             inputEditTexts.add(inputEditText);
+            til.setHint("مورد " + inputEditTexts.size());
         });
 
         //places
@@ -88,13 +91,9 @@ public class AddPlanFragment extends Fragment {
 
                 String Destination = binding.etPlanDestination.getText().toString();
 
-                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
-                        startDate.getCalendar().getGregorianMonth() + "-" +
-                        startDate.getCalendar().getGregorianDay();
+                String sDate = startDate.getGregorianY_M_D();
 
-                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
-                        finalDate.getCalendar().getGregorianMonth() + "-" +
-                        finalDate.getCalendar().getGregorianDay();
+                String fDate = finalDate.getGregorianY_M_D();
 
                 ArrayList<String> requestedThings = new ArrayList<>();
                 for (TextInputEditText t :

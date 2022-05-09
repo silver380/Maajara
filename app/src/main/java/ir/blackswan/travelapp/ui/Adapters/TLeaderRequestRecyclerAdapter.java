@@ -43,7 +43,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.leaderImageView.setUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
-        holder.price.setText(tourLeader_req.getSuggested_price());
+        holder.price.setText(tourLeader_req.getPrice());
         if(confirmedTourLeaders.contains(tourLeader_req)){
             acceptTourLeader(holder);
         } else {

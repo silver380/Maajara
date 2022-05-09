@@ -46,5 +46,8 @@
     <string name="createdPlans">برنامه‌های سفر من</string>
     <string name="pendingTours">در انتظار تایید</string>
     <string name="confirmedTours">قطعی شده‌ها</string>
+    <string name="wanted_list">مواردی که می‌خواهم</string>
+    <string name="add_tour_tittle">تور جدید</string>
+    <string name="add_plan_tittle">برنامه سفر جدید</string>
 
 </resources>

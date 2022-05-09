@@ -1,10 +1,13 @@
 package ir.blackswan.travelapp.Data;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class Plan implements Serializable {
     private Place[] places;
     private int travel_plan_id;
 
+
     public int getTravel_plan_id() {
         return travel_plan_id;
     }
@@ -33,9 +37,10 @@ public class Plan implements Serializable {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.wanted_list = requestedThings.toString();
+        this.wanted_list = new Gson().toJson(requestedThings);
         this.places = places;
-}
+    }
+
     public User getPlan_creator() {
         return plan_creator;
     }
@@ -52,8 +57,12 @@ public class Plan implements Serializable {
         return end_date;
     }
 
-    public String[] getWanted_list() {
-        return wanted_list.split("\\n");
+    public List<String> getWanted_list() {
+        try {
+            return new Gson().fromJson(wanted_list, List.class);
+        } catch (JsonSyntaxException e) {
+            return new ArrayList<>(); //todo: remove this
+        }
     }
 
     public List<User> getRequestedGuides() {
@@ -84,7 +93,9 @@ public class Plan implements Serializable {
         return null;
     }
 
-    public Place[] getPlaces() { return places; }
+    public Place[] getPlaces() {
+        return places;
+    }
 
     private Date convertStringToDate(String date) throws ParseException {
 

@@ -6,27 +6,25 @@
     android:background="@color/colorBackgroundDarker"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="برنامه سفر"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_medium"
-        style="@style/textTittleBold"
-        />
-
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_large"
-            android:paddingTop="@dimen/padding_large">
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textTittleBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:text="@string/add_plan_tittle" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -106,52 +104,53 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            app:cardBackgroundColor="@color/colorBackgroundLighter"
-            app:cardCornerRadius="@dimen/radius_small"
-            app:cardElevation="@dimen/card_elevation_small">
-
-        <ImageButton
-            android:id="@+id/iv_add_sth"
-            android:layout_width="@dimen/tertiary_icon_size"
-            android:layout_height="@dimen/tertiary_icon_size"
-            android:layout_gravity="left"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginTop="@dimen/margin_very_small"
-            android:backgroundTint="@color/colorTransparent"
-            android:src="@drawable/ic_plus"
-            app:tint="@color/colorIconTint" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:minHeight="100dp"
-            android:paddingHorizontal="@dimen/padding_medium"
-            android:paddingVertical="@dimen/padding_small">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/textTittleMedium"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="مواردی که میخواهم" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/cv_plan_sth_container"
-                android:orientation="vertical"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/colorBackgroundLighter"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="@dimen/card_elevation_small">
 
-                />
+                <ImageButton
+                    android:id="@+id/iv_add_sth"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_very_small"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:src="@drawable/ic_plus"
+                    app:tint="@color/colorIconTint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingVertical="@dimen/padding_small">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textTittleMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/wanted_list" />
+
+                    <LinearLayout
+                        android:id="@+id/cv_plan_sth_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/padding_medium"
+
+                        />
 
 
-
-
-        </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -175,8 +174,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:minHeight="100dp"
+                    android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
@@ -195,8 +194,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -211,8 +209,7 @@
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
                 android:text="تایید"
-                android:textColor="@color/colorWhite"
-                />
+                android:textColor="@color/colorWhite" />
 
 
         </LinearLayout>

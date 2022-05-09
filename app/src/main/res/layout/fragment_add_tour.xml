@@ -6,30 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundDarker"
     android:orientation="vertical"
-    tools:context=".ui.AddTourActivity">
+    >
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_activity"
-        style="@style/activity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        app:title="اضافه کردن تور">
-
-
-    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_large"
-            android:paddingTop="@dimen/padding_large">
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textTittleBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:text="@string/add_tour_tittle" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
