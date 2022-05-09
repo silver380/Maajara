@@ -43,7 +43,7 @@
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small">
+                    android:paddingTop="@dimen/padding_small">
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -57,7 +57,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="@string/TourName"
                         app:startIconDrawable="@drawable/ic_flag">
 
@@ -74,7 +74,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="ظرفیت"
                         app:startIconDrawable="@drawable/ic_capacity">
 
@@ -92,7 +92,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="قیمت"
                         app:startIconDrawable="@drawable/ic_price">
 
@@ -112,7 +112,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="مقصد"
                         app:startIconDrawable="@drawable/ic_location">
 
@@ -151,10 +151,11 @@
                         android:text="زمان" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_add_tour_startDate"
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="تاریخ شروع"
                         app:startIconDrawable="@drawable/ic_calendar">
 
@@ -167,10 +168,11 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_add_tour_finalDate"
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="تاریخ پایان"
                         app:startIconDrawable="@drawable/ic_calendar">
 

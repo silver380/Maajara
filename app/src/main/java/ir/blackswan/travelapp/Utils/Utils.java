@@ -25,9 +25,11 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import ir.blackswan.travelapp.R;
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 
 
 public class Utils {
@@ -159,6 +161,9 @@ public class Utils {
     }
 
 
+    public static boolean isDateGreaterOrEqual(Date date1, Date date2){
+        return date1.getTime() >= date2.getTime();
+    }
     public static long numDaysBetween(long fromTime, long toTime) {
         GregorianCalendar c = new GregorianCalendar();
         int result = 0, sign = 1;

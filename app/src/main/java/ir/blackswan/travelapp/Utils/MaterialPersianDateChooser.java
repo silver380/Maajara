@@ -10,6 +10,7 @@ import ir.blackswan.travelapp.R;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 
 public class MaterialPersianDateChooser {
     private TextInputEditText materialEditText;
@@ -37,12 +38,11 @@ public class MaterialPersianDateChooser {
                     public void onDateSelected(PersianPickerDate persianPickerDate) {
                         calendar = persianPickerDate;
                         materialEditText.setText(calendar.getPersianLongDate());
-
+                        materialEditText.getOnFocusChangeListener().onFocusChange(materialEditText , false);
                     }
 
                     @Override
                     public void onDismissed() {
-
                     }
                 })
                 .setShowInBottomSheet(true);
@@ -51,6 +51,10 @@ public class MaterialPersianDateChooser {
         materialEditText.setOnClickListener(v -> {
             showPicker();
         });
+    }
+
+    public PersianDatePickerDialog getDialog() {
+        return dialog;
     }
 
     private void showPicker() {

@@ -49,5 +49,7 @@
     <string name="wanted_list">مواردی که می‌خواهم</string>
     <string name="add_tour_tittle">تور جدید</string>
     <string name="add_plan_tittle">برنامه سفر جدید</string>
+    <string name="date_error">تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد</string>
+    <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
 
 </resources>

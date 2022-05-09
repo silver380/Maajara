@@ -10,11 +10,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import androidx.annotation.Nullable;
+
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.skydoves.powermenu.PowerMenuItem;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -24,7 +28,9 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.MyInputTypes;
+import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.SettingsActivityBinding;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
@@ -39,6 +45,7 @@ public class SettingActivity extends ToolbarActivity {
     private File selectedClearanceDoc;
     private List<Boolean> gender;
     private AuthController authController;
+    private TextInputsChecker checker = new TextInputsChecker();
 
 
     @Override
@@ -51,11 +58,13 @@ public class SettingActivity extends ToolbarActivity {
         setVisibilities(false);
         setDataToInputs();
         setInputTypes();
+        setChecker();
         setListeners();
     }
 
     private void setInputTypes() {
         birthDate = new MaterialPersianDateChooser(this, binding.etSettingBirthday);
+        birthDate.getDialog().setMinYear(1310).setMaxYear(1382);
         gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
                 new PowerMenuItem("زن")));
 
@@ -154,6 +163,8 @@ public class SettingActivity extends ToolbarActivity {
                         binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorWarning)));
                     }
                 });
+            }else {
+                Toast.makeText(this, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
         });
     }
@@ -170,12 +181,26 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private boolean checkInputs() {
-        return true;//todo: Check inputs setting
+        return !checker.checkAllError();
+    }
+
+    private void setChecker(){
+        checker.add(Arrays.asList(binding.etSettingBio , binding.etSettingGender , binding.etSettingClearanceDoc ,
+                binding.etSettingSsn ));
+        checker.add(binding.etSettingBirthday, editText -> {
+            if (Utils.getEditableText(editText.getText()).isEmpty())
+                return editText.getHint() + " ضروری است";
+            else if (Utils.numDaysBetween(birthDate.getCalendar().getGregorianDate().getTime()
+                    , Calendar.getInstance().getTime().getTime()) > 365 * 18)
+                return "سن شما باید بزرگتر از ۱۸ باشد";
+
+            return null;
+        });
+
     }
 
     private void setDataToInputs() {
         binding.pivSetting.setUser(user);
-
         binding.etSettingName.setText(user.getFirst_name());
         binding.etSettingLastname.setText(user.getLast_name());
         binding.etSettingEmail.setText(user.getEmail());

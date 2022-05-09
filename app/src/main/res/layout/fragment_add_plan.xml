@@ -15,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/padding_large"
-            >
+            android:paddingHorizontal="@dimen/padding_large">
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/textTittleBold"
@@ -39,7 +38,7 @@
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small">
+                    android:paddingTop="@dimen/padding_small">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
@@ -53,7 +52,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        app:errorEnabled="true"
                         android:hint="مقصد"
                         app:startIconDrawable="@drawable/ic_location">
 
@@ -64,37 +63,39 @@
                             android:layout_height="wrap_content"
                             android:maxLength="@integer/max_city_name_length" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/textInputLayout.outLinedBox"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_plan_startDate"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:hint="تاریخ شروع"
+                        app:startIconDrawable="@drawable/ic_calendar">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_plan_startDate"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:hint="تاریخ شروع"
-                            app:startIconDrawable="@drawable/ic_calendar">
+                            android:layout_height="wrap_content" />
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_plan_startDate"
-                                style="@style/editText.oneLine"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_plan_finalDate"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:hint="تاریخ پایان"
+                        app:startIconDrawable="@drawable/ic_calendar">
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/textInputLayout.outLinedBox"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_plan_finalDate"
+                            style="@style/editText.oneLine"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:hint="تاریخ پایان"
-                            app:startIconDrawable="@drawable/ic_calendar">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_plan_finalDate"
-                                style="@style/editText.oneLine"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

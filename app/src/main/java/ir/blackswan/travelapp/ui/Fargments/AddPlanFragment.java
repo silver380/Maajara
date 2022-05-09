@@ -22,7 +22,9 @@ import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
+import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.AuthActivity;
@@ -36,8 +38,9 @@ public class AddPlanFragment extends Fragment {
     MaterialPersianDateChooser startDate, finalDate;
     private PlanController planController;
     private AuthActivity authActivity;
-    ArrayList<TextInputEditText> inputEditTexts = new ArrayList<>();
+    ArrayList<TextInputEditText> wantedInputEditTexts = new ArrayList<>();
     SelectPlacesDialog selectPlacesDialog;
+    TextInputsChecker checker = new TextInputsChecker();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,10 +60,45 @@ public class AddPlanFragment extends Fragment {
         });
 
         planController = new PlanController(authActivity);
+        setChecker();
         setupDateChooses();
         setListeners();
 
         return root;
+    }
+
+    private void setChecker() {
+        TextInputsChecker.Error error = editText -> {
+            if (editText.getText() == null || editText.getText().toString().isEmpty())
+                return editText.getHint() + " ضروری است";
+            else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
+                return null;
+            else if (Utils.isDateGreaterOrEqual(
+                    startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())) {
+
+                if (editText.equals(binding.etPlanStartDate)) {
+                    binding.tilPlanFinalDate.setError(getString(R.string.date_error));
+                } else {
+                    binding.tilPlanStartDate.setError(getString(R.string.date_error));
+                }
+                return getString(R.string.date_error);
+            }else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())){
+                if (editText.equals(binding.etPlanStartDate)) {
+                    binding.tilPlanFinalDate.setError(null);
+                } else {
+                    binding.tilPlanStartDate.setError(null);
+                }
+
+            }
+
+            return null;
+
+        };
+        checker.add(binding.etPlanDestination);
+        checker.add(binding.etPlanStartDate, error);
+        checker.add(binding.etPlanFinalDate, error);
     }
 
     @Override
@@ -76,8 +114,8 @@ public class AddPlanFragment extends Fragment {
             binding.cvPlanSthContainer.addView(aCase);
             TextInputLayout til = aCase.findViewById(R.id.til_case);
             TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
-            inputEditTexts.add(inputEditText);
-            til.setHint("مورد " + inputEditTexts.size());
+            wantedInputEditTexts.add(inputEditText);
+            til.setHint("مورد " + wantedInputEditTexts.size());
         });
 
         //places
@@ -97,7 +135,7 @@ public class AddPlanFragment extends Fragment {
 
                 ArrayList<String> requestedThings = new ArrayList<>();
                 for (TextInputEditText t :
-                        inputEditTexts) {
+                        wantedInputEditTexts) {
                     requestedThings.add(t.getText().toString());
                 }
 
@@ -116,10 +154,9 @@ public class AddPlanFragment extends Fragment {
 
                 });
 
-            } else {
-                Toast.makeText(authActivity, "لطفا تمام مقادیر را وارد کنید.",
-                        Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
-            }
+            }else
+                Toast.makeText(authActivity, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+
         });
     }
 
@@ -129,15 +166,9 @@ public class AddPlanFragment extends Fragment {
     }
 
     private boolean checkInputs() {
-        TextInputEditText[] inputEditTexts = new TextInputEditText[]{
-                binding.etPlanDestination, binding.etPlanStartDate, binding.etPlanFinalDate
-        };
-
-        for (TextInputEditText input : inputEditTexts) {
-            if (input.getText().toString().isEmpty())
-                return false;
-        }
-
+        if (checker.checkAllError())
+            return false;
         return binding.rclPlanPlaces.getChildCount() > 0;
     }
+
 }
