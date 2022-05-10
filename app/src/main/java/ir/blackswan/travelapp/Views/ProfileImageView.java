@@ -107,13 +107,12 @@ public class ProfileImageView extends FrameLayout {
         imageView.setVisibility(View.VISIBLE);
     }
 
-    private void setImageByFile(File pictureFile) {
+    public void setImageByFile(File pictureFile) {
         Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
         setImageBitmap(myBitmap);
-        imageState();
     }
 
-    private void setImageBitmap(Bitmap bitmap) {
+    public void setImageBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
 
         imageState();

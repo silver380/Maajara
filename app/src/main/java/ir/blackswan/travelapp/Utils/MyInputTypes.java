@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.skydoves.powermenu.PowerMenu;
@@ -46,42 +47,24 @@ public class MyInputTypes {
     }
 
 
-    public static void showFileChooser(TextInputEditText editText, AuthActivity activity, ActivityResultCallback<ActivityResult> callback) {
+    public static void showFileChooser(View view, AppCompatActivity activity
+            , String intentType, ActivityResultCallback<ActivityResult> callback) {
 
         ActivityResultLauncher<Intent> launcher =
                 activity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), callback);
-        editText.setOnClickListener(v -> {
+        view.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                launcher.launch(intent);
+                if(PermissionRequest.storage(activity , 0)) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType(intentType);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    launcher.launch(Intent.createChooser(intent, "انتخاب"));
+                }
             } catch (android.content.ActivityNotFoundException ignored) {
                 Toast.makeText(activity , "خطا در اجرای انتخابگر فایل. انتخابگری جدید نصب کنید" ,
                         Toast.LENGTH_LONG , Toast.TYPE_ERROR).show();
             }
         });
-
-    }
-
-    private void setIntentType(Intent intent) {
-
-        String[] mimeTypes =
-                {"application/pdf"};
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            intent.setType(mimeTypes.length == 1 ? mimeTypes[0] : "*/*");
-            if (mimeTypes.length > 0) {
-                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            }
-        } else {
-            String mimeTypesStr = "";
-            for (String mimeType : mimeTypes) {
-                mimeTypesStr += mimeType + "|";
-            }
-            intent.setType(mimeTypesStr.substring(0, mimeTypesStr.length() - 1));
-        }
 
     }
 

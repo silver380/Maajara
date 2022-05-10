@@ -10,6 +10,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Environment;
 import android.text.Editable;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,6 +25,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -232,5 +234,10 @@ public class Utils {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static String getFilePath(Context context , String filePrefix , String fileSuffix){
+        return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
+                File.separator + filePrefix + System.currentTimeMillis() + fileSuffix;
     }
 }

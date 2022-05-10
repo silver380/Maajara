@@ -1,6 +1,8 @@
 package ir.blackswan.travelapp.ui;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,11 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import androidx.annotation.Nullable;
-
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.skydoves.powermenu.PowerMenuItem;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.Arrays;
@@ -63,25 +63,52 @@ public class SettingActivity extends ToolbarActivity {
 
     private void setInputTypes() {
         birthDate = new MaterialPersianDateChooser(this, binding.etSettingBirthday);
-        birthDate.getDialog().setMinYear(1310).setMaxYear(1382);
+        birthDate.getDialog().setMinYear(1310).setMaxYear(1390);
         gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
                 new PowerMenuItem("زن")));
 
-        MyInputTypes.showFileChooser(binding.etSettingClearanceDoc, this, result -> {
+        MyInputTypes.showFileChooser(binding.etSettingClearanceDoc, this, "application/pdf", result -> {
             if (result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null) {
                     Uri uri = result.getData().getData();
-                    Log.d("FileChooser", "File path: " + uri.getPath());
+                    Log.d("FileChooser", "DocFile path: " + uri.getPath());
                     File file = new File(uri.getPath());
                     selectedClearanceDoc = file;
                     binding.etSettingClearanceDoc.setText(file.getPath());
-                } else {
-                    Toast.makeText(this, "خطا در شناسایی فایل. لطفا دوباره سعی کنید", Toast.LENGTH_LONG,
-                            Toast.TYPE_ERROR).show();
                 }
             }
         });
 
+        MyInputTypes.showFileChooser(binding.ivSettingEditProfile, this, "image/*", result -> {
+            if (result.getData() != null) {
+
+                Uri uri = result.getData().getData();
+                Log.d("FileChooser", "Image path: " + uri.getPath());
+                UCrop.of(uri, Uri.fromFile(new File(Utils.getFilePath(
+                        this, "Cropped Image", ".jpg"))))
+                        .withAspectRatio(1, 1)
+                        .withMaxResultSize(512, 512)
+                        .start(this);
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            //todo: upload file
+            binding.pivSetting.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
+            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره سعی کنید", Toast.LENGTH_LONG,
+                    Toast.TYPE_ERROR).show();
+        }
     }
 
     private void setVisibilities(boolean visibleCard) {
@@ -140,6 +167,11 @@ public class SettingActivity extends ToolbarActivity {
             if (buttonView.getId() == R.id.cb_setting_whatsapp)
                 binding.etSettingWhatsapp.setEnabled(isChecked);
         };
+
+        binding.etSettingTelegram.setEnabled(false);
+        binding.etSettingMobile.setEnabled(false);
+        binding.etSettingWhatsapp.setEnabled(false);
+
         binding.cbSettingMobile.setOnCheckedChangeListener(onCheckedChangeListener);
         binding.cbSettingTelegram.setOnCheckedChangeListener(onCheckedChangeListener);
         binding.cbSettingWhatsapp.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -153,7 +185,7 @@ public class SettingActivity extends ToolbarActivity {
                         , binding.etSettingBio.getText().toString(), new Gson().toJson(binding.etSettingLanguageSkills.toString().split("\\n"))
                         , connectStrings.get(0), connectStrings.get(1), connectStrings.get(2));
 
-                authController.upgrade(user , new OnResponseDialog(this){
+                authController.upgrade(user, new OnResponseDialog(this) {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
@@ -162,7 +194,7 @@ public class SettingActivity extends ToolbarActivity {
                         binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorWarning)));
                     }
                 });
-            }else {
+            } else {
                 Toast.makeText(this, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
         });
@@ -183,9 +215,9 @@ public class SettingActivity extends ToolbarActivity {
         return !checker.checkAllError();
     }
 
-    private void setChecker(){
-        checker.add(Arrays.asList(binding.etSettingBio , binding.etSettingGender , binding.etSettingClearanceDoc ,
-                binding.etSettingSsn ));
+    private void setChecker() {
+        checker.add(Arrays.asList(binding.etSettingBio, binding.etSettingGender, binding.etSettingClearanceDoc,
+                binding.etSettingSsn));
         checker.add(binding.etSettingBirthday, editText -> {
             if (Utils.getEditableText(editText.getText()).isEmpty())
                 return editText.getHint() + " ضروری است";

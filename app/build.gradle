@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0' //gson
     implementation "com.github.skydoves:powermenu:2.2.0" //popup menu
     implementation 'me.grantland:autofittextview:0.2.0' //auto size text view
+    implementation 'com.github.yalantis:ucrop:2.2.6-native' //cropper
 
 
 }

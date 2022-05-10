@@ -37,8 +37,7 @@ public class WebFileTransfer {
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
                 try {
-                    File outputFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
-                            File.separator + filePrefix + System.currentTimeMillis() + fileSuffix);
+                    File outputFile = new File(Utils.getFilePath(context, filePrefix, fileSuffix));
 
                     InputStream inputStream = null;
                     OutputStream outputStream = null;

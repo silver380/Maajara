@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
         PowerMenuItem powerMenuItem = new PowerMenuItem("خروج");
         powerMenuItem.setIcon(R.drawable.ic_logout_padding);
         PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
-        pmiSetting.setIcon(R.drawable.ic_logout_padding);
+        pmiSetting.setIcon(R.drawable.ic_setting);
         List<PowerMenuItem> powerMenuItems = Arrays.asList(pmiSetting, powerMenuItem);
         binding.ivHomeProfile.setOnClickListener(v -> {
             PowerMenu powerMenu = PopupMenuCreator.create(authActivity, powerMenuItems, v);
