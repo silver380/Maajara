@@ -37,7 +37,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class SettingActivity extends ToolbarActivity {
-    private static final int FILE_CHOOSE_REQUEST = 1;
     SettingsActivityBinding binding;
     User user;
     private static final int BIO_MAX_LENGTH = 350;

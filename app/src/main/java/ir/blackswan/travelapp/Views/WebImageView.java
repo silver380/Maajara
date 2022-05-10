@@ -22,7 +22,7 @@ import java.io.File;
 
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Cacher;
-import ir.blackswan.travelapp.Utils.WebDownloader;
+import ir.blackswan.travelapp.Utils.WebFileTransfer;
 
 public class WebImageView extends FrameLayout {
 
@@ -101,7 +101,7 @@ public class WebImageView extends FrameLayout {
             }
         } else if (serverPath != null) {
 
-            WebDownloader.downloadFile(getContext(), serverPath, "Image ", ".jpg", downloadedFile -> {
+            WebFileTransfer.downloadFile(getContext(), serverPath, "Image ", ".jpg", downloadedFile -> {
                 if (downloadedFile != null) {
                     setImageByFile(downloadedFile);
                     cacher.saveLocalPath(serverPath, downloadedFile.getPath());

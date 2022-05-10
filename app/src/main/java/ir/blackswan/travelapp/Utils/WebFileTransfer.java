@@ -17,14 +17,18 @@ import java.io.OutputStream;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Retrofit.RetrofitClient;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WebDownloader {
+public class WebFileTransfer {
+    public static final String FILE_TYPE_IMAGE = "image/jpg";
 
-    public static void downloadFile(Context context , String url, String filePrefix,
+    public static void downloadFile(Context context, String url, String filePrefix,
                                     String fileSuffix, OnDownloadFinishListener onDownloadFinishListener) {
 
         Call<ResponseBody> call = RetrofitClient.getApi().downloadFile(AuthController.getTokenString(), url);
@@ -88,7 +92,31 @@ public class WebDownloader {
         });
     }
 
+    public static void uploadFile(File file, String fileType , OnUploadFinishListener onUploadFinishListener) {
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(fileType), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("files[0]", file.getName(), requestFile);
+        RetrofitClient.getApi().uploadFile(AuthController.getTokenString() , body)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        //todo: call onUploadFinishListener.onFinish(file , serverPath);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+
+                    }
+                });
+    }
+
     public interface OnDownloadFinishListener {
-        void onFinish(@Nullable File downloadedFile);
+        void onFinish(@Nullable File file);
+    }
+
+    public interface OnUploadFinishListener {
+        void onFinish(@Nullable File file , String serverPath);
     }
 }
