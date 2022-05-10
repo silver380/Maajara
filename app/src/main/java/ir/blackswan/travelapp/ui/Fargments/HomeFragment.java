@@ -17,7 +17,6 @@ import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -120,12 +119,14 @@ public class HomeFragment extends Fragment {
 
     private void setupWithUser() {
         User user = AuthController.getUser();
-        tourLeader = sharedPrefManager.getBoolean(IS_TOUR_LEADER , true);
+        tourLeader = sharedPrefManager.getBoolean(IS_TOUR_LEADER, true);
         if (user != null) {
             binding.ivHomeProfile.setUser(user);
             if (user.is_tour_leader()) {
+                binding.tvHomeTicket.setText(user.getTicket());
                 binding.toggleHome.setVisibility(View.VISIBLE);
             } else {
+                ((ViewGroup)binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
                 tourLeader = false;
                 saveToggle();
                 binding.toggleHome.setVisibility(View.GONE);
@@ -134,7 +135,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setToggle(){
+    private void setToggle() {
         Log.d("setToggle", "setToggle: " + tourLeader);
         if (tourLeader)
             binding.toggleHome.selectButton(R.id.btn_home_guide);
@@ -143,7 +144,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void saveToggle(){
+    private void saveToggle() {
         sharedPrefManager.putBoolean(IS_TOUR_LEADER, tourLeader);
     }
 

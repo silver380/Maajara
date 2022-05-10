@@ -10,17 +10,19 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small">
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
             android:id="@+id/toggle_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            app:toggle_selectableAmount="1"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_gravity="center"
+
             android:background="@drawable/rec_medium_raidus_no_fill"
-            app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
+            app:toggle_horizontalSpacing="0dp"
+            app:toggle_selectableAmount="1"> <!-- this attribute is from the underlying FlexboxLayout -->
 
             <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                 android:id="@+id/btn_home_passenger"
@@ -49,8 +51,35 @@
         <ir.blackswan.travelapp.Views.ProfileImageView
             android:id="@+id/iv_home_profile"
             android:layout_width="@dimen/profile_view_size"
-            android:layout_height="@dimen/profile_view_size"
-            android:layout_margin="@dimen/margin_small" />
+            android:layout_height="@dimen/profile_view_size" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:background="@drawable/rec_small_radius_filled"
+            android:backgroundTint="@color/icon_padding_alpha"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/padding_medium">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_home_ticket"
+                style="@style/textTittleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_very_small"
+                android:gravity="center"
+                android:text="15" />
+
+            <ImageView
+                android:layout_width="@dimen/secondary_icon_size"
+                android:layout_height="@dimen/secondary_icon_size"
+                android:padding="@dimen/icons_padding"
+                android:src="@drawable/ic_ticket" />
+
+        </LinearLayout>
 
 
     </FrameLayout>
@@ -59,8 +88,7 @@
         android:id="@+id/fragment_container_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
 
 
 </LinearLayout>
