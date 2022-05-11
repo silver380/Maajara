@@ -1,6 +1,10 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +36,14 @@ import retrofit2.Call;
 public class SearchFragment extends Fragment {
 
     private final static int TOGGLE_TOUR = 0, TOGGLE_PLACE = 1, TOGGLE_PLAN = 2;
+    private static final int SEARCH_DELAY = 500;
     private static int toggle = -1;
     private FragmentSearchBinding binding;
     private AuthActivity authActivity;
     private TourController tourController;
     private PlaceController placeController;
     private PlanController planController;
+    private final Handler searchHandler = new Handler();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +53,54 @@ public class SearchFragment extends Fragment {
         View root = binding.getRoot();
         authActivity = (AuthActivity) getActivity();
 
+        setToggle();
+        setListeners();
+
+        tourController = new TourController(authActivity);
+        planController = new PlanController(authActivity);
+        placeController = new PlaceController(authActivity);
+
+        binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        reload();
+
+
+        return root;
+    }
+
+    private void setListeners() {
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                restartSearchHandler();
+            }
+        });
+    }
+
+    private void restartSearchHandler(){
+        searchHandler.removeCallbacksAndMessages(null);
+        searchHandler.postDelayed(() -> {
+            //todo: request for search
+            Log.d("search", "restartSearchHandler: ");
+        }, SEARCH_DELAY);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    private void setToggle(){
         if (HomeFragment.isTourLeader()) {
             binding.btnSearchTour.setVisibility(View.GONE);
             binding.btnSearchPlan.setVisibility(View.VISIBLE);
@@ -73,21 +127,6 @@ public class SearchFragment extends Fragment {
 
             return Unit.INSTANCE;
         });
-        tourController = new TourController(authActivity);
-        planController = new PlanController(authActivity);
-        placeController = new PlaceController(authActivity);
-
-        binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        reload();
-
-
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     private void reload() {

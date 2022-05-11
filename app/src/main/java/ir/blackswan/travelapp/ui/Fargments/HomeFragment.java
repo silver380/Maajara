@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
         if (user != null) {
             binding.ivHomeProfile.setUser(user);
             if (user.is_tour_leader()) {
-                binding.tvHomeTicket.setText(user.getTicket());
+                binding.tvHomeTicket.setText(user.getTicket() + "");
                 binding.toggleHome.setVisibility(View.VISIBLE);
             } else {
                 ((ViewGroup)binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
