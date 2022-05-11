@@ -12,7 +12,7 @@ import java.util.Map;
 
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

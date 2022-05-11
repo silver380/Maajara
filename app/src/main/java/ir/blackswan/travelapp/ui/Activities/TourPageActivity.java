@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Activities;
 
 import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;

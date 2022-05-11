@@ -1,6 +1,5 @@
 package ir.blackswan.travelapp.Controller;
 
-import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import android.util.Log;
 
@@ -8,9 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.HashMap;
 
-import ir.blackswan.travelapp.Data.PlanRequest;
-import ir.blackswan.travelapp.Data.User;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

@@ -24,9 +24,8 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
-import ir.blackswan.travelapp.ui.AuthActivity;
-import ir.blackswan.travelapp.ui.SettingActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.SettingActivity;
 import kotlin.Unit;
 
 public class HomeFragment extends Fragment {

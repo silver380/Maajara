@@ -1,12 +1,9 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +11,6 @@ import java.util.Map;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.R;

@@ -4,15 +4,11 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import ir.blackswan.travelapp.Controller.Controller;
-import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 

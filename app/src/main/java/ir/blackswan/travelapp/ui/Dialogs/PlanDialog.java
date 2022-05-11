@@ -10,8 +10,7 @@ import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Toast;
-import ir.blackswan.travelapp.databinding.DialogPlanBinding;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 

@@ -1,9 +1,6 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,18 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.PassengerRequestsController;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.ProfileImageView;
-import ir.blackswan.travelapp.Views.WebImageView;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

@@ -1,7 +1,6 @@
 package ir.blackswan.travelapp.Utils;
 
 import android.content.Intent;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 
@@ -17,8 +16,6 @@ import com.skydoves.powermenu.PowerMenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ir.blackswan.travelapp.ui.AuthActivity;
 
 public class MyInputTypes {
 

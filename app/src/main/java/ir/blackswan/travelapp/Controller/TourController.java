@@ -4,14 +4,10 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.util.Arrays;
 
-import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

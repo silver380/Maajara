@@ -16,25 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
-            android:name=".ui.TLeaderRequestActivity"
+            android:name=".ui.Activities.TLeaderRequestActivity"
                    android:exported="false"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
             />
 
       <activity
-            android:name=".ui.SettingActivity"
+            android:name=".ui.Activities.SettingActivity"
             android:exported="false"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
             />
 
         <activity
-            android:name=".ui.TourPageActivity"
+            android:name=".ui.Activities.TourPageActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.Activities.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.UserRequestActivity"
+            android:name=".ui.Activities.UserRequestActivity"
             android:exported="false" />
 
         <activity

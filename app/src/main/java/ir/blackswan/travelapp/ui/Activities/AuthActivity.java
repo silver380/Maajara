@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -5,11 +5,9 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 import android.util.Log;
 
 import java.util.Arrays;
-import java.util.List;
 
 import ir.blackswan.travelapp.Data.Plan;
-import ir.blackswan.travelapp.Data.Plan;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

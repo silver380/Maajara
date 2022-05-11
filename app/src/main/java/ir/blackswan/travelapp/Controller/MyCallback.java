@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
