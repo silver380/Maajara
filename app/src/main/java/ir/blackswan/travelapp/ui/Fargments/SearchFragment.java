@@ -19,6 +19,7 @@ import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
@@ -29,7 +30,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends RefreshingFragment {
 
     private final static int TOGGLE_TOUR = 0, TOGGLE_PLACE = 1, TOGGLE_PLAN = 2;
     private static final int SEARCH_DELAY = 500;
@@ -47,6 +48,7 @@ public class SearchFragment extends Fragment {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        init(root);
         authActivity = (AuthActivity) getActivity();
 
         setToggle();
@@ -57,7 +59,7 @@ public class SearchFragment extends Fragment {
         placeController = new PlaceController(authActivity);
 
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        reload();
+        refresh();
 
 
         return root;
@@ -119,13 +121,14 @@ public class SearchFragment extends Fragment {
             else if (themedButton.getId() == R.id.btn_search_place)
                 toggle = TOGGLE_PLACE;
 
-            reload();
+            refresh();
 
             return Unit.INSTANCE;
         });
     }
 
-    private void reload() {
+    public void refresh() {
+        setRefreshing(true);
         if (toggle == TOGGLE_TOUR)
             reloadTours();
         else if (toggle == TOGGLE_PLAN)
@@ -140,6 +143,7 @@ public class SearchFragment extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans()));
+                setRefreshing(false);
             }
         });
     }
@@ -152,6 +156,7 @@ public class SearchFragment extends Fragment {
                 super.onSuccess(call, callback, response);
 
                 binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, TourController.getAllTours()));
+                setRefreshing(false);
             }
         });
     }
@@ -162,7 +167,10 @@ public class SearchFragment extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity, PlaceController.getAllPlaces()));
+                setRefreshing(false);
             }
         });
     }
+
+
 }

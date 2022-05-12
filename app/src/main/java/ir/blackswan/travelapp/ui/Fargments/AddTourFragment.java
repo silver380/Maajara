@@ -24,6 +24,7 @@ import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.databinding.FragmentAddTourBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;

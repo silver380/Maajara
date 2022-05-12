@@ -57,7 +57,7 @@ public class TourController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getCreatedTourFromServer(OnResponse onResponse) {
@@ -75,7 +75,7 @@ public class TourController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getPendingTourFromServer(OnResponse onResponse) {
@@ -91,7 +91,7 @@ public class TourController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getConfirmedTourFromServer(OnResponse onResponse) {
@@ -108,7 +108,7 @@ public class TourController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public static Tour[] getAllTours() {

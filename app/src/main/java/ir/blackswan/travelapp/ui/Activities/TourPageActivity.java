@@ -32,6 +32,7 @@ import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
@@ -155,36 +156,11 @@ public class TourPageActivity extends ToolbarActivity {
     }
 
     private void fullScreen() {
-        /*
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-         */
-        if (Build.VERSION.SDK_INT >= 30) {
-            binding.ivTourPageImage.getWindowInsetsController().hide(
-                    WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-        } else {
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            binding.ivTourPageImage.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-
+        Utils.changeStatusColor(this , R.color.colorBlack);
     }
 
     private void actionBar() {
-        if (Build.VERSION.SDK_INT >= 30) {
-            binding.ivTourPageImage.getWindowInsetsController().show(
-                    WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-        } else {
-            binding.ivTourPageImage.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        }
+        Utils.setStatusBarColorToTheme(this);
     }
 
     private void openBottomView() {

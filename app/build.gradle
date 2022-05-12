@@ -44,7 +44,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounded imageView
     implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1' //round bottom sheet dialog
     implementation 'io.github.muddz:styleabletoast:2.4.0' //styleable toast
@@ -61,6 +61,8 @@ dependencies {
     implementation "com.github.skydoves:powermenu:2.2.0" //popup menu
     implementation 'me.grantland:autofittextview:0.2.0' //auto size text view
     implementation 'com.github.yalantis:ucrop:2.2.6-native' //cropper
+
+
 
 
 }

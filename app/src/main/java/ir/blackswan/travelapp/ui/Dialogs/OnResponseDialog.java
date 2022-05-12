@@ -7,6 +7,7 @@ import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Utils.Toast;
+import ir.blackswan.travelapp.databinding.DialogOnResponseBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

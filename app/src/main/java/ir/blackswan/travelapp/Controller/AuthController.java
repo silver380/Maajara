@@ -120,7 +120,7 @@ public class AuthController extends Controller {
                 onResponse.onFailed(call, callback, response);
                 
             }
-        }).showLoadingDialog());
+        }));
     }
 
 

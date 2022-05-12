@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
@@ -24,14 +25,17 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.IntroActivity;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
 import kotlin.Unit;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends RefreshingFragment {
 
     private FragmentHomeBinding binding;
-    private AuthActivity authActivity;
+    private MainActivity mainActivity;
     private static boolean tourLeader = true;
     private HomeFragmentLeader homeFragmentLeader;
     private HomeFragmentPassenger homeFragmentPassenger;
@@ -44,12 +48,13 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
-        authActivity = ((AuthActivity) getActivity());
+        init(root);
+        mainActivity = ((MainActivity) getActivity());
 
-        sharedPrefManager = new SharedPrefManager(authActivity);
+        sharedPrefManager = new SharedPrefManager(mainActivity);
 
-        homeFragmentPassenger = new HomeFragmentPassenger(authActivity);
-        homeFragmentLeader = new HomeFragmentLeader(authActivity);
+        homeFragmentPassenger = new HomeFragmentPassenger(mainActivity);
+        homeFragmentLeader = new HomeFragmentLeader(mainActivity);
 
 
         binding.toggleHome.setOnSelectListener(themedButton -> {
@@ -66,29 +71,8 @@ public class HomeFragment extends Fragment {
 
         reload();
 
-        PowerMenuItem powerMenuItem = new PowerMenuItem("خروج");
-        powerMenuItem.setIcon(R.drawable.ic_logout_padding);
-        PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
-        pmiSetting.setIcon(R.drawable.ic_setting);
-        List<PowerMenuItem> powerMenuItems = Arrays.asList(pmiSetting, powerMenuItem);
-        binding.ivHomeProfile.setOnClickListener(v -> {
-            PowerMenu powerMenu = PopupMenuCreator.create(authActivity, powerMenuItems, v);
-            powerMenu.showAsDropDown(v);
-            powerMenu.setOnMenuItemClickListener((position, item) -> {
-                powerMenu.dismiss();
-                switch (position) {
-                    case 1:
-                        AuthController.logout(authActivity);
-                        authActivity.showAuthDialog(() -> {
-                            reload();
-                        });
-                        break;
-                    case 0:
-                        startActivity(new Intent(authActivity, SettingActivity.class));
-                        break;
-                }
-            });
-        });
+        setPopupMenu();
+
 
 
         return root;
@@ -109,10 +93,20 @@ public class HomeFragment extends Fragment {
     }
 
     public void reload() {
-        if (!authActivity.isAuthing()) {
+        Log.d("TAG", "reload: ");
+        if (!mainActivity.isAuthing()) {
             setupWithUser();
             setCurrentFragment();
         }
+    }
+
+
+
+    public void refresh(){
+        if (tourLeader)
+            homeFragmentLeader.reload();
+        else
+            homeFragmentPassenger.reload();
     }
 
 
@@ -147,5 +141,30 @@ public class HomeFragment extends Fragment {
         sharedPrefManager.putBoolean(IS_TOUR_LEADER, tourLeader);
     }
 
+
+    private void setPopupMenu() {
+        PowerMenuItem powerMenuItem = new PowerMenuItem("خروج");
+        powerMenuItem.setIcon(R.drawable.ic_logout_padding);
+        PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
+        pmiSetting.setIcon(R.drawable.ic_setting);
+        List<PowerMenuItem> powerMenuItems = Arrays.asList(pmiSetting, powerMenuItem);
+        binding.ivHomeProfile.setOnClickListener(v -> {
+            PowerMenu powerMenu = PopupMenuCreator.create(mainActivity, powerMenuItems, v);
+            powerMenu.showAsDropDown(v);
+            powerMenu.setOnMenuItemClickListener((position, item) -> {
+                powerMenu.dismiss();
+                switch (position) {
+                    case 1:
+                        AuthController.logout(mainActivity);
+                        mainActivity.finish();
+                        startActivity(new Intent(mainActivity, IntroActivity.class));
+                        break;
+                    case 0:
+                        startActivity(new Intent(mainActivity, SettingActivity.class));
+                        break;
+                }
+            });
+        });
+    }
 
 }

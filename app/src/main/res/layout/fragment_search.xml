@@ -1,80 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackgroundDarker"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/padding_medium"
-    tools:context=".ui.Fargments.SearchFragment">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/textInputLayout.outLinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_very_small"
-        android:hint="جستجو"
-        app:startIconDrawable="@drawable/ic_search">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_search"
-            style="@style/editText.oneLine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-        android:id="@+id/toggle_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="@dimen/margin_very_small"
-        android:background="@drawable/rec_medium_raidus_no_fill"
-        app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btn_search_tour"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            app:toggle_backgroundColor="@color/colorTransparent"
-            app:toggle_btnCornerRadius="@dimen/radius_medium"
-            app:toggle_fontFamily="vazir_medium.ttf"
-            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-            app:toggle_text="تور" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btn_search_plan"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            app:toggle_backgroundColor="@color/colorTransparent"
-            app:toggle_btnCornerRadius="@dimen/radius_medium"
-            app:toggle_fontFamily="vazir_medium.ttf"
-            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-            app:toggle_text="برنامه ‌سفر" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btn_search_place"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            app:toggle_backgroundColor="@color/colorTransparent"
-            app:toggle_btnCornerRadius="@dimen/radius_medium"
-            app:toggle_fontFamily="vazir_medium.ttf"
-            app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-            app:toggle_text="مکان" />
-
-
-    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcl_search"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_small"
-        android:orientation="vertical" />
+        android:background="@color/colorBackgroundDarker"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_medium"
+        tools:context=".ui.Fargments.SearchFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:hint="جستجو"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_search"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+            android:id="@+id/toggle_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:background="@drawable/rec_medium_raidus_no_fill"
+            app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn_search_tour"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:toggle_backgroundColor="@color/colorTransparent"
+                app:toggle_btnCornerRadius="@dimen/radius_medium"
+                app:toggle_fontFamily="vazir_medium.ttf"
+                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_text="تور" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn_search_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:toggle_backgroundColor="@color/colorTransparent"
+                app:toggle_btnCornerRadius="@dimen/radius_medium"
+                app:toggle_fontFamily="vazir_medium.ttf"
+                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_text="برنامه ‌سفر" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/btn_search_place"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                app:toggle_backgroundColor="@color/colorTransparent"
+                app:toggle_btnCornerRadius="@dimen/radius_medium"
+                app:toggle_fontFamily="vazir_medium.ttf"
+                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_text="مکان" />
 
 
-</LinearLayout>
+        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical" />
+
+
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

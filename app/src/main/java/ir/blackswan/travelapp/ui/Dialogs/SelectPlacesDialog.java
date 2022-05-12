@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
+import ir.blackswan.travelapp.databinding.DialogSelectPlacesBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;

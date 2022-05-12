@@ -26,6 +26,7 @@ import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

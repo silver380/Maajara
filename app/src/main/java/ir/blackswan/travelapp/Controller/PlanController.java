@@ -63,7 +63,7 @@ public class PlanController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getCreatedPlanFromServer(OnResponse onResponse) {
@@ -81,7 +81,7 @@ public class PlanController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     /*
