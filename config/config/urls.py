@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from Media.views import GetFile
+from MediaHandler.views import GetFile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
