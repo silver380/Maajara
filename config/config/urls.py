@@ -1,7 +1,7 @@
 from django.contrib import admin
-
 from django.urls import path, include, re_path
-from Place.views import PlacePicture
+
+from Media.views import GetFile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,7 +9,7 @@ urlpatterns = [
     path('tour/', include('Tour.urls')),
     path('place/', include('Place.urls')),
     path('travelplan/', include('TravelPlan.urls')),
-    re_path(r'^media/(?P<folder>.*)/(?P<file_name>.*)$', PlacePicture.as_view()),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+    re_path(r'^media/(?P<folder>.*)/(?P<file_name>.*)$', GetFile.as_view()),
 ]

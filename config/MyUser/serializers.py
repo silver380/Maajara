@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from rest_framework.exceptions import NotAcceptable
+from rest_framework.exceptions import PermissionDenied
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,18 +24,43 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
 
-class UserUpgradeSerializer(serializers.ModelSerializer):
+class UserUpdateSerializer(serializers.ModelSerializer):
+    required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number']
+    tour_leader_fields = required_for_upgrade + ['telegram_id' + 'whatsapp_id']
+
     class Meta:
         model = get_user_model()
-        fields = ("date_of_birth", "gender", "biography", "languages", "phone_number", "telegram_id", "whatsapp_id")
+        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password']
 
-    date_of_birth = serializers.DateField(required=True)
-    gender = serializers.ChoiceField(choices=[('Female', 'F'), ('Male', 'M')], required=True)
-    biography = serializers.CharField(max_length=1003, required=True)
-    languages = serializers.CharField(max_length=500, required=True)
-    phone_number = serializers.CharField(max_length=50, required=True)
-    telegram_id = serializers.CharField(max_length=50, required=False)
-    whatsapp_id = serializers.CharField(max_length=50, required=False)
+    def update(self, instance, validated_data):
+        is_upgrading = False
+        if not instance.is_tour_leader:
+            for item in validated_data:
+                if item in self.required_for_upgrade:
+                    is_upgrading = True
+
+        if is_upgrading:
+            is_data_complete = True
+            for item in self.required_for_upgrade:
+                if item not in validated_data:
+                    is_data_complete = False
+            if is_data_complete:
+                validated_data['is_tour_leader'] = True
+                instance = super().update(instance, validated_data)
+            else:
+                raise NotAcceptable("Incomplete data")
+        else:
+            has_permission = True
+            if not instance.is_tour_leader:
+                for item in validated_data:
+                    if item in self.tour_leader_fields:
+                        has_permission = False
+            if has_permission:
+                instance = super().update(instance, validated_data)
+            else:
+                raise PermissionDenied()
+        instance.save()
+        return instance
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

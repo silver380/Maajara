@@ -34,6 +34,7 @@ class MyUser(AbstractBaseUser):
     gender = models.TextField(choices=[('Female', 'F'), ('Male', 'M')], default='Male')
     biography = models.CharField(max_length=1003, default='')
     languages = models.CharField(max_length=500, default='')
+    picture = models.ImageField(upload_to='user/')
 
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
