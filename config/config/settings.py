@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'Tour.apps.TourConfig',
     'Place.apps.PlaceConfig',
     'TravelPlan.apps.TravelplanConfig',
+    'MediaHandler.apps.MediahandlerConfig',
 ]
 
 MIDDLEWARE = [
