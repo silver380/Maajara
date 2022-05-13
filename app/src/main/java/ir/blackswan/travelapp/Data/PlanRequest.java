@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 
 public class PlanRequest implements Serializable {
+    private String id;
     private User tour_leader;
     private Plan plan;
     @Expose
@@ -21,11 +22,13 @@ public class PlanRequest implements Serializable {
         return tour_leader;
     }
 
+    public int getId() { return travel_plan_id; }
+
     public Plan getPlan() {
         return plan;
     }
 
-    public int getPrice() {
+    public int getSuggested_price() {
         return suggested_price;
     }
 }

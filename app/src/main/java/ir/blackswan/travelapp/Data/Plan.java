@@ -26,7 +26,11 @@ public class Plan implements Serializable {
     @Expose
     private Place[] places;
     private int travel_plan_id;
+    private User confirmed_tour_leader;
 
+    public User getConfirmed_tour_leader() {
+        return confirmed_tour_leader;
+    }
 
     public int getTravel_plan_id() {
         return travel_plan_id;
