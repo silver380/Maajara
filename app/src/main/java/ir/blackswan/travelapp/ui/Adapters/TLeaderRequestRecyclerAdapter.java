@@ -13,7 +13,8 @@ import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.ProfileImageView;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+
 
 public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder> {
 
@@ -43,7 +44,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
         holder.price.setText(tourLeader_req.getSuggested_price());
-        if(confirmedTourLeaders.equals(null)) {
+        if(confirmedTourLeaders == null) {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
