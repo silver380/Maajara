@@ -9,25 +9,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import ir.blackswan.travelapp.Data.PlanRequest;
+import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.ProfileImageView;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 
+
 public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder> {
 
-    ArrayList<PlanRequest> allTourLeaders;
-    ArrayList<PlanRequest> confirmedTourLeaders;
+    PlanRequest[] allTourLeaders_req;
+    User confirmedTourLeaders;
     AuthActivity activity;
-    int plan_id;
 
-    public TLeaderRequestRecyclerAdapter(ArrayList<PlanRequest> allTourLeaders, ArrayList<PlanRequest> confirmed_tLeaders, AuthActivity activity, int plan_id) {
+
+    public TLeaderRequestRecyclerAdapter(PlanRequest[] allTourLeaders_req, User confirmed_tLeaders, AuthActivity activity) {
         this.confirmedTourLeaders = confirmed_tLeaders;
-        this.allTourLeaders = allTourLeaders;
+        this.allTourLeaders_req = allTourLeaders_req;
         this.activity = activity;
-        this.plan_id = plan_id;
+
     }
 
     @NonNull
@@ -39,26 +39,33 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PlanRequest tourLeader_req = allTourLeaders.get(position);
+        PlanRequest tourLeader_req = allTourLeaders_req[position];
         holder.leaderImageView.setUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
-        holder.price.setText(tourLeader_req.getPrice());
-        if(confirmedTourLeaders.contains(tourLeader_req)){
-            acceptTourLeader(holder);
-        } else {
+        holder.price.setText(tourLeader_req.getSuggested_price());
+        if(confirmedTourLeaders == null) {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (confirmedTourLeaders.equals(tourLeader_req.getTour_leader())) {
+                        acceptTourLeader(holder);
+                    } else {
+                        holder.accept.setEnabled(false);
+                    }
                 }
             });
+        }
+        else if(confirmedTourLeaders.equals(tourLeader_req.getTour_leader())){
+            acceptTourLeader(holder);
+        } else {
+            holder.accept.setEnabled(false);
         }
     }
 
     @Override
     public int getItemCount() {
-        return allTourLeaders.size();
+        return allTourLeaders_req.length;
     }
 
     private void acceptTourLeader(ViewHolder holder) {

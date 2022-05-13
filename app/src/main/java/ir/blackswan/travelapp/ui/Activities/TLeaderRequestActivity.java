@@ -12,6 +12,7 @@ import java.util.Map;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
+import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.ActivityTleaderRequestBinding;
@@ -26,7 +27,8 @@ public class TLeaderRequestActivity extends ToolbarActivity {
     private PlanRequest confirmed_tl;
     ArrayList<PlanRequest> all_tl;
     Intent intent;
-    int plan_id;
+    Plan plan;
+    PlanRequest[] planRequests;
     private TourLeaderRequestController tourLeaderRequestController;
 
     @Override
@@ -38,12 +40,14 @@ public class TLeaderRequestActivity extends ToolbarActivity {
         tourLeaderRequestController = new TourLeaderRequestController(this);
 
         intent = getIntent();
-        plan_id = intent.getIntExtra("travel_plan_id", -1);
+
+        plan = (Plan) intent.getSerializableExtra("travel_plan_id" );
     }
 
     private void setRecycler() {
-        TLeaderRequestRecyclerAdapter leader_adapter = new TLeaderRequestRecyclerAdapter(all_tl,
-                new ArrayList<>(Arrays.asList(confirmed_tl)), this, plan_id);
+        TLeaderRequestRecyclerAdapter leader_adapter = new TLeaderRequestRecyclerAdapter(
+                planRequests, plan.getConfirmed_tour_leader(),this);
+
         binding.rscTLeaderReq.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.rscTLeaderReq.setAdapter(leader_adapter);
     }
@@ -53,8 +57,8 @@ public class TLeaderRequestActivity extends ToolbarActivity {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                Map<String, PlanRequest[]> pending_leaders = tourLeaderRequestController.getMap_planRequests();
-
+                Map<String, PlanRequest[]> planRequestsMap = tourLeaderRequestController.getMap_planRequests();
+                planRequests = planRequestsMap.get(plan.getTravel_plan_id() + "");
                 setRecycler();
             }
         });
