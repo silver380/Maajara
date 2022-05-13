@@ -34,7 +34,8 @@ class MyUser(AbstractBaseUser):
     gender = models.TextField(choices=[('Female', 'F'), ('Male', 'M')], default='Male')
     biography = models.CharField(max_length=1003, default='')
     languages = models.CharField(max_length=500, default='')
-    picture = models.ImageField(upload_to='user/')
+    picture = models.ImageField(upload_to='user/profile/')
+    certificate = models.FileField(upload_to='user/certificate/')
 
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
@@ -51,25 +52,7 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    #Travel Plan
     travel_plans = models.ManyToManyField('TravelPlan.TravelPlan', related_name='travel_plans', blank=True,null = True)
-
-    def upgrade(self, data):
-        # required fields
-        self.biography = data['biography']
-        self.gender = data['gender']
-        self.languages = data['languages']
-        self.date_of_birth = data['date_of_birth']
-        self.phone_number = data['phone_number']
-
-        # optional fields
-        if 'telegram_id' in data:
-            self.telegram_id = data['telegram_id']
-        if 'whatsapp_id' in data:
-            self.whatsapp_id = data['whatsapp_id']
-
-        self.is_tour_leader = True
-        self.save()
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

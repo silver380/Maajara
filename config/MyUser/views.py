@@ -1,13 +1,11 @@
 import requests
-from django.http import FileResponse
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView
 from .serializers import UserSerializer, UserUpdateSerializer, UserInfoSerializer
 from .permissions import IsOwner
-from config.settings import MEDIA_ROOT
 
 
 class RegisterUsers(CreateAPIView):
@@ -18,7 +16,7 @@ class RegisterUsers(CreateAPIView):
     serializer_class = UserSerializer
 
 
-class SemiUpgrade(UpdateAPIView):
+class UserUpdate(UpdateAPIView):
     permission_classes = [
         permissions.IsAuthenticated, IsOwner
     ]
@@ -27,23 +25,6 @@ class SemiUpgrade(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
-
-
-class UpgradeToTL(GenericAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated
-    ]
-
-    def post(self, request):
-        if not (request.user and self.request.user.is_authenticated):
-            return Response(status=401, data={"error": "Invalid user"})
-
-        serializer = UserUpdateSerializer(data=request.data)
-        if serializer.is_valid():
-            request.user.upgrade(serializer.data)
-            return Response(status=200, data={"User upgraded successfully."})
-        else:
-            return Response(status=400, data={"error": serializer.errors})
 
 
 class UserInfo(RetrieveAPIView):

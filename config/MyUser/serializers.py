@@ -25,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
+    # TODO: add certificate to required_for_upgrade
     required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number']
     tour_leader_fields = required_for_upgrade + ['telegram_id' + 'whatsapp_id']
 

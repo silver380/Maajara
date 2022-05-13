@@ -12,8 +12,8 @@ class GetFile(APIView):
         try:
             absolute_path = MEDIA_ROOT + '/' + folder + '/' + file_name
             response = FileResponse(open(absolute_path, 'rb'), as_attachment=True)
-        except Exception as e:
-            response = NotFound('File does not exist')
+        except Exception:
+            raise NotFound('File does not exist')
         return response
 
 
