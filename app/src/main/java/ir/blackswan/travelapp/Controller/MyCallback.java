@@ -19,7 +19,7 @@ public class MyCallback implements Callback<ResponseBody> {
     private final AuthActivity authActivity;
     private final OnResponse onResponse;
     private LoadingDialog loadingDialog;
-    private boolean hasLoadingDialog = true;
+    private boolean hasLoadingDialog = false;
 
     public MyCallback(AuthActivity authActivity, OnResponse onResponse) {
         this.authActivity = authActivity;
@@ -27,6 +27,7 @@ public class MyCallback implements Callback<ResponseBody> {
     }
 
     public MyCallback showLoadingDialog() {
+        hasLoadingDialog = true;
         loadingDialog = new LoadingDialog(authActivity);
         loadingDialog.show();
         return this;

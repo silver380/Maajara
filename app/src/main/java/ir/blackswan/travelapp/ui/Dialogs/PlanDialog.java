@@ -1,5 +1,8 @@
 package ir.blackswan.travelapp.ui.Dialogs;
 
+import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL_PLAN_ID;
+
+import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.DialogPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -57,7 +61,9 @@ public class PlanDialog extends MyDialog {
         });
 
         binding.btnSeeRequests.setOnClickListener(v -> {
-            //todo: start Requests authActivity
+            authActivity.startActivity(new Intent(
+                    authActivity , TLeaderRequestActivity.class)
+            .putExtra(TRAVEL_PLAN_ID , plan));
         });
 
 

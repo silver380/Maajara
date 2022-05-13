@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="گردش کنید گردش ببرید"
-            android:fontFamily="@font/vazir_medium"
+            android:fontFamily="@font/vazir"
             android:maxLines="1"
             android:gravity="center"
             android:layout_marginTop="-5dp"

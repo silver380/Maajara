@@ -5,8 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -23,13 +21,11 @@ import retrofit2.Call;
 
 public class TLeaderRequestActivity extends ToolbarActivity {
     private ActivityTleaderRequestBinding binding;
-    private PlanRequest[] pending_tl;
-    private PlanRequest confirmed_tl;
-    ArrayList<PlanRequest> all_tl;
     Intent intent;
     Plan plan;
     PlanRequest[] planRequests;
     private TourLeaderRequestController tourLeaderRequestController;
+    public static final String TRAVEL_PLAN_ID = "travel_plan_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +37,8 @@ public class TLeaderRequestActivity extends ToolbarActivity {
 
         intent = getIntent();
 
-        plan = (Plan) intent.getSerializableExtra("travel_plan_id" );
+        plan = (Plan) intent.getSerializableExtra(TRAVEL_PLAN_ID);
+        setPending_tlRecycler();
     }
 
     private void setRecycler() {
