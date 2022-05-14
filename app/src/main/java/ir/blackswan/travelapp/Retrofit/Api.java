@@ -19,7 +19,7 @@ public interface Api {
 
     //todo >> change the URL
     @GET("/???/")
-    Call<ResponseBody> getTourHistory(@Header("Authorization") String token);
+    Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
     //todo >> change the URL
     @POST("/???/")
