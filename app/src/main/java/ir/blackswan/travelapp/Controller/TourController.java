@@ -19,9 +19,26 @@ public class TourController extends Controller {
     static Tour[] createdTours;
     static Tour[] pendingTours;
     static Tour[] confirmedTours;
+    static Tour[] tourHistory;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
+    }
+
+    public void getTourHistoryFromServer(OnResponse onResponse){
+        Log.d(MyCallback.TAG, "getTourHistoryFromServer: ");
+        api.getTourHistory(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                tourHistory = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
     }
 
     public void register(int tourId, OnResponse onResponse){
@@ -122,5 +139,9 @@ public class TourController extends Controller {
     public static Tour[] getPendingTours() { return pendingTours; }
 
     public static Tour[] getConfirmedTours() { return confirmedTours; }
+
+    public static Tour[] getTourHistory() {
+        return tourHistory;
+    }
 }
 
