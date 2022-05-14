@@ -1,8 +1,8 @@
-from rest_framework import serializers
-from .models import Tour
-from Place.models import Place
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
+
 from Place.serializers import PlaceSerializers
+from .models import Tour
 
 
 class CreatorSerializer(serializers.ModelSerializer):
@@ -11,19 +11,13 @@ class CreatorSerializer(serializers.ModelSerializer):
         fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id']
 
 
-class TourSerializers(serializers.ModelSerializer):
+class TourListSerializer(serializers.ModelSerializer):
     creator = CreatorSerializer(required=False)
     places = PlaceSerializers(many=True, required=False)
 
     class Meta:
         model = Tour
         exclude = ('pending_users', 'confirmed_users')
-
-    def create(self, validated_data):
-        id_place = validated_data.pop('places')
-        tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
-        tour.places.add(*id_place)
-        return tour
 
 
 class AddTourSerializers(serializers.ModelSerializer):
@@ -53,6 +47,11 @@ class AddTourSerializers(serializers.ModelSerializer):
         tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
         tour.places.add(*id_place)
         return tour
+
+    def validate(self, data):
+        if data['start_date'] > data['end_date']:
+            raise serializers.ValidationError({"end_date": "Finish must occur after start"})
+        return data
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

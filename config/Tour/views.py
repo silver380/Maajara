@@ -1,3 +1,6 @@
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+
 from .serializers import *
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
@@ -10,48 +13,45 @@ from .models import Tour
 class TourListAPIView(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tour.objects.all()
-    serializer_class = TourSerializers
+    serializer_class = TourListSerializer
 
 
 class CreatedTours(ListAPIView):
-    serializer_class = TourSerializers
+    serializer_class = TourListSerializer
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
 
     def get_queryset(self):
         return Tour.objects.filter(creator=self.request.user)
 
 
-class Register(GenericAPIView):
-    serializer_class = TourSerializers
+class Register(APIView):
+    serializer_class = TourListSerializer
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         if 'tour_id' not in request.data:
             return Response(status=400, data={"error": "Invalid tour"})
 
-        if not Tour.objects.filter(pk=request.data['tour_id']).exists():
-            return Response(status=400, data={"error": "Invalid tour"})
-
-        registered_tour = Tour.objects.get(pk=request.data['tour_id'])
+        registered_tour = get_object_or_404(Tour, pk=request.data['tour_id'])
         registered_tour.pending_users.add(request.user)
         return Response(status=200)
 
 
 class MyConfirmedTours(ListAPIView):
-    serializer_class = TourSerializers
+    serializer_class = TourListSerializer
 
     def get_queryset(self):
         return self.request.user.confirmed_tours
 
 
 class MyPendingTours(ListAPIView):
-    serializer_class = TourSerializers
+    serializer_class = TourListSerializer
 
     def get_queryset(self):
         return self.request.user.pending_tours
 
 
-class MyPendingUsers(GenericAPIView):
+class MyPendingUsers(APIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
     serializer_class = UserInfoSerializer
 
@@ -63,9 +63,8 @@ class MyPendingUsers(GenericAPIView):
         return Response(return_data)
 
 
-class MyConfirmedUsers(GenericAPIView):
+class MyConfirmedUsers(APIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
-    serializer_class = UserInfoSerializer
 
     def get(self, request):
         return_data = {}
@@ -75,19 +74,15 @@ class MyConfirmedUsers(GenericAPIView):
         return Response(return_data)
 
 
-class AcceptUser(GenericAPIView):
+class AcceptUser(APIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
-    serializer_class = UserInfoSerializer
 
     def post(self, request):
-        if 'tour_id' not in request.data or not Tour.objects.filter(pk=request.data['tour_id']).exists():
-            return Response(status=400, data={"error": "Invalid tour"})
+        if 'tour_id' not in request.data or 'user_id' not in request.data:
+            return Response(status=400, data={"error": "Invalid data"})
 
-        if 'user_id' not in request.data or not get_user_model().objects.filter(pk=request.data['user_id']).exists():
-            return Response(status=400, data={"error": "Invalid user id"})
-
-        registered_user = get_user_model().objects.get(pk=request.data['user_id'])
-        registered_tour = Tour.objects.get(pk=request.data['tour_id'])
+        registered_user = get_object_or_404(get_user_model(), pk=request.data['user_id'])
+        registered_tour = get_object_or_404(Tour, pk=request.data['tour_id'])
 
         if registered_user not in registered_tour.pending_users.all():
             return Response(status=400, data={"error": "Invalid pending user"})
@@ -112,5 +107,5 @@ class Add(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)
-        instance_serializer = TourSerializers(instance)
+        instance_serializer = TourListSerializer(instance)
         return Response(instance_serializer.data)
