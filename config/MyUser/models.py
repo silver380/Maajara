@@ -54,6 +54,14 @@ class MyUser(AbstractBaseUser):
 
     travel_plans = models.ManyToManyField('TravelPlan.TravelPlan', related_name='travel_plans', blank=True,null = True)
 
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        return True
+
     @property
     def is_staff(self):
         return self.is_admin
