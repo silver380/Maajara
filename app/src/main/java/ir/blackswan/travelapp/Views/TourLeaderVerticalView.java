@@ -37,7 +37,7 @@ public class TourLeaderVerticalView extends MaterialCardView {
         name.setText(user.getNameAndLastname());
         bio.setText(user.getBiography());
         rate.setText(user.getRate() + "");
-        image.setUser(user);
+        image.setDataByUser(user);
 
         String telegramID = user.getTelegram_id();
         String whatsappNum = user.getWhatsapp_id();

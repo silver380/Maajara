@@ -1,35 +1,52 @@
 package ir.blackswan.travelapp.Data;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 
 public class Plan implements Serializable {
-    private User creator;
+    private User plan_creator;
     @Expose
     private String destination;
     @Expose
     private String start_date, end_date;
     @Expose
-    private List<String> requestedThings;
+    private String wanted_list;
     private List<User> requestedGuides;
     private User registeredUser;
+    @Expose
+    private Place[] places;
+    private int travel_plan_id;
+    private User confirmed_tour_leader;
 
-    public Plan(String destination, String start_date, String end_date , List<String> requestedThings) {
+    public User getConfirmed_tour_leader() {
+        return confirmed_tour_leader;
+    }
+
+    public int getTravel_plan_id() {
+        return travel_plan_id;
+    }
+
+    public Plan(String destination, String start_date, String end_date, List<String> requestedThings,
+                Place[] places) {
         this.destination = destination;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.requestedThings = requestedThings;
+        this.wanted_list = new Gson().toJson(requestedThings);
+        this.places = places;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getPlan_creator() {
+        return plan_creator;
     }
 
     public String getDestination() {
@@ -44,8 +61,12 @@ public class Plan implements Serializable {
         return end_date;
     }
 
-    public List<String> getRequestedThings() {
-        return requestedThings;
+    public List<String> getWanted_list() {
+        try {
+            return new Gson().fromJson(wanted_list, List.class);
+        } catch (JsonSyntaxException e) {
+            return new ArrayList<>(); //todo: remove this
+        }
     }
 
     public List<User> getRequestedGuides() {
@@ -74,6 +95,10 @@ public class Plan implements Serializable {
         } catch (ParseException ignored) {
         }
         return null;
+    }
+
+    public Place[] getPlaces() {
+        return places;
     }
 
     private Date convertStringToDate(String date) throws ParseException {

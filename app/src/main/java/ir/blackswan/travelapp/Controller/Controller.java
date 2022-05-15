@@ -6,8 +6,7 @@ import com.google.gson.GsonBuilder;
 import ir.blackswan.travelapp.Retrofit.Api;
 import ir.blackswan.travelapp.Retrofit.RetrofitClient;
 import ir.blackswan.travelapp.Utils.Toast;
-import ir.blackswan.travelapp.ui.AuthActivity;
-import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 
 
 public abstract class Controller {

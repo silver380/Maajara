@@ -14,12 +14,14 @@
     <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
 
-
-    <color name="colorMainStatusBar">#DADADA</color>
-    <color name="colorTransparent">#00FFFFFF</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
+
+    <color name="colorMainStatusBar">#DADADA</color>
+    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorIntroTittle">#032C2A</color>
     <color name="black_overlay">#66000000</color>
+    <color name="icon_padding_alpha">#2829BDB9</color>
 </resources>

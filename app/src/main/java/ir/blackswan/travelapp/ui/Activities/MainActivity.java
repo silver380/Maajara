@@ -1,20 +1,26 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
+import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 
 public class MainActivity extends AuthActivity {
 
     private ActivityMainBinding binding;
+    public static final int REQUEST_SETTING = 0;
 
     private HomeFragment homeFragment;
 
@@ -35,9 +41,17 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-        auth(homeFragment::reload);
 
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == REQUEST_SETTING){
+                homeFragment.reload();
+            }
+        }
     }
 
     public HomeFragment getHomeFragment() {

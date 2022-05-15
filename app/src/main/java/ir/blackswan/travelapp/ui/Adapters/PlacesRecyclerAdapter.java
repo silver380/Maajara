@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashSet;
 
-import ir.blackswan.travelapp.Controller.PathController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
 import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
 
@@ -61,7 +59,7 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place place = places[position];
-        holder.placeImage.setImagePath(PathController.getRandomPath(activity));
+        holder.placeImage.setImagePath(place.getPicture());
         holder.placeImage.setGradient(true);
         holder.placeImage.setScale(.5f);
         holder.placeName.setText(place.getName());

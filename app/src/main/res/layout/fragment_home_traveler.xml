@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="قطعی شده‌ها"
+        android:text="@string/confirmedTours"
         style="@style/textTittleMedium"
         android:layout_margin="@dimen/margin_small"
         />
@@ -26,12 +26,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="در انتظار تایید"
+        android:text="@string/pendingTours"
         style="@style/textTittleMedium"
         android:layout_margin="@dimen/margin_small"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_pending_tour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@color/colorBackgroundDarker"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createdPlans"
+        style="@style/textTittleMedium"
+        android:layout_margin="@dimen/margin_small"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_created_plans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_small"

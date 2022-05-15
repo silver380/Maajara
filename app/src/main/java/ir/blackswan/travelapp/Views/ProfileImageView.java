@@ -7,14 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -25,13 +21,16 @@ import java.io.File;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 
-public class ProfileImageView extends FrameLayout {
+public class ProfileImageView extends LoadableImageView {
 
-    ImageView imageView;
-    TextView textView;
-    MaterialCardView cardView;
+    private ImageView imageView;
+    private AutoResizeTextView textView;
+    private MaterialCardView cardView;
     @Nullable
-    User user;
+    private String imageServerPath;
+    private String fullName;
+    private float maxTextSize = 60;
+
 
     public ProfileImageView(@NonNull Context context) {
         super(context);
@@ -53,38 +52,50 @@ public class ProfileImageView extends FrameLayout {
         init();
     }
 
-    public void setSize(int size){
-        FrameLayout.LayoutParams params = (LayoutParams) cardView.getLayoutParams();
-        params.width = size;
-        params.height = size;
-        cardView.setRadius(size / 2f);
-        cardView.setLayoutParams(params);
+    @Override
+    void loadingState() {
+        noImageState();
     }
+
 
     private void init() {
         inflate(getContext(), R.layout.view_image_profile, this);
         textView = findViewById(R.id.profile_text);
         imageView = findViewById(R.id.profile_image);
         cardView = findViewById(R.id.profile_card);
+
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                cardView.setRadius(cardView.getWidth()/2f);
+                cardView.setRadius(cardView.getWidth() / 2f);
             }
         });
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDataByUser(User user){
+        setData(user.getPicture() , user.getNameAndLastname());
+    }
+
+    public void setData(@Nullable String imageServerPath, String fullName) {
+        this.imageServerPath = imageServerPath;
+        this.fullName = fullName;
         update();
     }
 
     @SuppressLint("SetTextI18n")
     public void update() {
-        if (user != null) {
-            textView.setText(user.getFirst_name().charAt(0) + "‌" + user.getLast_name().charAt(0));
-            noImageState();
-        }
+        String[] f_lName = fullName.split(" ");
+        textView.setText(f_lName[0].charAt(0) + "‌" +
+                f_lName[f_lName.length-1].charAt(0));
+        noImageState();
+        textView.setMaxTextSize(maxTextSize);
+        setImagePath(imageServerPath);
+
+    }
+
+    public void setMaxTextSize(float textSize) {
+        textView.setMaxTextSize(textSize);
+        maxTextSize = textSize;
     }
 
 
@@ -106,14 +117,17 @@ public class ProfileImageView extends FrameLayout {
         imageView.setVisibility(View.VISIBLE);
     }
 
-    private void setImageByFile(File pictureFile) {
+    public void setImageByFile(File pictureFile) {
         Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
         setImageBitmap(myBitmap);
-
-        imageState();
     }
 
-    private void setImageBitmap(Bitmap bitmap) {
+    @Override
+    void errorState(boolean b, @androidx.annotation.Nullable String servePath) {
+        noImageState();
+    }
+
+    public void setImageBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
 
         imageState();

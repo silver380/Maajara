@@ -1,4 +1,4 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import ir.blackswan.travelapp.Controller.MyCallback;

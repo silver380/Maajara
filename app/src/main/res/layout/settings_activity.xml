@@ -1,0 +1,548 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDarker"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_medium">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_activity"
+        style="@style/activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="تنظیمات" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorBackgroundDarker"
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ir.blackswan.travelapp.Views.ProfileImageView
+                android:id="@+id/piv_setting"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.32" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_setting_edit_profile"
+                android:layout_width="@dimen/secondary_icon_size"
+                android:layout_height="@dimen/secondary_icon_size"
+
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@drawable/circle_solid"
+                android:backgroundTint="@color/colorIconTint"
+                android:padding="@dimen/icons_padding"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintLeft_toRightOf="@id/iv_setting_delete_profile"
+                app:layout_constraintRight_toRightOf="@id/piv_setting"
+                app:layout_constraintTop_toBottomOf="@id/piv_setting" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_setting_delete_profile"
+                android:layout_width="@dimen/secondary_icon_size"
+                android:layout_height="@dimen/secondary_icon_size"
+                android:layout_marginRight="@dimen/margin_very_small"
+                android:background="@drawable/circle_solid"
+                android:backgroundTint="@color/colorError"
+                android:padding="@dimen/icons_padding"
+                android:visibility="gone"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintLeft_toLeftOf="@id/piv_setting"
+                app:layout_constraintRight_toLeftOf="@id/iv_setting_edit_profile"
+                app:layout_constraintTop_toTopOf="@id/iv_setting_edit_profile" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/crd_passenger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:cardBackgroundColor="@color/colorBackgroundLighter"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="@dimen/card_elevation_small"
+                app:layout_constraintTop_toBottomOf="@id/iv_setting_edit_profile">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingBottom="@dimen/padding_large">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textTittleMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="اطلاعات مسافر" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_very_small"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_weight="1"
+                            android:hint="نام"
+                            app:errorEnabled="true"
+                            app:startIconDrawable="@drawable/ic_user">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_name"
+                                style="@style/editText.oneLine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:maxLength="@integer/max_user_name_length" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginRight="@dimen/margin_very_small"
+                            android:layout_weight="1"
+                            android:hint="نام خانوادگی"
+                            app:errorEnabled="true"
+                            app:startIconDrawable="@drawable/ic_user">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_lastname"
+                                style="@style/editText.oneLine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:maxLength="@integer/max_user_name_length" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="ایمیل"
+                        app:startIconDrawable="@drawable/ic_email">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_email"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_setting_show_leader_info"
+                style="@style/button.outLineButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+                android:paddingVertical="@dimen/btn_large_padding_vertical"
+                android:text="ارتقا به راهنمای سفر"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/crd_setting_tour_leader"
+
+                />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/crd_setting_tour_leader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_large"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/colorBackgroundLighter"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="@dimen/card_elevation_small"
+                app:layout_constraintTop_toBottomOf="@id/crd_passenger">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingBottom="@dimen/padding_large">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_close_leader"
+                        android:layout_width="@dimen/tertiary_icon_size"
+                        android:layout_height="@dimen/tertiary_icon_size"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_margin="-5dp"
+                        android:tint="@color/colorHint"
+                        android:padding="@dimen/icons_padding"
+                        android:src="@drawable/ic_cross"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/ll_top_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textTittleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="اطلاعات راهنمای سفر" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_leader_info_status"
+                            style="@style/textSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/margin_small"
+                            android:background="@drawable/rec_small_radius_filled"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="@dimen/padding_small"
+                            android:text="تایید نشده" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/view_middle"
+                        android:layout_width="@dimen/margin_small"
+                        android:layout_height="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_ssn"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:hint="کد ملی"
+                        app:errorEnabled="true"
+                        app:layout_constraintLeft_toRightOf="@id/view_middle"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ll_top_card"
+                        app:startIconDrawable="@drawable/ic_personal_card">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_ssn"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="10" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="جنسیت"
+                        app:errorEnabled="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/view_middle"
+                        app:layout_constraintTop_toTopOf="@id/til_ssn"
+                        app:startIconDrawable="@drawable/ic_gender">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_gender"
+                            style="@style/editText.nonInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_birthdate"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="تاریخ تولد"
+                        app:errorEnabled="true"
+                        app:layout_constraintTop_toBottomOf="@id/til_ssn"
+
+                        app:startIconDrawable="@drawable/ic_calendar">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_birthday"
+                            style="@style/editText.nonInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <FrameLayout
+                        android:id="@+id/fl_clearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/til_birthdate">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="مدرک عدم سوء پیشینه"
+                            app:errorEnabled="true"
+                            app:startIconDrawable="@drawable/ic_gun">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_clearance_doc"
+                                style="@style/editText.nonInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:textAlignment="gravity" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ProgressBar
+                            android:id="@+id/pb_setting_doc"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="@dimen/margin_very_small"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/colorIconTint"
+                            android:rotation="180" />
+                    </FrameLayout>
+
+
+                    <FrameLayout
+                        android:id="@+id/fl_bio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/fl_clearance">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="شرح‌حال و سابقه فعالیت در زمینه گردشگری"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_bio"
+                                style="@style/editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="top"
+                                android:inputType="textMultiLine"
+                                android:maxEms="3"
+                                android:maxLines="5"
+                                android:minLines="3"
+                                android:paddingBottom="20dp" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_setting_bio_counter"
+                            style="@style/textSmall.hintColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|left"
+                            android:layout_margin="@dimen/margin_very_small"
+                            android:text="0/300" />
+
+                    </FrameLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_skills"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="مهارت های زبانی"
+                        app:layout_constraintTop_toBottomOf="@id/fl_bio">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_language_skills"
+                            style="@style/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:maxEms="3"
+                            android:maxLines="5"
+                            android:minLines="2" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_connect"
+                        style="@style/textRegular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="راه‌های ارتباطی"
+                        app:layout_constraintTop_toBottomOf="@id/til_skills" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cb_setting_mobile"
+                        style="@style/textSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="تلفن همراه"
+                        app:layout_constraintLeft_toRightOf="@id/view_middle"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_connect" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_mobile"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="شماره تماس"
+                        android:orientation="horizontal"
+                        app:errorEnabled="true"
+                        app:helperText="برای مثال: 9120000000"
+                        app:helperTextTextAppearance="@style/textHint"
+                        app:layout_constraintTop_toBottomOf="@id/cb_setting_mobile"
+                        app:startIconDrawable="@drawable/ic_telephone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_mobile"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="10" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cb_setting_telegram"
+                        style="@style/textSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_very_small"
+                        android:text="تلگرام"
+                        app:layout_constraintLeft_toRightOf="@id/view_middle"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/til_mobile" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_tel"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="نام کاربری"
+                        app:helperText="نیازی به @ نیست"
+                        app:helperTextTextAppearance="@style/textHint"
+                        app:layout_constraintLeft_toLeftOf="@id/cb_setting_telegram"
+                        app:layout_constraintRight_toRightOf="@id/cb_setting_telegram"
+                        app:layout_constraintTop_toBottomOf="@id/cb_setting_telegram"
+                        app:startIconDrawable="@drawable/ic_telegram">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_telegram"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cb_setting_whatsapp"
+                        style="@style/textSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="واتساپ"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/view_middle"
+                        app:layout_constraintTop_toTopOf="@id/cb_setting_telegram" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_wts"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="شماره تماس"
+                        app:errorEnabled="true"
+                        app:helperText="برای مثال: 9120000000"
+                        app:helperTextTextAppearance="@style/textHint"
+                        app:layout_constraintLeft_toLeftOf="@id/cb_setting_whatsapp"
+                        app:layout_constraintRight_toRightOf="@id/cb_setting_whatsapp"
+                        app:layout_constraintTop_toBottomOf="@id/cb_setting_whatsapp"
+                        app:startIconDrawable="@drawable/ic_whatsapp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_whatsapp"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="10" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_setting_leader_submit"
+                style="@style/button.primaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+                android:paddingVertical="@dimen/btn_large_padding_vertical"
+                android:text="ذخیره"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_setting_show_leader_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

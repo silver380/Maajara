@@ -4,14 +4,10 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.util.Arrays;
 
-import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -61,15 +57,15 @@ public class TourController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getCreatedTourFromServer(OnResponse onResponse) {
-        Log.d(MyCallback.TAG, "getCreatedTourFromServer: ");
+        Log.d(MyCallback.TAG, "getCreatedTourFromServer...: ");
         api.getCreatedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
+                Log.d(TAG, "getCreatedTourFromServer: onSuccess: " + response.getResponseBody());
                 createdTours = gson.fromJson(response.getResponseBody(), Tour[].class);
                 onResponse.onSuccess(call, callback, response);
             }
@@ -79,7 +75,7 @@ public class TourController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getPendingTourFromServer(OnResponse onResponse) {
@@ -95,14 +91,15 @@ public class TourController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getConfirmedTourFromServer(OnResponse onResponse) {
-        Log.d(MyCallback.TAG, "getConfirmedTourFromServer: ");
+        Log.d(MyCallback.TAG, "getConfirmedTourFromServer:...");
         api.getConfirmedTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                Log.d(MyCallback.TAG, "getConfirmedTourFromServerSuccess: ConfirmedTour: " + response.getResponseBody());
                 confirmedTours = gson.fromJson(response.getResponseBody(), Tour[].class);
                 onResponse.onSuccess(call, callback, response);
             }
@@ -111,7 +108,7 @@ public class TourController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public static Tour[] getAllTours() {

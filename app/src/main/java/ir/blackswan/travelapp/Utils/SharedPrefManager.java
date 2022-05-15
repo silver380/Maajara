@@ -6,6 +6,8 @@ public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "TravelAppSharedPref";
     public static final String USER_TOKEN = "userToken";
 
+    public static final String IS_TOUR_LEADER = "isTourLeader";
+
 
     private final Context mCtx;
 
@@ -57,6 +59,10 @@ public class SharedPrefManager {
     public Boolean getBoolean(String name) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(name, false);
+    }
+    public Boolean getBoolean(String name , boolean defValue) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(name, defValue);
     }
 
     public void putLong(String name, Long item) {

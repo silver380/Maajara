@@ -1,44 +1,46 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.FragmentTransaction;
 
-import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentAddBinding;
-import ir.blackswan.travelapp.ui.AddTourActivity;
-import ir.blackswan.travelapp.ui.MainActivity;
 
 
 public class AddFragment extends Fragment {
 
     private FragmentAddBinding binding;
+    private AddPlanFragment addPlanFragment;
+    private AddTourFragment addTourFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        addPlanFragment = new AddPlanFragment();
+        addTourFragment = new AddTourFragment();
 
-        binding.testBtnAddTour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity() , AddTourActivity.class));
-            }
-        });
+        setCurrentFragment();
 
-
-        if (!HomeFragment.isTourLeader() ) {
-            binding.testBtnAddTour.setVisibility(View.GONE);
-        }
         return root;
+    }
+
+    private void setCurrentFragment() {
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+
+        if (HomeFragment.isTourLeader())
+            ft.replace(R.id.nav_host, addTourFragment);
+        else
+            ft.replace(R.id.nav_host, addPlanFragment);
+
+        ft.commit();
     }
 
     @Override

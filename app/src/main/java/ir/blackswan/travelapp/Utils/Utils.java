@@ -6,26 +6,37 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Environment;
 import android.text.Editable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import ir.blackswan.travelapp.R;
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 
 
 public class Utils {
@@ -157,6 +168,9 @@ public class Utils {
     }
 
 
+    public static boolean isDateGreaterOrEqual(Date date1, Date date2){
+        return date1.getTime() >= date2.getTime();
+    }
     public static long numDaysBetween(long fromTime, long toTime) {
         GregorianCalendar c = new GregorianCalendar();
         int result = 0, sign = 1;
@@ -215,4 +229,28 @@ public class Utils {
 
         }
     }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static String getFilePath(Context context , String filePrefix , String fileSuffix){
+        return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
+                File.separator + filePrefix + System.currentTimeMillis() + fileSuffix;
+    }
+
+
+    public static Date convertStringToDate(String date) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    }
+
+
+
 }

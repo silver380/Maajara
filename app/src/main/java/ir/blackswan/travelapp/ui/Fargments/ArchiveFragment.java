@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ir.blackswan.travelapp.databinding.FragmentArchiveBinding;
 
-public class ArchiveFragment extends Fragment {
+public class ArchiveFragment extends RefreshingFragment {
 
     private FragmentArchiveBinding binding;
 
@@ -32,5 +32,10 @@ public class ArchiveFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void refresh() {
+        //todo: implement this
     }
 }

@@ -2,13 +2,11 @@ package ir.blackswan.travelapp.Controller;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import ir.blackswan.travelapp.Data.Path;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 
 public class PathController extends Controller {
     private static final String FAKE_PATHS = "paths";

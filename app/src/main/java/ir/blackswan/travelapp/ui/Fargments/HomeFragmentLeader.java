@@ -12,26 +12,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.databinding.FragmentHomeLeaderBinding;
-import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
-import ir.blackswan.travelapp.ui.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class HomeFragmentLeader extends Fragment {
     FragmentHomeLeaderBinding binding;
-    AuthActivity authActivity;
+    MainActivity mainActivity;
     private TourController tourController;
     private Tour[] createdTours;
 
-    public HomeFragmentLeader(AuthActivity authActivity) {
-        this.authActivity = authActivity;
-        tourController = new TourController(authActivity);
+    public HomeFragmentLeader(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+        tourController = new TourController(mainActivity);
     }
 
     @Nullable
@@ -40,12 +38,12 @@ public class HomeFragmentLeader extends Fragment {
         binding = FragmentHomeLeaderBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(authActivity,
+        binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(mainActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
-        binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(authActivity,
+        binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
                 LinearLayoutManager.HORIZONTAL, false));
-        binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans())); //todo: FAKE RECYCLES
+
 
         reload();
 
@@ -54,7 +52,7 @@ public class HomeFragmentLeader extends Fragment {
     }
 
     public void reload() {
-
+        mainActivity.getHomeFragment().setRefreshing(true);
         setCreatedToursRecycler();
 
     }
@@ -66,12 +64,13 @@ public class HomeFragmentLeader extends Fragment {
 
     private void setCreatedToursRecycler() {
 
-        tourController.getCreatedTourFromServer(new OnResponseDialog(authActivity) {
+        tourController.getCreatedTourFromServer(new OnResponseDialog(mainActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 createdTours = tourController.getCreatedTours();
                 setRecyclers();
+                mainActivity.getHomeFragment().setRefreshing(false);
             }
         });
 

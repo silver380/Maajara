@@ -1,65 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundDarker"
-    android:orientation="vertical"
-    tools:context=".ui.Fargments.HomeFragment">
+    android:foregroundTint="@color/colorIconTint"
+    >
 
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDarker"
+        android:orientation="vertical"
+        tools:context=".ui.Fargments.HomeFragment">
 
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-            android:id="@+id/toggle_home"
-            android:layout_width="wrap_content"
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:background="@drawable/rec_medium_raidus_no_fill"
-            app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small">
 
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                android:id="@+id/btn_home_passenger"
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+                android:id="@+id/toggle_home"
                 android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                app:toggle_backgroundColor="@color/colorTransparent"
-                app:toggle_btnCornerRadius="@dimen/radius_medium"
-                app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-                app:toggle_text="مسافر" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
 
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                android:id="@+id/btn_home_guide"
+                android:background="@drawable/rec_medium_raidus_no_fill"
+                app:toggle_horizontalSpacing="0dp"
+                app:toggle_selectableAmount="1"> <!-- this attribute is from the underlying FlexboxLayout -->
+
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/btn_home_passenger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    app:toggle_backgroundColor="@color/colorTransparent"
+                    app:toggle_btnCornerRadius="@dimen/radius_medium"
+                    app:toggle_fontFamily="vazir_medium.ttf"
+                    app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                    app:toggle_text="مسافر" />
+
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/btn_home_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    app:toggle_backgroundColor="@color/colorTransparent"
+                    app:toggle_btnCornerRadius="@dimen/radius_medium"
+                    app:toggle_fontFamily="vazir_medium.ttf"
+                    app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                    app:toggle_text="راهنما" />
+
+
+            </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+
+            <ir.blackswan.travelapp.Views.ProfileImageView
+                android:id="@+id/iv_home_profile"
+                android:layout_width="@dimen/profile_view_size"
+                android:layout_height="@dimen/profile_view_size" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                app:toggle_backgroundColor="@color/colorTransparent"
-                app:toggle_btnCornerRadius="@dimen/radius_medium"
-                app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-                app:toggle_text="راهنما" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:background="@drawable/rec_small_radius_filled"
+                android:backgroundTint="@color/icon_padding_alpha"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/padding_medium">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_home_ticket"
+                    style="@style/textTittleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_very_small"
+                    android:gravity="center"
+                    android:text="15" />
+
+                <ImageView
+                    android:layout_width="@dimen/secondary_icon_size"
+                    android:layout_height="@dimen/secondary_icon_size"
+                    android:padding="@dimen/icons_padding"
+                    android:src="@drawable/ic_ticket" />
+
+            </LinearLayout>
 
 
-        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+        </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
 
-        <ir.blackswan.travelapp.Views.ProfileImageView
-            android:id="@+id/iv_home_profile"
-            android:layout_width="@dimen/profile_view_size"
-            android:layout_height="@dimen/profile_view_size"
-            android:layout_margin="@dimen/margin_small" />
-
-
-    </FrameLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_home"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

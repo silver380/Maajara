@@ -27,5 +27,29 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="city">شهر</string>
+    <string name="title_activity_setting">SettingActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="createdPlans">برنامه‌های سفر من</string>
+    <string name="pendingTours">در انتظار تایید</string>
+    <string name="confirmedTours">قطعی شده‌ها</string>
+    <string name="wanted_list">مواردی که می‌خواهم</string>
+    <string name="add_tour_tittle">تور جدید</string>
+    <string name="add_plan_tittle">برنامه سفر جدید</string>
+    <string name="date_error">تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد</string>
+    <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
 
 </resources>

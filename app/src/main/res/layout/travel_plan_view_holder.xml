@@ -45,7 +45,8 @@
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_very_small"
+                android:gravity="right"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
                 android:text="شهر" />
         </LinearLayout>
 
@@ -71,7 +72,8 @@
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_very_small"
+                android:gravity="right"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
                 android:text="تاریخ سفر" />
         </LinearLayout>
 

@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="?android:attr/actionBarSize"
+        android:paddingBottom="@dimen/padding_medium"
         android:paddingHorizontal="@dimen/padding_medium">
 
 
@@ -206,7 +207,7 @@
                     app:startIconDrawable="@drawable/ic_price">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_add_tour_name"
+                        android:id="@+id/et_plan_suggest_price"
                         style="@style/editText.oneLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

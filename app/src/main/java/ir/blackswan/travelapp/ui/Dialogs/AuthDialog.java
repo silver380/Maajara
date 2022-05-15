@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Locale;
 import java.util.Stack;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -28,7 +27,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -251,7 +250,7 @@ public class AuthDialog extends MyDialog {
             binding.btnLoginGoToAnother.setText(login);
         }
         if (step == STEP_REGISTER) {
-            binding.btnLogin.setText("ارسال کد تایید");
+            binding.btnLogin.setText("ارسال ایمیل تایید");
 
         } else if (step == STEP_VERIFY) {
             binding.btnLogin.setText("تایید");

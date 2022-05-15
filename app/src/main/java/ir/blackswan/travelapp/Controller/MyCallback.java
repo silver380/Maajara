@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,43 +19,52 @@ public class MyCallback implements Callback<ResponseBody> {
     private final AuthActivity authActivity;
     private final OnResponse onResponse;
     private LoadingDialog loadingDialog;
-    private boolean hasLoadingDialog = true;
+    private boolean hasLoadingDialog = false;
+
     public MyCallback(AuthActivity authActivity, OnResponse onResponse) {
         this.authActivity = authActivity;
         this.onResponse = onResponse;
     }
 
     public MyCallback showLoadingDialog() {
+        hasLoadingDialog = true;
         loadingDialog = new LoadingDialog(authActivity);
         loadingDialog.show();
         return this;
     }
 
-    public MyCallback reload(){
+    public MyCallback reload() {
         if (hasLoadingDialog)
             loadingDialog.show();
         return this;
     }
+
     @Override
     public void onResponse(@NonNull Call<ResponseBody> call, Response<ResponseBody> response) {
         stopLoading();
         if (response.code() / 100 == 2) {
             try {
-                String responseBody = response.body().string();
-                onResponse.onSuccess(call, this, new MyResponse(response.code(),
-                        responseBody, true));
+                if (response.body() != null) {
+                    String responseBody = response.body().string();
+                    onResponse.onSuccess(call, this, new MyResponse(response.code(),
+                            responseBody, true));
+                } else {
+                    throw new IOException();
+                }
             } catch (IOException e) {
-                onResponse.onFailed(call , this , new MyResponse(response.code(),
-                        authActivity.getString(R.string.somthing_went_wrong) , false));
+                onResponse.onFailed(call, this, new MyResponse(response.code(),
+                        authActivity.getString(R.string.somthing_went_wrong), false));
                 Log.e(TAG, "onResponse: ", e);
             }
         } else if (response.code() == 500) { //something went wrong
             onResponse.onFailed(call, this, new MyResponse(response.code(),
                     authActivity.getString(R.string.somthing_went_wrong), false));
+            Log.e(TAG, "onResponse: " + response.message());
         } else {
             try {
                 onResponse.onFailed(call, this, new MyResponse(response.code(),
                         ErrorHandler.getStringErrors(authActivity, response.errorBody().string()), false));
+                Log.e(TAG, "onResponse: " + response.message());
             } catch (IOException e) {
                 Log.e(TAG, "onResponse: ", e);
             }

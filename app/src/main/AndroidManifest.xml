@@ -3,6 +3,7 @@
     package="ir.blackswan.travelapp">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -13,19 +14,13 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TravelApp">
+        android:theme="@style/Theme.TravelApp"
+        android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".ui.AddTourActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.TourPageActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.Activities.IntroActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,8 +28,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.UserRequestActivity"
+            android:name=".ui.Activities.TLeaderRequestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Activities.SettingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Activities.TourPageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Activities.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.Activities.UserRequestActivity"
             android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

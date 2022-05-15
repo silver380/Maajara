@@ -3,7 +3,7 @@ package ir.blackswan.travelapp.Controller;
 import android.util.Log;
 
 import ir.blackswan.travelapp.Data.Place;
-import ir.blackswan.travelapp.ui.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -29,7 +29,7 @@ public class PlaceController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public static Place[] getAllPlaces() {

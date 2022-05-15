@@ -1,60 +1,81 @@
-package ir.blackswan.travelapp.ui;
+package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.textfield.TextInputEditText;
+import java.util.Arrays;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
+import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
-import ir.blackswan.travelapp.databinding.ActivityAddTourBinding;
+import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.databinding.FragmentAddTourBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-public class AddTourActivity extends ToolbarActivity {
-    ActivityAddTourBinding binding;
+public class AddTourFragment extends Fragment {
+    private FragmentAddTourBinding binding;
     GroupButtons groupPlace, groupFood, groupVehicle;
     MaterialPersianDateChooser startDate, finalDate;
     SelectPlacesDialog selectPlacesDialog;
     static String[] residents = {"Hotel", "Suite", "House", "Villa"};
     static String[] vehicle = {"Car", "Minibus", "Bus", "Van"};
     private TourController tourController;
+    private AuthActivity authActivity;
+    private TextInputsChecker checker = new TextInputsChecker();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        binding = ActivityAddTourBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        binding = FragmentAddTourBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
         super.onCreate(savedInstanceState);
-        binding.rclAddTourPlaces.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        selectPlacesDialog = new SelectPlacesDialog(this, v -> {
+        authActivity = ((AuthActivity) getActivity());
+        binding.rclAddTourPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
+        selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
             Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclAddTourPlaces.setAdapter(
-                    new PlacesRecyclerAdapter(this, selectedPlaces)
+                    new PlacesRecyclerAdapter(authActivity, selectedPlaces)
             );
         });
-        tourController = new TourController(this);
+        tourController = new TourController(authActivity);
+        setChecker();
         setupGroupButtons();
         setupDateChooses();
         setListeners();
 
-
+        return root;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+
     private void setupDateChooses() {
-        startDate = new MaterialPersianDateChooser(binding.etAddTourStartDate);
-        finalDate = new MaterialPersianDateChooser(binding.etAddTourFinalDate);
+        startDate = new MaterialPersianDateChooser(authActivity, binding.etAddTourStartDate);
+        finalDate = new MaterialPersianDateChooser(authActivity, binding.etAddTourFinalDate);
     }
 
     private void setupGroupButtons() {
@@ -89,13 +110,9 @@ public class AddTourActivity extends ToolbarActivity {
 
                 String tourName = binding.etAddTourName.getText().toString();
 
-                String sDate = startDate.getCalendar().getGregorianYear() + "-" +
-                        startDate.getCalendar().getGregorianMonth() + "-" +
-                        startDate.getCalendar().getGregorianDay();
+                String sDate = startDate.getGregorianY_M_D();
 
-                String fDate = finalDate.getCalendar().getGregorianYear() + "-" +
-                        finalDate.getCalendar().getGregorianMonth() + "-" +
-                        finalDate.getCalendar().getGregorianDay();
+                String fDate = startDate.getGregorianY_M_D();
 
                 int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
 
@@ -116,20 +133,20 @@ public class AddTourActivity extends ToolbarActivity {
                 Tour tour = new Tour(tourName, capacity, price, destination, sDate, fDate, places, residence,
                         food[0], food[1], food[2], transportation);
 
-                tourController.addTourToServer(tour, new OnResponseDialog(this) {
+                tourController.addTourToServer(tour, new OnResponseDialog(authActivity) {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-                        Toast.makeText(AddTourActivity.this, "تور با موفقیت اضافه شد",
+                        Toast.makeText(authActivity, "تور با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
-                        finish();
+
                     }
 
                 });
 
             } else {
-                Toast.makeText(this, "لطفا تمام مقادیر را وراد کنید", Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+                Toast.makeText(authActivity, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
 
         });
@@ -137,18 +154,43 @@ public class AddTourActivity extends ToolbarActivity {
     }
 
     private boolean checkInputs() {
-        TextInputEditText[] inputEditTexts = new TextInputEditText[]{
-                binding.etAddTourName, binding.etAddTourCapacity, binding.etAddTourPrice, binding.etAddTourDestination,
-                binding.etAddTourStartDate, binding.etAddTourFinalDate,
-        };
-
-        for (TextInputEditText input : inputEditTexts) {
-            if (input.getText().toString().isEmpty())
-                return false;
-        }
+        if (checker.checkAllError())
+            return false;
         return binding.rclAddTourPlaces.getChildCount() > 0;
-
     }
 
+    private void setChecker() {
+        TextInputsChecker.Error error = editText -> {
+            if (Utils.getEditableText(editText.getText()).isEmpty())
+                return editText.getHint() + " ضروری است";
+            else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
+                return null;
+            else if (Utils.isDateGreaterOrEqual(
+                    startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())) {
 
+                if (editText.equals(binding.etAddTourStartDate)) {
+                    binding.tilAddTourFinalDate.setError(getString(R.string.date_error));
+                } else {
+                    binding.tilAddTourStartDate.setError(getString(R.string.date_error));
+                }
+                return getString(R.string.date_error);
+            }else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())){
+                if (editText.equals(binding.etAddTourStartDate)) {
+                    binding.tilAddTourFinalDate.setError(null);
+                } else {
+                    binding.tilAddTourStartDate.setError(null);
+                }
+
+            }
+
+            return null;
+
+        };
+        checker.add(Arrays.asList(binding.etAddTourDestination , binding.etAddTourCapacity , binding.etAddTourName ,
+                binding.etAddTourPrice));
+        checker.add(binding.etAddTourStartDate, error);
+        checker.add(binding.etAddTourFinalDate, error);
+    }
 }
