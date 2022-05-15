@@ -1,6 +1,5 @@
 package ir.blackswan.travelapp.ui.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
-import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 
 public class MainActivity extends AuthActivity {
