@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
@@ -26,13 +24,13 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
 import kotlin.Unit;
 
 public class HomeFragment extends RefreshingFragment {
+
 
     private FragmentHomeBinding binding;
     private MainActivity mainActivity;
@@ -78,6 +76,8 @@ public class HomeFragment extends RefreshingFragment {
         return root;
     }
 
+
+
     public static boolean isTourLeader() {
         return tourLeader;
     }
@@ -114,7 +114,7 @@ public class HomeFragment extends RefreshingFragment {
         User user = AuthController.getUser();
         tourLeader = sharedPrefManager.getBoolean(IS_TOUR_LEADER, true);
         if (user != null) {
-            binding.ivHomeProfile.setUser(user);
+            binding.ivHomeProfile.setDataByUser(user);
             if (user.is_tour_leader()) {
                 binding.tvHomeTicket.setText(user.getTicket() + "");
                 binding.toggleHome.setVisibility(View.VISIBLE);
@@ -154,13 +154,13 @@ public class HomeFragment extends RefreshingFragment {
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
                 switch (position) {
+                    case 0:
+                        mainActivity.startActivityForResult(new Intent(mainActivity, SettingActivity.class) , MainActivity.REQUEST_SETTING);
+                        break;
                     case 1:
                         AuthController.logout(mainActivity);
                         mainActivity.finish();
                         startActivity(new Intent(mainActivity, IntroActivity.class));
-                        break;
-                    case 0:
-                        startActivity(new Intent(mainActivity, SettingActivity.class));
                         break;
                 }
             });

@@ -85,24 +85,22 @@ public class TextInputsChecker {
     }
 
     private boolean checkError(InputMessageError ime , boolean showError){
-        clearError(ime);
         String error = ime.error.error(ime.input);
         if (error != null) {
             if (showError)
                 ((TextInputLayout)ime.input.getParent().getParent()).setError(error);
             return true;
-        }
+        }else
+            clearError(ime);
         return false;
-    }
-
-    public boolean checkError(TextInputEditText inputEditText, boolean showError){
-        return checkError(getImeByEditText(inputEditText) , showError);
     }
 
     public boolean checkAllError(){
         boolean hasError = false;
         for (InputMessageError ime : inputsMessagesErrors) {
-            hasError = checkError(ime , true);
+            boolean tError = checkError(ime , true);
+            if (!hasError)
+                hasError = tError;
         }
         return hasError;
     }

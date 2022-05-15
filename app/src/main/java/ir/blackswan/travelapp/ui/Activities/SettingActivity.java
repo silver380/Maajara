@@ -1,7 +1,8 @@
 package ir.blackswan.travelapp.ui.Activities;
 
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.google.gson.Gson;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textfield.TextInputEditText;
 import com.skydoves.powermenu.PowerMenuItem;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -26,11 +29,14 @@ import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Cacher;
+import ir.blackswan.travelapp.Utils.FileUtil;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.MyInputTypes;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.Utils.WebFileTransfer;
 import ir.blackswan.travelapp.databinding.SettingsActivityBinding;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
@@ -39,12 +45,14 @@ import retrofit2.Call;
 public class SettingActivity extends ToolbarActivity {
     SettingsActivityBinding binding;
     User user;
+    private Cacher cacher;
     private static final int BIO_MAX_LENGTH = 350;
     private MaterialPersianDateChooser birthDate;
-    private File selectedClearanceDoc;
+    private File selectedClearanceDoc, profileFile;
     private List<Boolean> gender;
     private AuthController authController;
     private TextInputsChecker checker = new TextInputsChecker();
+    private boolean checkForLeaderInfo;
 
 
     @Override
@@ -53,12 +61,16 @@ public class SettingActivity extends ToolbarActivity {
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
         user = AuthController.getUser();
-        authController = new AuthController(this);
+        authController = getAuthController();
         setVisibilities(false);
-        setDataToInputs();
         setInputTypes();
-        setChecker();
         setListeners();
+        setDataToInputs();
+        setTourLeaderStatus();
+    }
+
+    private void setTourLeaderStatus() {
+        //todo: @Sara complete this
     }
 
     private void setInputTypes() {
@@ -70,14 +82,20 @@ public class SettingActivity extends ToolbarActivity {
         MyInputTypes.showFileChooser(binding.etSettingClearanceDoc, this, "application/pdf", result -> {
             if (result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null) {
-                    Uri uri = result.getData().getData();
-                    Log.d("FileChooser", "DocFile path: " + uri.getPath());
-                    File file = new File(uri.getPath());
-                    selectedClearanceDoc = file;
-                    binding.etSettingClearanceDoc.setText(file.getPath());
+                    try {
+                        Uri uri = result.getData().getData();
+                        Log.d("FileChooser", "DocFile path: " + uri.getPath());
+                        selectedClearanceDoc = FileUtil.from(this, uri);
+                        binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
+
         });
+
 
         MyInputTypes.showFileChooser(binding.ivSettingEditProfile, this, "image/*", result -> {
             if (result.getData() != null) {
@@ -91,6 +109,7 @@ public class SettingActivity extends ToolbarActivity {
                         .start(this);
 
             }
+
         });
 
     }
@@ -99,10 +118,15 @@ public class SettingActivity extends ToolbarActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            final Uri resultUri = UCrop.getOutput(data);
-            //todo: upload file
-            binding.pivSetting.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+            try {
+                final Uri resultUri = UCrop.getOutput(data);
+                binding.pivSetting.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+                profileFile = FileUtil.from(this, resultUri);
 
+            } catch (IOException e) {
+                Log.e("FileChooser", "onActivityResult:Crop error ", e);
+
+            }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
@@ -111,25 +135,30 @@ public class SettingActivity extends ToolbarActivity {
         }
     }
 
+
     private void setVisibilities(boolean visibleCard) {
         int btnVis;
         int leaderVis;
         if (visibleCard) {
+            checkForLeaderInfo = true;
             leaderVis = View.VISIBLE;
             btnVis = View.GONE;
         } else {
             if (user.is_tour_leader()) {
+                checkForLeaderInfo = true;
+                binding.ivCloseLeader.setVisibility(View.GONE);
                 leaderVis = View.VISIBLE;
                 btnVis = View.GONE;
             } else {
+                checkForLeaderInfo = false;
                 leaderVis = View.GONE;
                 btnVis = View.VISIBLE;
             }
         }
+        setChecker();
         TransitionManager.beginDelayedTransition(binding.getRoot());
 
         binding.crdSettingTourLeader.setVisibility(leaderVis);
-        binding.btnSettingLeaderSubmit.setVisibility(leaderVis);
         binding.btnSettingShowLeaderInfo.setVisibility(btnVis);
 
     }
@@ -178,25 +207,44 @@ public class SettingActivity extends ToolbarActivity {
 
         binding.btnSettingLeaderSubmit.setOnClickListener(v -> {
             if (checkInputs()) {
+
                 String gender = this.gender.get(0) ? "Male" : "Female";
                 List<String> connectStrings = getConnectStrings();
-                User user = new User(binding.etSettingName.getText().toString(), binding.etSettingLastname.getText().toString(),
-                        binding.etSettingEmail.getText().toString(), birthDate.getGregorianY_M_D(), gender
-                        , binding.etSettingBio.getText().toString(), new Gson().toJson(binding.etSettingLanguageSkills.toString().split("\\n"))
-                        , connectStrings.get(0), connectStrings.get(1), connectStrings.get(2));
 
-                authController.upgrade(user, new OnResponseDialog(this) {
+                User user;
+                if (checkForLeaderInfo)
+                    user = new User(binding.etSettingName.getText().toString(), binding.etSettingLastname.getText().toString(),
+                            AuthController.getUser().getEmail(), binding.etSettingSsn.getText().toString(),
+                            birthDate.getGregorianY_M_D(), gender, binding.etSettingBio.getText().toString()
+                            , binding.etSettingLanguageSkills.getText().toString()
+                            , connectStrings.get(0), connectStrings.get(1), connectStrings.get(2));
+                else
+                    user = new User(binding.etSettingName.getText().toString(), binding.etSettingLastname.getText().toString(),
+                            AuthController.getUser().getEmail());
+
+
+                authController.upgrade(user, profileFile, selectedClearanceDoc, new OnResponseDialog(this) {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
-
-                        binding.tvLeaderInfoStatus.setText("در انتظار تایید");
-                        binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.colorWarning)));
+                        Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
+                                , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
+                        setResult(RESULT_OK);
                     }
+
                 });
             } else {
                 Toast.makeText(this, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
+        });
+
+        binding.ivSettingDeleteProfile.setOnClickListener(v -> {
+            profileFile = null;
+            binding.pivSetting.setData(null, user.getNameAndLastname());
+        });
+
+        binding.ivCloseLeader.setOnClickListener(v -> {
+            setVisibilities(false);
         });
     }
 
@@ -216,28 +264,86 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private void setChecker() {
-        checker.add(Arrays.asList(binding.etSettingBio, binding.etSettingGender, binding.etSettingClearanceDoc,
-                binding.etSettingSsn));
-        checker.add(binding.etSettingBirthday, editText -> {
-            if (Utils.getEditableText(editText.getText()).isEmpty())
-                return editText.getHint() + " ضروری است";
-            else if (Utils.numDaysBetween(birthDate.getCalendar().getGregorianDate().getTime()
-                    , Calendar.getInstance().getTime().getTime()) > 365 * 18)
-                return "سن شما باید بزرگتر از ۱۸ باشد";
+        checker = new TextInputsChecker();
+        if (checkForLeaderInfo) {
+            checker.add(Arrays.asList(binding.etSettingName, binding.etSettingLastname,
+                    binding.etSettingBio, binding.etSettingGender, binding.etSettingClearanceDoc));
+            checker.add(binding.etSettingSsn, editText -> {
+                if (getEditableText(editText.getText()).length() != 10)
+                    return "کد ملی حتما باید ۱۰ رقم باشد";
+                else
+                    return null;
+            });
+            checker.add(binding.etSettingBirthday, editText -> {
+                if (getEditableText(editText.getText()).isEmpty())
+                    return editText.getHint() + " ضروری است";
+                else if (Utils.numDaysBetween(birthDate.getCalendar().getGregorianDate().getTime()
+                        , Calendar.getInstance().getTime().getTime()) < 365 * 18)
+                    return "سن شما باید بزرگتر از ۱۸ باشد";
 
-            return null;
-        });
+                return null;
+            });
+        } else {
+            checker.add(Arrays.asList(binding.etSettingName, binding.etSettingLastname));
+        }
 
     }
 
     private void setDataToInputs() {
-        binding.pivSetting.setUser(user);
+        binding.pivSetting.setData(user.getPicture(), user.getNameAndLastname());
         binding.etSettingName.setText(user.getFirst_name());
         binding.etSettingLastname.setText(user.getLast_name());
         binding.etSettingEmail.setText(user.getEmail());
         binding.tvSettingBioCounter.setText("0/" + BIO_MAX_LENGTH);
+        binding.etSettingSsn.setText(user.getSsn());
+        binding.etSettingBio.setText(user.getBiography());
+        if (birthDate.getCalendar() != null) {
+            birthDate.setCalendar(user.getPersianBirthDate());
+            binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
+        }
+        binding.etSettingLanguageSkills.setText(user.getLanguagesWithEnter());
+        if (user.getGender().equals("Male"))
+            gender.set(0, true);
+        else if (user.getGender().equals("Female"))
+            gender.set(1, true);
+        binding.etSettingGender.setText(user.getPersianGender());
+        setContactInfo(user.getPhone_number(), binding.cbSettingMobile, binding.etSettingMobile);
+        setContactInfo(user.getWhatsapp_id(), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
+        setContactInfo(user.getTelegram_id(), binding.cbSettingTelegram, binding.etSettingTelegram);
 
+
+        cacher = new Cacher(this);
+        String docFilePath = cacher.getLocalPathByServerPath(user.getCertificate());
+        if (docFilePath == null) {
+            WebFileTransfer.downloadFile(this, user.getCertificate(), "certificate", ".pdf",
+                    file -> {
+                        if (file != null) {
+                            cacher.saveLocalPath(user.getCertificate(), file.getPath());
+                            selectedClearanceDoc = file;
+                            binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
+                        }
+                        binding.pbSettingDoc.setVisibility(View.GONE);
+                    });
+        } else {
+            selectedClearanceDoc = new File(docFilePath);
+            binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
+            binding.pbSettingDoc.setVisibility(View.GONE);
+        }
     }
 
+    private void setContactInfo(String contactInfo, MaterialCheckBox checkBox, TextInputEditText editText) {
+        if (!isStringEmptyOrNull(contactInfo)) {
+            editText.setEnabled(true);
+            editText.setText(user.getPhone_number());
+            checkBox.setChecked(true);
+        } else {
+            editText.setEnabled(false);
+            checkBox.setChecked(false);
+        }
+    }
+
+    private static boolean isStringEmptyOrNull(String str) {
+        return str == null || str.isEmpty();
+    }
 
 }
