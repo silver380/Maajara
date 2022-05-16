@@ -65,7 +65,6 @@ class MyUser(AbstractBaseUser):
 
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
         return self.is_admin
 
     def increase_ticket(self, value):
