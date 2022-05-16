@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.exceptions import NotAcceptable
 from rest_framework.exceptions import PermissionDenied
 
-
+# TODO: change based on 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
@@ -31,7 +31,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password']
+        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password', 'number_of_tickets']
 
     def update(self, instance, validated_data):
         is_upgrading = False
@@ -68,3 +68,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         exclude = ('is_admin', 'last_login', 'password')
+
+class TicketSerializer(serializers.ModelSerializer):
+    class meta:
+        fields = 'number_of_tickets'
