@@ -73,3 +73,10 @@ class MyUser(AbstractBaseUser):
         self.number_of_tickets = self.number_of_tickets + value
         self.save(update_fields=['number_of_tickets'])
         return self.number_of_tickets
+
+
+    def decrease_ticket(self):
+
+        self.number_of_tickets = self.number_of_tickets - 1
+        self.save(update_fields=['number_of_tickets'])
+        return self.number_of_tickets

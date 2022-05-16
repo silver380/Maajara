@@ -49,7 +49,7 @@ class ActivateUser(APIView):
         else:
             return Response(response.json())
 
-class BuyTicket(GenericAPIView):
+class IncreaseTicket(GenericAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
         IsTourLeader

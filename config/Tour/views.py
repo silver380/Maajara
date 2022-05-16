@@ -109,6 +109,7 @@ class Add(CreateAPIView):
         return serializer.save()
 
     def create(self, request, *args, **kwargs):
+        request.user.decrease_ticket()
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)

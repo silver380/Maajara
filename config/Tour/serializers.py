@@ -8,7 +8,7 @@ from Place.serializers import PlaceSerializers
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id']
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets']
 
 
 class TourSerializers(serializers.ModelSerializer):
