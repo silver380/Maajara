@@ -1,6 +1,7 @@
 from rest_framework import permissions
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
+from rest_framework import filters
 
 from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
@@ -9,8 +10,9 @@ from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReq
 from django.contrib.auth import get_user_model
 
 
+
 class TravelPlanListAPIView(ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
     queryset = TravelPlan.objects.all()
     serializer_class = TravelPlanSerializer
 
@@ -85,3 +87,5 @@ class AcceptTourLeader(GenericAPIView):
         travel_plan.accepted_price = travel_plan_req.suggested_price
         travel_plan.save()
         return Response(status=200)
+
+
