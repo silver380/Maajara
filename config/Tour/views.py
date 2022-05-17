@@ -110,3 +110,10 @@ class Add(CreateAPIView):
         instance = self.perform_create(serializer)
         instance_serializer = TourListSerializer(instance)
         return Response(instance_serializer.data)
+
+class SearchTour(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        matched_tour = Tour.objects.filter(tour_name__contains = self.request.data)
+        return matched_tour
