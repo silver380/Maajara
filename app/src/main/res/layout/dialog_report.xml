@@ -34,10 +34,11 @@
 
         <Button
             android:layout_marginVertical="@dimen/margin_small"
+            android:id="@+id/btn_submit_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/button.primaryButton"
-            android:text="ارسال"
+            android:text="ارسال گزارش"
             android:layout_marginHorizontal="@dimen/margin_large"/>
 
     </LinearLayout>
