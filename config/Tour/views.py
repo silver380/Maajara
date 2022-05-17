@@ -6,11 +6,14 @@ from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import permissions
+from rest_framework import filters
 from .permissions import IsTourLeader
 from .models import Tour
 
 
 class TourListAPIView(ListAPIView):
+    search_fields = ['tour_name','places__name']
+    filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tour.objects.all()
     serializer_class = TourListSerializer
