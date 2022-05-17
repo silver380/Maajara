@@ -12,6 +12,8 @@ from django.contrib.auth import get_user_model
 
 
 class TravelPlanListAPIView(ListAPIView):
+    search_fields = ['travel_plan_name','destination']
+    filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
     queryset = TravelPlan.objects.all()
     serializer_class = TravelPlanSerializer
