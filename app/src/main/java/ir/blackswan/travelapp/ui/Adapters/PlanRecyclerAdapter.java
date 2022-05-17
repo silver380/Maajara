@@ -1,5 +1,8 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL_PLAN_ID;
+
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
 
 public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder> {
@@ -59,7 +63,9 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
         PlanDialog planDialog = new PlanDialog(authActivity , plan);
         holder.itemView.setOnClickListener(v -> planDialog.show());
         holder.requests.setOnClickListener(v->{
-            //todo: start TourLeaderRequests activity
+            authActivity.startActivity(new Intent(
+                    authActivity, TLeaderRequestActivity.class)
+                    .putExtra(TRAVEL_PLAN_ID, plan));
         });
     }
 

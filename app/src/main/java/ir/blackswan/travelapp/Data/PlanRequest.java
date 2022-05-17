@@ -1,13 +1,16 @@
 package ir.blackswan.travelapp.Data;
 
+import static ir.blackswan.travelapp.Utils.Utils.getPriceString;
+import static ir.blackswan.travelapp.Utils.Utils.priceToString;
+
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
 public class PlanRequest implements Serializable {
-    private String id;
+    private int id;
     private User tour_leader;
-    private Plan plan;
+    private Plan travel_plan;
     @Expose
     private int travel_plan_id;
     @Expose
@@ -24,11 +27,26 @@ public class PlanRequest implements Serializable {
 
     public int getId() { return travel_plan_id; }
 
-    public Plan getPlan() {
-        return plan;
+    public Plan getTravel_plan() {
+        return travel_plan;
     }
 
-    public int getSuggested_price() {
-        return suggested_price;
+    public String getSuggested_price() {
+        return getPriceString(suggested_price);
+    }
+
+    public String getShortPriceString() {
+        return priceToString(suggested_price) + "ت";
+    }
+
+    @Override
+    public String toString() {
+        return "PlanRequest{" +
+                "id='" + id + '\'' +
+                ", tour_leader=" + tour_leader +
+                ", plan=" + travel_plan +
+                ", travel_plan_id=" + travel_plan_id +
+                ", suggested_price=" + suggested_price +
+                '}';
     }
 }

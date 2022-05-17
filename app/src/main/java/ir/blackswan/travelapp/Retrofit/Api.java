@@ -31,11 +31,19 @@ public interface Api {
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
                                        @Field("number_of_tickets") int number_of_tickets);
 
+
+
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 
     @POST("/travelplan/addplanreq/")
     Call<ResponseBody> addPlanReq(@Header("Authorization") String token, @Body RequestBody planRequest);
+    @POST("/travelplan/accepttourleader/")
+    Call<ResponseBody> acceptPlanRequest(@Header("Authorization") String token, @Body RequestBody planRequest);
+
+
+    @GET("travelplan/mypendingplans/")
+    Call<ResponseBody> getPendingPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/createdplans/")
     Call<ResponseBody> getCreatedPlans(@Header("Authorization") String token);
@@ -43,11 +51,11 @@ public interface Api {
     @GET("/travelplan/all/")
     Call<ResponseBody> getAllPlans(@Header("Authorization") String token);
 
-    @POST("/travelplan/addplan")
+    @POST("/travelplan/addplan/")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
                                @Body RequestBody plan);
 
-    @GET("/place")
+    @GET("/place/")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
     @POST("/tour/register/")

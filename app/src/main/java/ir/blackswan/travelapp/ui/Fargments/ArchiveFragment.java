@@ -55,7 +55,6 @@ public class ArchiveFragment extends RefreshingFragment {
 
     @Override
     public void refresh() {
-        //todo: implement this
         reloadTours();
     }
 

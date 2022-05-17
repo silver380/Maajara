@@ -37,13 +37,17 @@ public class PlanController extends Controller {
 
      */
 
-    public PlanController(AuthActivity authActivity) { super(authActivity); }
+    public PlanController(AuthActivity authActivity) {
+        super(authActivity);
+    }
 
-    public void addPlanToServer(Plan plan, OnResponse onResponse){
+    public void addPlanToServer(Plan plan, OnResponse onResponse) {
         String json = gsonExpose.toJson(plan);
 
+        json = json.replace("\"places_ids\":", "\"places\":");
+        Log.d(TAG, "addPlanToServer: " + json);
         api.addPlan(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
-                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog() );
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
 
@@ -84,7 +88,7 @@ public class PlanController extends Controller {
         }));
     }
 
-    /*
+
     public void getPendingPlanFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getPendingPlanFromServer: ");
         api.getPendingPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -101,6 +105,7 @@ public class PlanController extends Controller {
         }).showLoadingDialog());
     }
 
+    /*
     public void getConfirmedPlanFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getConfirmedPlanFromServer: ");
         api.getConfirmedPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -119,8 +124,19 @@ public class PlanController extends Controller {
 
      */
 
-    public static Plan[] getAllPlans(){ return allPlans; }
+    public static Plan[] getAllPlans() {
+        return allPlans;
+    }
 
-    public static Plan[] getCreatedPlans(){ return createdPlans; }
+    public static Plan[] getCreatedPlans() {
+        return createdPlans;
+    }
 
+    public static Plan[] getPendingPlans() {
+        return pendingPlans;
+    }
+
+    public static Plan[] getConfirmedPlans() {
+        return confirmedPlans;
+    }
 }

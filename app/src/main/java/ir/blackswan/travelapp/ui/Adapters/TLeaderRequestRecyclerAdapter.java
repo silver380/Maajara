@@ -43,23 +43,19 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
-        holder.price.setText(tourLeader_req.getSuggested_price());
-        if(confirmedTourLeaders == null) {
-            holder.accept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (confirmedTourLeaders.equals(tourLeader_req.getTour_leader())) {
-                        acceptTourLeader(holder);
-                    } else {
-                        holder.accept.setEnabled(false);
-                    }
-                }
-            });
-        }
-        else if(confirmedTourLeaders.equals(tourLeader_req.getTour_leader())){
-            acceptTourLeader(holder);
-        } else {
+        holder.price.setText(tourLeader_req.getSuggested_price() + "");
+        if (confirmedTourLeaders != null) {
+            if (confirmedTourLeaders.equals(tourLeader_req.getTour_leader())) {
+                acceptTourLeader(holder);
+            } else {
+                holder.accept.setEnabled(false);
+            }
+
             holder.accept.setEnabled(false);
+        } else {
+            holder.accept.setOnClickListener(view -> {
+
+            });
         }
     }
 

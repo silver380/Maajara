@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import ir.blackswan.travelapp.Utils.MyPersianCalender;
 public class Plan implements Serializable {
     private User plan_creator;
     @Expose
-    private String destination;
+    private String destination, travel_plan_name = "قرار نیس نمایش بدیم:)"; //todo: remove this when server updated
     @Expose
     private String start_date, end_date;
     @Expose
@@ -24,9 +25,17 @@ public class Plan implements Serializable {
     private List<User> requestedGuides;
     private User registeredUser;
     @Expose
+    private int[] places_ides;
     private Place[] places;
     private int travel_plan_id;
     private User confirmed_tour_leader;
+    private String accepted_price;
+
+    public String getAccepted_price() {
+        return accepted_price;
+    }
+
+
 
     public User getConfirmed_tour_leader() {
         return confirmed_tour_leader;
@@ -43,6 +52,10 @@ public class Plan implements Serializable {
         this.end_date = end_date;
         this.wanted_list = new Gson().toJson(requestedThings);
         this.places = places;
+        places_ides = new int[places.length];
+        for (int i = 0; i < places.length; i++)
+            places_ides[i] = places[i].getPlace_id();
+
     }
 
     public User getPlan_creator() {
@@ -105,5 +118,24 @@ public class Plan implements Serializable {
 
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "plan_creator=" + plan_creator +
+                ", destination='" + destination + '\'' +
+                ", travel_plan_name='" + travel_plan_name + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", wanted_list='" + wanted_list + '\'' +
+                ", requestedGuides=" + requestedGuides +
+                ", registeredUser=" + registeredUser +
+                ", places_ides=" + Arrays.toString(places_ides) +
+                ", places=" + Arrays.toString(places) +
+                ", travel_plan_id=" + travel_plan_id +
+                ", confirmed_tour_leader=" + confirmed_tour_leader +
+                ", accepted_price='" + accepted_price + '\'' +
+                '}';
     }
 }

@@ -136,7 +136,9 @@ public class AddPlanFragment extends Fragment {
                 ArrayList<String> requestedThings = new ArrayList<>();
                 for (TextInputEditText t :
                         wantedInputEditTexts) {
-                    requestedThings.add(t.getText().toString());
+                    String s = Utils.getEditableText(t.getText());
+                    if (!s.isEmpty())
+                        requestedThings.add(s);
                 }
 
                 Place[] places = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();

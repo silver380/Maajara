@@ -4,7 +4,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -32,9 +34,9 @@ public class TLeaderRequestActivity extends ToolbarActivity {
         binding = ActivityTleaderRequestBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tleader_request);
         tourLeaderRequestController = new TourLeaderRequestController(this);
-
+        binding.rscTLeaderReq.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.VERTICAL
+         , false));
         intent = getIntent();
 
         plan = (Plan) intent.getSerializableExtra(TRAVEL_PLAN_ID);
@@ -42,11 +44,11 @@ public class TLeaderRequestActivity extends ToolbarActivity {
     }
 
     private void setRecycler() {
-        TLeaderRequestRecyclerAdapter leader_adapter = new TLeaderRequestRecyclerAdapter(
-                planRequests, plan.getConfirmed_tour_leader(),this);
-
-        binding.rscTLeaderReq.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        binding.rscTLeaderReq.setAdapter(leader_adapter);
+        if (planRequests != null) {
+            TLeaderRequestRecyclerAdapter leader_adapter = new TLeaderRequestRecyclerAdapter(
+                    planRequests, plan.getConfirmed_tour_leader(), this);
+            binding.rscTLeaderReq.setAdapter(leader_adapter);
+        }
     }
 
     private void setPending_tlRecycler() {
@@ -56,6 +58,7 @@ public class TLeaderRequestActivity extends ToolbarActivity {
                 super.onSuccess(call, callback, response);
                 Map<String, PlanRequest[]> planRequestsMap = tourLeaderRequestController.getMap_planRequests();
                 planRequests = planRequestsMap.get(plan.getTravel_plan_id() + "");
+                Log.d(MyCallback.TAG, "onSuccess:planRequestsArray: " + Arrays.toString(planRequests));
                 setRecycler();
             }
         });

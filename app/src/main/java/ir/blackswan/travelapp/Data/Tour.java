@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
 import static ir.blackswan.travelapp.Utils.Utils.convertStringToDate;
+import static ir.blackswan.travelapp.Utils.Utils.priceToString;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
+import ir.blackswan.travelapp.Utils.Utils;
 
 public class Tour implements Serializable {
     /*
@@ -91,32 +93,14 @@ public class Tour implements Serializable {
 
 
 
-    public String getPriceString() {
-        if (price > 1000000)
-            return priceToString(price / 1000000) + "میلیون تومان";
-        else if (price > 1000)
-            return priceToString(price / 1000) + " هزار تومان";
-
-        return priceToString(price) + " تومان";
+    public String getPriceString(){
+        return Utils.getPriceString(price);
     }
 
     public String getShortPriceString() {
         return priceToString(price) + "ت";
     }
 
-    private static String priceToString(long price) {
-        StringBuilder priceToString = new StringBuilder();
-        char[] priceChar = String.valueOf(price).toCharArray();
-        if (priceChar.length < 5)
-            return price + "";
-        for (int i = priceChar.length - 1; i > -1; i--) {
-            int i2 = priceChar.length - 1 - i;
-            if (i2 % 3 == 0 && i2 != 0)
-                priceToString.insert(0, ",");
-            priceToString.insert(0, priceChar[i]);
-        }
-        return priceToString.toString().toString();
-    }
 
     public MyPersianCalender getPersianStartDate() {
         try {
