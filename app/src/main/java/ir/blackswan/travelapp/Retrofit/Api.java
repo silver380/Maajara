@@ -17,10 +17,14 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+    //todo URL
+    @POST("/???/")
+    @FormUrlEncoded
+    Call<ResponseBody> sendTourReport(@Header("Authorization") String token,
+                                      @Field("tour_report") String tour_report);
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
-
 
     @POST("/travelplan/addplanreq/")
     Call<ResponseBody> addPlanReq(@Header("Authorization") String token, @Body RequestBody planRequest);

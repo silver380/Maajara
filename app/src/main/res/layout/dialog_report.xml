@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:hint="گزارش">
+            android:hint="از سفرتان بیشتر برایمان بگویید...">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/report_text"
