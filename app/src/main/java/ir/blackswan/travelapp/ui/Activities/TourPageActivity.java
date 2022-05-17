@@ -5,7 +5,6 @@ import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -13,12 +12,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowInsets;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -37,6 +37,7 @@ import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import ir.blackswan.travelapp.ui.Dialogs.ReportDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -70,6 +71,8 @@ public class TourPageActivity extends ToolbarActivity {
         setScrollListener();
 
         setTouchListener();
+
+        onClickListenerReportAndStar();
 
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
@@ -156,7 +159,7 @@ public class TourPageActivity extends ToolbarActivity {
     }
 
     private void fullScreen() {
-        Utils.changeStatusColor(this , R.color.colorBlack);
+        Utils.changeStatusColor(this, R.color.colorBlack);
     }
 
     private void actionBar() {
@@ -177,6 +180,16 @@ public class TourPageActivity extends ToolbarActivity {
         binding.scTourPage.post(() -> binding.scTourPage.smoothScrollTo(0, 0));
 
         bottomViewIsOpen = false;
+    }
+
+    private void onClickListenerReportAndStar() {
+        binding.btnReport.setOnClickListener(view -> {
+            ReportDialog reportDialog = new ReportDialog(this);
+            reportDialog.show();
+        });
+        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
+            
+        });
     }
 
 
