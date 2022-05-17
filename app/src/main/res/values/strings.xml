@@ -51,5 +51,7 @@
     <string name="add_plan_tittle">برنامه سفر جدید</string>
     <string name="date_error">تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد</string>
     <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
+    <string name="text_problem">چیزی شده؟</string>
+    <string name="clickable_text_problem">راستشو بگو!</string>
 
 </resources>

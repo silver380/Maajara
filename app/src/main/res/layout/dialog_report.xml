@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:maxEms="3"
                 android:maxLines="10"
                 android:minLines="3"
                 android:paddingBottom="20dp"

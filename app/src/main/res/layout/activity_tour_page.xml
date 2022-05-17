@@ -125,10 +125,10 @@
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/tb_activity"
                         style="@style/activity_toolbar"
-                        android:clickable="false"
                         android:layout_width="match_parent"
                         android:layout_height="?android:attr/actionBarSize"
                         android:layout_marginTop="-100dp"
+                        android:clickable="false"
                         app:title="نام تور" />
 
                     <LinearLayout
@@ -389,8 +389,7 @@
                                             style="@style/textSmall"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="تغذیه"
-                                            />
+                                            android:text="تغذیه" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -417,13 +416,65 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        style="@style/textTittleMedium"
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/margin_medium"
-                                        android:layout_marginBottom="@dimen/margin_medium"
-                                        android:text="راهنمای سفر" />
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/textTittleMedium"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_medium"
+                                            android:layout_marginBottom="@dimen/margin_medium"
+                                            android:layout_weight="1"
+                                            android:text="راهنمای سفر" />
+
+                                        <com.willy.ratingbar.ScaleRatingBar
+                                            android:id="@+id/simpleRatingBar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginHorizontal="@dimen/margin_medium"
+                                            android:layout_marginVertical="@dimen/margin_medium"
+                                            app:layout_constraintDimensionRatio="1:1"
+
+                                            app:srb_clearRatingEnabled="true"
+                                            app:srb_clickable="true"
+                                            app:srb_isIndicator="true"
+                                            app:srb_minimumStars="1"
+                                            app:srb_numStars="5"
+                                            app:srb_rating="2"
+                                            app:srb_scrollable="true"
+                                            app:srb_starHeight="0dp"
+                                            app:srb_starPadding="5dp"
+                                            app:srb_starWidth="0dp"
+                                            app:srb_stepSize="0.2"
+
+                                            />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/tv_report"
+                                            style="@style/textHint"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/text_problem" />
+
+                                        <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_report"
+                                            style="@style/button.TextButton.small"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingHorizontal="@dimen/padding_small"
+                                            android:text="@string/clickable_text_problem" />
+
+                                    </LinearLayout>
 
 
                                 </LinearLayout>
@@ -432,8 +483,7 @@
                                     android:id="@+id/group_tour_page_register"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_small"
-                                    >
+                                    android:layout_marginTop="@dimen/margin_small">
 
 
                                     <View
@@ -471,8 +521,7 @@
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="?android:attr/actionBarSize"
-                                    android:layout_marginVertical="@dimen/margin_medium"
-                                    />
+                                    android:layout_marginVertical="@dimen/margin_medium" />
                             </LinearLayout>
                         </androidx.core.widget.NestedScrollView>
 

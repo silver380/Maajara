@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_add_tour.xml" value="0.234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_main.xml" value="0.234375" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/activity_tour_page.xml" value="0.33903830480847597" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/cases_view.xml" value="0.234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/dialog_add_ticket.xml" value="0.4" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/dialog_place.xml" value="0.234375" />
@@ -18,7 +19,8 @@
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home_leader.xml" value="0.234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/fragment_home_traveler.xml" value="0.234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/settings_activity.xml" value="0.234375" />
-        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tour_view_holder.xml" value="0.10364583333333334" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.4" />
+        <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/tour_view_holder.xml" value="0.264" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.234375" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.1859375" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_tleader_request.xml" value="0.2" />
