@@ -24,6 +24,11 @@ public class TourController extends Controller {
         super(authActivity);
     }
 
+    public void sendTourRateToServer(int tour_rate, OnResponse onResponse){
+        api.sendTourRate(AuthController.getTokenString(), tour_rate)
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+    }
+
     public void sendTourReportToServer(String TourReport, OnResponse onResponse){
         String json = gsonExpose.toJson(TourReport);
 

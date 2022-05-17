@@ -20,6 +20,12 @@ public interface Api {
     //todo URL
     @POST("/???/")
     @FormUrlEncoded
+    Call<ResponseBody> sendTourRate(@Header("Authorization") String token,
+                                    @Field("tour_rate") int tour_rate);
+
+    //todo URL
+    @POST("/???/")
+    @FormUrlEncoded
     Call<ResponseBody> sendTourReport(@Header("Authorization") String token,
                                       @Field("tour_report") String tour_report);
 
