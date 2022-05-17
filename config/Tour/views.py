@@ -12,7 +12,7 @@ from .models import Tour
 
 
 class TourListAPIView(ListAPIView):
-    search_fields = ['tour_name','places__name']
+    search_fields = ['tour_name','destination','places__name']
     filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tour.objects.all()
