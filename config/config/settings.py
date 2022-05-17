@@ -14,8 +14,10 @@ import os
 import dj_database_url
 from pathlib import Path
 
+GOOGLE_MAPS_API_KEY = 'AIzaSyDOopmvk216PqomaZp8LtLE80_KPNdCfKU'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'data/')
 MEDIA_URL = '/media/'
@@ -44,7 +46,8 @@ DJOSER = {
 }
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
+    'location_picker',
+    'django_admin_geomap',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +80,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'django_admin_geomap', 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,13 +129,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
 STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -143,7 +140,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
-
-# WhiteNoise
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# STATIC_HOST = ""
