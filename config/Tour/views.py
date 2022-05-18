@@ -1,6 +1,11 @@
+import math
+
+from django.db.models import ExpressionWrapper, F, Subquery, OuterRef, Sum, Avg
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 
+from django.db.models import FloatField
+from Place.models import Place
 from .serializers import *
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from django.contrib.auth import get_user_model
@@ -113,3 +118,30 @@ class Add(CreateAPIView):
         instance = self.perform_create(serializer)
         instance_serializer = TourListSerializer(instance)
         return Response(instance_serializer.data)
+
+
+class TourSuggestion(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        # todo: remove lat_avg and long_avg
+        tour = get_object_or_404(Tour, pk=pk)
+        tour_places = tour.places.all()
+
+        try:
+            latitude_avg = sum([x.latitude for x in tour_places]) / len(tour_places)
+            longitude_avg = sum([x.longitude for x in tour_places]) / len(tour_places)
+        except ZeroDivisionError:
+            latitude_avg = 32
+            longitude_avg = 53
+
+        ten_closest_places = Place.objects.annotate(distance=ExpressionWrapper(
+            ((F('latitude') - latitude_avg) * (F('latitude') - latitude_avg)) +
+            ((F('longitude') - longitude_avg) * (F('longitude') - longitude_avg))
+            , output_field=FloatField())).order_by('distance')
+
+        closest = Tour.objects.exclude(pk=tour.pk).annotate(avg_distance=Avg(ten_closest_places.filter(
+            place_id__in=OuterRef('places')).values('distance'))).order_by('avg_distance')
+
+        serialized = TourListSerializer(closest[:5], many=True)
+        return Response(serialized.data)
