@@ -34,7 +34,7 @@ public interface Api {
     @POST("/auth/increaseticket/")
     @FormUrlEncoded
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
-                                       @Field("number_of_tickets") int number_of_tickets);
+                                       @Field("value") int number_of_tickets);
 
 
 
