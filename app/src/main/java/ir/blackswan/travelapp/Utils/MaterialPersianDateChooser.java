@@ -63,6 +63,10 @@ public class MaterialPersianDateChooser {
         dialog.show();
     }
 
+    public void setCalendar(PersianPickerDate calendar) {
+        this.calendar = calendar;
+    }
+
     public PersianPickerDate getCalendar() {
         return calendar;
     }

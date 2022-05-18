@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
+import static ir.blackswan.travelapp.Utils.Utils.convertStringToDate;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -87,11 +89,7 @@ public class Tour implements Serializable {
         return start_date;
     }
 
-    private Date convertStringToDate(String date) throws ParseException {
 
-        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
-
-    }
 
     public String getPriceString() {
         if (price > 1000000)

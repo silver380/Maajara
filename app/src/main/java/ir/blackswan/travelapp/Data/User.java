@@ -1,10 +1,16 @@
 package ir.blackswan.travelapp.Data;
 
+import static ir.blackswan.travelapp.Utils.Utils.convertStringToDate;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
-import java.util.List;
+import java.text.ParseException;
 import java.util.Objects;
+
+import ir.blackswan.travelapp.Utils.MyPersianCalender;
 
 public class User implements Serializable {
     /*
@@ -33,7 +39,7 @@ public class User implements Serializable {
     private int user_id = -1;
     private boolean isBanned, isValidatedByAdmin;
     @Expose
-    private String first_name, last_name, email;
+    private String first_name, last_name, email, ssn;
     @Expose
     private String date_of_birth;
     @Expose
@@ -46,40 +52,70 @@ public class User implements Serializable {
     private String phone_number, telegram_id, whatsapp_id;
 
     private boolean is_tour_leader;
-    private Path profilePicturePath;
+    private String picture;
     private int ticket;
-    private Path policeClearanceDocPath;
+    private String certificate;
     private double rate;
 
-    public User(String first_name, String last_name, String email, String date_of_birth,
-                String gender, String biography, String languages,
-                String phone_number, String telegram_id, String whatsapp_id) {
+    public User(String first_name, String last_name, String email, String ssn, String date_of_birth,
+                String gender, String biography, String languages, String phone_number,
+                String telegram_id, String whatsapp_id) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
+        this.ssn = ssn;
         this.date_of_birth = date_of_birth;
         this.gender = gender;
         this.biography = biography;
-        this.languages = languages;
+        this.languages = new Gson().toJson(languages.split("\\n"));
         this.phone_number = phone_number;
         this.telegram_id = telegram_id;
         this.whatsapp_id = whatsapp_id;
     }
 
-    public void setBanned(boolean banned) {
-        isBanned = banned;
+    public User(String first_name, String last_name, String email) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
     }
 
-    public void setValidatedByAdmin(boolean validatedByAdmin) {
-        isValidatedByAdmin = validatedByAdmin;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setIs_tour_leader(boolean is_tour_leader) {
-        this.is_tour_leader = is_tour_leader;
+    public String[] getLanguages() {
+        try {
+            if (languages == null)
+                return null;
+            return new Gson().fromJson(languages, String[].class); //todo remove try catch
+        } catch (JsonSyntaxException e) {
+            return null;
+        }
     }
 
-    public void setProfilePicturePath(Path profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
+    public String getPersianGender() {
+        return gender.equals("Male") ? "مرد" : "زن";
+    }
+
+    public String getLanguagesWithEnter() {
+        String[] languages = getLanguages();
+        if (languages == null)
+            return "";
+        StringBuilder lan = new StringBuilder();
+        for (int i = 0; i < languages.length; i++) {
+            lan.append(languages[i]);
+            if (i < languages.length - 1)
+                lan.append("\n");
+        }
+        return lan.toString();
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public String getCertificate() {
+        return certificate;
     }
 
     public void setTicket(int ticket) {
@@ -93,12 +129,6 @@ public class User implements Serializable {
     public void setBiography(String biography) {
         this.biography = biography;
     }
-
-    public void setPoliceClearanceDocPath(Path policeClearanceDocPath) {
-        this.policeClearanceDocPath = policeClearanceDocPath;
-    }
-
-
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
@@ -140,10 +170,6 @@ public class User implements Serializable {
         return is_tour_leader;
     }
 
-    public Path getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
     public int getTicket() {
         return ticket;
     }
@@ -164,10 +190,17 @@ public class User implements Serializable {
         return biography;
     }
 
-    public Path getPoliceClearanceDocPath() {
-        return policeClearanceDocPath;
+    public MyPersianCalender getPersianBirthDate() {
+        if (date_of_birth == null)
+            return null;
+        try {
+            MyPersianCalender persianDate = new MyPersianCalender();
+            persianDate.setDate(convertStringToDate(date_of_birth));
+            return persianDate;
+        } catch (ParseException e) {
+            return null;
+        }
     }
-
 
     public String getPhone_number() {
         return getNullifEmpty(phone_number);
@@ -177,11 +210,12 @@ public class User implements Serializable {
         return getNullifEmpty(telegram_id);
     }
 
-    public String getNullifEmpty(String str){
+    public String getNullifEmpty(String str) {
         if (str == null || str.equals(""))
             return null;
         return str;
     }
+
     public String getWhatsapp_id() {
         return getNullifEmpty(whatsapp_id);
     }
@@ -193,7 +227,6 @@ public class User implements Serializable {
     public String getNameAndLastname() {
         return first_name + " " + last_name;
     }
-
 
     @Override
     public String toString() {
@@ -212,9 +245,9 @@ public class User implements Serializable {
                 ", telegram_id='" + telegram_id + '\'' +
                 ", whatsapp_id='" + whatsapp_id + '\'' +
                 ", is_tour_leader=" + is_tour_leader +
-                ", profilePicturePath=" + profilePicturePath +
+                ", picture='" + picture + '\'' +
                 ", ticket=" + ticket +
-                ", policeClearanceDocPath=" + policeClearanceDocPath +
+                ", certificate='" + certificate + '\'' +
                 ", rate=" + rate +
                 '}';
     }
@@ -224,7 +257,7 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return user_id == user.user_id ;
+        return user_id == user.user_id;
     }
 
     @Override

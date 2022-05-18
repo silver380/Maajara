@@ -40,7 +40,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlanRequest tourLeader_req = allTourLeaders_req[position];
-        holder.leaderImageView.setUser(tourLeader_req.getTour_leader());
+        holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
         holder.price.setText(tourLeader_req.getSuggested_price());

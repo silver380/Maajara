@@ -51,6 +51,10 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
         super.dismiss();
     }
 
+    public void onTryAgain(){
+
+    }
+
     @Override
     public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
         if (response.getCode() == 401) {
@@ -66,6 +70,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             binding.btnOnResponseTryAgain.setOnClickListener(view -> {
                 call.clone().enqueue(callback.reload());
                 dismiss();
+                onTryAgain();
             });
             getDialog().setCancelable(false);
         }else {

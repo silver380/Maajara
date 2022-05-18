@@ -3,6 +3,7 @@
     package="ir.blackswan.travelapp">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -15,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.Activities.IntroActivity"
             android:exported="true"

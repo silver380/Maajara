@@ -1,11 +1,9 @@
 package ir.blackswan.travelapp.ui.Activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowInsets;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -50,26 +48,34 @@ public class IntroActivity extends AuthActivity {
                 onAuthComplete.onCompleted();
             }
 
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.loadingIntro.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onTryAgain() {
+                super.onTryAgain();
+                binding.loadingIntro.setVisibility(View.VISIBLE);
+            }
         })) {
-            new Handler().postDelayed((Runnable) () -> {
+            new Handler().postDelayed(() -> {
                 binding.loadingIntro.setVisibility(View.INVISIBLE);
                 showAuthDialog(onAuthComplete);
-            } , START_DELAY);
+            }, START_DELAY);
 
         }
     }
 
     private void setFullscreen() {
-        if (Build.VERSION.SDK_INT >= 30) {
-            binding.getRoot().getWindowInsetsController().hide(
-                    WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-        } else {
-            binding.getRoot().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
+
+        binding.getRoot().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
     }
 }

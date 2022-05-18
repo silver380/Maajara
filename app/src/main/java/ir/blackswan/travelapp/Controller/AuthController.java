@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +15,14 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class AuthController extends Controller {
 
+    public static final String FILE_TYPE_IMAGE = "image/jpg" , FILE_TYPE_PDF = "application/pdf";
     private static User user;
     private static String token;
     private static boolean loadingUser = false;
@@ -124,15 +127,20 @@ public class AuthController extends Controller {
     }
 
 
-    public void upgrade(User user , OnResponse onResponse) {
+    public void upgrade(User user , File pictureFile , File certificateFile ,  OnResponse onResponse) {
         String json = gsonExpose.toJson(user);
         Log.d(TAG, "upgrade... " + json);
-        api.upgrade(getTokenString() , RequestBody.create(MediaType.parse("application/json"), json))
+        RequestBody userRequestBody = RequestBody.create(MediaType.parse("application/json"), json);
+
+
+        api.upgrade(getTokenString() ,userRequestBody , pictureFile != null ? createMultipartBody(pictureFile , "picture") : null ,
+                certificateFile != null ? createMultipartBody(certificateFile , "certificate"): null )
                 .enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "upgrade success" + response.getResponseBody());
                 onResponse.onSuccess(call, callback, response);
+                AuthController.user = gson.fromJson(response.getResponseBody() , User.class);
             }
 
             @Override
@@ -144,5 +152,12 @@ public class AuthController extends Controller {
 
     public static boolean isLoadingUser() {
         return loadingUser;
+    }
+
+    public static MultipartBody.Part createMultipartBody(File file , String field){
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        return MultipartBody.Part.createFormData(field, file.getName(), requestFile);
     }
 }

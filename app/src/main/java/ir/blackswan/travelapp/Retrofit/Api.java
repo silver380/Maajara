@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.Retrofit;
 
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -10,8 +12,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -39,7 +43,7 @@ public interface Api {
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
                                @Body RequestBody plan);
 
-    @GET("/place/all/")
+    @GET("/place")
     Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
 
     @POST("/tour/register/")
@@ -87,9 +91,13 @@ public interface Api {
     @FormUrlEncoded
     Call<ResponseBody> token(@Field("email") String email, @Field("password") String password);
 
-    @POST("/auth/upgrade/")
+    @Multipart
+    @PATCH("/auth/upgrade/")
     Call<ResponseBody> upgrade(@Header("Authorization") String token,
-                               @Body RequestBody user);
+                               @Part("Body") RequestBody user ,
+                               @Part MultipartBody.Part image ,
+                               @Part MultipartBody.Part doc
+    );
 
 
     @GET("/auth/info/")
@@ -100,10 +108,4 @@ public interface Api {
     @Streaming
     Call<ResponseBody> downloadFile(@Header("Authorization") String token, @Url String fileUrl);
 
-    @Multipart
-    @POST("/upload")
-    Call<ResponseBody> uploadFile(
-            @Header("Authorization") String token,
-            @Part MultipartBody.Part file
-    );
 }

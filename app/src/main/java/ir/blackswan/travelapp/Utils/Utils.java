@@ -6,6 +6,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -26,6 +27,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -240,4 +245,12 @@ public class Utils {
         return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
                 File.separator + filePrefix + System.currentTimeMillis() + fileSuffix;
     }
+
+
+    public static Date convertStringToDate(String date) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    }
+
+
+
 }

@@ -7,12 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.github.ybq.android.spinkit.SpinKitView;
@@ -21,10 +20,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.io.File;
 
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Cacher;
-import ir.blackswan.travelapp.Utils.WebFileTransfer;
 
-public class WebImageView extends FrameLayout {
+public class WebImageView extends LoadableImageView {
 
     RoundedImageView imageView;
     SpinKitView loadingView;
@@ -87,40 +84,8 @@ public class WebImageView extends FrameLayout {
             gradient.setVisibility(gradientVisibility ? VISIBLE : GONE);
     }
 
-    public void setImagePath(String serverPath) {
-        loadingState();
-        Cacher cacher = new Cacher(getContext());
-        String localPath = cacher.getLocalPathByServerPath(serverPath);
-        if (localPath != null) {
-            File imageFile = new File(localPath);
-            if (imageFile.exists())
-                setImageByFile(new File(localPath));
-            else {
-                cacher.saveLocalPath(serverPath, null);
-                setImagePath(serverPath);
-            }
-        } else if (serverPath != null) {
 
-            WebFileTransfer.downloadFile(getContext(), serverPath, "Image ", ".jpg", downloadedFile -> {
-                if (downloadedFile != null) {
-                    setImageByFile(downloadedFile);
-                    cacher.saveLocalPath(serverPath, downloadedFile.getPath());
-                    Log.d("WebDownloader", "setImageLocalPath: " + downloadedFile.getPath());
-                } else {
-                    errorContainer.setOnClickListener(v -> {
-                        setImagePath(serverPath);
-                    });
-                    errorState(true);
-                }
-                Log.d("WebDownloader", "setImagePath: onDownloadFinish");
-            });
-        } else {
-            errorState(false);
-        }
-
-    }
-
-    private void loadingState() {
+    void loadingState() {
         imageView.setVisibility(GONE);
         loadingView.setVisibility(VISIBLE);
         errorContainer.setVisibility(GONE);
@@ -128,7 +93,12 @@ public class WebImageView extends FrameLayout {
         setGradientVisible();
     }
 
-    private void errorState(boolean againVisibility) {
+    void errorState(boolean againVisibility, @Nullable String serverPath) {
+        if (serverPath != null)
+            errorContainer.setOnClickListener(v -> {
+                setImagePath(serverPath);
+            });
+
         imageView.setVisibility(GONE);
         loadingView.setVisibility(GONE);
         errorContainer.setVisibility(VISIBLE);

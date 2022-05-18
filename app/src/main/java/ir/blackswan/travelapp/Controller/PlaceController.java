@@ -29,7 +29,7 @@ public class PlaceController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public static Place[] getAllPlaces() {

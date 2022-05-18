@@ -49,7 +49,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
         User user = allRequestedUsers.get(position);
        // holder.userImage.setImagePath(user.getProfilePicturePath());
         holder.userName_Lastname.setText(user.getNameAndLastname());
-        holder.userImage.setUser(user);
+        holder.userImage.setDataByUser(user);
         if(confirmedUsers.contains(user))
             acceptUser(holder, user);
         else
