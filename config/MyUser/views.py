@@ -1,12 +1,13 @@
 import requests
 from rest_framework import permissions
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView
-from .serializers import UserSerializer, UserUpdateSerializer, UserInfoSerializer
+from .serializers import UserSerializer, UserUpdateSerializer, UserInfoSerializer, TicketSerializer
 from .permissions import IsOwner
-
+from Tour.permissions import IsTourLeader
 
 class RegisterUsers(CreateAPIView):
     model = get_user_model()
@@ -47,3 +48,17 @@ class ActivateUser(APIView):
             return Response({}, response.status_code)
         else:
             return Response(response.json())
+
+class IncreaseTicket(GenericAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsTourLeader
+    ]
+    def post(self, request):
+        if 'value' not in request.data:
+            return Response(status=401, data={"error": "invalid data"})
+        if request.data['value'] < 0:
+            return Response(status=401, data={"error": "invalid data"})
+        
+        request.user.increase_ticket(request.data['value'])
+        return Response(request.user.number_of_tickets)

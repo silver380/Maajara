@@ -3,15 +3,26 @@ from .models import TravelPlan, TravelPlanReq
 from django.contrib.auth import get_user_model
 
 
-class CreatorSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['email', 'first_name', 'last_name', 'user_id']
 
+class TourLeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets']
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        exclude = ('is_admin', 'last_login', 'password')
+
 
 class TravelPlanSerializer(serializers.ModelSerializer):
-    plan_creator = CreatorSerializer(read_only=True)
-    confirmed_tour_leader = CreatorSerializer(read_only=True)
+    plan_creator = UserSerializer(read_only=True)
+    confirmed_tour_leader = TourLeaderSerializer(read_only=True)
 
     class Meta:
         model = TravelPlan
@@ -28,14 +39,8 @@ class TravelPlanSerializer(serializers.ModelSerializer):
         return plan
 
 
-class UserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        exclude = ('is_admin', 'last_login', 'password')
-
-
 class TravelPlanReqSerializer(serializers.ModelSerializer):
-    tour_leader = CreatorSerializer(read_only=True)
+    tour_leader = TourLeaderSerializer(read_only=True)
     travel_plan = TravelPlanSerializer(read_only=True)
 
     class Meta:
@@ -43,5 +48,7 @@ class TravelPlanReqSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user)
+
+        self.context['request'].user.decrease_ticket()
+        plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user, travel_plan_id =self.context['request'].data['travel_plan_id'])
         return plan_req
