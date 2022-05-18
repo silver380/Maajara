@@ -29,11 +29,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_delete"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginRight="@dimen/margin_very_small"
             android:src="@drawable/ic_delete"
             android:layout_gravity="center"
+            android:onClick="Click_Image"
             />
     </LinearLayout>
 

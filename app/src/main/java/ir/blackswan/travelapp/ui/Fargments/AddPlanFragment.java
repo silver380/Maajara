@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -52,9 +53,10 @@ public class AddPlanFragment extends Fragment {
 
         binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL,
                 false));
-        binding.rclPlanPlaces.setText("مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید");
+        binding.rclPlanPlaces.setText("مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید.");
         binding.rclPlanPlaces.setErrorText(binding.rclPlanPlaces.getText());
         binding.rclPlanPlaces.textState();
+
         selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
             Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclPlanPlaces.setAdapter(
@@ -121,15 +123,24 @@ public class AddPlanFragment extends Fragment {
 
     private void setListeners() {
         //wanted list
+        View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
         binding.ivAddSth.setOnClickListener(v -> {
             setNoWantedListVisibility();
-            View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
             binding.cvPlanSthContainer.addView(aCase);
             TextInputLayout til = aCase.findViewById(R.id.til_case);
             TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
             wantedInputEditTexts.add(inputEditText);
             til.setHint("مورد " + wantedInputEditTexts.size());
         });
+
+        ImageView deleteButton = (ImageView) aCase.findViewById(R.id.btn_delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteButton.setVisibility(View.GONE);
+            }
+        });
+
 
         //places
         binding.ivPlanAddPlace.setOnClickListener(v -> {
