@@ -6,7 +6,7 @@ from rest_framework import filters
 from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
 from .permissions import IsTourLeader
-from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReqSerializer
+from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReqSerializer, AddTravelPlanSerializer
 from django.contrib.auth import get_user_model
 
 
@@ -29,8 +29,19 @@ class CreatedTravelPlans(ListAPIView):
 
 class AddPlan(CreateAPIView):
     model = TravelPlan
-    serializer_class = TravelPlanSerializer
+    serializer_class = AddTravelPlanSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        return serializer.save()
+
+    def create(self, request, *args, **kwargs):
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self.perform_create(serializer)
+        instance_serializer = TravelPlanSerializer(instance)
+        return Response(instance_serializer.data)
 
 
 class AddPlanReq(CreateAPIView):

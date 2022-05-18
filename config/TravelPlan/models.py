@@ -14,7 +14,7 @@ class TravelPlan(models.Model):
                                              blank=True, null=True)
     confirmed_tour_leader = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, null=True)
     accepted_price = models.IntegerField(blank=True, null=True)
-
+    places = models.ManyToManyField('Place.Place', related_name='TravelPlanPlaces', blank=True, null=True)
 
 class TravelPlanReq(models.Model):
     class Meta:

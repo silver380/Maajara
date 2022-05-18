@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import TravelPlan, TravelPlanReq
 from django.contrib.auth import get_user_model
-
+from Place.serializers import PlaceSerializers
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 class TourLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets']
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture', 'tour_rate']
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         exclude = ('is_admin', 'last_login', 'password')
 
 
-class TravelPlanSerializer(serializers.ModelSerializer):
+class AddTravelPlanSerializer(serializers.ModelSerializer):
     plan_creator = UserSerializer(read_only=True)
     confirmed_tour_leader = TourLeaderSerializer(read_only=True)
 
@@ -35,8 +35,25 @@ class TravelPlanSerializer(serializers.ModelSerializer):
     wanted_list = serializers.CharField()
 
     def create(self, validated_data):
-        plan = TravelPlan.objects.create(**validated_data, plan_creator=self.context['request'].user)
-        return plan
+        id_place = validated_data.pop('places')
+        travel_plan = TravelPlan.objects.create(**validated_data, plan_creator=self.context['request'].user)
+        travel_plan.places.add(*id_place)
+        return travel_plan
+
+    def validate(self, data):
+        if data['start_date'] > data['end_date']:
+            raise serializers.ValidationError({"end_date": "Finish must occur after start"})
+        return data
+
+class TravelPlanSerializer(serializers.ModelSerializer):
+    plan_creator = UserSerializer(read_only=True)
+    confirmed_tour_leader = TourLeaderSerializer(read_only=True)
+    places = PlaceSerializers(many=True, required=False)
+
+    class Meta:
+        model = TravelPlan
+        exclude = ('pending_leaders',)
+
 
 
 class TravelPlanReqSerializer(serializers.ModelSerializer):
