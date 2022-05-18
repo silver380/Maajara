@@ -27,6 +27,7 @@ import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
+import ir.blackswan.travelapp.ui.Dialogs.AddTicket;
 import kotlin.Unit;
 
 public class HomeFragment extends RefreshingFragment {
@@ -118,6 +119,7 @@ public class HomeFragment extends RefreshingFragment {
             if (user.is_tour_leader()) {
                 binding.tvHomeTicket.setText(user.getTicket() + "");
                 binding.toggleHome.setVisibility(View.VISIBLE);
+                binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity , null).show());
             } else {
                 ((ViewGroup)binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
                 tourLeader = false;

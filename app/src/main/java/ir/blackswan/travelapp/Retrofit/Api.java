@@ -16,6 +16,8 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -27,24 +29,45 @@ public interface Api {
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
                                        @Field("number_of_tickets") int number_of_tickets);
 
+
+
+    //todo >> change the URL
+    @GET("/???/")
+    Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
+
+    //todo >> change the URL
+    @POST("/auth/increaseticket/")
+    @FormUrlEncoded
+    Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
+                                       @Field("value") int number_of_tickets);
+
+
+
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 
     @POST("/travelplan/addplanreq/")
     Call<ResponseBody> addPlanReq(@Header("Authorization") String token, @Body RequestBody planRequest);
+    @POST("/travelplan/accepttourleader/")
+    Call<ResponseBody> acceptPlanRequest(@Header("Authorization") String token, @Body RequestBody planRequest);
+
+
+    @GET("travelplan/mypendingplans/")
+    Call<ResponseBody> getPendingPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/createdplans/")
     Call<ResponseBody> getCreatedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/all/")
-    Call<ResponseBody> getAllPlans(@Header("Authorization") String token);
+    Call<ResponseBody> searchPlans(@Header("Authorization") String token , @Query("search") String search);
 
-    @POST("/travelplan/addplan")
+
+    @POST("/travelplan/addplan/")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
                                @Body RequestBody plan);
 
-    @GET("/place")
-    Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
+    @GET("/place/")
+    Call<ResponseBody> searchPlaces(@Header("Authorization") String token, @Query("search") String search);
 
     @POST("/tour/register/")
     @FormUrlEncoded
@@ -77,7 +100,7 @@ public interface Api {
     Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
     @GET("/tour/all/")
-    Call<ResponseBody> getAllTour(@Header("Authorization") String token);
+    Call<ResponseBody> searchTours(@Header("Authorization") String token , @Query("search") String search);
 
     @GET("/tour/createdtours/")
     Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);

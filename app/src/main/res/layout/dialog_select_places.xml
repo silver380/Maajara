@@ -28,15 +28,15 @@
             app:startIconDrawable="@drawable/ic_search">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_select_places_search"
                 style="@style/editText.oneLine"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="@integer/max_tour_name_length" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ir.blackswan.travelapp.Views.LoadingRecyclerView
             android:id="@+id/rcl_select_places"
             android:layout_width="match_parent"
             android:layout_height="0dp"

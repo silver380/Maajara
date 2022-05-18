@@ -23,19 +23,21 @@ public class TourLeaderRequestController extends Controller {
     }
 
     public void addPlanRequest(PlanRequest planRequest, OnResponse onResponse){
-
-        api.addPlanReq(AuthController.getTokenString() ,RequestBody.create(MediaType.parse("application/json"),
-                gsonExpose.toJson(planRequest))).enqueue(new MyCallback(authActivity , onResponse));
+        String json = gsonExpose.toJson(planRequest);
+        Log.d(MyCallback.TAG, "addPlanRequest... " + json);
+        api.addPlanReq(AuthController.getTokenString() ,RequestBody.create(
+                MediaType.parse("application/json"), json)).enqueue(new MyCallback(authActivity , onResponse));
     }
 
     public void getPendingTLRequestsFromServer(OnResponse onResponse){
+        Log.d(MyCallback.TAG, "getPendingTLRequestsFromServer: ....");
         api.getPendingTLRequests(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                Log.d(MyCallback.TAG, "getPendingTLRequestsFromServer onSuccess: " +  response.getResponseBody());
 
                 map_planRequests = gson.fromJson(response.getResponseBody(), new
                         TypeToken<HashMap<String, PlanRequest[]>>() { }.getType());
-                Log.d(MyCallback.TAG, map_planRequests.toString());
                 onResponse.onSuccess(call, callback, response);
             }
 
@@ -44,7 +46,7 @@ public class TourLeaderRequestController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
 

@@ -252,5 +252,27 @@ public class Utils {
     }
 
 
+    public static String priceToString(long price) {
+        StringBuilder priceToString = new StringBuilder();
+        char[] priceChar = String.valueOf(price).toCharArray();
+        if (priceChar.length < 5)
+            return price + "";
+        for (int i = priceChar.length - 1; i > -1; i--) {
+            int i2 = priceChar.length - 1 - i;
+            if (i2 % 3 == 0 && i2 != 0)
+                priceToString.insert(0, ",");
+            priceToString.insert(0, priceChar[i]);
+        }
+        return priceToString.toString().toString();
+    }
+    public static String getPriceString(int price) {
+        if (price > 1000000)
+            return priceToString(price / 1000000) + "میلیون تومان";
+        else if (price > 1000)
+            return priceToString(price / 1000) + " هزار تومان";
+
+        return priceToString(price) + " تومان";
+    }
+
 
 }

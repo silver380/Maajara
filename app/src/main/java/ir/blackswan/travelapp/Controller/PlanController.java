@@ -4,6 +4,8 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.util.Arrays;
 
 import ir.blackswan.travelapp.Data.Plan;
@@ -37,19 +39,30 @@ public class PlanController extends Controller {
 
      */
 
-    public PlanController(AuthActivity authActivity) { super(authActivity); }
+    public PlanController(AuthActivity authActivity) {
+        super(authActivity);
+    }
 
-    public void addPlanToServer(Plan plan, OnResponse onResponse){
+    public void addPlanToServer(Plan plan, OnResponse onResponse) {
         String json = gsonExpose.toJson(plan);
 
+        json = json.replace("\"places_ids\":", "\"places\":");
+        Log.d(TAG, "addPlanToServer: " + json);
         api.addPlan(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
-                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog() );
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
 
-    public void getAllPlanFromServer(OnResponse onResponse) {
+    //search == null ? get all
+    public void getAllPlanFromServer(OnResponse onResponse, @Nullable String search) {
         Log.d(MyCallback.TAG, "getAllPlanFromServer: ");
-        api.getAllPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+        Call<ResponseBody> call;
+        if (search == null)
+            search = "";
+
+        call = api.searchPlans(AuthController.getTokenString(), search);
+        Log.d(TAG, "getAllPlanFromServer:...URL:  " + call.request().url());
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d("ResponsePlan", "onSuccess: " + response.getResponseBody());
@@ -84,7 +97,7 @@ public class PlanController extends Controller {
         }));
     }
 
-    /*
+
     public void getPendingPlanFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getPendingPlanFromServer: ");
         api.getPendingPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -98,9 +111,10 @@ public class PlanController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
+    /*
     public void getConfirmedPlanFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getConfirmedPlanFromServer: ");
         api.getConfirmedPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
@@ -119,8 +133,19 @@ public class PlanController extends Controller {
 
      */
 
-    public static Plan[] getAllPlans(){ return allPlans; }
+    public static Plan[] getAllPlans() {
+        return allPlans;
+    }
 
-    public static Plan[] getCreatedPlans(){ return createdPlans; }
+    public static Plan[] getCreatedPlans() {
+        return createdPlans;
+    }
 
+    public static Plan[] getPendingPlans() {
+        return pendingPlans;
+    }
+
+    public static Plan[] getConfirmedPlans() {
+        return confirmedPlans;
+    }
 }

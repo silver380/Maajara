@@ -73,7 +73,7 @@
         </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ir.blackswan.travelapp.Views.LoadingRecyclerView
             android:id="@+id/rcl_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

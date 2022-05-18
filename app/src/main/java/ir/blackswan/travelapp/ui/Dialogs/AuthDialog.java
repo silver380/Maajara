@@ -159,14 +159,14 @@ public class AuthDialog extends MyDialog {
                     String email = getEditableText(binding.etLoginEmail.getText()).toLowerCase();
                     authController.register(email,
                             getEditableText(binding.etLoginPassword.getText()), name, lastName, onResponseDialog);
-                    //activeCodeTimer.sendCodeAndStartTimer(); //todo: active email
+                    //todo: go to login
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
                         stopLoadingAnimation();
                         return;
                     }
-                    //todo: send active code
+
                 }
 
             } else {

@@ -49,7 +49,16 @@
     <string name="wanted_list">مواردی که می‌خواهم</string>
     <string name="add_tour_tittle">تور جدید</string>
     <string name="add_plan_tittle">برنامه سفر جدید</string>
+
     <string name="date_error">تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد</string>
+
     <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
+
+    <string name="no_place_select">مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید</string>
+
+    <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
+    <string name="recycler_default_text">موردی یافت نشد</string>
+    <string name="my_tours">تورهای من</string>
+    <string name="pending_plans">در انتظار تایید</string>
 
 </resources>

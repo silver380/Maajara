@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.databinding.FragmentHomeLeaderBinding;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
+import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
@@ -25,11 +28,14 @@ public class HomeFragmentLeader extends Fragment {
     FragmentHomeLeaderBinding binding;
     MainActivity mainActivity;
     private TourController tourController;
+    private PlanController planController;
     private Tour[] createdTours;
+    private Plan[] pendingPlans;
 
     public HomeFragmentLeader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         tourController = new TourController(mainActivity);
+        planController = new PlanController(mainActivity);
     }
 
     @Nullable
@@ -52,7 +58,6 @@ public class HomeFragmentLeader extends Fragment {
     }
 
     public void reload() {
-        mainActivity.getHomeFragment().setRefreshing(true);
         setCreatedToursRecycler();
 
     }
@@ -60,6 +65,8 @@ public class HomeFragmentLeader extends Fragment {
     private void setRecyclers() {
         TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), createdTours);
         binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+        binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(mainActivity , pendingPlans));
+        mainActivity.getHomeFragment().setRefreshing(false);
     }
 
     private void setCreatedToursRecycler() {
@@ -69,8 +76,19 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 createdTours = tourController.getCreatedTours();
+                setPendingPlansRecycler();
+            }
+        });
+
+    }
+    private void setPendingPlansRecycler() {
+
+        planController.getPendingPlanFromServer(new OnResponseDialog(mainActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                pendingPlans = PlanController.getPendingPlans();
                 setRecyclers();
-                mainActivity.getHomeFragment().setRefreshing(false);
             }
         });
 

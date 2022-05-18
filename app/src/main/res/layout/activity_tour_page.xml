@@ -402,14 +402,14 @@
                                     android:layout_marginTop="@dimen/margin_medium"
                                     android:text="مکان‌ها" />
 
-                                <androidx.recyclerview.widget.RecyclerView
+                                <ir.blackswan.travelapp.Views.LoadingRecyclerView
                                     android:id="@+id/ryc_tour_page_places"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_small"
                                     android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                </ir.blackswan.travelapp.Views.LoadingRecyclerView>
 
                                 <LinearLayout
                                     android:id="@+id/ll_tour_page_leader"

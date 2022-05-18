@@ -139,6 +139,19 @@
                         android:layout_gravity="center"
                         android:text="@string/wanted_list" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_add_plan_no_wanted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/textHint"
+                        android:paddingTop="@dimen/padding_small"
+                        android:paddingBottom="@dimen/padding_large"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="موردی اضافه نشده است\nبرای افزودن + را کلیک نمایید"
+                        android:gravity="center"
+                        />
+
+
                     <LinearLayout
                         android:id="@+id/cv_plan_sth_container"
                         android:layout_width="match_parent"
@@ -175,7 +188,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="100dp"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
@@ -187,15 +199,13 @@
                         android:layout_gravity="center"
                         android:text="@string/places" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <ir.blackswan.travelapp.Views.LoadingRecyclerView
                         android:id="@+id/rcl_plan_places"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

@@ -4,6 +4,8 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.util.Arrays;
 
 import ir.blackswan.travelapp.Data.Tour;
@@ -19,9 +21,26 @@ public class TourController extends Controller {
     static Tour[] createdTours;
     static Tour[] pendingTours;
     static Tour[] confirmedTours;
+    static Tour[] archiveTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
+    }
+
+    public void getArchiveTourFromServer(OnResponse onResponse){
+        Log.d(MyCallback.TAG, "getArchiveTourFromServer: ");
+        api.getArchiveTours(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                archiveTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
     }
 
     public void register(int tourId, OnResponse onResponse){
@@ -41,9 +60,14 @@ public class TourController extends Controller {
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
-    public void getAllTourFromServer(OnResponse onResponse) {
+    public void getAllTourFromServer(OnResponse onResponse , @Nullable String search) {
         Log.d(MyCallback.TAG, "getAllTourFromServer: ");
-        api.getAllTour(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+        Call<ResponseBody> call;
+        if (search == null)
+            search = "";
+
+        call = api.searchTours(AuthController.getTokenString(), search);
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d("ResponseTour", "onSuccess: " + response.getResponseBody());
@@ -122,5 +146,9 @@ public class TourController extends Controller {
     public static Tour[] getPendingTours() { return pendingTours; }
 
     public static Tour[] getConfirmedTours() { return confirmedTours; }
+
+    public static Tour[] getArchiveTours() {
+        return archiveTours;
+    }
 }
 

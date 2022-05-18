@@ -62,7 +62,6 @@ public class HomeFragmentPassenger extends Fragment {
 
 
     public void reload() {
-        mainActivity.getHomeFragment().setRefreshing(true);
         setConfirmedToursRecycler();
     }
 

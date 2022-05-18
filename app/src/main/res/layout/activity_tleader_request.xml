@@ -14,7 +14,7 @@
         app:title="درخواست ها"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ir.blackswan.travelapp.Views.LoadingRecyclerView
         android:id="@+id/rsc_tLeader_req"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

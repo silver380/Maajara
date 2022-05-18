@@ -102,7 +102,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:maxLength="9"
+                            android:maxLength="@integer/max_price_length"
                              />
 
 
@@ -221,7 +221,7 @@
                         android:layout_gravity="center"
                         android:text="@string/places" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <ir.blackswan.travelapp.Views.LoadingRecyclerView
                         android:id="@+id/rcl_add_tour_places"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -26,8 +26,8 @@ import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
-import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
 import okhttp3.ResponseBody;
@@ -52,6 +52,9 @@ public class AddPlanFragment extends Fragment {
 
         binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL,
                 false));
+        binding.rclPlanPlaces.setText("مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید");
+        binding.rclPlanPlaces.setErrorText(binding.rclPlanPlaces.getText());
+        binding.rclPlanPlaces.textState();
         selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
             Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclPlanPlaces.setAdapter(
@@ -63,6 +66,7 @@ public class AddPlanFragment extends Fragment {
         setChecker();
         setupDateChooses();
         setListeners();
+        setNoWantedListVisibility();
 
         return root;
     }
@@ -83,8 +87,8 @@ public class AddPlanFragment extends Fragment {
                     binding.tilPlanStartDate.setError(getString(R.string.date_error));
                 }
                 return getString(R.string.date_error);
-            }else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
-                    finalDate.getCalendar().getGregorianDate())){
+            } else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())) {
                 if (editText.equals(binding.etPlanStartDate)) {
                     binding.tilPlanFinalDate.setError(null);
                 } else {
@@ -99,6 +103,7 @@ public class AddPlanFragment extends Fragment {
         checker.add(binding.etPlanDestination);
         checker.add(binding.etPlanStartDate, error);
         checker.add(binding.etPlanFinalDate, error);
+
     }
 
     @Override
@@ -107,9 +112,17 @@ public class AddPlanFragment extends Fragment {
         binding = null;
     }
 
+    private void setNoWantedListVisibility() {
+        if (binding.cvPlanSthContainer.getChildCount() > 0)
+            binding.tvAddPlanNoWanted.setVisibility(View.GONE);
+        else
+            binding.tvAddPlanNoWanted.setVisibility(View.VISIBLE);
+    }
+
     private void setListeners() {
         //wanted list
         binding.ivAddSth.setOnClickListener(v -> {
+            setNoWantedListVisibility();
             View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
             binding.cvPlanSthContainer.addView(aCase);
             TextInputLayout til = aCase.findViewById(R.id.til_case);
@@ -136,7 +149,9 @@ public class AddPlanFragment extends Fragment {
                 ArrayList<String> requestedThings = new ArrayList<>();
                 for (TextInputEditText t :
                         wantedInputEditTexts) {
-                    requestedThings.add(t.getText().toString());
+                    String s = Utils.getEditableText(t.getText());
+                    if (!s.isEmpty())
+                        requestedThings.add(s);
                 }
 
                 Place[] places = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
@@ -154,7 +169,7 @@ public class AddPlanFragment extends Fragment {
 
                 });
 
-            }else
+            } else
                 Toast.makeText(authActivity, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
 
         });
@@ -166,9 +181,12 @@ public class AddPlanFragment extends Fragment {
     }
 
     private boolean checkInputs() {
-        if (checker.checkAllError())
-            return false;
-        return binding.rclPlanPlaces.getChildCount() > 0;
+        boolean returnValue = !checker.checkAllError();
+        if (binding.rclPlanPlaces.getItemCount() == 0) {
+            returnValue = false;
+            binding.rclPlanPlaces.textState(true);
+        }
+        return returnValue;
     }
 
 }

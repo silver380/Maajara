@@ -25,8 +25,8 @@ import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentAddTourBinding;
-import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
 import okhttp3.ResponseBody;
@@ -51,6 +51,9 @@ public class AddTourFragment extends Fragment {
         super.onCreate(savedInstanceState);
         authActivity = ((AuthActivity) getActivity());
         binding.rclAddTourPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
+        binding.rclAddTourPlaces.setText(getString(R.string.no_place_select));
+        binding.rclAddTourPlaces.setErrorText(binding.rclAddTourPlaces.getText());
+        binding.rclAddTourPlaces.textState();
         selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
             Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
             binding.rclAddTourPlaces.setAdapter(
@@ -154,9 +157,12 @@ public class AddTourFragment extends Fragment {
     }
 
     private boolean checkInputs() {
-        if (checker.checkAllError())
-            return false;
-        return binding.rclAddTourPlaces.getChildCount() > 0;
+        boolean returnValue = !checker.checkAllError();
+        if (binding.rclAddTourPlaces.getItemCount() == 0){
+            returnValue = false;
+            binding.rclAddTourPlaces.textState(true);
+        }
+        return returnValue;
     }
 
     private void setChecker() {
@@ -175,8 +181,8 @@ public class AddTourFragment extends Fragment {
                     binding.tilAddTourStartDate.setError(getString(R.string.date_error));
                 }
                 return getString(R.string.date_error);
-            }else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
-                    finalDate.getCalendar().getGregorianDate())){
+            } else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
+                    finalDate.getCalendar().getGregorianDate())) {
                 if (editText.equals(binding.etAddTourStartDate)) {
                     binding.tilAddTourFinalDate.setError(null);
                 } else {
@@ -188,7 +194,7 @@ public class AddTourFragment extends Fragment {
             return null;
 
         };
-        checker.add(Arrays.asList(binding.etAddTourDestination , binding.etAddTourCapacity , binding.etAddTourName ,
+        checker.add(Arrays.asList(binding.etAddTourDestination, binding.etAddTourCapacity, binding.etAddTourName,
                 binding.etAddTourPrice));
         checker.add(binding.etAddTourStartDate, error);
         checker.add(binding.etAddTourFinalDate, error);

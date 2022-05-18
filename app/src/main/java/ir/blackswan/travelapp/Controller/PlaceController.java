@@ -2,6 +2,8 @@ package ir.blackswan.travelapp.Controller;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
@@ -15,9 +17,14 @@ public class PlaceController extends Controller {
         super(authActivity);
     }
 
-    public void getAllPlacesFromServer(OnResponse onResponse) {
+    public void getAllPlacesFromServer(OnResponse onResponse , @Nullable String search) {
         Log.d("ResponsePlaces", "getAllPlacesFromServer: ..." );
-        api.getAllPlace(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+        Call<ResponseBody> call;
+        if (search == null)
+            search = "";
+
+        call = api.searchPlaces(AuthController.getTokenString(), search);
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d("ResponsePlaces", "onSuccess: " + response.getResponseBody());
