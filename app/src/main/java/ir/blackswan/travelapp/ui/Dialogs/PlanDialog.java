@@ -4,6 +4,8 @@ import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Toast;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
@@ -48,12 +51,32 @@ public class PlanDialog extends MyDialog {
         this.authActivity = authActivity;
 
         setData();
-
+        setPrice();
         setSendRequestButton();
-
-
     }
 
+    private void setPrice(){
+        binding.etPlanSuggestPrice.addTextChangedListener
+                (new TextWatcher() {
+                     @Override
+                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                     }
+
+                     @Override
+                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                     }
+
+                     @Override
+                     public void afterTextChanged(Editable editable) {
+                         String price_helper = Utils.priceToString(
+                                 Integer.parseInt(binding.etPlanSuggestPrice.getText().toString()));
+                         binding.tilPlanSuggestPrice.setHelperText(price_helper);
+                     }
+                 }
+                );
+    }
 
     private void setData() {
         binding.tbPlanDialog.setTitle("برنامه سفر به " + plan.getDestination());

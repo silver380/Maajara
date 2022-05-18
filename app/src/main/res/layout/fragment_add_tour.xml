@@ -89,12 +89,15 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_add_tour_price"
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorEnabled="true"
                         android:hint="قیمت"
-                        app:startIconDrawable="@drawable/ic_price">
+                        app:startIconDrawable="@drawable/ic_price"
+                        app:helperTextTextAppearance="@style/textHint"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_add_tour_price"
@@ -104,7 +107,7 @@
                             android:inputType="number"
                             android:maxLength="@integer/max_price_length"
                              />
-
+                        helperTextApearance = "hinttext"
 
                     </com.google.android.material.textfield.TextInputLayout>
 
