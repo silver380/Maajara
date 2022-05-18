@@ -137,7 +137,7 @@ public class AddPlanFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteButton.setVisibility(View.GONE);
+                binding.cvPlanSthContainer.removeView(aCase);
             }
         });
 
