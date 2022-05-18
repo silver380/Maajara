@@ -36,7 +36,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ir.blackswan.travelapp.Views.LoadingRecyclerView
             android:id="@+id/rcl_select_places"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -43,15 +43,15 @@
                 android:id="@+id/iv_setting_edit_profile"
                 android:layout_width="@dimen/secondary_icon_size"
                 android:layout_height="@dimen/secondary_icon_size"
-
                 android:layout_marginTop="@dimen/margin_small"
                 android:background="@drawable/circle_solid"
                 android:backgroundTint="@color/colorIconTint"
                 android:padding="@dimen/icons_padding"
                 android:src="@drawable/ic_camera"
-                app:layout_constraintLeft_toRightOf="@id/iv_setting_delete_profile"
-                app:layout_constraintRight_toRightOf="@id/piv_setting"
-                app:layout_constraintTop_toBottomOf="@id/piv_setting" />
+                android:layout_marginLeft="@dimen/margin_medium"
+                app:layout_constraintLeft_toRightOf="@id/piv_setting"
+                app:layout_constraintTop_toTopOf="@id/piv_setting"
+                app:layout_constraintBottom_toBottomOf="@id/piv_setting" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_setting_delete_profile"
@@ -76,7 +76,7 @@
                 app:cardBackgroundColor="@color/colorBackgroundLighter"
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small"
-                app:layout_constraintTop_toBottomOf="@id/iv_setting_edit_profile">
+                app:layout_constraintTop_toBottomOf="@id/piv_setting">
 
                 <LinearLayout
                     android:layout_width="match_parent"

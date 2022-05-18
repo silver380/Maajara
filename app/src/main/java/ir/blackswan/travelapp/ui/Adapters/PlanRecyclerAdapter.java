@@ -60,8 +60,7 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
 
         holder.startDate.setText(startDate.getShortDate());
         holder.city.setText(plan.getDestination());
-        PlanDialog planDialog = new PlanDialog(authActivity , plan);
-        holder.itemView.setOnClickListener(v -> planDialog.show());
+        holder.itemView.setOnClickListener(v ->  new PlanDialog(authActivity , plan).show());
         holder.requests.setOnClickListener(v->{
             authActivity.startActivity(new Intent(
                     authActivity, TLeaderRequestActivity.class)

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
+import ir.blackswan.travelapp.Views.LoadingRecyclerView;
 import ir.blackswan.travelapp.databinding.DialogSelectPlacesBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
@@ -46,4 +47,6 @@ public class SelectPlacesDialog extends MyDialog {
     public PlacesRecyclerAdapter getPlacesRecyclerAdapter() {
         return placesRecyclerAdapter;
     }
+
+
 }

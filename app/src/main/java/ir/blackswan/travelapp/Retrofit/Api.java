@@ -21,12 +21,15 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+
+
+
     //todo >> change the URL
     @GET("/???/")
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
     //todo >> change the URL
-    @POST("/???/")
+    @POST("/auth/increaseticket/")
     @FormUrlEncoded
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
                                        @Field("number_of_tickets") int number_of_tickets);

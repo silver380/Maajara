@@ -30,14 +30,12 @@ public class ArchiveFragment extends RefreshingFragment {
     MainActivity mainActivity;
     private Tour[] archivedTours;
 
-    public ArchiveFragment(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentArchiveBinding.inflate(inflater, container, false);
+        mainActivity = (MainActivity) getActivity();
         View root = binding.getRoot();
         tourController = new TourController(mainActivity);
 

@@ -62,7 +62,7 @@ public class PlanDialog extends MyDialog {
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
         binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity , LinearLayoutManager.HORIZONTAL , false));
-        //binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces()));
+        //binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces())); //todo: active this
         binding.llPlanReq.removeAllViews();
 
         for (String req : plan.getWanted_list()) {

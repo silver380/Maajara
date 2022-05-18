@@ -129,6 +129,7 @@ public class SearchFragment extends RefreshingFragment {
 
     public void refresh() {
         setRefreshing(true);
+        binding.rclSearch.loadingState();
         if (toggle == TOGGLE_TOUR)
             reloadTours();
         else if (toggle == TOGGLE_PLAN)

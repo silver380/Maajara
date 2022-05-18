@@ -46,7 +46,7 @@ public class TourLeaderRequestController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
 
