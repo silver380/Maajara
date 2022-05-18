@@ -448,7 +448,7 @@
                                             app:srb_starHeight="0dp"
                                             app:srb_starPadding="5dp"
                                             app:srb_starWidth="0dp"
-                                            app:srb_stepSize="0.2"
+                                            app:srb_stepSize="1"
 
                                             />
                                     </LinearLayout>

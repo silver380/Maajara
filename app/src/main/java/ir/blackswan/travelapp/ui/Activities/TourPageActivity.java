@@ -28,10 +28,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
@@ -52,6 +54,7 @@ public class TourPageActivity extends ToolbarActivity {
     private TourController tourController;
     private int actionBarHeight;
     private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +191,16 @@ public class TourPageActivity extends ToolbarActivity {
             reportDialog.show();
         });
         binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
-            
+            binding.simpleRatingBar.setActivated(false);
+            int rate = (int) binding.simpleRatingBar.getRating();
+            tourController.sendTourRateToServer(rate, new OnResponseDialog(this){
+                @Override
+                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                    super.onSuccess(call, callback, response);
+                    Toast.makeText(TourPageActivity.this, "امتیاز با موفقیت ثبت شد.", Toast.LENGTH_SHORT,
+                            Toast.TYPE_SUCCESS).show();
+                }
+            });
         });
     }
 
