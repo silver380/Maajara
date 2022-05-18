@@ -23,6 +23,11 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+    //todo >> change the URL
+    @POST("/???/")
+    @FormUrlEncoded
+    Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
+                                       @Field("number_of_tickets") int number_of_tickets);
 
 
 
