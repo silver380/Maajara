@@ -1,11 +1,14 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -104,6 +107,27 @@ public class AddTourFragment extends Fragment {
     }
 
     private void setListeners() {
+
+        //helper text for price
+        binding.etAddTourPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String price_helper = Utils.priceToString(
+                        Integer.parseInt(binding.etAddTourPrice.getText().toString()));
+                binding.tilAddTourPrice.setHelperText(price_helper);
+            }
+        });
+
         binding.ivAddTourAddPlace.setOnClickListener(v -> {
             selectPlacesDialog.show();
         });
