@@ -56,6 +56,18 @@ public class HomeFragment extends RefreshingFragment {
         homeFragmentLeader = new HomeFragmentLeader(mainActivity);
 
 
+        setListeners();
+
+        reload();
+
+        setPopupMenu();
+
+
+
+        return root;
+    }
+
+    private void setListeners() {
         binding.toggleHome.setOnSelectListener(themedButton -> {
             boolean tourLeader2 = binding.toggleHome.getSelectedButtons()
                     .contains(binding.btnHomeGuide);
@@ -67,16 +79,8 @@ public class HomeFragment extends RefreshingFragment {
             setCurrentFragment();
             return Unit.INSTANCE;
         });
-
-        reload();
-
-        setPopupMenu();
-
-
-
-        return root;
+        binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity , this::updateTicketView).show());
     }
-
 
 
     public static boolean isTourLeader() {
@@ -108,8 +112,12 @@ public class HomeFragment extends RefreshingFragment {
             homeFragmentLeader.reload();
         else
             homeFragmentPassenger.reload();
+        updateTicketView();
     }
 
+    private void updateTicketView(){
+        binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
+    }
 
     private void setupWithUser() {
         User user = AuthController.getUser();
@@ -117,7 +125,7 @@ public class HomeFragment extends RefreshingFragment {
         if (user != null) {
             binding.ivHomeProfile.setDataByUser(user);
             if (user.is_tour_leader()) {
-                binding.tvHomeTicket.setText(user.getTicket() + "");
+                updateTicketView();
                 binding.toggleHome.setVisibility(View.VISIBLE);
                 binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity , null).show());
             } else {

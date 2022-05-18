@@ -1,198 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    app:cardElevation="@dimen/card_elevation_medium"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDarker">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_medium"
-        >
-
-
-        <ir.blackswan.travelapp.Views.ProfileImageView
-            android:id="@+id/iv_tl"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/margin_small"
-            android:scaleType="centerCrop"
-            android:src="@drawable/test_picture"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintHorizontal_weight="2.35"
-            app:layout_constraintLeft_toRightOf="@id/view_column2"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="100dp" />
-
-        <View
-            android:id="@+id/view_column2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            app:layout_constraintHorizontal_weight="5"
-            app:layout_constraintLeft_toRightOf="@id/ll_iv"
-            app:layout_constraintRight_toLeftOf="@id/iv_tl"
-            app:layout_constraintTop_toTopOf="@id/iv_tl" />
-
-        <TextView
-            android:id="@+id/tv_tl_name"
-            style="@style/textTittleMedium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_very_small"
-            android:maxLines="1"
-            android:text=" راهنمای سفر"
-            app:layout_constraintBottom_toTopOf="@id/bio_tv"
-            app:layout_constraintLeft_toRightOf="@id/pointsOf_tl_tv"
-            app:layout_constraintRight_toRightOf="@id/view_column2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/bio_tv"
-            style="@style/textHint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLines="4"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginTop="@dimen/margin_small"
-            android:justificationMode="inter_word"
-            android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون  "
-            app:layout_constraintBottom_toTopOf="@id/price_tv"
-            app:layout_constraintLeft_toRightOf="@id/ll_iv"
-            app:layout_constraintRight_toRightOf="@id/tv_tl_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_tl_name" />
-
-        <TextView
-            android:id="@+id/price_tv"
-            style="@style/textRegular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="قیمت پیشنهادی"
-            app:layout_constraintBottom_toTopOf="@id/confirm_button_tl"
-            app:layout_constraintRight_toRightOf="@id/bio_tv"
-            app:layout_constraintTop_toBottomOf="@id/bio_tv" />
-
-        <ImageView
-            android:id="@+id/iv_star"
-            android:layout_width="@dimen/quantity_icon_size"
-            android:layout_height="@dimen/quantity_icon_size"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"
-            android:src="@drawable/ic_star"
-            app:layout_constraintBottom_toBottomOf="@id/pointsOf_tl_tv"
-            app:layout_constraintLeft_toRightOf="@id/ll_iv"
-            app:layout_constraintRight_toLeftOf="@id/pointsOf_tl_tv"
-            app:layout_constraintTop_toTopOf="@id/pointsOf_tl_tv"
-            app:tint="@color/colorIconTint" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/pointsOf_tl_tv"
-            style="@style/textSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_small"
-            android:text="4.3"
-            app:layout_constraintBottom_toBottomOf="@id/tv_tl_name"
-            app:layout_constraintLeft_toRightOf="@id/iv_star"
-            app:layout_constraintRight_toLeftOf="@id/iv_star"
-            app:layout_constraintTop_toTopOf="@id/tv_tl_name" />
+        android:layout_margin="@dimen/margin_medium"
+        app:cardElevation="@dimen/card_elevation_medium">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ll_iv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/view_column2"
-            app:layout_constraintTop_toTopOf="@id/iv_tl">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium">
 
-            <ImageView
-                android:id="@+id/phone_iv"
-                android:layout_width="@dimen/tertiary_icon_size"
-                android:layout_height="@dimen/tertiary_icon_size"
-                android:layout_marginTop="@dimen/margin_very_small"
-                android:layout_marginBottom="@dimen/margin_very_small"
-                android:background="@drawable/circle_solid"
-                android:backgroundTint="#54BDA14B"
-                android:padding="@dimen/icons_padding"
-                android:src="@drawable/ic_telephone"
-                app:layout_constraintLeft_toLeftOf="parent"
+
+            <ir.blackswan.travelapp.Views.ProfileImageView
+                android:id="@+id/iv_tl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_picture"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintHorizontal_weight="2.35"
+                app:layout_constraintLeft_toRightOf="@id/view_column2"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/e_mail_iv"
-                />
+                app:riv_corner_radius="100dp" />
+
+            <View
+                android:id="@+id/view_column2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintHorizontal_weight="5"
+                app:layout_constraintLeft_toRightOf="@id/ll_iv"
+                app:layout_constraintRight_toLeftOf="@id/iv_tl"
+                app:layout_constraintTop_toTopOf="@id/iv_tl" />
+
+            <TextView
+                android:id="@+id/tv_tl_name"
+                style="@style/textTittleMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_very_small"
+                android:maxLines="1"
+                android:text=" راهنمای سفر"
+                app:layout_constraintBottom_toTopOf="@id/bio_tv"
+                app:layout_constraintLeft_toRightOf="@id/pointsOf_tl_tv"
+                app:layout_constraintRight_toRightOf="@id/view_column2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bio_tv"
+                style="@style/textHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:justificationMode="inter_word"
+                android:maxLines="4"
+                android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون  "
+                app:layout_constraintBottom_toTopOf="@id/price_tv"
+                app:layout_constraintLeft_toRightOf="@id/ll_iv"
+                app:layout_constraintRight_toRightOf="@id/tv_tl_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_tl_name" />
+
+            <TextView
+                android:id="@+id/price_tv"
+                style="@style/textRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="قیمت پیشنهادی"
+                app:layout_constraintBottom_toTopOf="@id/confirm_button_tl"
+                app:layout_constraintRight_toRightOf="@id/bio_tv"
+                app:layout_constraintTop_toBottomOf="@id/bio_tv" />
 
             <ImageView
-                android:id="@+id/e_mail_iv"
-                android:layout_width="@dimen/tertiary_icon_size"
-                android:layout_height="@dimen/tertiary_icon_size"
-                android:layout_marginVertical="@dimen/margin_very_small"
-                android:background="@drawable/circle_solid"
-                android:backgroundTint="#54DC2525"
-                android:padding="@dimen/icons_padding"
-                android:src="@drawable/ic_email"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phone_iv"
-                app:layout_constraintBottom_toTopOf="@id/tel_iv"
-                />
+                android:id="@+id/iv_star"
+                android:layout_width="@dimen/quantity_icon_size"
+                android:layout_height="@dimen/quantity_icon_size"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:src="@drawable/ic_star"
+                app:layout_constraintBottom_toBottomOf="@id/pointsOf_tl_tv"
+                app:layout_constraintLeft_toRightOf="@id/ll_iv"
+                app:layout_constraintRight_toLeftOf="@id/pointsOf_tl_tv"
+                app:layout_constraintTop_toTopOf="@id/pointsOf_tl_tv"
+                app:tint="@color/colorIconTint" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/pointsOf_tl_tv"
+                style="@style/textSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_small"
+                android:text="4.3"
+                app:layout_constraintBottom_toBottomOf="@id/tv_tl_name"
+                app:layout_constraintLeft_toRightOf="@id/iv_star"
+                app:layout_constraintRight_toLeftOf="@id/iv_star"
+                app:layout_constraintTop_toTopOf="@id/tv_tl_name" />
 
-            <ImageView
-                android:id="@+id/tel_iv"
-                android:layout_width="@dimen/tertiary_icon_size"
-                android:layout_height="@dimen/tertiary_icon_size"
-                android:layout_marginVertical="@dimen/margin_very_small"
-                android:background="@drawable/circle_solid"
-                android:backgroundTint="#594CB4DD"
-                android:padding="@dimen/icons_padding"
-                android:src="@drawable/ic_telegram"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/e_mail_iv"
-                app:layout_constraintBottom_toTopOf="@id/w_app_iv"
-                />
-
-            <ImageView
-                android:id="@+id/w_app_iv"
-                android:layout_width="@dimen/tertiary_icon_size"
-                android:layout_height="@dimen/tertiary_icon_size"
-                android:layout_marginVertical="@dimen/margin_very_small"
-                android:background="@drawable/circle_solid"
-                android:backgroundTint="#391BAC1E"
-                android:padding="@dimen/icons_padding"
-                android:src="@drawable/ic_whatsapp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tel_iv"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_iv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/view_column2"
+                app:layout_constraintTop_toTopOf="@id/iv_tl">
+
+                <ImageView
+                    android:id="@+id/phone_iv"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_marginTop="@dimen/margin_very_small"
+                    android:layout_marginBottom="@dimen/margin_very_small"
+                    android:background="@drawable/circle_solid"
+                    android:backgroundTint="#54BDA14B"
+                    android:padding="@dimen/icons_padding"
+                    android:src="@drawable/ic_telephone"
+                    app:layout_constraintBottom_toTopOf="@id/e_mail_iv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/e_mail_iv"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_marginVertical="@dimen/margin_very_small"
+                    android:background="@drawable/circle_solid"
+                    android:backgroundTint="#54DC2525"
+                    android:padding="@dimen/icons_padding"
+                    android:src="@drawable/ic_email"
+                    app:layout_constraintBottom_toTopOf="@id/tel_iv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phone_iv" />
+
+
+                <ImageView
+                    android:id="@+id/tel_iv"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_marginVertical="@dimen/margin_very_small"
+                    android:background="@drawable/circle_solid"
+                    android:backgroundTint="#594CB4DD"
+                    android:padding="@dimen/icons_padding"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintBottom_toTopOf="@id/w_app_iv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/e_mail_iv" />
+
+                <ImageView
+                    android:id="@+id/w_app_iv"
+                    android:layout_width="@dimen/tertiary_icon_size"
+                    android:layout_height="@dimen/tertiary_icon_size"
+                    android:layout_marginVertical="@dimen/margin_very_small"
+                    android:background="@drawable/circle_solid"
+                    android:backgroundTint="#391BAC1E"
+                    android:padding="@dimen/icons_padding"
+                    android:src="@drawable/ic_whatsapp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tel_iv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                style="@style/vLine"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintRight_toLeftOf="@id/iv_tl"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirm_button_tl"
+                style="@style/button.primaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:paddingHorizontal="@dimen/padding_small"
+                android:text="تایید"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ll_iv"
+                app:layout_constraintRight_toRightOf="@id/price_tv"
+                app:layout_constraintTop_toBottomOf="@id/price_tv" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <View
-            style="@style/vLine"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintRight_toLeftOf="@id/iv_tl"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/confirm_button_tl"
-            style="@style/button.primaryButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:paddingHorizontal="@dimen/padding_small"
-            android:text="تایید"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/ll_iv"
-            app:layout_constraintRight_toRightOf="@id/price_tv"
-            app:layout_constraintTop_toBottomOf="@id/price_tv" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>

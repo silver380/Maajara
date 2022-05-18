@@ -1,6 +1,9 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,31 +124,45 @@ public class AddPlanFragment extends Fragment {
             binding.tvAddPlanNoWanted.setVisibility(View.VISIBLE);
     }
 
+    private void beginTransaction() {
+        TransitionManager.beginDelayedTransition(binding.mcvAddPlanWanted);
+    }
+    private void refreshHints(){
+        for (int i = 0; i < binding.cvPlanSthContainer.getChildCount(); i++) {
+            View aCase = binding.cvPlanSthContainer.getChildAt(i);
+            TextInputLayout til = aCase.findViewById(R.id.til_case);
+            til.setHint("مورد " + (i+1));
+        }
+    }
     private void setListeners() {
         //wanted list
-        View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
+
         binding.ivAddSth.setOnClickListener(v -> {
-            setNoWantedListVisibility();
+            View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
             binding.cvPlanSthContainer.addView(aCase);
-            TextInputLayout til = aCase.findViewById(R.id.til_case);
+            if (binding.cvPlanSthContainer.getChildCount() == 1)
+                setNoWantedListVisibility();
             TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
             wantedInputEditTexts.add(inputEditText);
+            beginTransaction();
+            ImageView deleteButton = aCase.findViewById(R.id.btn_delete);
+            TextInputLayout til = aCase.findViewById(R.id.til_case);
             til.setHint("مورد " + wantedInputEditTexts.size());
-        });
-
-        ImageView deleteButton = (ImageView) aCase.findViewById(R.id.btn_delete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            deleteButton.setOnClickListener(view ->
+            {
                 binding.cvPlanSthContainer.removeView(aCase);
-            }
+                if (binding.cvPlanSthContainer.getChildCount() == 0)
+                    setNoWantedListVisibility();
+                wantedInputEditTexts.remove(inputEditText);
+                beginTransaction();
+                refreshHints();
+            });
+
         });
 
 
         //places
-        binding.ivPlanAddPlace.setOnClickListener(v -> {
-            selectPlacesDialog.show();
-        });
+        binding.ivPlanAddPlace.setOnClickListener(v -> selectPlacesDialog.show());
 
         //create button
         binding.btnPlanSubmit.setOnClickListener(view -> {
@@ -174,7 +191,7 @@ public class AddPlanFragment extends Fragment {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-                        Toast.makeText(authActivity, "برنامه سفر با موفقیت اضافه شد.",
+                        Toast.makeText(authActivity, "برنامه سفر با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                     }
 

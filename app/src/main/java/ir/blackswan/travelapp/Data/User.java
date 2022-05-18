@@ -53,7 +53,7 @@ public class User implements Serializable {
 
     private boolean is_tour_leader;
     private String picture;
-    private int ticket;
+    private int number_of_tickets;
     private String certificate;
     private double rate;
 
@@ -118,8 +118,8 @@ public class User implements Serializable {
         return certificate;
     }
 
-    public void setTicket(int ticket) {
-        this.ticket = ticket;
+    public void setNumber_of_tickets(int number_of_tickets) {
+        this.number_of_tickets = number_of_tickets;
     }
 
     public void setGender(String gender) {
@@ -170,8 +170,8 @@ public class User implements Serializable {
         return is_tour_leader;
     }
 
-    public int getTicket() {
-        return ticket;
+    public int getNumber_of_tickets() {
+        return number_of_tickets;
     }
 
     public String getFirst_name() {
@@ -246,7 +246,7 @@ public class User implements Serializable {
                 ", whatsapp_id='" + whatsapp_id + '\'' +
                 ", is_tour_leader=" + is_tour_leader +
                 ", picture='" + picture + '\'' +
-                ", ticket=" + ticket +
+                ", ticket=" + number_of_tickets +
                 ", certificate='" + certificate + '\'' +
                 ", rate=" + rate +
                 '}';

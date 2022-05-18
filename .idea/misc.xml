@@ -36,7 +36,7 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.1867704280155642" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.136" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_user_requests.xml" value="0.12447916666666667" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/cases_view.xml" value="0.11041666666666666" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/cases_view.xml" value="0.176" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_on_response.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_place.xml" value="0.2" />
@@ -59,7 +59,7 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/loading_view.xml" value="0.12158054711246201" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/place_view_holder.xml" value="0.152" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/settings_activity.xml" value="0.152" />
-        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.264" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_request_view_holder.xml" value="0.10400000000000001" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.4862119013062409" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/tour_view_holder.xml" value="0.176" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.152" />

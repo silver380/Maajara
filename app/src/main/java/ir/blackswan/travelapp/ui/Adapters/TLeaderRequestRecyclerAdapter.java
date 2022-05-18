@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -9,11 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.ProfileImageView;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 
 public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder> {
@@ -43,7 +52,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getNameAndLastname());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
-        holder.price.setText(tourLeader_req.getSuggested_price() + "");
+        holder.price.setText(tourLeader_req.getSuggested_price());
         if (confirmedTourLeaders != null) {
             if (confirmedTourLeaders.equals(tourLeader_req.getTour_leader())) {
                 acceptTourLeader(holder);
@@ -51,10 +60,25 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
                 holder.accept.setEnabled(false);
             }
 
-            holder.accept.setEnabled(false);
         } else {
             holder.accept.setOnClickListener(view -> {
-
+                TourLeaderRequestController tourLeaderRequestController = new TourLeaderRequestController(activity);
+                tourLeaderRequestController.acceptLeader(tourLeader_req.getTour_leader().getUser_id()
+                        , tourLeader_req.getTravel_plan().getTravel_plan_id(), new OnResponseDialog(activity) {
+                            @Override
+                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                super.onSuccess(call, callback, response);
+                                tourLeaderRequestController.getPendingTLRequestsFromServer(new OnResponseDialog(activity){
+                                    @Override
+                                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                        super.onSuccess(call, callback, response);
+                                        allTourLeaders_req = TourLeaderRequestController.getMap_planRequests().get(
+                                                tourLeader_req.getTravel_plan().getTravel_plan_id() + "");
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                            }
+                        });
             });
         }
     }
@@ -66,6 +90,8 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
 
     private void acceptTourLeader(ViewHolder holder) {
         holder.accept.setText("تایید شده");
+        holder.accept.setRippleColor(ColorStateList.valueOf(activity.getColor(R.color.colorTransparent)));
+        holder.accept.setClickable(false);
         holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
     }
 
@@ -74,7 +100,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         TextView userName_Lastname;
         TextView biography;
         TextView price;
-        Button accept;
+        MaterialButton accept;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

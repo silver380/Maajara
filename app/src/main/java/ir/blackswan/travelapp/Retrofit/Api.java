@@ -24,18 +24,10 @@ import retrofit2.http.Url;
 public interface Api {
 
     //todo >> change the URL
-    @POST("/???/")
-    @FormUrlEncoded
-    Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
-                                       @Field("number_of_tickets") int number_of_tickets);
-
-
-
-    //todo >> change the URL
     @GET("/???/")
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
-    //todo >> change the URL
+
     @POST("/auth/increaseticket/")
     @FormUrlEncoded
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
@@ -48,8 +40,11 @@ public interface Api {
 
     @POST("/travelplan/addplanreq/")
     Call<ResponseBody> addPlanReq(@Header("Authorization") String token, @Body RequestBody planRequest);
+
     @POST("/travelplan/accepttourleader/")
-    Call<ResponseBody> acceptPlanRequest(@Header("Authorization") String token, @Body RequestBody planRequest);
+    @FormUrlEncoded
+    Call<ResponseBody> acceptLeader(@Header("Authorization") String token,   @Field("travel_plan_id") int travel_plan_id,
+                                         @Field("user_id") int user_id);
 
 
     @GET("travelplan/mypendingplans/")

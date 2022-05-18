@@ -42,12 +42,7 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
         View view = authActivity.getLayoutInflater().inflate(R.layout.travel_plan_view_holder , parent , false);
         if (!(recyclerView.getLayoutManager() instanceof GridLayoutManager))
             view.getLayoutParams().width = Utils.getScreenWidth() * 32 / 100;
-        else {
-            int marginH = Utils.dp2px(authActivity , authActivity.getResources().getDimension(R.dimen.margin_medium));
-            int marginV = Utils.dp2px(authActivity , authActivity.getResources().getDimension(R.dimen.margin_small));
 
-            ((ViewGroup.MarginLayoutParams)view.getLayoutParams()).setMargins(marginH , marginV , marginH , marginV);
-        }
 
 
         return new PlanRecyclerAdapter.ViewHolder(view);

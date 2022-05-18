@@ -2,41 +2,40 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_case"
-        style="@style/textInputLayout.outLinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="12"
-        android:hint="مورد اول"
         android:layout_marginTop="@dimen/margin_small"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_case_input"
-            style="@style/editText.oneLine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_case"
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="مورد اول">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_case_input"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_delete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="@dimen/margin_very_small"
-            android:src="@drawable/ic_delete"
+            android:layout_width="@dimen/secondary_icon_size"
+            android:layout_height="@dimen/secondary_icon_size"
             android:layout_gravity="center"
-            android:onClick="Click_Image"
-            />
+            android:layout_marginRight="@dimen/margin_very_small"
+            android:padding="@dimen/icons_padding_large"
+            android:src="@drawable/ic_cross"
+            android:tint="@color/design_default_color_error" />
     </LinearLayout>
 
 </FrameLayout>

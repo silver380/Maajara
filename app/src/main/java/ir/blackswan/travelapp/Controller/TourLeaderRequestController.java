@@ -50,6 +50,14 @@ public class TourLeaderRequestController extends Controller {
     }
 
 
+    public void acceptLeader(int leaderId , int planId , OnResponse onResponse){
+        Log.d(MyCallback.TAG, "acceptLeader: ....");
+        api.acceptLeader(AuthController.getTokenString() , planId , leaderId)
+                .enqueue(new MyCallback(authActivity , onResponse).showLoadingDialog());
+
+    }
+
+
     public static Map<String, PlanRequest[]> getMap_planRequests() {
         return map_planRequests;
     }

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.ArrayList;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -51,7 +53,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
         holder.userName_Lastname.setText(user.getNameAndLastname());
         holder.userImage.setDataByUser(user);
         if(confirmedUsers.contains(user))
-            acceptUser(holder, user);
+            acceptUser(holder);
         else
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -61,7 +63,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                         @Override
                         public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                             super.onSuccess(call, callback, response);
-                            acceptUser(holder, user);
+                            acceptUser(holder);
                             confirmedUsers.add(user);
                         }
                     });
@@ -70,8 +72,10 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
             });
     }
 
-    private void acceptUser(ViewHolder holder , User user){
+    private void acceptUser(ViewHolder holder ){
         holder.accept.setText("تایید شده");
+        holder.accept.setRippleColor(ColorStateList.valueOf(activity.getColor(R.color.colorTransparent)));
+        holder.accept.setClickable(false);
         holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
 
     }
@@ -84,7 +88,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     class ViewHolder extends RecyclerView.ViewHolder{
         ProfileImageView userImage;
         TextView userName_Lastname;
-        Button accept;
+        MaterialButton accept;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userImage = itemView.findViewById(R.id.user_iv);
