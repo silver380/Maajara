@@ -58,7 +58,6 @@ public class HomeFragmentLeader extends Fragment {
     }
 
     public void reload() {
-        mainActivity.getHomeFragment().setRefreshing(true);
         setCreatedToursRecycler();
 
     }

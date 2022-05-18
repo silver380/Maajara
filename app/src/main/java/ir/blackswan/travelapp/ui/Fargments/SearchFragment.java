@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -19,6 +22,7 @@ import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
@@ -33,7 +37,7 @@ import retrofit2.Call;
 public class SearchFragment extends RefreshingFragment {
 
     private final static int TOGGLE_TOUR = 0, TOGGLE_PLACE = 1, TOGGLE_PLAN = 2;
-    private static final int SEARCH_DELAY = 500;
+    public static final int SEARCH_DELAY = 500;
     private static int toggle = -1;
     private FragmentSearchBinding binding;
     private AuthActivity authActivity;
@@ -85,9 +89,10 @@ public class SearchFragment extends RefreshingFragment {
     }
 
     private void restartSearchHandler(){
+        binding.rclSearch.loadingState();
         searchHandler.removeCallbacksAndMessages(null);
         searchHandler.postDelayed(() -> {
-            //todo: request for search
+            refresh(getEditableText(binding.etSearch.getText()));
             Log.d("search", "restartSearchHandler: ");
         }, SEARCH_DELAY);
     }
@@ -127,18 +132,21 @@ public class SearchFragment extends RefreshingFragment {
         });
     }
 
+
     public void refresh() {
-        setRefreshing(true);
-        binding.rclSearch.loadingState();
-        if (toggle == TOGGLE_TOUR)
-            reloadTours();
-        else if (toggle == TOGGLE_PLAN)
-            reloadPlans();
-        else if (toggle == TOGGLE_PLACE)
-            reloadPlaces();
+        refresh(null);
     }
 
-    private void reloadPlans() {
+    public void refresh(@Nullable String search) {
+        if (toggle == TOGGLE_TOUR)
+            reloadTours(search);
+        else if (toggle == TOGGLE_PLAN)
+            reloadPlans(search);
+        else if (toggle == TOGGLE_PLACE)
+            reloadPlaces(search);
+    }
+
+    private void reloadPlans(String search) {
         planController.getAllPlanFromServer(new OnResponseDialog(authActivity){
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -146,10 +154,10 @@ public class SearchFragment extends RefreshingFragment {
                 binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans()));
                 setRefreshing(false);
             }
-        });
+        } , search);
     }
 
-    private void reloadTours() {
+    private void reloadTours(String search) {
 
         tourController.getAllTourFromServer(new OnResponseDialog(authActivity) {
             @Override
@@ -159,10 +167,10 @@ public class SearchFragment extends RefreshingFragment {
                 binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, TourController.getAllTours()));
                 setRefreshing(false);
             }
-        });
+        } , search);
     }
 
-    private void reloadPlaces() {
+    private void reloadPlaces(String search) {
         placeController.getAllPlacesFromServer(new OnResponseDialog(authActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -170,7 +178,7 @@ public class SearchFragment extends RefreshingFragment {
                 binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity, PlaceController.getAllPlaces()));
                 setRefreshing(false);
             }
-        });
+        } , search);
     }
 
 

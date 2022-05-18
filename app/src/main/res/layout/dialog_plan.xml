@@ -242,7 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:maxLength="@integer/max_tour_name_length" />
+                        android:maxLength="@integer/max_price_length" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

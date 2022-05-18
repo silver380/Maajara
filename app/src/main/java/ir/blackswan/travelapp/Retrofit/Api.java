@@ -16,6 +16,8 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -52,14 +54,15 @@ public interface Api {
     Call<ResponseBody> getCreatedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/all/")
-    Call<ResponseBody> getAllPlans(@Header("Authorization") String token);
+    Call<ResponseBody> searchPlans(@Header("Authorization") String token , @Query("search") String search);
+
 
     @POST("/travelplan/addplan/")
     Call<ResponseBody> addPlan(@Header("Authorization") String token,
                                @Body RequestBody plan);
 
     @GET("/place/")
-    Call<ResponseBody> getAllPlace(@Header("Authorization") String token);
+    Call<ResponseBody> searchPlaces(@Header("Authorization") String token, @Query("search") String search);
 
     @POST("/tour/register/")
     @FormUrlEncoded
@@ -92,7 +95,7 @@ public interface Api {
     Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
     @GET("/tour/all/")
-    Call<ResponseBody> getAllTour(@Header("Authorization") String token);
+    Call<ResponseBody> searchTours(@Header("Authorization") String token , @Query("search") String search);
 
     @GET("/tour/createdtours/")
     Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);

@@ -4,6 +4,8 @@ import static ir.blackswan.travelapp.Controller.MyCallback.TAG;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.util.Arrays;
 
 import ir.blackswan.travelapp.Data.Plan;
@@ -51,9 +53,16 @@ public class PlanController extends Controller {
     }
 
 
-    public void getAllPlanFromServer(OnResponse onResponse) {
+    //search == null ? get all
+    public void getAllPlanFromServer(OnResponse onResponse, @Nullable String search) {
         Log.d(MyCallback.TAG, "getAllPlanFromServer: ");
-        api.getAllPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+        Call<ResponseBody> call;
+        if (search == null)
+            search = "";
+
+        call = api.searchPlans(AuthController.getTokenString(), search);
+        Log.d(TAG, "getAllPlanFromServer:...URL:  " + call.request().url());
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d("ResponsePlan", "onSuccess: " + response.getResponseBody());
