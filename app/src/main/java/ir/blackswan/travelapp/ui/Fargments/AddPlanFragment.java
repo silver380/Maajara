@@ -19,6 +19,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -87,6 +89,7 @@ public class AddPlanFragment extends Fragment {
                 return editText.getHint() + " ضروری است";
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
+
             else if (Utils.isDateGreaterOrEqual(
                     startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
@@ -268,6 +271,8 @@ public class AddPlanFragment extends Fragment {
     private void setupDateChooses() {
         startDate = new MaterialPersianDateChooser(mainActivity, binding.etPlanStartDate);
         finalDate = new MaterialPersianDateChooser(mainActivity, binding.etPlanFinalDate);
+        startDate.setMustGreaterThanNow(true);
+        finalDate.setMustGreaterThanNow(true);
     }
 
     private boolean checkInputs() {

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -141,6 +142,8 @@ public class AddTourFragment extends Fragment {
     private void setupDateChooses() {
         startDate = new MaterialPersianDateChooser(mainActivity, binding.etAddTourStartDate);
         finalDate = new MaterialPersianDateChooser(mainActivity, binding.etAddTourFinalDate);
+        startDate.setMustGreaterThanNow(true);
+        finalDate.setMustGreaterThanNow(true);
     }
 
     private void setupGroupButtons() {
@@ -260,11 +263,17 @@ public class AddTourFragment extends Fragment {
     }
 
     private void setChecker() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR , 0);calendar.set(Calendar.MINUTE , 0);calendar.set(Calendar.SECOND , 0);
         TextInputsChecker.Error error = editText -> {
             if (getEditableText(editText.getText()).isEmpty())
                 return editText.getHint() + " ضروری است";
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
+            else if (startDate.getCalendar().getTimestamp() < calendar.getTimeInMillis()
+                    || finalDate.getCalendar().getTimestamp() < calendar.getTimeInMillis() ){
+                return getString(R.string.date_greater_of_now);
+            }
             else if (Utils.isDateGreaterOrEqual(
                     startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
