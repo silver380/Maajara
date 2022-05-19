@@ -58,6 +58,7 @@
                 android:layout_marginTop="@dimen/margin_very_small"
                 android:layout_marginRight="@dimen/margin_very_small"
                 android:maxLines="3"
+                android:layout_marginLeft="@dimen/margin_very_small"
                 android:text="@string/biography"
                 app:layout_constraintRight_toRightOf="@id/tl_name"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -58,7 +58,9 @@ public class TLeaderRequestActivity extends ToolbarActivity {
                 super.onSuccess(call, callback, response);
                 Map<String, PlanRequest[]> planRequestsMap = tourLeaderRequestController.getMap_planRequests();
                 planRequests = planRequestsMap.get(plan.getTravel_plan_id() + "");
-                Log.d(MyCallback.TAG, "onSuccess:planRequestsArray: " + Arrays.toString(planRequests));
+                if (planRequests == null)
+                    planRequests = new PlanRequest[0];
+                Log.d(MyCallback.TAG, "onSuccess:planRequestsArray: " + planRequests.length);
                 setRecycler();
             }
         });

@@ -211,7 +211,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
                 android:text="مشاهده درخواست‌ها" />
 
             <ProgressBar

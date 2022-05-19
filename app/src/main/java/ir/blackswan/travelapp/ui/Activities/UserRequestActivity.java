@@ -59,6 +59,8 @@ public class UserRequestActivity extends ToolbarActivity{
 
                 Map<String, User[]> allPendingUsers_map = passengerRequestsController.getAllPendingUsers();
                 pendingUsers = allPendingUsers_map.get(tour_id + "");
+                if (pendingUsers == null)
+                    pendingUsers = new User[0];
                 Log.d("Response", "onSuccess: " + Arrays.toString(pendingUsers));
                 setConfirmedUsersRecycler();
             }

@@ -35,16 +35,20 @@
                 style="@style/editText.oneLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="3"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_buy_ticket"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="خرید"
             style="@style/button.primaryButton"
+            android:layout_gravity="center"
+            android:paddingVertical="@dimen/btn_large_padding_vertical"
+            android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
             android:layout_marginHorizontal="@dimen/margin_large"
             android:layout_marginBottom="@dimen/margin_medium"
             />

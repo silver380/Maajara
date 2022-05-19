@@ -49,7 +49,7 @@ public class LoadingRecyclerView extends FrameLayout {
         else
             recyclerView = new RecyclerView(getContext());
         recyclerView.setId(R.id.loading_recycler);
-        addView(recyclerView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        addView(recyclerView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         loading = findViewById(R.id.loading_vlr);
         textView = findViewById(R.id.tv_vlr);
         errorText = getContext().getString(DEFAULT_ERROR_TEXT);
@@ -98,7 +98,7 @@ public class LoadingRecyclerView extends FrameLayout {
                     com.google.android.material.R.color.design_default_color_error));
             textView.setText(errorText);
         } else {
-            textView.setTextColor(getResources().getColor(R.color.colorNormalText));
+            textView.setTextColor(getResources().getColor(R.color.colorHint));
             textView.setText(text);
         }
     }

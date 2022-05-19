@@ -29,9 +29,8 @@ public interface Api {
 
 
     @POST("/auth/increaseticket/")
-    @FormUrlEncoded
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
-                                       @Field("value") int number_of_tickets);
+                                       @Body RequestBody requestBody);
 
 
 
@@ -47,7 +46,7 @@ public interface Api {
                                          @Field("user_id") int user_id);
 
 
-    @GET("travelplan/mypendingplans/")
+    @GET("/travelplan/mypendingplans/")
     Call<ResponseBody> getPendingPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/createdplans/")

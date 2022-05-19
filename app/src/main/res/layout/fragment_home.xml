@@ -5,8 +5,7 @@
     android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="@color/colorIconTint"
-    >
+    android:foregroundTint="@color/colorIconTint">
 
 
     <LinearLayout
@@ -62,34 +61,40 @@
                 android:layout_width="@dimen/profile_view_size"
                 android:layout_height="@dimen/profile_view_size" />
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/ll_home_ticket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
-                android:background="@drawable/rec_small_radius_filled"
-                android:backgroundTint="@color/icon_padding_alpha"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardBackgroundColor="@color/ticket_background"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingLeft="0dp"
-                android:paddingRight="@dimen/padding_medium">
+                android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_home_ticket"
-                    style="@style/textTittleMedium"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_very_small"
-                    android:gravity="center"
-                    android:text="15" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="@dimen/padding_medium">
 
-                <ImageView
-                    android:layout_width="@dimen/secondary_icon_size"
-                    android:layout_height="@dimen/secondary_icon_size"
-                    android:padding="@dimen/icons_padding"
-                    android:src="@drawable/ic_ticket" />
 
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_home_ticket"
+                        style="@style/textTittleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_very_small"
+                        android:gravity="center"
+                        android:text="15" />
+
+                    <ImageView
+                        android:layout_width="@dimen/secondary_icon_size"
+                        android:layout_height="@dimen/secondary_icon_size"
+                        android:padding="@dimen/icons_padding"
+                        android:src="@drawable/ic_ticket" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
 
         </FrameLayout>

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
@@ -52,8 +53,8 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         holder.image.setGradient(true);
         holder.duration.setText(daysBetween + "");
         holder.itemView.setOnClickListener(v -> {
-            activity.startActivity(new Intent(activity , TourPageActivity.class)
-            .putExtra(EXTRA_TOUR , tour));
+            activity.startActivityForResult(new Intent(activity , TourPageActivity.class)
+            .putExtra(EXTRA_TOUR , tour), MainActivity.REQUEST_TOUR_PAGE);
         });
 
         //holder.duration.setText();

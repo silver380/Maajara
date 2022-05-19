@@ -267,7 +267,7 @@ public class Utils {
     }
     public static String getPriceString(int price) {
         if (price > 1000000)
-            return priceToString(price / 1000000) + "میلیون تومان";
+            return priceToString(price / 1000000) + " میلیون تومان";
         else if (price > 1000)
             return priceToString(price / 1000) + " هزار تومان";
 

@@ -17,7 +17,7 @@
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
         android:id="@+id/rsc_tLeader_req"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         />
 

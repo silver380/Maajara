@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_marginHorizontal="@dimen/margin_very_small"
     android:layout_marginVertical="@dimen/margin_small"
     android:orientation="vertical"
-    android:layout_gravity="center"
     app:cardCornerRadius="@dimen/radius_medium"
     app:cardElevation="@dimen/card_elevation_small">
 
@@ -19,9 +19,9 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_travel_plan"
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="@dimen/margin_very_small"
+            android:src="@drawable/ic_travel_plan"
             app:tint="@color/colorIconTint" />
 
 
@@ -34,67 +34,69 @@
             <ImageView
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
-                android:src="@drawable/ic_location"
-                app:tint="@color/colorIconTint"
-                android:layout_marginHorizontal="@dimen/margin_very_small"
                 android:layout_gravity="center_vertical"
-                />
+                android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:src="@drawable/ic_location"
+                app:tint="@color/colorIconTint" />
 
             <TextView
                 android:id="@+id/tv_pvh_city"
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:gravity="right"
                 android:text="شهر" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_very_small"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
-                android:src="@drawable/ic_duration"
-                app:tint="@color/colorIconTint"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="@dimen/margin_very_small"
-                />
+                android:src="@drawable/ic_duration"
+                app:tint="@color/colorIconTint" />
 
             <TextView
                 android:id="@+id/tv_pvh_startdate"
                 style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:gravity="right"
                 android:text="تاریخ سفر" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_marginHorizontal="@dimen/margin_small"
+        <LinearLayout
+            android:id="@+id/ll_pvh_requests"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@color/colorDividers"
-            android:layout_marginBottom="@dimen/margin_very_small"
-            />
-
-        <TextView
-            android:id="@+id/tv_pvh_requests"
-            android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-            style="@style/textSmall"
-            android:text="درخواست‌ها"
-            android:layout_marginRight="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_very_small"
-            />
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_very_small"
+                android:background="@color/colorDividers" />
+
+            <TextView
+                android:id="@+id/tv_pvh_requests"
+                style="@style/textSmall"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_very_small"
+                android:text="درخواست‌ها" />
+        </LinearLayout>
 
     </LinearLayout>
 

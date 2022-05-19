@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+
 import java.util.Map;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -28,6 +30,7 @@ import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -70,9 +73,14 @@ public class PlanDialog extends MyDialog {
 
                      @Override
                      public void afterTextChanged(Editable editable) {
-                         String price_helper = Utils.priceToString(
-                                 Integer.parseInt(binding.etPlanSuggestPrice.getText().toString()));
-                         binding.tilPlanSuggestPrice.setHelperText(price_helper);
+                         String price = Utils.getEditableText(binding.etPlanSuggestPrice.getText());
+                         if (price.isEmpty())
+                             binding.tilPlanSuggestPrice.setHelperText("");
+                         else {
+                             String price_helper = Utils.getPriceString(
+                                     Integer.parseInt(price));
+                             binding.tilPlanSuggestPrice.setHelperText(price_helper);
+                         }
                      }
                  }
                 );
@@ -86,8 +94,8 @@ public class PlanDialog extends MyDialog {
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
         binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity , LinearLayoutManager.HORIZONTAL , false));
         //binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces())); //todo: active this
-        binding.llPlanReq.removeAllViews();
 
+        binding.llPlanReq.removeAllViews();
         for (String req : plan.getWanted_list()) {
             ViewGroup viewReq = (ViewGroup) authActivity.getLayoutInflater().inflate(R.layout.view_request, null)
                     .findViewById(R.id.group_req);
@@ -149,6 +157,8 @@ public class PlanDialog extends MyDialog {
                                     Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
                                             Toast.TYPE_SUCCESS).show();
                                     Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
+                                    alreadyRequest = new Gson().fromJson(response.getResponseBody() , PlanRequest.class);
+                                    setDialogMode(MODE_REQUESTED_TOUR_LEADER);
                                 }
                             });
 
@@ -168,9 +178,9 @@ public class PlanDialog extends MyDialog {
         }
 
         PlanDialog.this.binding.btnSeeRequests.setOnClickListener(v -> {
-            authActivity.startActivity(new Intent(
+            authActivity.startActivityForResult(new Intent(
                     authActivity, TLeaderRequestActivity.class)
-                    .putExtra(TRAVEL_PLAN_ID, plan));
+                    .putExtra(TRAVEL_PLAN_ID, plan) , MainActivity.REQUEST_LEADER_REQUESTS);
         });
     }
 
@@ -188,19 +198,19 @@ public class PlanDialog extends MyDialog {
                 binding.tvPlanDialogAlreadyRequested.setVisibility(View.GONE);
                 break;
             case MODE_CONFIRMED_TOUR_LEADER:
-                binding.btnSeeRequests.setVisibility(View.VISIBLE);
+                binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
                 binding.tvPlanDialogAlreadyRequested.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogAlreadyRequested.setText("درخواست شما با قیمت پیشنهادی " + "تایید شده است.");
+                binding.tvPlanDialogAlreadyRequested.setText("درخواست شما با قیمت پیشنهادی " + plan.getAccepted_price() + "تایید شده است.");
                 break;
             case MODE_REQUESTED_TOUR_LEADER:
-                binding.btnSeeRequests.setVisibility(View.VISIBLE);
+                binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
                 binding.tvPlanDialogAlreadyRequested.setVisibility(View.VISIBLE);
                 binding.tvPlanDialogAlreadyRequested.setText("درخواست شما با قیمت پیشنهادی " + alreadyRequest.getSuggested_price() + " در انتظار تایید است.");
                 break;
             case MODE_NOT_REQUESTED_TOUR_LEADER:
-                binding.btnSeeRequests.setVisibility(View.VISIBLE);
+                binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.VISIBLE);
                 binding.tvPlanDialogAlreadyRequested.setVisibility(View.GONE);
                 break;

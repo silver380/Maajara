@@ -26,7 +26,7 @@ public class TourLeaderRequestController extends Controller {
         String json = gsonExpose.toJson(planRequest);
         Log.d(MyCallback.TAG, "addPlanRequest... " + json);
         api.addPlanReq(AuthController.getTokenString() ,RequestBody.create(
-                MediaType.parse("application/json"), json)).enqueue(new MyCallback(authActivity , onResponse));
+                MediaType.parse("application/json"), json)).enqueue(new MyCallback(authActivity , onResponse).showLoadingDialog());
     }
 
     public void getPendingTLRequestsFromServer(OnResponse onResponse){

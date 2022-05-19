@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Arrays;
@@ -113,6 +114,14 @@ public class TourPageActivity extends ToolbarActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_USERS_ACTIVITY)
+            if (resultCode == RESULT_OK){
+                setResult(RESULT_OK);
+            }
+    }
 
     private void setPendingUsers() {
 

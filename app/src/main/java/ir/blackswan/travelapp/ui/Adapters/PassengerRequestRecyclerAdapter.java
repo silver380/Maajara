@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                             super.onSuccess(call, callback, response);
                             acceptUser(holder);
                             confirmedUsers.add(user);
+                            activity.setResult(Activity.RESULT_OK);
                         }
                     });
 

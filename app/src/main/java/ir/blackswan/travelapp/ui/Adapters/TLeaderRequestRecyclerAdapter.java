@@ -1,10 +1,10 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,8 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.PlaceController;
+import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
@@ -30,6 +34,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
     PlanRequest[] allTourLeaders_req;
     User confirmedTourLeaders;
     AuthActivity activity;
+    RecyclerView recyclerView;
 
 
     public TLeaderRequestRecyclerAdapter(PlanRequest[] allTourLeaders_req, User confirmed_tLeaders, AuthActivity activity) {
@@ -47,6 +52,12 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
     }
 
     @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlanRequest tourLeader_req = allTourLeaders_req[position];
         holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
@@ -54,6 +65,8 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
         holder.price.setText(tourLeader_req.getSuggested_price());
         if (confirmedTourLeaders != null) {
+            Log.d("TLeaderRecycler", "onBindViewHolder: " + confirmedTourLeaders.getUser_id() + " " +
+                    tourLeader_req.getTour_leader().getUser_id());
             if (confirmedTourLeaders.equals(tourLeader_req.getTour_leader())) {
                 acceptTourLeader(holder);
             } else {
@@ -68,15 +81,10 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
                             @Override
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
-                                tourLeaderRequestController.getPendingTLRequestsFromServer(new OnResponseDialog(activity){
-                                    @Override
-                                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                        super.onSuccess(call, callback, response);
-                                        allTourLeaders_req = TourLeaderRequestController.getMap_planRequests().get(
-                                                tourLeader_req.getTravel_plan().getTravel_plan_id() + "");
-                                        notifyDataSetChanged();
-                                    }
-                                });
+                                Log.d(MyCallback.TAG, "acceptLeader onSuccess: " + response);
+                                confirmedTourLeaders = tourLeader_req.getTour_leader();
+                                recyclerView.setAdapter(TLeaderRequestRecyclerAdapter.this);
+                                activity.setResult(Activity.RESULT_OK);
                             }
                         });
             });

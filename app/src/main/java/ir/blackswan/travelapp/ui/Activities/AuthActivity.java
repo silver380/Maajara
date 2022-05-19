@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.ui.Activities;
 
+import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -51,5 +53,10 @@ public abstract class AuthActivity extends AppCompatActivity {
 
     public boolean isAuthing() {
         return AuthController.isLoadingUser() || getAuthDialog().isShowing();
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
     }
 }

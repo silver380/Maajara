@@ -122,9 +122,14 @@ public class AddTourFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String price_helper = Utils.priceToString(
-                        Integer.parseInt(binding.etAddTourPrice.getText().toString()));
-                binding.tilAddTourPrice.setHelperText(price_helper);
+                String price = Utils.getEditableText(binding.etAddTourPrice.getText());
+                if (price.isEmpty())
+                    binding.tilAddTourPrice.setHelperText("");
+                else {
+                    String price_helper = Utils.getPriceString(
+                            Integer.parseInt(price));
+                    binding.tilAddTourPrice.setHelperText(price_helper);
+                }
             }
         });
 

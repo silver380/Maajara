@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.ui.Fargments;
 
 import static ir.blackswan.travelapp.Utils.SharedPrefManager.IS_TOUR_LEADER;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -115,7 +116,9 @@ public class HomeFragment extends RefreshingFragment {
         updateTicketView();
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateTicketView(){
+        Log.d("Ticket", "updateTicketView: " + AuthController.getUser().getNumber_of_tickets());
         binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
     }
 
@@ -127,7 +130,7 @@ public class HomeFragment extends RefreshingFragment {
             if (user.is_tour_leader()) {
                 updateTicketView();
                 binding.toggleHome.setVisibility(View.VISIBLE);
-                binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity , null).show());
+                binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity, this::updateTicketView).show());
             } else {
                 ((ViewGroup)binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
                 tourLeader = false;
