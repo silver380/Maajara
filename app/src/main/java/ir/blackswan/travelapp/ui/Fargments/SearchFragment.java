@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
@@ -22,12 +21,11 @@ import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import kotlin.Unit;
 import okhttp3.ResponseBody;
@@ -45,6 +43,7 @@ public class SearchFragment extends RefreshingFragment {
     private PlaceController placeController;
     private PlanController planController;
     private final Handler searchHandler = new Handler();
+    private static String lastSearch = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +62,10 @@ public class SearchFragment extends RefreshingFragment {
         placeController = new PlaceController(authActivity);
 
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        binding.etSearch.setText(lastSearch);
         refresh();
 
+        Log.d("Response", "SearchFragment onCreateView ");
 
         return root;
     }
@@ -88,22 +89,18 @@ public class SearchFragment extends RefreshingFragment {
         });
     }
 
-    private void restartSearchHandler(){
+    private void restartSearchHandler() {
         binding.rclSearch.loadingState();
         searchHandler.removeCallbacksAndMessages(null);
         searchHandler.postDelayed(() -> {
-            refresh(getEditableText(binding.etSearch.getText()));
-            Log.d("search", "restartSearchHandler: ");
+            lastSearch = getEditableText(binding.etSearch.getText());
+            refresh(lastSearch);
+            Log.d("search", "restartSearchHandler: " + lastSearch);
         }, SEARCH_DELAY);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
-    private void setToggle(){
+    private void setToggle() {
         if (HomeFragment.isTourLeader()) {
             binding.btnSearchTour.setVisibility(View.GONE);
             binding.btnSearchPlan.setVisibility(View.VISIBLE);
@@ -132,9 +129,16 @@ public class SearchFragment extends RefreshingFragment {
         });
     }
 
+    @Override
+    public void onDestroyView() {
+        if (binding != null)
+            lastSearch = getEditableText(binding.etSearch.getText());
+
+        super.onDestroyView();
+    }
 
     public void refresh() {
-        refresh(null);
+        refresh(lastSearch);
     }
 
     public void refresh(@Nullable String search) {
@@ -147,14 +151,14 @@ public class SearchFragment extends RefreshingFragment {
     }
 
     private void reloadPlans(String search) {
-        planController.getAllPlanFromServer(new OnResponseDialog(authActivity){
+        planController.getAllPlanFromServer(new OnResponseDialog(authActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity , PlanController.getAllPlans()));
+                binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity, PlanController.getAllPlans()));
                 setRefreshing(false);
             }
-        } , search);
+        }, search);
     }
 
     private void reloadTours(String search) {
@@ -167,7 +171,7 @@ public class SearchFragment extends RefreshingFragment {
                 binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, TourController.getAllTours()));
                 setRefreshing(false);
             }
-        } , search);
+        }, search);
     }
 
     private void reloadPlaces(String search) {
@@ -178,7 +182,7 @@ public class SearchFragment extends RefreshingFragment {
                 binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity, PlaceController.getAllPlaces()));
                 setRefreshing(false);
             }
-        } , search);
+        }, search);
     }
 
 

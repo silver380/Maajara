@@ -35,6 +35,16 @@ public class GroupButtons {
         }
     }
 
+    public void load(boolean[] selected){
+        this.selected = selected;
+        for (int i = 0; i < selected.length; i++) {
+            if (selected[i])
+                setButtonSelected(i);
+            else
+                setButtonUnselected(i);
+        }
+    }
+
     private void setButtonSelected(int index) {
         Utils.setMaterialButtonStyle(buttons[index], Utils.BUTTON_STYLE_CONTAINED);
         selected[index] = true;
@@ -55,6 +65,7 @@ public class GroupButtons {
     public void setOnSelectListener(GroupButtons.onSelectListener onSelectListener) {
         this.onSelectListener = onSelectListener;
     }
+
 
     public MaterialButton[] getButtons() {
         return buttons;

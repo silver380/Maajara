@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Place implements Serializable {
     private int place_id;
@@ -37,5 +38,26 @@ public class Place implements Serializable {
 
     public Tag getTag() {
         return tag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return place_id == place.place_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "place_id=" + place_id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(place_id);
     }
 }

@@ -32,8 +32,10 @@ public class IntroActivity extends AuthActivity {
             int delay = 0;
             if (dif < START_DELAY)
                 delay = START_DELAY;
-            new Handler().postDelayed((Runnable) () ->
-                            startActivity(new Intent(this, MainActivity.class)),
+            new Handler().postDelayed((Runnable) () -> {
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                    },
                     delay);
         });
 

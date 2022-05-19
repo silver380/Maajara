@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 
@@ -137,5 +138,18 @@ public class Plan implements Serializable {
                 ", confirmed_tour_leader=" + confirmed_tour_leader +
                 ", accepted_price='" + accepted_price + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plan plan = (Plan) o;
+        return travel_plan_id == plan.travel_plan_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(travel_plan_id);
     }
 }

@@ -29,13 +29,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_delete"
-            android:layout_width="@dimen/secondary_icon_size"
-            android:layout_height="@dimen/secondary_icon_size"
+            android:layout_width="@dimen/quantity_icon_size"
+            android:layout_height="@dimen/quantity_icon_size"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/margin_very_small"
-            android:padding="@dimen/icons_padding_large"
+            android:padding="5dp"
+            android:background="@drawable/circle_solid"
+            android:backgroundTint="#939393"
             android:src="@drawable/ic_cross"
-            android:tint="@color/design_default_color_error" />
+            android:tint="@color/colorWhite" />
     </LinearLayout>
 
 </FrameLayout>

@@ -56,6 +56,7 @@ public class HomeFragment extends RefreshingFragment {
         homeFragmentPassenger = new HomeFragmentPassenger(mainActivity);
         homeFragmentLeader = new HomeFragmentLeader(mainActivity);
 
+        Log.d("Response", "HomeFragment onCreateView ");
 
         setListeners();
 

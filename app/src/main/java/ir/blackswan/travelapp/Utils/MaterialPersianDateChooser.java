@@ -1,10 +1,15 @@
 package ir.blackswan.travelapp.Utils;
 
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+
 import android.app.Activity;
 
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.text.ParseException;
+import java.util.Calendar;
 
 import ir.blackswan.travelapp.R;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -53,6 +58,15 @@ public class MaterialPersianDateChooser {
         });
     }
 
+    public void load(String date){
+        if (date == null)
+            return;
+        try {
+            calendar = new MyPersianCalender(Utils.convertStringToDate(date).getTime());
+            materialEditText.setText(calendar.getPersianLongDate());
+        } catch (ParseException ignored) { }
+    }
+
     public PersianDatePickerDialog getDialog() {
         return dialog;
     }
@@ -73,6 +87,8 @@ public class MaterialPersianDateChooser {
 
 
     public String getGregorianY_M_D() {
+        if(calendar == null)
+            return null;
         return calendar.getGregorianYear() + "-" +
                 calendar.getGregorianMonth() + "-" + calendar.getGregorianDay();
     }

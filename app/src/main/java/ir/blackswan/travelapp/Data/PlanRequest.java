@@ -54,6 +54,11 @@ public class PlanRequest implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(tour_leader.getUser_id(), travel_plan_id);
+    }
+
+    @Override
     public String toString() {
         return "PlanRequest{" +
                 "travel_plan_id=" + travel_plan_id +

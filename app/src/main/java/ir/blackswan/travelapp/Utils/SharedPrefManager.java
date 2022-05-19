@@ -3,13 +3,17 @@ package ir.blackswan.travelapp.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 public class SharedPrefManager {
-    private static final String SHARED_PREF_NAME = "TravelAppSharedPref";
+    private static String SHARED_PREF_NAME;
     public static final String USER_TOKEN = "userToken";
 
     public static final String IS_TOUR_LEADER = "isTourLeader";
 
 
     private final Context mCtx;
+
+    public static void changeSharedName(String token) {
+        SHARED_PREF_NAME = "TravelAppSharedPref " + token;
+    }
 
     public SharedPrefManager(Context context) {
         mCtx = context;

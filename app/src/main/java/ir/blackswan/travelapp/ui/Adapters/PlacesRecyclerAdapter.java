@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -18,23 +19,36 @@ import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
 
 public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder> {
     Place[] places;
-    HashSet<Place> selectedPlaces = new HashSet<>();
+    HashSet<Place> selectedPlaces;
     Activity activity;
     boolean forSelect;
 
     public PlacesRecyclerAdapter(Activity activity, Place[] places) {
-        this(activity, places, false);
+        this(activity, places, false, null);
     }
 
-    public PlacesRecyclerAdapter(Activity activity, Place[] places, boolean forSelect) {
+    public void setPlaces(Place[] places) {
+        this.places = places;
+        notifyDataSetChanged();
+    }
+
+    public PlacesRecyclerAdapter(Activity activity, Place[] places, boolean forSelect, HashSet<Place> selectedPlaces) {
         this.activity = activity;
         this.places = places;
         this.forSelect = forSelect;
+        if (forSelect) {
+            this.selectedPlaces = selectedPlaces == null ? new HashSet<>() : selectedPlaces;
+        }
     }
 
-    public Place[] getSelectedPlaces() {
+
+    public HashSet<Place> getSelectedPlacesHashset() {
+        return selectedPlaces;
+    }
+
+    public Place[] getSelectedPlacesArray() {
         return selectedPlaces.toArray(
-                new Place[selectedPlaces.size()]);
+                new Place[0]);
     }
 
     @NonNull
@@ -63,16 +77,19 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         holder.placeImage.setGradient(true);
         holder.placeImage.setScale(.5f);
         holder.placeName.setText(place.getName());
-        holder.selectView.setVisibility(selectedPlaces.contains(place) ?
-                View.VISIBLE : View.GONE);
+        if (forSelect) {
+            boolean b = selectedPlaces.contains(place);
+            holder.selectView.setVisibility(b ? View.VISIBLE : View.GONE);
+            Log.d("SearchSelectedPlaces", "onBindViewHolder: " + selectedPlaces + " " + place);
+        }
 
 
         holder.itemView.setOnClickListener(v -> {
             if (forSelect) {
-                if (selectedPlaces.contains(place)){
+                if (selectedPlaces.contains(place)) {
                     selectedPlaces.remove(place);
                     holder.selectView.setVisibility(View.GONE);
-                }else {
+                } else {
                     selectedPlaces.add(place);
                     holder.selectView.setVisibility(View.VISIBLE);
                 }

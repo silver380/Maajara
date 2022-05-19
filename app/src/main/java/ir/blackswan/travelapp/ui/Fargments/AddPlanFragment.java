@@ -1,8 +1,9 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+import static ir.blackswan.travelapp.ui.Fargments.FragmentDataHandler.KEY_ADD_PLAN_FRAGMENT;
+
 import android.os.Bundle;
-import android.transition.Scene;
-import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.SelectPlacesDialog;
@@ -41,7 +43,7 @@ public class AddPlanFragment extends Fragment {
     private FragmentAddPlanBinding binding;
     MaterialPersianDateChooser startDate, finalDate;
     private PlanController planController;
-    private AuthActivity authActivity;
+    private MainActivity mainActivity;
     ArrayList<TextInputEditText> wantedInputEditTexts = new ArrayList<>();
     SelectPlacesDialog selectPlacesDialog;
     TextInputsChecker checker = new TextInputsChecker();
@@ -52,29 +54,32 @@ public class AddPlanFragment extends Fragment {
         binding = FragmentAddPlanBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         super.onCreate(savedInstanceState);
-        authActivity = ((AuthActivity) getActivity());
+        mainActivity = ((MainActivity) getActivity());
 
-        binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL,
+        binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL,
                 false));
         binding.rclPlanPlaces.setText("مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید.");
         binding.rclPlanPlaces.setErrorText(binding.rclPlanPlaces.getText());
         binding.rclPlanPlaces.textState();
 
-        selectPlacesDialog = new SelectPlacesDialog(authActivity, v -> {
-            Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
-            binding.rclPlanPlaces.setAdapter(
-                    new PlacesRecyclerAdapter(authActivity, selectedPlaces)
-            );
-        });
 
-        planController = new PlanController(authActivity);
+        planController = new PlanController(mainActivity);
         setChecker();
         setupDateChooses();
         setListeners();
+        selectPlacesDialog = new SelectPlacesDialog(mainActivity, v -> setPlacesRecyclerAdapter());
         setNoWantedListVisibility();
 
         return root;
     }
+
+    private void setPlacesRecyclerAdapter() {
+        Place[] selectedPlaces = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray();
+        binding.rclPlanPlaces.setAdapter(
+                new PlacesRecyclerAdapter(mainActivity, selectedPlaces)
+        );
+    }
+
 
     private void setChecker() {
         TextInputsChecker.Error error = editText -> {
@@ -112,9 +117,50 @@ public class AddPlanFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        load();
+    }
+
+    public void save() {
+        if (binding == null)
+            return;
+        Log.d("saveFragments", "save: ");
+        FragmentDataHandler.save(mainActivity, KEY_ADD_PLAN_FRAGMENT, new FragmentsData(
+                getEditableText(binding.etPlanDestination.getText()),
+                startDate.getGregorianY_M_D(),
+                finalDate.getGregorianY_M_D(), selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray(),
+                getWantedList(true).toArray(new String[0])
+        ));
+    }
+
+    private void load() {
+        FragmentsData fragmentsData = FragmentDataHandler.load(mainActivity, KEY_ADD_PLAN_FRAGMENT);
+        Log.d("saveFragments", "load: ");
+        if (fragmentsData == null)
+            return;
+        binding.etPlanDestination.setText(fragmentsData.destination);
+        startDate.load(fragmentsData.startDate);
+        finalDate.load(fragmentsData.finalDate);
+        selectPlacesDialog.load(fragmentsData.selectedPlace);
+        if (fragmentsData.wantedList != null)
+            for (String s : fragmentsData.wantedList)
+                addCase(s);
+
+        setPlacesRecyclerAdapter();
+
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        save();
     }
 
     private void setNoWantedListVisibility() {
@@ -127,37 +173,43 @@ public class AddPlanFragment extends Fragment {
     private void beginTransaction() {
         TransitionManager.beginDelayedTransition(binding.mcvAddPlanWanted);
     }
-    private void refreshHints(){
+
+    private void refreshHints() {
         for (int i = 0; i < binding.cvPlanSthContainer.getChildCount(); i++) {
             View aCase = binding.cvPlanSthContainer.getChildAt(i);
             TextInputLayout til = aCase.findViewById(R.id.til_case);
-            til.setHint("مورد " + (i+1));
+            til.setHint("مورد " + (i + 1));
         }
     }
+
+    private void addCase(String text) {
+        View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
+        binding.cvPlanSthContainer.addView(aCase);
+        if (binding.cvPlanSthContainer.getChildCount() == 1)
+            setNoWantedListVisibility();
+        TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
+        inputEditText.setText(text);
+        wantedInputEditTexts.add(inputEditText);
+        beginTransaction();
+        ImageView deleteButton = aCase.findViewById(R.id.btn_delete);
+        TextInputLayout til = aCase.findViewById(R.id.til_case);
+        til.setHint("مورد " + wantedInputEditTexts.size());
+        deleteButton.setOnClickListener(view ->
+        {
+            binding.cvPlanSthContainer.removeView(aCase);
+            if (binding.cvPlanSthContainer.getChildCount() == 0)
+                setNoWantedListVisibility();
+            wantedInputEditTexts.remove(inputEditText);
+            beginTransaction();
+            refreshHints();
+        });
+    }
+
     private void setListeners() {
         //wanted list
 
         binding.ivAddSth.setOnClickListener(v -> {
-            View aCase = getLayoutInflater().inflate(R.layout.cases_view, null);
-            binding.cvPlanSthContainer.addView(aCase);
-            if (binding.cvPlanSthContainer.getChildCount() == 1)
-                setNoWantedListVisibility();
-            TextInputEditText inputEditText = aCase.findViewById(R.id.et_case_input);
-            wantedInputEditTexts.add(inputEditText);
-            beginTransaction();
-            ImageView deleteButton = aCase.findViewById(R.id.btn_delete);
-            TextInputLayout til = aCase.findViewById(R.id.til_case);
-            til.setHint("مورد " + wantedInputEditTexts.size());
-            deleteButton.setOnClickListener(view ->
-            {
-                binding.cvPlanSthContainer.removeView(aCase);
-                if (binding.cvPlanSthContainer.getChildCount() == 0)
-                    setNoWantedListVisibility();
-                wantedInputEditTexts.remove(inputEditText);
-                beginTransaction();
-                refreshHints();
-            });
-
+            addCase("");
         });
 
 
@@ -174,38 +226,48 @@ public class AddPlanFragment extends Fragment {
 
                 String fDate = finalDate.getGregorianY_M_D();
 
-                ArrayList<String> requestedThings = new ArrayList<>();
-                for (TextInputEditText t :
-                        wantedInputEditTexts) {
-                    String s = Utils.getEditableText(t.getText());
-                    if (!s.isEmpty())
-                        requestedThings.add(s);
-                }
 
-                Place[] places = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlaces();
+                Place[] places = selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray();
 
-                Plan plan = new Plan(Destination, sDate, fDate, requestedThings, places);
+                Plan plan = new Plan(Destination, sDate, fDate, getWantedList(false), places);
 
-                planController.addPlanToServer(plan, new OnResponseDialog(authActivity) {
+                planController.addPlanToServer(plan, new OnResponseDialog(mainActivity) {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-                        Toast.makeText(authActivity, "برنامه سفر با موفقیت اضافه شد",
+                        Toast.makeText(mainActivity, "برنامه سفر با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
+
+                        mainActivity.navigateToHome();
+                        binding = null;
+                        FragmentDataHandler.clear(mainActivity, KEY_ADD_PLAN_FRAGMENT);
                     }
 
                 });
 
             } else
-                Toast.makeText(authActivity, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+                Toast.makeText(mainActivity, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
 
         });
     }
 
+    private ArrayList<String> getWantedList(boolean addEmpty) {
+        ArrayList<String> requestedThings = new ArrayList<>();
+        for (TextInputEditText t :
+                wantedInputEditTexts) {
+            String s = Utils.getEditableText(t.getText());
+            if (!s.isEmpty())
+                requestedThings.add(s);
+            else if (addEmpty)
+                requestedThings.add(s);
+        }
+        return requestedThings;
+    }
+
     private void setupDateChooses() {
-        startDate = new MaterialPersianDateChooser(authActivity, binding.etPlanStartDate);
-        finalDate = new MaterialPersianDateChooser(authActivity, binding.etPlanFinalDate);
+        startDate = new MaterialPersianDateChooser(mainActivity, binding.etPlanStartDate);
+        finalDate = new MaterialPersianDateChooser(mainActivity, binding.etPlanFinalDate);
     }
 
     private boolean checkInputs() {

@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,13 @@ import ir.blackswan.travelapp.databinding.FragmentAddBinding;
 
 public class AddFragment extends Fragment {
 
-    private FragmentAddBinding binding;
     private AddPlanFragment addPlanFragment;
     private AddTourFragment addTourFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentAddBinding.inflate(inflater, container, false);
+        FragmentAddBinding binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         addPlanFragment = new AddPlanFragment();
         addTourFragment = new AddTourFragment();
@@ -36,16 +36,12 @@ public class AddFragment extends Fragment {
         FragmentTransaction ft = getParentFragmentManager().beginTransaction();
 
         if (HomeFragment.isTourLeader())
-            ft.replace(R.id.nav_host, addTourFragment);
+            ft.replace(R.id.fragment_container_add, addTourFragment);
         else
-            ft.replace(R.id.nav_host, addPlanFragment);
+            ft.replace(R.id.fragment_container_add, addPlanFragment);
 
         ft.commit();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 }

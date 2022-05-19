@@ -75,6 +75,7 @@ public class AuthController extends Controller {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "login success " + email);
                 setToken(authActivity , getTokenFromResponseBody(response.getResponseBody()));
+                SharedPrefManager.changeSharedName(token);
                 completeUserInfo(onResponse);
             }
 
