@@ -26,6 +26,7 @@ import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogPlanBinding;
@@ -44,6 +45,7 @@ public class PlanDialog extends MyDialog {
     @Nullable
     PlanRequest alreadyRequest;
     AuthActivity authActivity;
+    TextInputsChecker checker;
 
 
     public PlanDialog(AuthActivity authActivity, Plan plan) {
@@ -52,13 +54,18 @@ public class PlanDialog extends MyDialog {
         setTransparent();
         this.plan = plan;
         this.authActivity = authActivity;
-
+        setChecker();
         setData();
         setPrice();
         setSendRequestButton();
     }
 
-    private void setPrice(){
+    private void setChecker() {
+        checker = new TextInputsChecker();
+        checker.add(binding.etPlanSuggestPrice);
+    }
+
+    private void setPrice() {
         binding.etPlanSuggestPrice.addTextChangedListener
                 (new TextWatcher() {
                      @Override
@@ -92,7 +99,7 @@ public class PlanDialog extends MyDialog {
         binding.tvPlanCity.setText(plan.getDestination());
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
-        binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity , LinearLayoutManager.HORIZONTAL , false));
+        binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
         //binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces())); //todo: active this
 
         binding.llPlanReq.removeAllViews();
@@ -147,21 +154,23 @@ public class PlanDialog extends MyDialog {
                         setDialogMode(MODE_NOT_REQUESTED_TOUR_LEADER);
 
                         PlanDialog.this.binding.btnSendPlanRequest.setOnClickListener(v -> {
-                            PlanRequest planRequest = new PlanRequest(plan.getTravel_plan_id(),
-                                    Integer.parseInt(PlanDialog.this.binding.etPlanSuggestPrice.getText().toString()));
+                            if (!checker.checkAllError()) {
+                                PlanRequest planRequest = new PlanRequest(plan.getTravel_plan_id(),
+                                        Integer.parseInt(PlanDialog.this.binding.etPlanSuggestPrice.getText().toString()));
 
-                            requestController.addPlanRequest(planRequest, new OnResponseDialog(authActivity) {
-                                @Override
-                                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                    super.onSuccess(call, callback, response);
-                                    Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
-                                            Toast.TYPE_SUCCESS).show();
-                                    Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
-                                    alreadyRequest = new Gson().fromJson(response.getResponseBody() , PlanRequest.class);
-                                    setDialogMode(MODE_REQUESTED_TOUR_LEADER);
-                                }
-                            });
+                                requestController.addPlanRequest(planRequest, new OnResponseDialog(authActivity) {
+                                    @Override
+                                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                        super.onSuccess(call, callback, response);
+                                        Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
+                                                Toast.TYPE_SUCCESS).show();
+                                        Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
+                                        alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);
+                                        setDialogMode(MODE_REQUESTED_TOUR_LEADER);
+                                    }
+                                });
 
+                            }
                         });
 
 
@@ -180,7 +189,7 @@ public class PlanDialog extends MyDialog {
         PlanDialog.this.binding.btnSeeRequests.setOnClickListener(v -> {
             authActivity.startActivityForResult(new Intent(
                     authActivity, TLeaderRequestActivity.class)
-                    .putExtra(TRAVEL_PLAN_ID, plan) , MainActivity.REQUEST_LEADER_REQUESTS);
+                    .putExtra(TRAVEL_PLAN_ID, plan), MainActivity.REQUEST_LEADER_REQUESTS);
         });
     }
 

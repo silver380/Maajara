@@ -224,7 +224,7 @@
                 android:id="@+id/ll_plan_send_request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/btn_see_requests">
 
@@ -234,6 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="قیمت پیشنهادی"
+                    app:errorEnabled="true"
                     app:startIconDrawable="@drawable/ic_price"
                     app:helperTextTextAppearance="@style/textHint"
                     >
@@ -267,6 +268,7 @@
                 style="@style/textRegular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="درخواست شما ثبت شده است" />
 
         </LinearLayout>

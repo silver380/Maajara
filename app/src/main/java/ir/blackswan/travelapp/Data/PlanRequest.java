@@ -6,6 +6,7 @@ import static ir.blackswan.travelapp.Utils.Utils.priceToString;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PlanRequest implements Serializable {
     private int id;
@@ -19,6 +20,11 @@ public class PlanRequest implements Serializable {
     public PlanRequest(int travel_plan_id, int suggested_price) {
         this.travel_plan_id = travel_plan_id;
         this.suggested_price = suggested_price;
+    }
+
+    public PlanRequest(User tour_leader, Plan travel_plan) {
+        this.tour_leader = tour_leader;
+        this.travel_plan = travel_plan;
     }
 
     public User getTour_leader() {
@@ -40,12 +46,17 @@ public class PlanRequest implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlanRequest that = (PlanRequest) o;
+        return travel_plan_id == that.travel_plan_id && tour_leader.equals(that.tour_leader);
+    }
+
+    @Override
     public String toString() {
         return "PlanRequest{" +
-                "id='" + id + '\'' +
-                ", tour_leader=" + tour_leader +
-                ", plan=" + travel_plan +
-                ", travel_plan_id=" + travel_plan_id +
+                "travel_plan_id=" + travel_plan_id +
                 ", suggested_price=" + suggested_price +
                 '}';
     }

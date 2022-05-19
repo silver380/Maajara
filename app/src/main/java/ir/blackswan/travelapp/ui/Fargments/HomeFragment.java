@@ -118,7 +118,6 @@ public class HomeFragment extends RefreshingFragment {
 
     @SuppressLint("SetTextI18n")
     private void updateTicketView(){
-        Log.d("Ticket", "updateTicketView: " + AuthController.getUser().getNumber_of_tickets());
         binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
     }
 

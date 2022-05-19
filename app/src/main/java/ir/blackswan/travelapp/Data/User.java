@@ -228,6 +228,12 @@ public class User implements Serializable {
         return first_name + " " + last_name;
     }
 
+    public String getFullNameWithPrefix(){
+        if (gender == null)
+            return getNameAndLastname();
+        return gender.equals("Male") ? "آقای " + getNameAndLastname() : "خانم " + getNameAndLastname();
+    }
+
     @Override
     public String toString() {
         return "User{" +

@@ -29,9 +29,9 @@ public class Plan implements Serializable {
     private Place[] places;
     private int travel_plan_id;
     private User confirmed_tour_leader;
-    private String accepted_price;
+    private int accepted_price;
 
-    public String getAccepted_price() {
+    public int getAccepted_price() {
         return accepted_price;
     }
 

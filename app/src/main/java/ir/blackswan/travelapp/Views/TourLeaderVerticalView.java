@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,28 +35,13 @@ public class TourLeaderVerticalView extends MaterialCardView {
     }
 
     public TourLeaderVerticalView setData(User user) {
-        name.setText(user.getNameAndLastname());
+        name.setText(user.getFullNameWithPrefix());
         bio.setText(user.getBiography());
         rate.setText(user.getRate() + "");
         image.setDataByUser(user);
 
-        String telegramID = user.getTelegram_id();
-        String whatsappNum = user.getWhatsapp_id();
-        String phoneNum = user.getPhone_number();
-        if (telegramID != null)
-            telegram.setOnClickListener(v -> Utils.openTelegram(getContext(), user.getTelegram_id()));
-        else
-            telegram.setVisibility(INVISIBLE);
-        if (whatsappNum != null)
-            whatsapp.setOnClickListener(v -> Utils.openWhatsapp(getContext(), user.getWhatsapp_id()));
-        else
-            whatsapp.setVisibility(INVISIBLE);
-        if (phoneNum != null)
-            phone.setOnClickListener(v -> Utils.openPhone(getContext(), user.getPhone_number()));
-        else
-            phone.setVisibility(GONE);
+        setContactWays(user , telegram , whatsapp , phone , mail);
 
-        mail.setOnClickListener(v -> Utils.openGmail(getContext(), user.getEmail()));
 
         return this;
     }
@@ -75,5 +61,26 @@ public class TourLeaderVerticalView extends MaterialCardView {
 
     public ProfileImageView getProfileImageView() {
         return image;
+    }
+
+    public static void setContactWays(User user , View telegram , View whatsapp , View phone , View mail ){
+        Context context = telegram.getContext();
+        String telegramID = user.getTelegram_id();
+        String whatsappNum = user.getWhatsapp_id();
+        String phoneNum = user.getPhone_number();
+        if (telegramID != null)
+            telegram.setOnClickListener(v -> Utils.openTelegram(context, user.getTelegram_id()));
+        else
+            telegram.setVisibility(GONE);
+        if (whatsappNum != null)
+            whatsapp.setOnClickListener(v -> Utils.openWhatsapp(context, user.getWhatsapp_id()));
+        else
+            whatsapp.setVisibility(GONE);
+        if (phoneNum != null)
+            phone.setOnClickListener(v -> Utils.openPhone(context, user.getPhone_number()));
+        else
+            phone.setVisibility(GONE);
+
+        mail.setOnClickListener(v -> Utils.openGmail(context, user.getEmail()));
     }
 }
