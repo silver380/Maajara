@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Activities;
 
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+import static ir.blackswan.travelapp.Utils.Utils.isValidMobileNumber;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -39,6 +40,7 @@ import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Utils.WebFileTransfer;
 import ir.blackswan.travelapp.databinding.SettingsActivityBinding;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -75,7 +77,7 @@ public class SettingActivity extends ToolbarActivity {
 
     private void setInputTypes() {
         birthDate = new MaterialPersianDateChooser(this, binding.etSettingBirthday);
-        birthDate.getDialog().setMinYear(1310).setMaxYear(1390);
+        birthDate.getDialog().setMinYear(1310).setMaxYear(new PersianDateImpl().getPersianYear() - 18);
         gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
                 new PowerMenuItem("زن")));
 
@@ -191,8 +193,6 @@ public class SettingActivity extends ToolbarActivity {
 
             if (buttonView.getId() == R.id.cb_setting_telegram)
                 binding.etSettingTelegram.setEnabled(isChecked);
-            if (buttonView.getId() == R.id.cb_setting_mobile)
-                binding.etSettingMobile.setEnabled(isChecked);
             if (buttonView.getId() == R.id.cb_setting_whatsapp)
                 binding.etSettingWhatsapp.setEnabled(isChecked);
         };
@@ -201,7 +201,6 @@ public class SettingActivity extends ToolbarActivity {
         binding.etSettingMobile.setEnabled(false);
         binding.etSettingWhatsapp.setEnabled(false);
 
-        binding.cbSettingMobile.setOnCheckedChangeListener(onCheckedChangeListener);
         binding.cbSettingTelegram.setOnCheckedChangeListener(onCheckedChangeListener);
         binding.cbSettingWhatsapp.setOnCheckedChangeListener(onCheckedChangeListener);
 
@@ -230,6 +229,7 @@ public class SettingActivity extends ToolbarActivity {
                         Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
                                 , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                         setResult(RESULT_OK);
+                        finish();
                     }
 
                 });
@@ -250,7 +250,7 @@ public class SettingActivity extends ToolbarActivity {
 
     private List<String> getConnectStrings() {
 
-        return Arrays.asList(binding.cbSettingMobile.isChecked() ? addIranCode(binding.etSettingMobile.getText().toString()) : null,
+        return Arrays.asList( addIranCode(binding.etSettingMobile.getText().toString()),
                 binding.cbSettingTelegram.isChecked() ? binding.etSettingTelegram.getText().toString() : null,
                 binding.cbSettingWhatsapp.isChecked() ? addIranCode(binding.etSettingMobile.getText().toString()) : null);
     }
@@ -283,6 +283,13 @@ public class SettingActivity extends ToolbarActivity {
 
                 return null;
             });
+            checker.add(binding.etSettingMobile, editText -> {
+                if (getEditableText(editText.getText()).isEmpty())
+                    return editText.getHint() + " ضروری است";
+                if (!isValidMobileNumber(getEditableText(editText.getText())))
+                    return "فرمت شماره تماس نادرست است!";
+                return null;
+            });
         } else {
             checker.add(Arrays.asList(binding.etSettingName, binding.etSettingLastname));
         }
@@ -307,7 +314,7 @@ public class SettingActivity extends ToolbarActivity {
         else if (user.getGender().equals("Female"))
             gender.set(1, true);
         binding.etSettingGender.setText(user.getPersianGender());
-        setContactInfo(user.getPhone_number(), binding.cbSettingMobile, binding.etSettingMobile);
+
         setContactInfo(user.getWhatsapp_id(), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
         setContactInfo(user.getTelegram_id(), binding.cbSettingTelegram, binding.etSettingTelegram);
 

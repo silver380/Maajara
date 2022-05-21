@@ -422,16 +422,6 @@
                         android:text="راه‌های ارتباطی"
                         app:layout_constraintTop_toBottomOf="@id/til_skills" />
 
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/cb_setting_mobile"
-                        style="@style/textSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
-                        android:text="تلفن همراه"
-                        app:layout_constraintLeft_toRightOf="@id/view_middle"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_connect" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_mobile"
@@ -443,7 +433,7 @@
                         app:errorEnabled="true"
                         app:helperText="برای مثال: 9120000000"
                         app:helperTextTextAppearance="@style/textHint"
-                        app:layout_constraintTop_toBottomOf="@id/cb_setting_mobile"
+                        app:layout_constraintTop_toBottomOf="@id/tv_connect"
                         app:startIconDrawable="@drawable/ic_telephone">
 
                         <com.google.android.material.textfield.TextInputEditText

@@ -49,6 +49,13 @@ public class Utils {
         return value.data;
     }
 
+    public static boolean isValidMobileNumber(String input) {
+        String pattern = "^9[0|1|2|3|9][0-9]{8}$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+        java.util.regex.Matcher m = p.matcher(input);
+        return m.matches();
+    }
+
     public static int dp2px(Context context, float dp) {
         return (int) (dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
