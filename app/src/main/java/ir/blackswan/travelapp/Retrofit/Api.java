@@ -20,14 +20,16 @@ public interface Api {
     //todo URL
     @POST("/???/")
     @FormUrlEncoded
-    Call<ResponseBody> sendTourRate(@Header("Authorization") String token,
-                                    @Field("tour_rate") int tour_rate);
+    Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
+                                    @Field("user_id") int user_id,
+                                    @Field("tour_id") int tour_id,
+                                    @Field("rate") int rate,
+                                    @Field("report") String report);
 
     //todo URL
+    //todo
     @POST("/???/")
-    @FormUrlEncoded
-    Call<ResponseBody> sendTourReport(@Header("Authorization") String token,
-                                      @Field("tour_report") String tour_report);
+    Call<ResponseBody> getRateStatus(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);

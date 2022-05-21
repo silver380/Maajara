@@ -190,18 +190,19 @@ public class TourPageActivity extends ToolbarActivity {
             ReportDialog reportDialog = new ReportDialog(this);
             reportDialog.show();
         });
-        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
-            binding.simpleRatingBar.setActivated(false);
-            int rate = (int) binding.simpleRatingBar.getRating();
-            tourController.sendTourRateToServer(rate, new OnResponseDialog(this){
-                @Override
-                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                    super.onSuccess(call, callback, response);
-                    Toast.makeText(TourPageActivity.this, "امتیاز با موفقیت ثبت شد.", Toast.LENGTH_SHORT,
-                            Toast.TYPE_SUCCESS).show();
-                }
-            });
-        });
+        //todo change bellow codes
+//        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
+//            binding.simpleRatingBar.setActivated(false);
+//            int rate = (int) binding.simpleRatingBar.getRating();
+//            tourController.sendTourRateToServer(rate, new OnResponseDialog(this){
+//                @Override
+//                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+//                    super.onSuccess(call, callback, response);
+//                    Toast.makeText(TourPageActivity.this, "امتیاز با موفقیت ثبت شد.", Toast.LENGTH_SHORT,
+//                            Toast.TYPE_SUCCESS).show();
+//                }
+//            });
+//        });
     }
 
 

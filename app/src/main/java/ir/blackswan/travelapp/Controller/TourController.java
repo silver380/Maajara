@@ -24,16 +24,17 @@ public class TourController extends Controller {
         super(authActivity);
     }
 
-    public void sendTourRateToServer(int tour_rate, OnResponse onResponse){
-        api.sendTourRate(AuthController.getTokenString(), tour_rate)
+    public void sendTourRateReportToServer(int user_id, int tour_id, int rate, String report, OnResponse onResponse){
+        api.sendTourRateReport(AuthController.getTokenString(), user_id, tour_id, rate, report)
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
-    public void sendTourReportToServer(String TourReport, OnResponse onResponse){
-        String json = gsonExpose.toJson(TourReport);
-
-        api.sendTourReport(AuthController.getTokenString(), json)
-                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+    //todo complete bellow
+    public void getRateStatusFromServer(OnResponse onResponse){
+//        String json = gsonExpose.toJson(TourReport);
+//
+//        api.sendTourReport(AuthController.getTokenString(), json)
+//                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
     public void register(int tourId, OnResponse onResponse){
