@@ -52,7 +52,6 @@ public class PlanController extends Controller {
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
-
     //search == null ? get all
     public void getAllPlanFromServer(OnResponse onResponse, @Nullable String search) {
         Log.d(MyCallback.TAG, "getAllPlanFromServer: ");
@@ -97,13 +96,28 @@ public class PlanController extends Controller {
         }));
     }
 
-
     public void getPendingPlanFromServer(OnResponse onResponse) {
         Log.d(MyCallback.TAG, "getPendingPlanFromServer: ");
         api.getPendingPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 pendingPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
+    }
+
+    public void getConfirmedPlansFromServer(OnResponse onResponse){
+        Log.d(MyCallback.TAG, "getConfirmedPlansFromServer: ");
+        api.getConfirmedPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                confirmedPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
                 onResponse.onSuccess(call, callback, response);
             }
 
