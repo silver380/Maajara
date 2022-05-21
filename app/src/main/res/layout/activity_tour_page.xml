@@ -431,13 +431,12 @@
                                             android:text="راهنمای سفر" />
 
                                         <com.willy.ratingbar.ScaleRatingBar
-                                            android:id="@+id/simpleRatingBar"
+                                            android:id="@+id/tour_rating_bar"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginHorizontal="@dimen/margin_medium"
                                             android:layout_marginVertical="@dimen/margin_medium"
                                             app:layout_constraintDimensionRatio="1:1"
-
                                             app:srb_clearRatingEnabled="true"
                                             app:srb_clickable="true"
                                             app:srb_isIndicator="true"
@@ -451,23 +450,26 @@
                                             app:srb_stepSize="1"
 
                                             />
+
+
                                     </LinearLayout>
 
                                     <LinearLayout
+                                        android:id="@+id/ll_rate_report"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            android:id="@+id/tv_report"
+                                            android:id="@+id/tv_rate_report"
                                             style="@style/textHint"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/text_problem" />
 
                                         <com.google.android.material.button.MaterialButton
-                                            android:id="@+id/btn_report"
+                                            android:id="@+id/btn_rate_report"
                                             style="@style/button.TextButton.small"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
