@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-//import com.willy.ratingbar.BaseRatingBar;
+import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -54,6 +54,8 @@ public class TourPageActivity extends ToolbarActivity {
     private TourController tourController;
     private int actionBarHeight;
     private User user;
+    private boolean canRate;
+    private int rate;
 
 
     @Override
@@ -82,6 +84,43 @@ public class TourPageActivity extends ToolbarActivity {
         TypedValue tv = new TypedValue();
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        }
+
+        setRateStatus();
+        setRate();
+    }
+
+    //todo complete bellow
+    private void setRateStatus(){
+        tourController.getRateStatusFromServer(new OnResponseDialog(this){
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                canRate = tourController.getCanRate();
+                rate = tourController.getRate();
+            }
+        });
+    }
+
+    private void setRate() {
+        //tour not finished yet
+        if(canRate == false) {
+            binding.tourRatingBar.setVisibility(View.GONE);
+            binding.llRateReport.setVisibility(View.GONE);
+        }
+
+        //tour is finished
+        else {
+            //already rated
+            if(rate != -1){
+                binding.llRateReport.setVisibility(View.GONE);
+                binding.tourRatingBar.setRating((float) rate);
+            }
+
+            //not rated yet
+            else{
+                binding.tourRatingBar.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -118,7 +157,6 @@ public class TourPageActivity extends ToolbarActivity {
                 });
 
     }
-
 
     private void setPendingUsers() {
 
@@ -186,26 +224,12 @@ public class TourPageActivity extends ToolbarActivity {
     }
 
     private void onClickListenerReportAndStar() {
-        //todo change bellow codes
-//        binding.btnReport.setOnClickListener(view -> {
-//            ReportDialog reportDialog = new ReportDialog(this);
-//            reportDialog.show();
-//        });
+        binding.btnRateReport.setOnClickListener(view -> {
+            ReportDialog reportDialog = new ReportDialog(this);
+            reportDialog.show();
+        });
 
-//        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
-//            binding.simpleRatingBar.setActivated(false);
-//            int rate = (int) binding.simpleRatingBar.getRating();
-//            tourController.sendTourRateToServer(rate, new OnResponseDialog(this){
-//                @Override
-//                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-//                    super.onSuccess(call, callback, response);
-//                    Toast.makeText(TourPageActivity.this, "امتیاز با موفقیت ثبت شد.", Toast.LENGTH_SHORT,
-//                            Toast.TYPE_SUCCESS).show();
-//                }
-//            });
-//        });
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
@@ -275,7 +299,6 @@ public class TourPageActivity extends ToolbarActivity {
             }
         });
     }
-
 
     private void setScrollListener() {
         binding.scTourPage.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {

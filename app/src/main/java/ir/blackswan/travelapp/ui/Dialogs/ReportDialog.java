@@ -24,6 +24,7 @@ public class ReportDialog extends MyDialog {
     private TextInputsChecker checker = new TextInputsChecker();
     private TourController tourController;
     private AuthActivity authActivity;
+    private int rate;
 
 
     public ReportDialog(Activity activity) {
@@ -43,19 +44,28 @@ public class ReportDialog extends MyDialog {
     }
 
     private void setListeners() {
-        binding.btnSubmitReport.setOnClickListener(v ->{
+
+        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
+            binding.simpleRatingBar.setActivated(false);
+            rate = (int) binding.simpleRatingBar.getRating();
+        });
+
+        binding.btnSubmitRateReport.setOnClickListener(v ->{
             if(checkInputs()){
                 String report = binding.reportText.getText().toString();
 
-                tourController.sendTourReportToServer(report, new OnResponseDialog(authActivity){
-                    @Override
-                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                        super.onSuccess(call, callback, response);
-                        Toast.makeText(authActivity, "گزارش با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
-                                Toast.TYPE_SUCCESS).show();
-                    }
-                });
+                //todo
+//                tourController.sendTourRateReportToServer(report, new OnResponseDialog(authActivity){
+//                    @Override
+//                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+//                        super.onSuccess(call, callback, response);
+//                        Toast.makeText(authActivity, "گزارش با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
+//                                Toast.TYPE_SUCCESS).show();
+//                    }
+//                });
             }
+        });
+
         });
     }
 
