@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.willy.ratingbar.BaseRatingBar;
+//import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -186,11 +186,12 @@ public class TourPageActivity extends ToolbarActivity {
     }
 
     private void onClickListenerReportAndStar() {
-        binding.btnReport.setOnClickListener(view -> {
-            ReportDialog reportDialog = new ReportDialog(this);
-            reportDialog.show();
-        });
         //todo change bellow codes
+//        binding.btnReport.setOnClickListener(view -> {
+//            ReportDialog reportDialog = new ReportDialog(this);
+//            reportDialog.show();
+//        });
+
 //        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
 //            binding.simpleRatingBar.setActivated(false);
 //            int rate = (int) binding.simpleRatingBar.getRating();
