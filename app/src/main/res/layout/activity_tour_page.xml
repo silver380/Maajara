@@ -430,6 +430,27 @@
                                             android:layout_weight="1"
                                             android:text="راهنمای سفر" />
 
+                                        <com.willy.ratingbar.ScaleRatingBar
+                                            android:id="@+id/tour_rating_bar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginHorizontal="@dimen/margin_medium"
+                                            android:layout_marginVertical="@dimen/margin_medium"
+                                            app:layout_constraintDimensionRatio="1:1"
+                                            app:srb_clearRatingEnabled="true"
+                                            app:srb_clickable="true"
+                                            app:srb_isIndicator="true"
+                                            app:srb_minimumStars="1"
+                                            app:srb_numStars="5"
+                                            app:srb_rating="2"
+                                            app:srb_scrollable="true"
+                                            app:srb_starHeight="0dp"
+                                            app:srb_starPadding="5dp"
+                                            app:srb_starWidth="0dp"
+                                            app:srb_stepSize="1"
+
+                                            />
+
 
                                     </LinearLayout>
 
