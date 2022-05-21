@@ -9,11 +9,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_rate_report_dialog"
+        style="@style/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:title="نظر شما درباره این سفر"
+        />
+
+        <com.willy.ratingbar.ScaleRatingBar
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginVertical="@dimen/margin_medium"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_gravity="center"
+            app:srb_clearRatingEnabled="true"
+            app:srb_clickable="true"
+            app:srb_isIndicator="true"
+            app:srb_minimumStars="1"
+            app:srb_numStars="5"
+            app:srb_rating="2"
+            app:srb_scrollable="true"
+            app:srb_starHeight="0dp"
+            app:srb_starPadding="5dp"
+            app:srb_starWidth="0dp"
+            app:srb_stepSize="1"
+
+            />
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
             android:hint="از سفرتان بیشتر برایمان بگویید...">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -26,7 +55,7 @@
                 android:maxLines="10"
                 android:minLines="3"
                 android:paddingBottom="20dp"
-                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_medium"
                 />
 
 
@@ -34,12 +63,12 @@
 
         <Button
             android:layout_marginVertical="@dimen/margin_small"
-            android:id="@+id/btn_submit_report"
+            android:id="@+id/btn_submit_rate_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/button.primaryButton"
-            android:text="ارسال گزارش"
-            android:layout_marginHorizontal="@dimen/margin_large"/>
+            android:text="تایید و ارسال"
+            android:layout_marginHorizontal="@dimen/margin_medium"/>
 
     </LinearLayout>
 
