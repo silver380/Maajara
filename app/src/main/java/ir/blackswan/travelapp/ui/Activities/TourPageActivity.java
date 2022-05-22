@@ -87,7 +87,7 @@ public class TourPageActivity extends ToolbarActivity {
         }
 
         setRateStatus();
-        setRate();
+
     }
 
     //todo complete bellow
@@ -98,6 +98,8 @@ public class TourPageActivity extends ToolbarActivity {
                 super.onSuccess(call, callback, response);
                 canRate = tourController.getCanRate();
                 rate = tourController.getRate();
+
+                setRate();
             }
         });
     }
@@ -225,7 +227,7 @@ public class TourPageActivity extends ToolbarActivity {
 
     private void onClickListenerReportAndStar() {
         binding.btnRateReport.setOnClickListener(view -> {
-            ReportDialog reportDialog = new ReportDialog(this);
+            ReportDialog reportDialog = new ReportDialog(this, tour.getTour_id());
             reportDialog.show();
         });
 

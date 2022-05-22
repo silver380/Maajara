@@ -20,7 +20,7 @@ public class TourController extends Controller {
     static Tour[] pendingTours;
     static Tour[] confirmedTours;
     static boolean canRate;
-    static int rate;
+    static Integer rate;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
@@ -33,6 +33,8 @@ public class TourController extends Controller {
 
     //todo complete bellow
     public void getRateStatusFromServer(OnResponse onResponse){
+        //if null >> -1
+
         //if rate is null >> -1
 //        String json = gsonExpose.toJson(TourReport);
 //
@@ -139,7 +141,7 @@ public class TourController extends Controller {
 
     public static Tour[] getConfirmedTours() { return confirmedTours; }
 
-    public static int getRate() {
+    public static Integer getRate() {
         return rate;
     }
 

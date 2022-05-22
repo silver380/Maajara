@@ -28,7 +28,7 @@ public interface Api {
 
     //todo URL
     //todo
-    @POST("/???/")
+    @GET("/???/")
     Call<ResponseBody> getRateStatus(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingreqs/")

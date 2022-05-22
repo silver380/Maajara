@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
@@ -25,13 +26,16 @@ public class ReportDialog extends MyDialog {
     private TourController tourController;
     private AuthActivity authActivity;
     private int rate;
+    int tourId;
+    int userId;
 
 
-    public ReportDialog(Activity activity) {
+    public ReportDialog(Activity activity, int tour_id) {
         binding = DialogReportBinding.inflate(activity.getLayoutInflater());
         init(activity, binding.getRoot(), DIALOG_TYPE_BOTTOM_SHEET);
         authActivity = ((AuthActivity) activity);
         tourController = new TourController(authActivity);
+        tourId = tour_id;
 
         setListeners();
     }
@@ -45,28 +49,26 @@ public class ReportDialog extends MyDialog {
 
     private void setListeners() {
 
-        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
-            binding.simpleRatingBar.setActivated(false);
-            rate = (int) binding.simpleRatingBar.getRating();
-        });
-
         binding.btnSubmitRateReport.setOnClickListener(v ->{
             if(checkInputs()){
                 String report = binding.reportText.getText().toString();
+                rate = (int) binding.simpleRatingBar.getRating();
+                userId = AuthController.getUser().getUser_id();
 
-                //todo
-//                tourController.sendTourRateReportToServer(report, new OnResponseDialog(authActivity){
-//                    @Override
-//                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-//                        super.onSuccess(call, callback, response);
-//                        Toast.makeText(authActivity, "گزارش با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
-//                                Toast.TYPE_SUCCESS).show();
-//                    }
-//                });
+                tourController.sendTourRateReportToServer(userId, tourId, rate,
+                        report, new OnResponseDialog(authActivity){
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        Toast.makeText(authActivity, "گزارش با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
+                                Toast.TYPE_SUCCESS).show();
+
+                        ReportDialog.this.dialog.dismiss();
+                    }
+                });
             }
         });
 
-        });
     }
 
 }
