@@ -63,6 +63,6 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.6-native' //cropper
     implementation 'com.github.ome450901:SimpleRatingBar:1.5.1' //star rating
 
-
+    implementation('com.mapquest:mapping-android-sdk:2.0.9')   // for Mapping SDK MapView
 
 }

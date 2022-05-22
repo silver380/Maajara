@@ -16,9 +16,11 @@
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.Activities.AddPlaceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activities.IntroActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,9 +44,7 @@
         <activity
             android:name=".ui.Activities.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.Activities.UserRequestActivity"
             android:exported="false" />
