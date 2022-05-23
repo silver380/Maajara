@@ -43,7 +43,7 @@ public class ReportDialog extends MyDialog {
     }
 
     private void setListeners() {
-        binding.btnSubmitReport.setOnClickListener(v ->{
+        binding.btnSubmitRateReport.setOnClickListener(v ->{
             if(checkInputs()){
                 String report = binding.reportText.getText().toString();
 

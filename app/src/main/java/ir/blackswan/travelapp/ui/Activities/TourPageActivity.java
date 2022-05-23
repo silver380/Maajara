@@ -36,6 +36,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
+
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -75,7 +76,6 @@ public class TourPageActivity extends ToolbarActivity {
 
         setTouchListener();
 
-        onClickListenerReportAndStar();
 
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
@@ -185,24 +185,7 @@ public class TourPageActivity extends ToolbarActivity {
         bottomViewIsOpen = false;
     }
 
-    private void onClickListenerReportAndStar() {
-        binding.btnReport.setOnClickListener(view -> {
-            ReportDialog reportDialog = new ReportDialog(this);
-            reportDialog.show();
-        });
-        binding.simpleRatingBar.setOnRatingChangeListener((ratingBar, rating, fromUser) -> {
-            binding.simpleRatingBar.setActivated(false);
-            int rate = (int) binding.simpleRatingBar.getRating();
-            tourController.sendTourRateToServer(rate, new OnResponseDialog(this){
-                @Override
-                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                    super.onSuccess(call, callback, response);
-                    Toast.makeText(TourPageActivity.this, "امتیاز با موفقیت ثبت شد.", Toast.LENGTH_SHORT,
-                            Toast.TYPE_SUCCESS).show();
-                }
-            });
-        });
-    }
+    //todo unable to edit rate & show rate
 
 
     @SuppressLint("ClickableViewAccessibility")

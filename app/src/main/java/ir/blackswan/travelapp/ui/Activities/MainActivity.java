@@ -8,7 +8,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import org.apache.commons.math3.analysis.function.Add;
 
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
@@ -38,7 +37,7 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-        startActivity(new Intent(this, AddPlaceActivity.class));
+        startActivity(new Intent(this, MapsActivity.class));
 
 
     }

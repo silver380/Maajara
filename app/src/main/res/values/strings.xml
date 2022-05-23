@@ -53,5 +53,6 @@
     <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
     <string name="text_problem">به سفرتان</string>
     <string name="clickable_text_problem">امتیاز دهید.</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

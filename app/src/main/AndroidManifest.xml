@@ -15,6 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCkctvxkgrsOW_kVpqpcyJTAmSvp8EkVmo" />
+
+        <activity
+            android:name=".ui.Activities.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".ui.Activities.AddPlaceActivity"
             android:exported="false" />
@@ -44,7 +54,7 @@
         <activity
             android:name=".ui.Activities.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Activities.UserRequestActivity"
             android:exported="false" />
