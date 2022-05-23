@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingHorizontal="@dimen/padding_large"
                     android:paddingTop="@dimen/padding_small">
 
 
@@ -59,6 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:hint="@string/TourName"
                         app:startIconDrawable="@drawable/ic_flag">
 
@@ -144,7 +145,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:paddingHorizontal="@dimen/padding_large"
                     android:paddingVertical="@dimen/padding_small">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -160,6 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:hint="تاریخ شروع"
                         app:startIconDrawable="@drawable/ic_calendar">
 
@@ -220,6 +223,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+
                             android:text="@string/places" />
 
                         <ImageButton
@@ -257,13 +261,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small">
+                    android:paddingHorizontal="@dimen/padding_large">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
                         android:layout_gravity="center"
                         android:text="امکانات" />
 
@@ -279,6 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="محل اسکان"
+                            android:layout_marginTop="@dimen/margin_medium"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -463,7 +468,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
                 android:text="تایید"

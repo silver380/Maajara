@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:paddingHorizontal="@dimen/padding_large"
     android:orientation="vertical">
 
     <TextView
         style="@style/textTittleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/my_tours" />
 
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
@@ -23,8 +23,7 @@
         style="@style/textTittleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/pending_plans" />
 
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
