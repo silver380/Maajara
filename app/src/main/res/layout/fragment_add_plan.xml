@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingHorizontal="@dimen/padding_large"
                     android:paddingTop="@dimen/padding_small">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -45,6 +45,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_small"
+
                         android:text="@string/information" />
 
 
@@ -52,8 +54,9 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:hint="مقصد"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_location">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -70,8 +73,8 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:errorEnabled="true"
                         android:hint="تاریخ شروع"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_calendar">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -87,8 +90,8 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:errorEnabled="true"
                         android:hint="تاریخ پایان"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_calendar">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -114,43 +117,47 @@
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small">
 
-                <ImageButton
-                    android:id="@+id/iv_add_sth"
-                    android:layout_width="@dimen/tertiary_icon_size"
-                    android:layout_height="@dimen/tertiary_icon_size"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_very_small"
-                    android:backgroundTint="@color/colorTransparent"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/colorIconTint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="100dp"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/textTittleMedium"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/wanted_list" />
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginHorizontal="@dimen/margin_medium"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textTittleMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/wanted_list" />
+
+                        <ImageButton
+                            android:id="@+id/iv_add_sth"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:backgroundTint="@color/colorTransparent"
+                            android:src="@drawable/ic_plus"
+                            app:tint="@color/colorIconTint" />
+                    </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_add_plan_no_wanted"
+                        style="@style/textHint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/textHint"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:gravity="center"
                         android:paddingTop="@dimen/padding_small"
                         android:paddingBottom="@dimen/padding_large"
-                        android:layout_marginTop="@dimen/margin_small"
-                        android:text="موردی اضافه نشده است\nبرای افزودن + را کلیک نمایید"
-                        android:gravity="center"
-                        />
+                        android:text="موردی اضافه نشده است\nبرای افزودن + را کلیک نمایید" />
 
 
                     <LinearLayout
@@ -175,37 +182,43 @@
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small">
 
-                <ImageButton
-                    android:id="@+id/iv_plan_add_place"
-                    android:layout_width="@dimen/tertiary_icon_size"
-                    android:layout_height="@dimen/tertiary_icon_size"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_very_small"
-                    android:backgroundTint="@color/colorTransparent"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/colorIconTint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
                     android:paddingVertical="@dimen/padding_small">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/textTittleMedium"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/places" />
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginHorizontal="@dimen/margin_medium"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textTittleMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/places" />
+
+                        <ImageButton
+                            android:id="@+id/iv_plan_add_place"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:backgroundTint="@color/colorTransparent"
+                            android:src="@drawable/ic_plus"
+                            app:tint="@color/colorIconTint" />
+                    </LinearLayout>
 
                     <ir.blackswan.travelapp.Views.LoadingRecyclerView
                         android:id="@+id/rcl_plan_places"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:orientation="horizontal" />
-
 
 
                 </LinearLayout>
@@ -217,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
                 android:text="تایید"
