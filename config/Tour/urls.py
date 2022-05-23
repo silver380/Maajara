@@ -14,6 +14,6 @@ urlpatterns = [
     path('addtour/', Add.as_view(), name="add_tour"),
     path('acceptuser/', AcceptUser.as_view(), name="accept_user"),
     path('addrate/', AddRate.as_view(), name="add_rate"),
-    path('getrate/', GetRate.as_view(), name="get_rate"),
+    path('getrate/<int:tour_id>/', GetRate.as_view(), name="get_rate"),
    # path('searchtour/', SearchTour.as_view(), name="search_tour"),
 ]

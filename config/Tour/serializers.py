@@ -72,13 +72,15 @@ class TourRateSerializer(serializers.ModelSerializer):
         model = TourRate
         fields = '__all__'
 
-
+    tour_rate = serializers.IntegerField(required=True)
     def create(self, validated_data):
  
-        tour_rate = TourRate.objects.filter(user_id=self.context['request'].user.user_id, tour_id=self.context['request'].data['tour_id']).values()
-        if tour_rate.exists():
-            
-            return Response(tour_rate.values()[0], status=400)
-        else:
-            Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id, tour_id=self.context['request'].data['tour_id'] )
+            Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
+            tour_id=self.context['request'].data['tour_id'])
             return Rate
+
+
+
+
+
+            

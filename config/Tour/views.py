@@ -119,7 +119,7 @@ class Add(CreateAPIView):
 class AddRate(CreateAPIView):
     model = TourRate
     serializer_class = TourRateSerializer
-    permission_classes = [permissions.IsAuthenticated  and IsDone]
+    permission_classes = [permissions.IsAuthenticated  and CanRate]
 
 
 class GetRate(APIView):
@@ -127,16 +127,17 @@ class GetRate(APIView):
     serializer_class = TourRateSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
+    def get(self, request, tour_id):
 
-        if 'tour_id' not in request.data:
-            return Response(status=400, data={"error": "Invalid tour"})
         return_data = {}
-        current_tour = Tour.objects.get(pk = request.data['tour_id'])
+        current_tour = get_object_or_404(Tour, pk=tour_id)
         current_date = datetime.date.today() 
         can_rate =  (current_tour.end_date < current_date) and (request.user in current_tour.confirmed_users.all())
-        current_rate = TourRate.objects.filter(user_id=self.context['request'].user.user_id, 
-                                               tour_id=self.context['request'].data['tour_id']).values()[0]
-        return_data['current_rate'] = current_rate
+        try:
+            current_rate = TourRate.objects.filter(user_id= request.user.user_id, tour_id = tour_id).values()[0]
+        except Exception as e:
+                current_rate = None
+
+        return_data['current_rate'] =  TourRateSerializer(current_rate).data
         return_data['can_rate'] = can_rate
-        return return_data
+        return Response(return_data)
