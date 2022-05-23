@@ -7,8 +7,9 @@ from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import filters
-from .permissions import IsTourLeader
-from .models import Tour
+from .permissions import *
+from .models import *
+import datetime
 
 
 class TourListAPIView(ListAPIView):
@@ -113,3 +114,30 @@ class Add(CreateAPIView):
         instance = self.perform_create(serializer)
         instance_serializer = TourListSerializer(instance)
         return Response(instance_serializer.data)
+
+
+class AddRate(CreateAPIView):
+    model = TourRate
+    serializer_class = TourRateSerializer
+    permission_classes = [permissions.IsAuthenticated  and CanRate]
+
+
+class GetRate(APIView):
+
+    serializer_class = TourRateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, tour_id):
+
+        return_data = {}
+        current_tour = get_object_or_404(Tour, pk=tour_id)
+        current_date = datetime.date.today() 
+        can_rate =  (current_tour.end_date < current_date) and (request.user in current_tour.confirmed_users.all())
+        try:
+            current_rate = TourRate.objects.filter(user_id= request.user.user_id, tour_id = tour_id).values()[0]
+        except Exception as e:
+                current_rate = None
+
+        return_data['current_rate'] =  TourRateSerializer(current_rate).data
+        return_data['can_rate'] = can_rate
+        return Response(return_data)

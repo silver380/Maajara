@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Tour(models.Model):
     tour_id = models.AutoField(primary_key=True)
@@ -24,3 +24,13 @@ class Tour(models.Model):
     creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, blank=True)
     pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_tours', blank=True, null=True)
     confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_tours', blank=True, null=True)
+
+class TourRate(models.Model):
+    class Meta:
+        unique_together = [['user', 'tour']]
+
+    user = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
+    tour = models.ForeignKey('Tour.Tour', on_delete=models.CASCADE)
+    tour_rate = models.IntegerField(default=-1, blank=False, null=False,
+    validators=[MaxValueValidator(5), MinValueValidator(0)])
+    tour_report = models.TextField(default='', blank=True, null=True)
