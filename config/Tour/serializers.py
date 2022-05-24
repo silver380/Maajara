@@ -2,13 +2,17 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from Place.serializers import PlaceSerializers
-from .models import Tour
+from .models import *
+
+from rest_framework import status
+from rest_framework.response import Response
+import datetime
 
 
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets']
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture']
 
 
 class TourListSerializer(serializers.ModelSerializer):
@@ -58,3 +62,25 @@ class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         exclude = ('is_admin', 'last_login', 'password')
+
+
+class TourRateSerializer(serializers.ModelSerializer):
+    user = UserInfoSerializer(read_only=True)
+    tour = TourListSerializer(read_only=True)
+
+    class Meta:
+        model = TourRate
+        fields = '__all__'
+
+    tour_rate = serializers.IntegerField(required=True)
+    def create(self, validated_data):
+ 
+            Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
+            tour_id=self.context['request'].data['tour_id'])
+            return Rate
+
+
+
+
+
+            

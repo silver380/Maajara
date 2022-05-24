@@ -46,7 +46,10 @@ class MyUser(AbstractBaseUser):
     # todo default should be false
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+
     number_of_tickets = models.IntegerField(default=10)
+    #tour_rate = models.IntegerField(default=0) #?
+
 
     objects = MyUserManager()
 
