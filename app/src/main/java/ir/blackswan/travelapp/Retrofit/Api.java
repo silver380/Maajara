@@ -12,10 +12,15 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 public interface Api {
+
+    @GET("/tour/suggestion/{tour_id}/")
+    Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token
+                                       , @Path("tour_id") String tour_id);
 
     //todo URL
     @POST("/???/")

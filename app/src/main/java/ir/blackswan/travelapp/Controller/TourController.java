@@ -21,9 +21,28 @@ public class TourController extends Controller {
     static Tour[] confirmedTours;
     static boolean canRate;
     static Integer rate;
+    static Tour[] suggestionTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
+    }
+
+    public void getSuggestionToursFromServer(int tourId, OnResponse onResponse) {
+        Log.d(MyCallback.TAG, "getSuggestionToursFromServer: ");
+        api.getSuggestionTours(AuthController.getTokenString(), Integer.toString(tourId))
+                .enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                suggestionTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                Log.d(TAG, "getSuggestionToursFromServer: onSuccess: " + response.getResponseBody());
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
     }
 
     public void sendTourRateReportToServer(int user_id, int tour_id, int rate, String report, OnResponse onResponse){
@@ -147,6 +166,10 @@ public class TourController extends Controller {
 
     public static boolean getCanRate() {
         return canRate;
+    }
+
+    public static Tour[] getSuggestionTours() {
+        return suggestionTours;
     }
 }
 
