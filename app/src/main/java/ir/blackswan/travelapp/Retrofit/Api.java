@@ -27,12 +27,9 @@ public interface Api {
     @GET("/???/")
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
-
     @POST("/auth/increaseticket/")
     Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
                                        @Body RequestBody requestBody);
-
-
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
@@ -42,9 +39,13 @@ public interface Api {
 
     @POST("/travelplan/accepttourleader/")
     @FormUrlEncoded
-    Call<ResponseBody> acceptLeader(@Header("Authorization") String token,   @Field("travel_plan_id") int travel_plan_id,
-                                         @Field("user_id") int user_id);
+    Call<ResponseBody> acceptLeader(@Header("Authorization") String token,
+                                    @Field("travel_plan_id") int travel_plan_id,
+                                    @Field("user_id") int user_id);
 
+    //todo >> change the URL
+    @GET("/???/")
+    Call<ResponseBody> getConfirmedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingplans/")
     Call<ResponseBody> getPendingPlans(@Header("Authorization") String token);

@@ -31,6 +31,7 @@ public class HomeFragmentLeader extends Fragment {
     private PlanController planController;
     private Tour[] createdTours;
     private Plan[] pendingPlans;
+    private Plan[] confirmedPlans;
 
     public HomeFragmentLeader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -50,22 +51,26 @@ public class HomeFragmentLeader extends Fragment {
         binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
                 LinearLayoutManager.HORIZONTAL, false));
 
+        binding.rclConfirmedPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
+                LinearLayoutManager.HORIZONTAL, false));
+
 
         reload();
-
 
         return root;
     }
 
     public void reload() {
         setCreatedToursRecycler();
-
     }
 
     private void setRecyclers() {
         TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), createdTours);
         binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+
         binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(mainActivity , pendingPlans));
+        binding.rclConfirmedPlans.setAdapter(new PlanRecyclerAdapter(mainActivity, confirmedPlans));
+
         mainActivity.getHomeFragment().setRefreshing(false);
     }
 
@@ -81,6 +86,7 @@ public class HomeFragmentLeader extends Fragment {
         });
 
     }
+
     private void setPendingPlansRecycler() {
 
         planController.getPendingPlanFromServer(new OnResponseDialog(mainActivity) {
@@ -88,6 +94,21 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 pendingPlans = PlanController.getPendingPlans();
+
+                setConfirmedPlansRecycler();
+            }
+        });
+
+    }
+
+    private void setConfirmedPlansRecycler() {
+
+        planController.getConfirmedPlansFromServer(new OnResponseDialog(mainActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                confirmedPlans = PlanController.getConfirmedPlans();
+
                 setRecyclers();
             }
         });
