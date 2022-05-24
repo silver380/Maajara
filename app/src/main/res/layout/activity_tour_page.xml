@@ -520,6 +520,12 @@
                                         app:layout_constraintTop_toTopOf="@id/btn_tour_page_register" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rcl_suggestion_tours"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="?android:attr/actionBarSize"

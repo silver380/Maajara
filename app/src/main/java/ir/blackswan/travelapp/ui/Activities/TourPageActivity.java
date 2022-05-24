@@ -38,6 +38,7 @@ import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.ReportDialog;
 import okhttp3.ResponseBody;
@@ -56,6 +57,7 @@ public class TourPageActivity extends ToolbarActivity {
     private User user;
     private boolean canRate;
     private int rate;
+    private Tour[] suggestionTours;
 
 
     @Override
@@ -87,6 +89,27 @@ public class TourPageActivity extends ToolbarActivity {
         }
 
         setRateStatus();
+
+        setSuggestionToursRecycler();
+
+    }
+
+    private void setSuggestionToursRecycler() {
+
+        binding.rclSuggestionTours.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        tourController.getSuggestionToursFromServer(tour.getTour_id() ,new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                suggestionTours = tourController.getSuggestionTours();
+
+                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(TourPageActivity.this
+                        ,suggestionTours);
+                binding.rclSuggestionTours.setAdapter(tourRecyclerAdapter);
+            }
+        });
 
     }
 
