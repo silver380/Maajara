@@ -57,7 +57,6 @@ public class TourPageActivity extends ToolbarActivity {
     private TourController tourController;
     private int actionBarHeight;
     private User user;
-    private int avgColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,12 +165,11 @@ public class TourPageActivity extends ToolbarActivity {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Log.d("FullScreen", "onAttachedToWindow: ");
-        avgColor = getResources().getColor(R.color.colorBlack);
         fullScreen();
     }
 
     private void fullScreen() {
-        Utils.changeStatusColor(this, avgColor);
+        Utils.changeStatusColor(this, getResources().getColor(R.color.colorBlack));
     }
 
     private void actionBar() {
@@ -385,18 +383,6 @@ public class TourPageActivity extends ToolbarActivity {
         });
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("avgColor", "run1: " + avgColor);
-                    avgColor = getAvgColor();
-                    Log.d("avgColor", "run2: " + avgColor);
-                }
-            }, 500);
-        }
-
-
     }
 
     private String translate(String word) {
@@ -433,45 +419,5 @@ public class TourPageActivity extends ToolbarActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private int getAvgColor() {
-        Bitmap bitmap = drawableToBitmap(binding.ivTourPageImage.getDrawable());
-        long redBucket = 0;
-        long greenBucket = 0;
-        long blueBucket = 0;
-        long pixelCount = 0;
 
-        for (int i = 0; i < bitmap.getHeight(); i++) {
-            for (int x = 0; x < bitmap.getWidth(); x++) {
-                int c = bitmap.getPixel(x, 0);
-
-                pixelCount++;
-                redBucket += Color.red(c);
-                greenBucket += Color.green(c);
-                blueBucket += Color.blue(c);
-                Log.d("avgColor", "getAvgColor: " + redBucket + " " + greenBucket + " " + blueBucket);
-                // does alpha matter?
-            }
-        }
-
-        Log.d("avgColor", "getAvgColor:final " + redBucket + " " + greenBucket + " " + blueBucket);
-
-        return Color.rgb(redBucket / pixelCount,
-                greenBucket / pixelCount,
-                blueBucket / pixelCount);
-
-    }
-
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        }
-
-        int width = drawable.getIntrinsicWidth();
-        width = width > 0 ? width : 1;
-        int height = drawable.getIntrinsicHeight();
-        height = height > 0 ? height : 1;
-
-        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    }
 }
