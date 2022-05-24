@@ -102,6 +102,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_home"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_large"
             android:layout_height="0dp"
             android:layout_weight="1" />
 

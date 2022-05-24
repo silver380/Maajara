@@ -81,6 +81,8 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
             boolean b = selectedPlaces.contains(place);
             holder.selectView.setVisibility(b ? View.VISIBLE : View.GONE);
             Log.d("SearchSelectedPlaces", "onBindViewHolder: " + selectedPlaces + " " + place);
+        }else {
+            holder.selectView.setVisibility(View.GONE);
         }
 
 

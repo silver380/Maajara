@@ -5,20 +5,25 @@ import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowInsets;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Arrays;
@@ -52,6 +57,7 @@ public class TourPageActivity extends ToolbarActivity {
     private TourController tourController;
     private int actionBarHeight;
     private User user;
+    private int avgColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +99,14 @@ public class TourPageActivity extends ToolbarActivity {
                         binding.viewForShowingImage.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                             @Override
                             public void onGlobalLayout() {
-                                maxScrollY = binding.getRoot().getHeight();
+                                maxScrollY = getScreenHeight();
                                 closeBottomView();
                                 Log.d("scroll", "setScrollListener: " + maxScrollY);
 
-                                binding.scTourPageBottom.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                        getScreenHeight()));
-                                binding.scTourPage.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                        getScreenHeight()));
-
+                                binding.scTourPageBottom.setLayoutParams(new LinearLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT, getScreenHeight()));
+                                binding.scTourPage.setLayoutParams(new FrameLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT, getScreenHeight()));
 
                                 binding.viewForShowingImage.getViewTreeObserver().removeOnGlobalLayoutListener(this); //!!!! don't remove this line
                             }
@@ -118,7 +123,7 @@ public class TourPageActivity extends ToolbarActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_USERS_ACTIVITY)
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 setResult(RESULT_OK);
             }
     }
@@ -161,11 +166,12 @@ public class TourPageActivity extends ToolbarActivity {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Log.d("FullScreen", "onAttachedToWindow: ");
+        avgColor = getResources().getColor(R.color.colorBlack);
         fullScreen();
     }
 
     private void fullScreen() {
-        Utils.changeStatusColor(this , R.color.colorBlack);
+        Utils.changeStatusColor(this, avgColor);
     }
 
     private void actionBar() {
@@ -244,7 +250,7 @@ public class TourPageActivity extends ToolbarActivity {
                     boolean scrollUp = dy < 0;
                     if (scrollUp && binding.scTourPage.getScrollY() > getScreenHeight() * 10 / 100)
                         openBottomView();
-                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 70 / 100)
+                    else if (!scrollUp && binding.scTourPage.getScrollY() < getScreenHeight() * 85 / 100)
                         closeBottomView();
                     else if (bottomViewIsOpen)
                         openBottomView();
@@ -378,6 +384,19 @@ public class TourPageActivity extends ToolbarActivity {
             onBackPressed();
         });
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("avgColor", "run1: " + avgColor);
+                    avgColor = getAvgColor();
+                    Log.d("avgColor", "run2: " + avgColor);
+                }
+            }, 500);
+        }
+
+
     }
 
     private String translate(String word) {
@@ -412,5 +431,47 @@ public class TourPageActivity extends ToolbarActivity {
             super.onBackPressed();
 
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private int getAvgColor() {
+        Bitmap bitmap = drawableToBitmap(binding.ivTourPageImage.getDrawable());
+        long redBucket = 0;
+        long greenBucket = 0;
+        long blueBucket = 0;
+        long pixelCount = 0;
+
+        for (int i = 0; i < bitmap.getHeight(); i++) {
+            for (int x = 0; x < bitmap.getWidth(); x++) {
+                int c = bitmap.getPixel(x, 0);
+
+                pixelCount++;
+                redBucket += Color.red(c);
+                greenBucket += Color.green(c);
+                blueBucket += Color.blue(c);
+                Log.d("avgColor", "getAvgColor: " + redBucket + " " + greenBucket + " " + blueBucket);
+                // does alpha matter?
+            }
+        }
+
+        Log.d("avgColor", "getAvgColor:final " + redBucket + " " + greenBucket + " " + blueBucket);
+
+        return Color.rgb(redBucket / pixelCount,
+                greenBucket / pixelCount,
+                blueBucket / pixelCount);
+
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        int width = drawable.getIntrinsicWidth();
+        width = width > 0 ? width : 1;
+        int height = drawable.getIntrinsicHeight();
+        height = height > 0 ? height : 1;
+
+        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     }
 }

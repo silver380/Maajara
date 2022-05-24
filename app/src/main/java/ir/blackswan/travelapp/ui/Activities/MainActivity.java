@@ -8,7 +8,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -18,7 +17,6 @@ import java.util.List;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
-import ir.blackswan.travelapp.ui.Fargments.AddTourFragment;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 import ir.blackswan.travelapp.ui.Fargments.RefreshingFragment;
 
@@ -37,7 +35,7 @@ public class MainActivity extends AuthActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Utils.changeStatusColor(this, R.color.colorMainStatusBar);
+        Utils.changeStatusColorResource(this, R.color.colorMainStatusBar);
 
         navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host);

@@ -6,7 +6,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -14,7 +13,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.Editable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -27,8 +25,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,7 +32,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import ir.blackswan.travelapp.R;
-import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 
 
 public class Utils {
@@ -70,12 +65,18 @@ public class Utils {
         return ResourcesCompat.getFont(context, fontId);
     }
 
-    public static void changeStatusColor(Activity activity, int colorID) {
+    public static void changeStatusColorResource(Activity activity, int colorID) {
+        changeStatusColor(activity, activity.getResources().getColor(colorID));
+    }
+
+    public static void changeStatusColor(Activity activity, int color) {
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(activity.getResources().getColor(colorID));
+        window.setStatusBarColor(color);
 
     }
+
+
 
     public static void setStatusBarColorToTheme(Activity activity) {
         Window window = activity.getWindow();
@@ -175,9 +176,10 @@ public class Utils {
     }
 
 
-    public static boolean isDateGreaterOrEqual(Date date1, Date date2){
+    public static boolean isDateGreaterOrEqual(Date date1, Date date2) {
         return date1.getTime() >= date2.getTime();
     }
+
     public static long numDaysBetween(long fromTime, long toTime) {
         GregorianCalendar c = new GregorianCalendar();
         int result = 0, sign = 1;
@@ -229,7 +231,7 @@ public class Utils {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_EMAIL,  new String[]{email});
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
             intent.setPackage("com.google.android.gm");
             context.startActivity(Intent.createChooser(intent, "ارسال ایمیل"));
         } catch (ActivityNotFoundException e) {
@@ -248,7 +250,7 @@ public class Utils {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static String getFilePath(Context context , String filePrefix , String fileSuffix){
+    public static String getFilePath(Context context, String filePrefix, String fileSuffix) {
         return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) +
                 File.separator + filePrefix + System.currentTimeMillis() + fileSuffix;
     }
@@ -272,6 +274,7 @@ public class Utils {
         }
         return priceToString.toString().toString();
     }
+
     public static String getPriceString(int price) {
         if (price > 1000000)
             return priceToString(price / 1000000) + " میلیون تومان";

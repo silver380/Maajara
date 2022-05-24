@@ -158,6 +158,9 @@ public class WebImageView extends LoadableImageView {
         imageState();
     }
 
+    public Drawable getDrawable(){
+        return imageView.getDrawable();
+    }
     public void setCornerRadius(float radius) {
         imageView.setCornerRadius(radius);
     }
