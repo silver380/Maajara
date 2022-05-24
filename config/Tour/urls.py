@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import  TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
-    MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, AddRate, GetRate
+
+from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
+    MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, TourSuggestion, AddRate, GetRate
 
 app_name = 'Tour'
 urlpatterns = [
@@ -15,5 +16,6 @@ urlpatterns = [
     path('acceptuser/', AcceptUser.as_view(), name="accept_user"),
     path('addrate/', AddRate.as_view(), name="add_rate"),
     path('getrate/<int:tour_id>/', GetRate.as_view(), name="get_rate"),
-   # path('searchtour/', SearchTour.as_view(), name="search_tour"),
+    path('suggestion/<int:pk>/', TourSuggestion.as_view(), name="tour_suggestion"),
+    # path('searchtour/', SearchTour.as_view(), name="search_tour"),
 ]
