@@ -21,13 +21,11 @@ public interface Api {
     @POST("/???/")
     @FormUrlEncoded
     Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
-                                    @Field("user_id") int user_id,
                                     @Field("tour_id") int tour_id,
-                                    @Field("rate") int rate,
-                                    @Field("report") String report);
+                                    @Field("tour_rate") int rate,
+                                    @Field("tour_report") String report);
 
     //todo URL
-    //todo
     @GET("/???/")
     Call<ResponseBody> getRateStatus(@Header("Authorization") String token);
 

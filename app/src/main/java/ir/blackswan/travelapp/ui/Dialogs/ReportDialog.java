@@ -22,13 +22,10 @@ import retrofit2.Call;
 public class ReportDialog extends MyDialog {
 
     DialogReportBinding binding;
-    private TextInputsChecker checker = new TextInputsChecker();
     private TourController tourController;
     private AuthActivity authActivity;
     private int rate;
     int tourId;
-    int userId;
-
 
     public ReportDialog(Activity activity, int tour_id) {
         binding = DialogReportBinding.inflate(activity.getLayoutInflater());
@@ -37,13 +34,17 @@ public class ReportDialog extends MyDialog {
         tourController = new TourController(authActivity);
         tourId = tour_id;
 
+
         setListeners();
     }
 
 
     private boolean checkInputs() {
-        if (checker.checkAllError())
+        if (binding.simpleRatingBar.getRating() <= 0) {
+            Toast.makeText(authActivity, "امتیاز نمی\u200Cتواند خالی باشد.",
+                    Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             return false;
+        }
         return true;
     }
 
@@ -53,9 +54,8 @@ public class ReportDialog extends MyDialog {
             if(checkInputs()){
                 String report = binding.reportText.getText().toString();
                 rate = (int) binding.simpleRatingBar.getRating();
-                userId = AuthController.getUser().getUser_id();
 
-                tourController.sendTourRateReportToServer(userId, tourId, rate,
+                tourController.sendTourRateReportToServer(tourId, rate,
                         report, new OnResponseDialog(authActivity){
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {

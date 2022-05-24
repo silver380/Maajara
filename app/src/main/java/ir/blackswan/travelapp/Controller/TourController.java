@@ -26,34 +26,47 @@ public class TourController extends Controller {
         super(authActivity);
     }
 
-    public void sendTourRateReportToServer(int user_id, int tour_id, int rate, String report, OnResponse onResponse){
-        api.sendTourRateReport(AuthController.getTokenString(), user_id, tour_id, rate, report)
+    public void sendTourRateReportToServer(int tour_id, int rate, String report, OnResponse onResponse) {
+        api.sendTourRateReport(AuthController.getTokenString(), tour_id, rate, report)
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
-    //todo complete bellow
-    public void getRateStatusFromServer(OnResponse onResponse){
-        //if null >> -1
+    public void getRateStatusFromServer(OnResponse onResponse) {
 
-        //if rate is null >> -1
-//        String json = gsonExpose.toJson(TourReport);
-//
-//        api.sendTourReport(AuthController.getTokenString(), json)
-//                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+        api.getRateStatus(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                CurrentTour currentTour = gson.fromJson(response.getResponseBody(), CurrentTour.class);
+                canRate = currentTour.can_rate;
+                rate = currentTour.current_rate.tour_rate;
+                if(rate == null)
+                    rate = -1;
+                onResponse.onSuccess(call, callback, response);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                onResponse.onFailed(call, callback, response);
+            }
+        }));
+
+
+
     }
 
-    public void register(int tourId, OnResponse onResponse){
+    public void register(int tourId, OnResponse onResponse) {
         Log.d(MyCallback.TAG, "register: ");
         api.register(AuthController.getTokenString(), tourId)
                 .enqueue(new MyCallback(authActivity, onResponse));
 
     }
 
-    public void addTourToServer(Tour tour, OnResponse onResponse){
+    public void addTourToServer(Tour tour, OnResponse onResponse) {
         Log.d(TAG, "addTourToServer " + tour);
 
         String json = gsonExpose.toJson(tour);
-        json = json.replace("\"places_ids\":" ,"\"places\":" );
+        json = json.replace("\"places_ids\":", "\"places\":");
 
         api.addTour(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
@@ -137,9 +150,13 @@ public class TourController extends Controller {
         return createdTours;
     }
 
-    public static Tour[] getPendingTours() { return pendingTours; }
+    public static Tour[] getPendingTours() {
+        return pendingTours;
+    }
 
-    public static Tour[] getConfirmedTours() { return confirmedTours; }
+    public static Tour[] getConfirmedTours() {
+        return confirmedTours;
+    }
 
     public static Integer getRate() {
         return rate;
@@ -148,5 +165,23 @@ public class TourController extends Controller {
     public static boolean getCanRate() {
         return canRate;
     }
+}
+
+class CurrentTour {
+    boolean can_rate;
+    CurrentRate current_rate;
+
+    public CurrentTour(boolean can_rate, Integer tourRate, String tourReport) {
+        this.can_rate = can_rate;
+        current_rate = new CurrentRate();
+        current_rate.tour_rate = tourRate;
+        current_rate.tour_report = tourReport;
+    }
+
+    static class CurrentRate {
+        Integer tour_rate;
+        String tour_report;
+    }
+
 }
 
