@@ -31,9 +31,9 @@ public class TourController extends Controller {
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
-    public void getRateStatusFromServer(OnResponse onResponse) {
+    public void getRateStatusFromServer(OnResponse onResponse, String tour_id) {
 
-        api.getRateStatus(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+        api.getRateStatus(AuthController.getTokenString(), tour_id).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 CurrentTour currentTour = gson.fromJson(response.getResponseBody(), CurrentTour.class);

@@ -12,22 +12,22 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 public interface Api {
 
-    //todo URL
-    @POST("/???/")
+    @POST("/tour/addrate/add_rate/")
     @FormUrlEncoded
     Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
                                     @Field("tour_id") int tour_id,
                                     @Field("tour_rate") int rate,
                                     @Field("tour_report") String report);
 
-    //todo URL
-    @GET("/???/")
-    Call<ResponseBody> getRateStatus(@Header("Authorization") String token);
+    @GET("/tour/getrate/{tour_id}/get_rate/")
+    Call<ResponseBody> getRateStatus(@Header("Authorization") String token,
+                                     @Path("tour_id") String tour_id);
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
