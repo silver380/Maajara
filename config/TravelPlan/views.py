@@ -85,8 +85,9 @@ class MyPendingTravelPlans(GenericAPIView):
         return_data = []
         for req in travel_plans_reqs:
 
-            travel_plan = TravelPlanSerializer(req.travel_plan)
-            if(travel_plan.confirmed_tour_leader==None):
+            travel_plan = TravelPlanSerializer(req.travel_plan).data
+           
+            if(travel_plan['confirmed_tour_leader']==None):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
@@ -99,9 +100,8 @@ class MyConfirmedTravelPlans(GenericAPIView):
         travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
         return_data = []
         for req in travel_plans_reqs:
-
-            travel_plan = TravelPlanSerializer(req.travel_plan)
-            if(travel_plan.confirmed_tour_leader==request.user):
+            travel_plan = TravelPlanSerializer(req.travel_plan).data
+            if(travel_plan['confirmed_tour_leader']==request.user):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
