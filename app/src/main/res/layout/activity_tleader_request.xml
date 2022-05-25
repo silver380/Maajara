@@ -11,7 +11,7 @@
         style="@style/activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:title="درخواست ها"
+        app:title="درخواست‌ها"
         />
 
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
