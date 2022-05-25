@@ -34,7 +34,7 @@
             android:id="@+id/toggle_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
+            android:layout_gravity="top|center"
             android:layout_marginTop="@dimen/margin_very_small"
             android:background="@drawable/rec_medium_raidus_no_fill"
             app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
