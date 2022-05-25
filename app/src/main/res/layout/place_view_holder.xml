@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/place_image_w"
     android:layout_height="@dimen/place_image_h"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/radius_medium"
-    app:cardElevation="@dimen/card_elevation_small"
     android:layout_marginHorizontal="@dimen/margin_very_small"
     android:layout_marginVertical="@dimen/margin_small"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/radius_medium"
+    app:cardElevation="@dimen/card_elevation_small">
 
-    <View
+    <FrameLayout
         android:id="@+id/place_vh_select"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:translationZ="1dp"
-        android:background="?attr/colorPrimary"
-        android:alpha=".3"
-        android:visibility="gone"
-        />
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/secondary_icon_size"
+            android:layout_height="@dimen/secondary_icon_size"
+            android:src="@drawable/ic_tick"
+            android:background="@drawable/circle_solid"
+            android:padding="@dimen/icons_padding"
+            android:tint="@color/colorWhite"
+            android:layout_gravity="center"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha=".3"
+            android:background="?attr/colorPrimary"
+            />
+    </FrameLayout>
+
 
     <ir.blackswan.travelapp.Views.WebImageView
         android:id="@+id/place_vh_iv"
@@ -30,13 +46,12 @@
     <TextView
         android:id="@+id/place_vh_tv"
         style="@style/textRegular"
-        android:translationZ="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/margin_very_small"
         android:text="مکان"
         android:textColor="@color/colorWhite"
-        android:layout_marginBottom="@dimen/margin_very_small"
-        />
+        android:translationZ="2dp" />
 
 </com.google.android.material.card.MaterialCardView>

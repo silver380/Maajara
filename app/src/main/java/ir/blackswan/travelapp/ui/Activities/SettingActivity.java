@@ -38,14 +38,14 @@ import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Utils.WebFileTransfer;
-import ir.blackswan.travelapp.databinding.SettingsActivityBinding;
+import ir.blackswan.travelapp.databinding.ActivitySettingBinding;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class SettingActivity extends ToolbarActivity {
-    SettingsActivityBinding binding;
+    ActivitySettingBinding binding;
     User user;
     private Cacher cacher;
     private static final int BIO_MAX_LENGTH = 350;
@@ -59,7 +59,7 @@ public class SettingActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        binding = SettingsActivityBinding.inflate(getLayoutInflater());
+        binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
         user = AuthController.getUser();

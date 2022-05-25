@@ -22,9 +22,52 @@ public class TourController extends Controller {
     static Tour[] pendingTours;
     static Tour[] confirmedTours;
     static Tour[] archiveTours;
+    static boolean canRate;
+    static Integer rate;
+    static Tour[] suggestionTours;
 
     public TourController(AuthActivity authActivity) {
         super(authActivity);
+    }
+
+    public void register(int tourId, OnResponse onResponse){
+        Log.d(MyCallback.TAG, "register: ");
+        api.register(AuthController.getTokenString(), tourId)
+                .enqueue(new MyCallback(authActivity, onResponse));
+
+    }
+
+    public void getSuggestionToursFromServer(int tourId, OnResponse onResponse) {
+        Log.d(MyCallback.TAG, "getSuggestionToursFromServer: ");
+        api.getSuggestionTours(AuthController.getTokenString(), Integer.toString(tourId))
+                .enqueue(new MyCallback(authActivity, new OnResponse() {
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        suggestionTours = gson.fromJson(response.getResponseBody(), Tour[].class);
+                        Log.d(TAG, "getSuggestionToursFromServer: onSuccess: " + response.getResponseBody());
+                        onResponse.onSuccess(call, callback, response);
+                    }
+
+                    @Override
+                    public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        onResponse.onFailed(call, callback, response);
+                    }
+                }));
+    }
+
+    public void sendTourRateReportToServer(int user_id, int tour_id, int rate, String report, OnResponse onResponse){
+        //api.sendTourRateReport(AuthController.getTokenString(), user_id, tour_id, rate, report).enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog()); todo
+    }
+
+    //todo complete bellow
+    public void getRateStatusFromServer(OnResponse onResponse){
+        //if null >> -1
+
+        //if rate is null >> -1
+//        String json = gsonExpose.toJson(TourReport);
+//
+//        api.sendTourReport(AuthController.getTokenString(), json)
+//                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
     }
 
     public void getArchiveTourFromServer(OnResponse onResponse){
@@ -41,13 +84,6 @@ public class TourController extends Controller {
                 onResponse.onFailed(call, callback, response);
             }
         }));
-    }
-
-    public void register(int tourId, OnResponse onResponse){
-        Log.d(MyCallback.TAG, "register: ");
-        api.register(AuthController.getTokenString(), tourId)
-                .enqueue(new MyCallback(authActivity, onResponse));
-
     }
 
     public void addTourToServer(Tour tour, OnResponse onResponse){
@@ -146,6 +182,19 @@ public class TourController extends Controller {
     public static Tour[] getPendingTours() { return pendingTours; }
 
     public static Tour[] getConfirmedTours() { return confirmedTours; }
+
+
+    public static Tour[] getSuggestionTours() {
+        return suggestionTours;
+    }
+
+    public static Integer getRate() {
+        return rate;
+    }
+
+    public static boolean canRate() {
+        return canRate;
+    }
 
     public static Tour[] getArchiveTours() {
         return archiveTours;

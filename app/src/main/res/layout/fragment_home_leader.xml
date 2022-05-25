@@ -2,21 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <TextView
         style="@style/textTittleMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_medium"
         android:text="@string/my_tours" />
 
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
         android:id="@+id/rcl_created_tour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+
+         />
+
+    <TextView
+        style="@style/textTittleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/pending_plans" />
+
+    <ir.blackswan.travelapp.Views.LoadingRecyclerView
+        android:id="@+id/rcl_pending_plans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
          />
 
     <TextView
@@ -25,13 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/pending_plans" />
+        android:text="تایید شده" />
 
     <ir.blackswan.travelapp.Views.LoadingRecyclerView
-        android:id="@+id/rcl_pending_plans"
+        android:id="@+id/rcl_confirmed_plans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_small"
-         />
+        />
 
 </LinearLayout>

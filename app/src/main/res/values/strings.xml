@@ -53,6 +53,8 @@
     <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد</string>
 
     <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
+    <string name="text_problem">به سفرتان</string>
+    <string name="clickable_text_problem">امتیاز دهید.</string>
 
     <string name="no_place_select">مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید</string>
 

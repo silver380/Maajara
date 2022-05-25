@@ -68,6 +68,7 @@
             android:orientation="vertical"
             tools:context=".ui.Activities.TourPageActivity">
 
+
             <FrameLayout
                 android:id="@+id/view_for_showing_image"
                 android:layout_width="match_parent"
@@ -105,7 +106,6 @@
                 </LinearLayout>
             </FrameLayout>
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/vg_tour_page_bottom_view"
                 android:layout_width="match_parent"
@@ -125,10 +125,10 @@
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/tb_activity"
                         style="@style/activity_toolbar"
-                        android:clickable="false"
                         android:layout_width="match_parent"
                         android:layout_height="?android:attr/actionBarSize"
                         android:layout_marginTop="-100dp"
+                        android:clickable="false"
                         app:title="نام تور" />
 
                     <LinearLayout
@@ -389,8 +389,7 @@
                                             style="@style/textSmall"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="تغذیه"
-                                            />
+                                            android:text="تغذیه" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -415,16 +414,59 @@
                                     android:id="@+id/ll_tour_page_leader"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_medium"
                                     android:orientation="vertical">
 
                                     <androidx.appcompat.widget.AppCompatTextView
                                         style="@style/textTittleMedium"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/margin_medium"
-                                        android:layout_marginBottom="@dimen/margin_medium"
+                                        android:layout_weight="1"
+                                        android:layout_marginBottom="@dimen/margin_small"
                                         android:text="راهنمای سفر" />
 
+
+                                </LinearLayout>
+
+                                <com.willy.ratingbar.ScaleRatingBar
+                                    android:id="@+id/tour_rating_bar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:srb_clearRatingEnabled="true"
+                                    app:srb_clickable="true"
+                                    app:srb_isIndicator="true"
+                                    app:srb_minimumStars="1"
+                                    app:srb_numStars="5"
+                                    app:srb_rating="0"
+                                    app:srb_scrollable="true"
+                                    app:srb_starHeight="0dp"
+                                    app:srb_starPadding="5dp"
+                                    app:srb_starWidth="0dp"
+                                    app:srb_stepSize="1"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_rate_report"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_rate_report"
+                                        style="@style/textSmall.hintColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/text_problem" />
+
+                                    <com.google.android.material.button.MaterialButton
+                                        android:id="@+id/btn_rate_report"
+                                        style="@style/button.TextButton.small"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="@dimen/padding_small"
+                                        android:text="@string/clickable_text_problem" />
 
                                 </LinearLayout>
 
@@ -432,8 +474,7 @@
                                     android:id="@+id/group_tour_page_register"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_small"
-                                    >
+                                    android:layout_marginTop="@dimen/margin_small">
 
 
                                     <View
@@ -443,6 +484,7 @@
                                         app:layout_constraintLeft_toLeftOf="parent"
                                         app:layout_constraintRight_toRightOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
+
 
                                     <com.google.android.material.button.MaterialButton
                                         android:id="@+id/btn_tour_page_register"
@@ -468,11 +510,24 @@
                                         app:layout_constraintTop_toTopOf="@id/btn_tour_page_register" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="تورهای مشابه" />
+
+                                <ir.blackswan.travelapp.Views.LoadingRecyclerView
+                                    android:id="@+id/rcl_suggestion_tours"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small" />
+
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="?android:attr/actionBarSize"
-                                    android:layout_marginVertical="@dimen/margin_medium"
-                                    />
+                                    android:layout_marginVertical="@dimen/margin_medium" />
                             </LinearLayout>
                         </androidx.core.widget.NestedScrollView>
 

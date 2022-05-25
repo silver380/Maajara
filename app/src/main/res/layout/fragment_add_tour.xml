@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:paddingHorizontal="@dimen/padding_large"
                     android:paddingTop="@dimen/padding_small">
 
 
@@ -51,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_small"
                         android:text="@string/information" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -58,6 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:hint="@string/TourName"
                         app:startIconDrawable="@drawable/ic_flag">
 
@@ -143,7 +145,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_medium"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:paddingHorizontal="@dimen/padding_large"
                     android:paddingVertical="@dimen/padding_small">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -159,6 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:hint="تاریخ شروع"
                         app:startIconDrawable="@drawable/ic_calendar">
 
@@ -198,31 +202,38 @@
                 app:cardCornerRadius="@dimen/radius_small"
                 app:cardElevation="@dimen/card_elevation_small">
 
-                <ImageButton
-                    android:id="@+id/iv_add_tour_add_place"
-                    android:layout_width="@dimen/tertiary_icon_size"
-                    android:layout_height="@dimen/tertiary_icon_size"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_very_small"
-                    android:backgroundTint="@color/colorTransparent"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/colorIconTint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:minHeight="100dp"
-                    android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small">
+                    >
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/textTittleMedium"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/places" />
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginHorizontal="@dimen/margin_medium"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textTittleMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+
+                            android:text="@string/places" />
+
+                        <ImageButton
+                            android:id="@+id/iv_add_tour_add_place"
+                            android:layout_width="@dimen/tertiary_icon_size"
+                            android:layout_height="@dimen/tertiary_icon_size"
+                            android:backgroundTint="@color/colorTransparent"
+                            android:src="@drawable/ic_plus"
+                            app:tint="@color/colorIconTint" />
+                    </LinearLayout>
 
                     <ir.blackswan.travelapp.Views.LoadingRecyclerView
                         android:id="@+id/rcl_add_tour_places"
@@ -250,13 +261,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/padding_medium"
-                    android:paddingVertical="@dimen/padding_small">
+                    android:paddingHorizontal="@dimen/padding_large">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/textTittleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
                         android:layout_gravity="center"
                         android:text="امکانات" />
 
@@ -272,6 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="محل اسکان"
+                            android:layout_marginTop="@dimen/margin_medium"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -456,7 +468,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
                 android:text="تایید"

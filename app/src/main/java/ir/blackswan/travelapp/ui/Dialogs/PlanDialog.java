@@ -68,6 +68,7 @@ public class PlanDialog extends MyDialog {
     private void setPrice() {
         binding.etPlanSuggestPrice.addTextChangedListener
                 (new TextWatcher() {
+
                      @Override
                      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -104,7 +105,7 @@ public class PlanDialog extends MyDialog {
 
         binding.llPlanReq.removeAllViews();
         for (String req : plan.getWanted_list()) {
-            ViewGroup viewReq = (ViewGroup) authActivity.getLayoutInflater().inflate(R.layout.view_request, null)
+            ViewGroup viewReq = authActivity.getLayoutInflater().inflate(R.layout.view_request, null)
                     .findViewById(R.id.group_req);
             TextView tvReq = viewReq.findViewById(R.id.tv_req);
             tvReq.setText(req);

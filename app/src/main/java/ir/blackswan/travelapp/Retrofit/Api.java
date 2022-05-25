@@ -1,7 +1,5 @@
 package ir.blackswan.travelapp.Retrofit;
 
-import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -23,28 +21,34 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+
     //todo >> change the URL
     @GET("/???/")
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
-
     @POST("/auth/increaseticket/")
-    Call<ResponseBody> increaseTickets(@Header("Authorization") String token,
-                                       @Body RequestBody requestBody);
+    Call<ResponseBody> increaseTickets(@Header("Authorization") String token , @Body RequestBody ticket);
 
 
+    @GET("/tour/suggestion/{tour_id}/")
+    Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token, @Path("tour_id") String tour_id);
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
+
 
     @POST("/travelplan/addplanreq/")
     Call<ResponseBody> addPlanReq(@Header("Authorization") String token, @Body RequestBody planRequest);
 
     @POST("/travelplan/accepttourleader/")
     @FormUrlEncoded
-    Call<ResponseBody> acceptLeader(@Header("Authorization") String token,   @Field("travel_plan_id") int travel_plan_id,
-                                         @Field("user_id") int user_id);
+    Call<ResponseBody> acceptLeader(@Header("Authorization") String token,
+                                    @Field("travel_plan_id") int travel_plan_id,
+                                    @Field("user_id") int user_id);
 
+
+    @GET("/travelplan/myConfirmedplans/")
+    Call<ResponseBody> getConfirmedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingplans/")
     Call<ResponseBody> getPendingPlans(@Header("Authorization") String token);
@@ -125,4 +129,10 @@ public interface Api {
     @Streaming
     Call<ResponseBody> downloadFile(@Header("Authorization") String token, @Url String fileUrl);
 
+    @Multipart
+    @POST("/upload")
+    Call<ResponseBody> uploadFile(
+            @Header("Authorization") String token,
+            @Part MultipartBody.Part file
+    );
 }
