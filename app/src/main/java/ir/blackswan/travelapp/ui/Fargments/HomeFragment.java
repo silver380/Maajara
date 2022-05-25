@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import static ir.blackswan.travelapp.Utils.SharedPrefManager.IS_TOUR_LEADER;
+import static ir.blackswan.travelapp.Utils.Utils.dp2px;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,12 +25,12 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
 import ir.blackswan.travelapp.ui.Dialogs.AddTicket;
-import kotlin.Unit;
 
 public class HomeFragment extends RefreshingFragment {
 
@@ -40,6 +41,7 @@ public class HomeFragment extends RefreshingFragment {
     private HomeFragmentLeader homeFragmentLeader;
     private HomeFragmentPassenger homeFragmentPassenger;
     SharedPrefManager sharedPrefManager;
+    PowerMenuItem switchPowerMenu;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,7 +58,6 @@ public class HomeFragment extends RefreshingFragment {
         homeFragmentPassenger = new HomeFragmentPassenger(mainActivity);
         homeFragmentLeader = new HomeFragmentLeader(mainActivity);
 
-        Log.d("Response", "HomeFragment onCreateView ");
 
         setListeners();
 
@@ -65,23 +66,12 @@ public class HomeFragment extends RefreshingFragment {
         setPopupMenu();
 
 
-
         return root;
     }
 
     private void setListeners() {
-        binding.toggleHome.setOnSelectListener(themedButton -> {
-            boolean tourLeader2 = binding.toggleHome.getSelectedButtons()
-                    .contains(binding.btnHomeGuide);
-            if (tourLeader2 == tourLeader)
-                return Unit.INSTANCE;
 
-            tourLeader = !tourLeader;
-            saveToggle();
-            setCurrentFragment();
-            return Unit.INSTANCE;
-        });
-        binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity , this::updateTicketView).show());
+        binding.groupHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity, this::updateTicketView).show());
     }
 
 
@@ -108,8 +98,7 @@ public class HomeFragment extends RefreshingFragment {
     }
 
 
-
-    public void refresh(){
+    public void refresh() {
         if (tourLeader)
             homeFragmentLeader.reload();
         else
@@ -118,7 +107,7 @@ public class HomeFragment extends RefreshingFragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private void updateTicketView(){
+    private void updateTicketView() {
         binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
     }
 
@@ -129,24 +118,27 @@ public class HomeFragment extends RefreshingFragment {
             binding.ivHomeProfile.setDataByUser(user);
             if (user.is_tour_leader()) {
                 updateTicketView();
-                binding.toggleHome.setVisibility(View.VISIBLE);
-                binding.llHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity, this::updateTicketView).show());
+                binding.groupHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity, this::updateTicketView).show());
             } else {
-                ((ViewGroup)binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
+                ((ViewGroup) binding.tvHomeTicket.getParent()).setVisibility(View.GONE);
                 tourLeader = false;
                 saveToggle();
-                binding.toggleHome.setVisibility(View.GONE);
             }
-            setToggle();
+            setSwitch();
         }
     }
 
-    private void setToggle() {
-        Log.d("setToggle", "setToggle: " + tourLeader);
-        if (tourLeader)
-            binding.toggleHome.selectButton(R.id.btn_home_guide);
-        else
-            binding.toggleHome.selectButton(R.id.btn_home_passenger);
+    private void setSwitch() {
+        if (switchPowerMenu == null)
+            switchPowerMenu = new PowerMenuItem("");
+        if (tourLeader) {
+            switchPowerMenu.setTitle("تغییر به مسافر");
+            switchPowerMenu.setIcon(R.drawable.ic_padding_user);
+        }
+        else {
+            switchPowerMenu.setTitle("تغییر به راهنما");
+            switchPowerMenu.setIcon(R.drawable.ic_padding_guide);
+        }
 
     }
 
@@ -154,23 +146,40 @@ public class HomeFragment extends RefreshingFragment {
         sharedPrefManager.putBoolean(IS_TOUR_LEADER, tourLeader);
     }
 
+    private void switchAccount() {
+        tourLeader = !tourLeader;
+        saveToggle();
+        setCurrentFragment();
+        setSwitch();
+    }
 
     private void setPopupMenu() {
-        PowerMenuItem powerMenuItem = new PowerMenuItem("خروج");
-        powerMenuItem.setIcon(R.drawable.ic_logout_padding);
+        PowerMenuItem exitMenu = new PowerMenuItem("خروج");
+        exitMenu.setIcon(R.drawable.ic_logout_padding);
         PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
         pmiSetting.setIcon(R.drawable.ic_setting);
-        List<PowerMenuItem> powerMenuItems = Arrays.asList(pmiSetting, powerMenuItem);
+
+        List<PowerMenuItem> powerMenuItems;
+        if (AuthController.getUser().is_tour_leader()) {
+            powerMenuItems = Arrays.asList(switchPowerMenu, pmiSetting, exitMenu);
+            setSwitch();
+        } else
+            powerMenuItems = Arrays.asList(pmiSetting, exitMenu);
+
         binding.ivHomeProfile.setOnClickListener(v -> {
             PowerMenu powerMenu = PopupMenuCreator.create(mainActivity, powerMenuItems, v);
+            powerMenu.setWidth(dp2px(mainActivity , 250));
             powerMenu.showAsDropDown(v);
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
                 switch (position) {
                     case 0:
-                        mainActivity.startActivityForResult(new Intent(mainActivity, SettingActivity.class) , MainActivity.REQUEST_SETTING);
+                        switchAccount();
                         break;
                     case 1:
+                        mainActivity.startActivityForResult(new Intent(mainActivity, SettingActivity.class), MainActivity.REQUEST_SETTING);
+                        break;
+                    case 2:
                         AuthController.logout(mainActivity);
                         mainActivity.finish();
                         startActivity(new Intent(mainActivity, IntroActivity.class));

@@ -22,66 +22,35 @@
             android:layout_marginHorizontal="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small">
 
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-                android:id="@+id/toggle_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-
-                android:background="@drawable/rec_medium_raidus_no_fill"
-                app:toggle_horizontalSpacing="0dp"
-                app:toggle_selectableAmount="1"> <!-- this attribute is from the underlying FlexboxLayout -->
-
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/btn_home_passenger"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    app:toggle_backgroundColor="@color/colorTransparent"
-                    app:toggle_btnCornerRadius="@dimen/radius_medium"
-                    app:toggle_fontFamily="vazir_medium.ttf"
-                    app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-                    app:toggle_text="مسافر" />
-
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/btn_home_guide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    app:toggle_backgroundColor="@color/colorTransparent"
-                    app:toggle_btnCornerRadius="@dimen/radius_medium"
-                    app:toggle_fontFamily="vazir_medium.ttf"
-                    app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
-                    app:toggle_text="راهنما" />
-
-
-            </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
-
 
             <ir.blackswan.travelapp.Views.ProfileImageView
                 android:id="@+id/iv_home_profile"
                 android:layout_width="@dimen/profile_view_size"
                 android:layout_height="@dimen/profile_view_size" />
 
+
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/ll_home_ticket"
+                android:id="@+id/group_home_ticket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
-                app:cardCornerRadius="@dimen/radius_small"
-                app:cardBackgroundColor="@color/ticket_background"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/colorBackgroundDarker"
+                app:cardCornerRadius="@dimen/radius_medium"
+                app:strokeColor="@color/colorHint"
+                app:strokeWidth="1dp">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:paddingLeft="0dp"
-                    android:paddingRight="@dimen/padding_medium">
-
+                    android:paddingRight="@dimen/padding_medium"
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_home_ticket"
-                        style="@style/textTittleMedium"
+                        style="@style/textRegular"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin_very_small"
@@ -102,8 +71,8 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_home"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:layout_weight="1" />
 
 
