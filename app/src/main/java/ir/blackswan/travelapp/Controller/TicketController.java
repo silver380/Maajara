@@ -14,12 +14,11 @@ public class TicketController extends Controller {
         super(authActivity);
     }
 
-    public void increaseTicketToServer(int value, OnResponse onResponse){
+    public void increaseTicketToServer(int value, OnResponse onResponse) {
         Log.d(MyCallback.TAG, "increaseTicketToServer: ");
 
         api.increaseTickets(AuthController.getTokenString(),
-                RequestBody.create(MediaType.parse("application/json"), gson.toJson(new Ticket(value)))
-                )
+                RequestBody.create(MediaType.parse("application/json"), gson.toJson(new Ticket(value))))
                 .enqueue(new MyCallback(authActivity, new OnResponse() {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -31,11 +30,13 @@ public class TicketController extends Controller {
                     @Override
                     public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         onResponse.onFailed(call, callback, response);
-                    }}).showLoadingDialog());
+                    }
+                }).showLoadingDialog());
     }
 
-    static class Ticket{
+    static class Ticket {
         int value;
+
         public Ticket(int value) {
             this.value = value;
         }

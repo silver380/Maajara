@@ -27,11 +27,11 @@ public interface Api {
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
 
     @POST("/auth/increaseticket/")
-    Call<ResponseBody> increaseTickets(@Header("Authorization") String token),
+    Call<ResponseBody> increaseTickets(@Header("Authorization") String token , @Body RequestBody ticket);
 
 
     @GET("/tour/suggestion/{tour_id}/")
-    Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token);
+    Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token, @Path("tour_id") String tour_id);
 
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
@@ -46,8 +46,8 @@ public interface Api {
                                     @Field("travel_plan_id") int travel_plan_id,
                                     @Field("user_id") int user_id);
 
-    //todo >> change the URL
-    @GET("/???/")
+
+    @GET("/travelplan/myConfirmedplans/")
     Call<ResponseBody> getConfirmedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingplans/")
@@ -98,7 +98,7 @@ public interface Api {
     Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
     @GET("/tour/all/")
-    Call<ResponseBody> getAllTour(@Header("Authorization") String token);
+    Call<ResponseBody> searchTours(@Header("Authorization") String token , @Query("search") String search);
 
     @GET("/tour/createdtours/")
     Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);
@@ -112,9 +112,13 @@ public interface Api {
     @FormUrlEncoded
     Call<ResponseBody> token(@Field("email") String email, @Field("password") String password);
 
-    @POST("/auth/upgrade/")
+    @Multipart
+    @PATCH("/auth/upgrade/")
     Call<ResponseBody> upgrade(@Header("Authorization") String token,
-                               @Body RequestBody user);
+                               @Part("Body") RequestBody user ,
+                               @Part MultipartBody.Part image ,
+                               @Part MultipartBody.Part doc
+    );
 
 
     @GET("/auth/info/")

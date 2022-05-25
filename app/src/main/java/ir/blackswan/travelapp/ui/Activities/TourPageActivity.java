@@ -112,7 +112,7 @@ public class TourPageActivity extends ToolbarActivity {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                suggestionTours = tourController.getSuggestionTours();
+                suggestionTours = TourController.getSuggestionTours();
 
                 TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(TourPageActivity.this
                         ,suggestionTours);
@@ -128,7 +128,7 @@ public class TourPageActivity extends ToolbarActivity {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                canRate = tourController.getCanRate();
+                canRate = tourController.canRate();
                 rate = tourController.getRate();
 
                 setRate();

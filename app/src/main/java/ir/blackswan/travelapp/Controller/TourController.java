@@ -56,8 +56,7 @@ public class TourController extends Controller {
     }
 
     public void sendTourRateReportToServer(int user_id, int tour_id, int rate, String report, OnResponse onResponse){
-        api.sendTourRateReport(AuthController.getTokenString(), user_id, tour_id, rate, report)
-                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+        //api.sendTourRateReport(AuthController.getTokenString(), user_id, tour_id, rate, report).enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog()); todo
     }
 
     //todo complete bellow
@@ -183,5 +182,22 @@ public class TourController extends Controller {
     public static Tour[] getPendingTours() { return pendingTours; }
 
     public static Tour[] getConfirmedTours() { return confirmedTours; }
+
+
+    public static Tour[] getSuggestionTours() {
+        return suggestionTours;
+    }
+
+    public static Integer getRate() {
+        return rate;
+    }
+
+    public static boolean canRate() {
+        return canRate;
+    }
+
+    public static Tour[] getArchiveTours() {
+        return archiveTours;
+    }
 }
 
