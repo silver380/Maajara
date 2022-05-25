@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -25,6 +26,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,15 +37,19 @@ import java.util.concurrent.atomic.AtomicReference;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import ir.blackswan.travelapp.ui.Dialogs.ReportDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -57,6 +64,10 @@ public class TourPageActivity extends ToolbarActivity {
     private TourController tourController;
     private int actionBarHeight;
     private User user;
+    private boolean canRate;
+    private int rate;
+    private Tour[] suggestionTours;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +88,73 @@ public class TourPageActivity extends ToolbarActivity {
 
         setTouchListener();
 
+        onClickListenerReportAndStar();
+
         binding.ivTourPageOpen.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_up_reverse));
 
         TypedValue tv = new TypedValue();
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        }
+
+        setRateStatus();
+
+        setSuggestionToursRecycler();
+
+    }
+
+    private void setSuggestionToursRecycler() {
+
+        binding.rclSuggestionTours.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        tourController.getSuggestionToursFromServer(tour.getTour_id() ,new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                suggestionTours = tourController.getSuggestionTours();
+
+                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(TourPageActivity.this
+                        ,suggestionTours);
+                binding.rclSuggestionTours.setAdapter(tourRecyclerAdapter);
+            }
+        });
+
+    }
+
+    //todo complete bellow
+    private void setRateStatus(){
+        tourController.getRateStatusFromServer(new OnResponseDialog(this){
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                canRate = tourController.getCanRate();
+                rate = tourController.getRate();
+
+                setRate();
+            }
+        });
+    }
+
+    private void setRate() {
+        //tour not finished yet
+        if(canRate == false) {
+            binding.tourRatingBar.setVisibility(View.GONE);
+            binding.llRateReport.setVisibility(View.GONE);
+        }
+
+        //tour is finished
+        else {
+            //already rated
+            if(rate != -1){
+                binding.llRateReport.setVisibility(View.GONE);
+                binding.tourRatingBar.setRating((float) rate);
+            }
+
+            //not rated yet
+            else{
+                binding.tourRatingBar.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -126,6 +199,7 @@ public class TourPageActivity extends ToolbarActivity {
                 setResult(RESULT_OK);
             }
     }
+
 
     private void setPendingUsers() {
 
@@ -192,6 +266,13 @@ public class TourPageActivity extends ToolbarActivity {
         bottomViewIsOpen = false;
     }
 
+    private void onClickListenerReportAndStar() {
+        binding.btnRateReport.setOnClickListener(view -> {
+            ReportDialog reportDialog = new ReportDialog(this, tour.getTour_id());
+            reportDialog.show();
+        });
+
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
@@ -382,7 +463,6 @@ public class TourPageActivity extends ToolbarActivity {
             onBackPressed();
         });
 
-
     }
 
     private String translate(String word) {
@@ -418,6 +498,4 @@ public class TourPageActivity extends ToolbarActivity {
 
 
     }
-
-
 }
