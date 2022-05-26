@@ -3,7 +3,6 @@ from django.db import models
 
 class TravelPlan(models.Model):
     travel_plan_id = models.AutoField(primary_key=True)
-    travel_plan_name = models.CharField(max_length=60, blank=False) #TODO should be deleted
     destination = models.CharField(max_length=60, blank=False, default='')
     #TODO places should be added
     start_date = models.DateField(blank=False, null=True)
