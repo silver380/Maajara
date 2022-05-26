@@ -1,6 +1,6 @@
 import math
 
-from django.db.models import ExpressionWrapper, F, Subquery, OuterRef, Sum, Avg
+from django.db.models import ExpressionWrapper, F, Subquery, OuterRef, Sum, Avg, Min, Max, Count
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 
@@ -18,7 +18,7 @@ import datetime
 
 
 class TourListAPIView(ListAPIView):
-    search_fields = ['tour_name','destination','places__name']
+    search_fields = ['tour_name', 'destination', 'places__name']
     filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated]
     queryset = Tour.objects.all()
@@ -120,13 +120,14 @@ class Add(CreateAPIView):
         instance_serializer = TourListSerializer(instance)
         return Response(instance_serializer.data)
 
+
 class AddRate(CreateAPIView):
     model = TourRate
     serializer_class = TourRateSerializer
-    permission_classes = [permissions.IsAuthenticated  and CanRate]
+    permission_classes = [permissions.IsAuthenticated and CanRate]
+
 
 class GetRate(APIView):
-
     serializer_class = TourRateSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -134,16 +135,17 @@ class GetRate(APIView):
 
         return_data = {}
         current_tour = get_object_or_404(Tour, pk=tour_id)
-        current_date = datetime.date.today() 
-        can_rate =  (current_tour.end_date < current_date) and (request.user in current_tour.confirmed_users.all())
+        current_date = datetime.date.today()
+        can_rate = (current_tour.end_date < current_date) and (request.user in current_tour.confirmed_users.all())
         try:
-            current_rate = TourRate.objects.filter(user_id= request.user.user_id, tour_id = tour_id).values()[0]
+            current_rate = TourRate.objects.filter(user_id=request.user.user_id, tour_id=tour_id).values()[0]
         except Exception as e:
-                current_rate = None
+            current_rate = None
 
-        return_data['current_rate'] =  TourRateSerializer(current_rate).data
+        return_data['current_rate'] = TourRateSerializer(current_rate).data
         return_data['can_rate'] = can_rate
         return Response(return_data)
+
 
 class TourSuggestion(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -152,6 +154,7 @@ class TourSuggestion(APIView):
         # todo: remove lat_avg and long_avg
         tour = get_object_or_404(Tour, pk=pk)
         tour_places = tour.places.all()
+        tour_places = tour_places.reverse()
 
         try:
             latitude_avg = sum([x.latitude for x in tour_places]) / len(tour_places)
@@ -160,12 +163,40 @@ class TourSuggestion(APIView):
             latitude_avg = 32
             longitude_avg = 53
 
-        ten_closest_places = Place.objects.annotate(distance=ExpressionWrapper(
-            ((F('latitude') - latitude_avg) * (F('latitude') - latitude_avg)) +
-            ((F('longitude') - longitude_avg) * (F('longitude') - longitude_avg))
-            , output_field=FloatField())).order_by('distance')
+        places_with_distance = Place.objects.annotate(
+            distance=(
+                Subquery(tour_places.annotate(
+                    distance_to_place_in_set=(
+                        Min(
+                            (F('latitude') - OuterRef('latitude')) * (F('latitude') - OuterRef('latitude')) +
+                            (F('longitude') - OuterRef('longitude')) * (F('longitude') - OuterRef('longitude'))
+                        )
+                    )
+                ).values('distance_to_place_in_set')))).order_by('distance')
 
-        closest = Tour.objects.exclude(pk=tour.pk).annotate(avg_distance=Avg(ten_closest_places.filter(
+        print(places_with_distance.query)
+
+        # places_with_distance = Place.objects.annotate(distance=(
+        #         ((F('latitude') - latitude_avg) * (F('latitude') - latitude_avg)) +
+        #         ((F('longitude') - longitude_avg) * (F('longitude') - longitude_avg))
+        # )).order_by('distance')
+        #
+        # places_with_distance = Place.objects.annotate(distance=(min([
+        #     ((F('latitude') - place.latitude) * (F('latitude') - place.latitude)) +
+        #     ((F('longitude') - place.longitude) * (F('longitude') - place.longitude)) for place in tour_places])
+        # )).order_by('distance')
+        # print(tour.tour_name)
+        #
+        # for place in tour_places:
+        #     print(place)
+        #
+        for item in places_with_distance:
+            print(item.name, item.distance)
+        # print(places_with_distance.values('name', 'distance'))
+        #
+        # print(places_with_distance.all().values())
+
+        closest = Tour.objects.exclude(pk=tour.pk).annotate(avg_distance=Avg(places_with_distance.filter(
             place_id__in=OuterRef('places')).values('distance'))).order_by('avg_distance')
 
         serialized = TourListSerializer(closest[:5], many=True)

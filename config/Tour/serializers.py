@@ -12,20 +12,22 @@ import datetime
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture']
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id',
+                  'user_id', 'number_of_tickets', 'picture']
 
 
 class TourListSerializer(serializers.ModelSerializer):
+    current_confirmed = serializers.ReadOnlyField(source='confirmed_count')
     creator = CreatorSerializer(required=False)
     places = PlaceSerializers(many=True, required=False)
 
     class Meta:
         model = Tour
         exclude = ('pending_users', 'confirmed_users')
+        fields = ('current_confirmed',)
 
 
 class AddTourSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = Tour
         exclude = ('pending_users', 'confirmed_users')
@@ -73,14 +75,8 @@ class TourRateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     tour_rate = serializers.IntegerField(required=True)
+
     def create(self, validated_data):
- 
-            Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
-            tour_id=self.context['request'].data['tour_id'])
-            return Rate
-
-
-
-
-
-            
+        Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
+                                       tour_id=self.context['request'].data['tour_id'])
+        return Rate

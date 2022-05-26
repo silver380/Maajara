@@ -1,7 +1,21 @@
+from datetime import datetime
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
+class TourManager(models.Manager):
+    def active(self):
+        now = datetime.now()
+        return self.get_queryset().filter(start_date__lt=now)
+
+    def inactive(self):
+        now = datetime.now()
+        return self.get_queryset().filter(start_date__gt=now)
+
+
 class Tour(models.Model):
+    objects = TourManager()
     tour_id = models.AutoField(primary_key=True)
     tour_name = models.CharField(max_length=60, blank=False)
     tour_capacity = models.IntegerField(blank=False)
@@ -25,6 +39,14 @@ class Tour(models.Model):
     pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_tours', blank=True, null=True)
     confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_tours', blank=True, null=True)
 
+    @property
+    def confirmed_count(self):
+        return self.confirmed_users.all().count()
+
+    def __str__(self):
+        return self.tour_name
+
+
 class TourRate(models.Model):
     class Meta:
         unique_together = [['user', 'tour']]
@@ -32,5 +54,5 @@ class TourRate(models.Model):
     user = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE)
     tour = models.ForeignKey('Tour.Tour', on_delete=models.CASCADE)
     tour_rate = models.IntegerField(default=-1, blank=False, null=False,
-    validators=[MaxValueValidator(5), MinValueValidator(0)])
+                                    validators=[MaxValueValidator(5), MinValueValidator(0)])
     tour_report = models.TextField(default='', blank=True, null=True)
