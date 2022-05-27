@@ -33,6 +33,7 @@ import ir.blackswan.travelapp.databinding.DialogPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
+import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -101,7 +102,7 @@ public class PlanDialog extends MyDialog {
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
         binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
-        //binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces())); //todo: active this
+        binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces()));
 
         binding.llPlanReq.removeAllViews();
         for (String req : plan.getWanted_list()) {

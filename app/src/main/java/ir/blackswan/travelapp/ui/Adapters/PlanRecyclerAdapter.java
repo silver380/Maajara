@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.ui.Adapters;
 import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL_PLAN_ID;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -84,7 +85,6 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
     @Override
     public void setData(Plan[] data) {
         plans = data;
-        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

@@ -83,6 +83,8 @@ public class PlanController extends Controller {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "getCreatedPlanFromServer: onSuccess: " + response.getResponseBody());
                 createdPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
+                Log.d(TAG, "getCreatedPlanFromServer: onSuccess: " +
+                        Arrays.toString(createdPlans));
                 onResponse.onSuccess(call, callback, response);
             }
 

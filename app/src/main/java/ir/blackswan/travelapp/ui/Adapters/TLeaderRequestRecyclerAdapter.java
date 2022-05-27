@@ -128,7 +128,6 @@ implements HasArray<PlanRequest>{
     @Override
     public void setData(PlanRequest[] data) {
         allTourLeaders_req = data;
-        notifyDataSetChanged();
     }
 
 

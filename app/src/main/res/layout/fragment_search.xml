@@ -30,50 +30,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-            android:id="@+id/toggle_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:layout_marginTop="@dimen/margin_small"
-
-            app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
-
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                android:id="@+id/btn_search_tour"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                app:toggle_backgroundColor="@color/colorTransparent"
-                app:toggle_btnCornerRadius="@dimen/radius_medium"
-                app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedTextColor="?attr/colorPrimary"
-                app:toggle_selectedBackgroundColor="@color/colorTransparent"
-                app:toggle_text="تور" />
-
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                android:id="@+id/btn_search_plan"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                app:toggle_backgroundColor="@color/colorTransparent"
-                app:toggle_btnCornerRadius="@dimen/radius_medium"
-                app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="@color/colorTransparent"
-                app:toggle_selectedTextColor="?attr/colorPrimary"
-                app:toggle_text="برنامه ‌سفر" />
-
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                android:id="@+id/btn_search_place"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                app:toggle_backgroundColor="@color/colorTransparent"
-                app:toggle_btnCornerRadius="@dimen/radius_medium"
-                app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="@color/colorTransparent"
-                app:toggle_selectedTextColor="?attr/colorPrimary"
-                app:toggle_text="مکان" />
-
-
-        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+       <ir.blackswan.travelapp.Views.ToggleView
+           android:id="@+id/toggle_search"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginTop="@dimen/margin_small"
+           />
 
 
         <ir.blackswan.travelapp.Views.LoadingRecyclerView

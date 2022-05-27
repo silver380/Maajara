@@ -19,7 +19,7 @@ import ir.blackswan.travelapp.ui.Adapters.HasArray;
 public class ShowMoreRecyclerView extends LoadingRecyclerView {
     private ImageView ivShowMore;
     private Object[] data;
-    private int maxShow = 4;
+    private int maxShow = 2;
     private boolean lessShow = true;
 
     public ShowMoreRecyclerView(@NonNull Context context) {
@@ -89,11 +89,12 @@ public class ShowMoreRecyclerView extends LoadingRecyclerView {
         HasArray hasArray = (HasArray) adapter;
         if (lessShow) {
             ivShowMore.setRotation(90);
-            hasArray.setData(Arrays.copyOf(data, maxShow));
+            hasArray.setData(Arrays.copyOf(data, Math.min(data.length , maxShow)));
         } else {
             ivShowMore.setRotation(-90);
             hasArray.setData(data);
         }
+        recyclerView.setAdapter(adapter);
         TransitionManager.beginDelayedTransition(this);
     }
 

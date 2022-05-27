@@ -114,7 +114,6 @@ implements HasArray<Place>{
     @Override
     public void setData(Place[] data) {
         places = data;
-        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

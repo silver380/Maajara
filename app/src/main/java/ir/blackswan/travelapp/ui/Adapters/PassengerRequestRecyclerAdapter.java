@@ -98,7 +98,6 @@ implements HasArray<User>{
     @Override
     public void setData(User[] data) {
         allRequestedUsers = new ArrayList<>(Arrays.asList(data));
-        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

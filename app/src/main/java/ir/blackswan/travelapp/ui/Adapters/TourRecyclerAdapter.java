@@ -76,7 +76,6 @@ implements HasArray<Tour>{
     @Override
     public void setData(Tour[] data) {
         tours = data;
-        notifyDataSetChanged();
     }
 
 
