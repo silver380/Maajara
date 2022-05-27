@@ -119,6 +119,7 @@ public class HomeFragment extends RefreshingFragment {
         tourLeader = sharedPrefManager.getBoolean(IS_TOUR_LEADER, true);
         if (user != null) {
             binding.ivHomeProfile.setDataByUser(user);
+            binding.tvHomeName.setText(user.getNameAndLastname());
             if (user.is_tour_leader()) {
                 updateTicketView();
                 binding.groupHomeTicket.setOnClickListener(v -> new AddTicket(mainActivity, this::updateTicketView).show());
@@ -127,9 +128,17 @@ public class HomeFragment extends RefreshingFragment {
                 tourLeader = false;
                 saveToggle();
             }
+            updateToggleTv();
             setSwitch();
             setPopupMenu();
         }
+    }
+
+    private void updateToggleTv(){
+        if (tourLeader)
+            binding.tvHomeMode.setText("راهنمای سفر");
+        else
+            binding.tvHomeMode.setText("مسافر");
     }
 
     private void setSwitch() {
@@ -158,6 +167,7 @@ public class HomeFragment extends RefreshingFragment {
         saveToggle();
         setCurrentFragment();
         setSwitch();
+        updateToggleTv();
     }
 
     private void setPopupMenu() {
