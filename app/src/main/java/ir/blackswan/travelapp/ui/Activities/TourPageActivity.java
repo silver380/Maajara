@@ -122,7 +122,6 @@ public class TourPageActivity extends ToolbarActivity {
 
     }
 
-    //todo complete bellow
     private void setRateStatus(){
         tourController.getRateStatusFromServer(new OnResponseDialog(this){
             @Override
@@ -133,7 +132,7 @@ public class TourPageActivity extends ToolbarActivity {
 
                 setRate();
             }
-        });
+        }, Integer.toString(tour.getTour_id()) );
     }
 
     private void setRate() {

@@ -13,7 +13,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
@@ -21,7 +20,16 @@ import retrofit2.http.Url;
 
 public interface Api {
 
+    @POST("/tour/addrate/add_rate/")
+    @FormUrlEncoded
+    Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
+                                    @Field("tour_id") int tour_id,
+                                    @Field("tour_rate") int rate,
+                                    @Field("tour_report") String report);
 
+    @GET("/tour/getrate/{tour_id}/get_rate/")
+    Call<ResponseBody> getRateStatus(@Header("Authorization") String token,
+                                     @Path("tour_id") String tour_id);
     //todo >> change the URL
     @GET("/???/")
     Call<ResponseBody> getArchiveTours(@Header("Authorization") String token);
