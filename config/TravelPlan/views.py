@@ -2,11 +2,13 @@ from rest_framework import permissions
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework import filters
+import json
 
 from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
 from .permissions import IsTourLeader
-from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReqSerializer, AddTravelPlanSerializer
+from .serializers import TravelPlanSerializer,  TravelPlanReqSerializer, AddTravelPlanSerializer
+from MyUser.serializers import UserInfoSerializer
 from django.contrib.auth import get_user_model
 
 
@@ -65,17 +67,6 @@ class MyPendingReqs(GenericAPIView):
         return Response(return_data)
 
 
-# class MyPendingTravelPlans(GenericAPIView):
-#     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
-
-#     def get(self, request):
-#         travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
-#         return_data = []
-#         for req in travel_plans_reqs:
-#             serialized_data = TravelPlanSerializer(req.travel_plan)
-#             return_data.append(serialized_data.data)
-
-#         return Response(return_data)
 
 class MyPendingTravelPlans(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
@@ -84,9 +75,9 @@ class MyPendingTravelPlans(GenericAPIView):
         travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
         return_data = []
         for req in travel_plans_reqs:
+            travel_plan = TravelPlanSerializer(req.travel_plan).data
 
-            travel_plan = TravelPlanSerializer(req.travel_plan)
-            if(travel_plan.confirmed_tour_leader==None):
+            if(travel_plan['confirmed_tour_leader']==None):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
@@ -99,9 +90,14 @@ class MyConfirmedTravelPlans(GenericAPIView):
         travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
         return_data = []
         for req in travel_plans_reqs:
+            travel_plan = json.loads(json.dumps(TravelPlanSerializer(req.travel_plan).data))
+            confirmed_tour_leader = (travel_plan.get('confirmed_tour_leader'))
+            if confirmed_tour_leader != None:
+                confirmed_tour_leader_id = confirmed_tour_leader['user_id']
+            else:
+                confirmed_tour_leader_id = -1
 
-            travel_plan = TravelPlanSerializer(req.travel_plan)
-            if(travel_plan.confirmed_tour_leader==request.user):
+            if(confirmed_tour_leader_id == request.user.user_id):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
