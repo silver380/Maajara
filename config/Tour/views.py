@@ -118,7 +118,6 @@ class Add(CreateAPIView):
         return serializer.save()
 
     def create(self, request, *args, **kwargs):
-        request.user.decrease_ticket()
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)
@@ -129,7 +128,7 @@ class Add(CreateAPIView):
 class AddRate(CreateAPIView):
     model = TourRate
     serializer_class = TourRateSerializer
-    permission_classes = [permissions.IsAuthenticated and CanRate]
+    # permission_classes = [permissions.IsAuthenticated and CanRate]
 
 
 class GetRate(APIView):

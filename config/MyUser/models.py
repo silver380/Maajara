@@ -84,9 +84,12 @@ class MyUser(AbstractBaseUser):
         return self.number_of_tickets
 
     def decrease_ticket(self):
+        print(self.number_of_tickets)
         self.number_of_tickets = self.number_of_tickets - 1
+        print(self.number_of_tickets)
         try:
             self.save(update_fields=['number_of_tickets'])
-        except IntegrityError:
+        except IntegrityError as e:
+            print(e)
             raise ValidationError({'error': 'Not enough tickets'})
         return self.number_of_tickets

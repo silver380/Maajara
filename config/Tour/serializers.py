@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from MyUser.serializers import UserInfoSerializer
 from Place.serializers import PlaceSerializers
@@ -14,12 +15,13 @@ class CreatorSerializer(serializers.ModelSerializer):
 
 class TourListSerializer(serializers.ModelSerializer):
     current_confirmed = serializers.ReadOnlyField(source='confirmed_count')
+    avg_rate = serializers.ReadOnlyField()
     creator = CreatorSerializer(required=False)
     places = PlaceSerializers(many=True, required=False)
 
     class Meta:
         model = Tour
-        exclude = ('pending_users', 'confirmed_users')
+        exclude = ('pending_users', 'confirmed_users', 'total_rate', 'rate_count')
 
 
 class AddTourSerializers(serializers.ModelSerializer):
@@ -47,6 +49,7 @@ class AddTourSerializers(serializers.ModelSerializer):
         id_place = validated_data.pop('places')
         tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
         tour.places.add(*id_place)
+        self.context['request'].user.decrease_ticket()
         return tour
 
     def validate(self, data):
@@ -58,14 +61,15 @@ class AddTourSerializers(serializers.ModelSerializer):
 class TourRateSerializer(serializers.ModelSerializer):
     user = UserInfoSerializer(read_only=True)
     tour = TourListSerializer(read_only=True)
+    tour_rate = serializers.IntegerField(required=True)
 
     class Meta:
         model = TourRate
         fields = '__all__'
 
-    tour_rate = serializers.IntegerField(required=True)
-
     def create(self, validated_data):
-        Rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
+        rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
                                        tour_id=self.context['request'].data['tour_id'])
-        return Rate
+        tour = get_object_or_404(Tour, pk=self.context['request'].data['tour_id'])
+        tour.add_rate(rate.tour_rate)
+        return rate

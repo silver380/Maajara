@@ -39,6 +39,8 @@ class Tour(models.Model):
     creator = models.ForeignKey('MyUser.MyUser', on_delete=models.CASCADE, blank=True)
     pending_users = models.ManyToManyField('MyUser.MyUser', related_name='pending_tours', blank=True, null=True)
     confirmed_users = models.ManyToManyField('MyUser.MyUser', related_name='confirmed_tours', blank=True, null=True)
+    total_rate = models.IntegerField(default=0)
+    rate_count = models.IntegerField(default=0)
 
     @property
     def confirmed_count(self):
@@ -47,6 +49,18 @@ class Tour(models.Model):
     @property
     def is_full(self):
         return self.confirmed_count >= self.tour_capacity
+
+    @property
+    def avg_rate(self):
+        if self.rate_count == 0:
+            return 0
+
+        return self.total_rate / self.rate_count
+
+    def add_rate(self, rate):
+        self.rate_count += 1
+        self.total_rate += rate
+        self.save(update_fields=['rate_count', 'total_rate'])
 
     def __str__(self):
         return self.tour_name
