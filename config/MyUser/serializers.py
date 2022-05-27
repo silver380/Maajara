@@ -7,12 +7,13 @@ from rest_framework.exceptions import PermissionDenied
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ("email", "password", "first_name", "last_name")
+        fields = ("email", "password", "first_name", "last_name", "user_id")
 
     email = serializers.EmailField(max_length=255, required=True)
     first_name = serializers.CharField(max_length=50, required=True)
     last_name = serializers.CharField(max_length=50, required=True)
     password = serializers.CharField(write_only=True, required=True)
+    user_id = serializers.IntegerField(read_only = True)
 
     def create(self, validated_data):
         user = get_user_model().objects.create_user(**validated_data)
@@ -69,6 +70,14 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = get_user_model()
         exclude = ('is_admin', 'last_login', 'password')
 
+
+
 class TicketSerializer(serializers.ModelSerializer):
     class meta:
         fields = 'number_of_tickets'
+
+
+class TourLeaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture', 'gender', 'languages']

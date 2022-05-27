@@ -7,7 +7,8 @@ import json
 from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
 from .permissions import IsTourLeader
-from .serializers import TravelPlanSerializer, UserInfoSerializer, TravelPlanReqSerializer, AddTravelPlanSerializer
+from .serializers import TravelPlanSerializer,  TravelPlanReqSerializer, AddTravelPlanSerializer
+from MyUser.serializers import UserInfoSerializer
 from django.contrib.auth import get_user_model
 
 
