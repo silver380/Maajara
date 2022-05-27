@@ -19,7 +19,7 @@ class TourListAPIView(ListAPIView):
     search_fields = ['tour_name', 'destination', 'places__name']
     filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Tour.objects.all()
+    queryset = Tour.objects.active()
     serializer_class = TourListSerializer
 
 
@@ -128,7 +128,7 @@ class Add(CreateAPIView):
 class AddRate(CreateAPIView):
     model = TourRate
     serializer_class = TourRateSerializer
-    # permission_classes = [permissions.IsAuthenticated and CanRate]
+    permission_classes = [permissions.IsAuthenticated and CanRate]
 
 
 class GetRate(APIView):
