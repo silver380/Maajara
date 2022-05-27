@@ -29,6 +29,7 @@ class AddTravelPlanSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"end_date": "Finish must occur after start"})
         return data
 
+
 class TravelPlanSerializer(serializers.ModelSerializer):
     plan_creator = UserSerializer(read_only=True)
     confirmed_tour_leader = TourLeaderSerializer(read_only=True)
@@ -37,7 +38,6 @@ class TravelPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = TravelPlan
         exclude = ('pending_leaders',)
-
 
 
 class TravelPlanReqSerializer(serializers.ModelSerializer):
@@ -49,8 +49,8 @@ class TravelPlanReqSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user,
+                                                travel_plan_id=self.context['request'].data['travel_plan_id'])
 
         self.context['request'].user.decrease_ticket()
-
-        plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user, travel_plan_id=self.context['request'].data['travel_plan_id'])
         return plan_req

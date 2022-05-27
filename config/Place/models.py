@@ -20,3 +20,6 @@ class Place(models.Model, GeoItem):
     picture = models.ImageField(upload_to='place/')
     latitude = models.FloatField(blank=False)
     longitude = models.FloatField(blank=False)
+
+    def __str__(self):
+        return self.name

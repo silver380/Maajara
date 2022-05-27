@@ -1,8 +1,10 @@
 from pyexpat import model
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-from django.db import models
+from django.db import models, IntegrityError
 
 # from config.TravelPlan.models import TravelPlan
+from django.db.models import CheckConstraint, F, Q
+from rest_framework.exceptions import ValidationError
 
 
 class MyUserManager(BaseUserManager):
@@ -26,6 +28,13 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    class Meta:
+        constraints = [
+            CheckConstraint(
+                check=Q(number_of_tickets__gte=0), name='ticket_check',
+            ),
+        ]
+
     user_id = models.AutoField(primary_key=True)
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=50)
@@ -48,15 +57,14 @@ class MyUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     number_of_tickets = models.IntegerField(default=10)
-    #tour_rate = models.IntegerField(default=0) #?
-
+    # tour_rate = models.IntegerField(default=0) #?
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    travel_plans = models.ManyToManyField('TravelPlan.TravelPlan', related_name='travel_plans', blank=True,null = True)
+    travel_plans = models.ManyToManyField('TravelPlan.TravelPlan', related_name='travel_plans', blank=True, null=True)
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -71,14 +79,17 @@ class MyUser(AbstractBaseUser):
         return self.is_admin
 
     def increase_ticket(self, value):
-
         self.number_of_tickets = self.number_of_tickets + value
         self.save(update_fields=['number_of_tickets'])
         return self.number_of_tickets
 
-
     def decrease_ticket(self):
-
+        print(self.number_of_tickets)
         self.number_of_tickets = self.number_of_tickets - 1
-        self.save(update_fields=['number_of_tickets'])
+        print(self.number_of_tickets)
+        try:
+            self.save(update_fields=['number_of_tickets'])
+        except IntegrityError as e:
+            print(e)
+            raise ValidationError({'error': 'Not enough tickets'})
         return self.number_of_tickets
