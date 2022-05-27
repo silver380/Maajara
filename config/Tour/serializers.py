@@ -1,12 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
+from MyUser.serializers import UserInfoSerializer
 from Place.serializers import PlaceSerializers
 from .models import *
-
-from rest_framework import status
-from rest_framework.response import Response
-import datetime
 
 
 class CreatorSerializer(serializers.ModelSerializer):
@@ -24,7 +20,6 @@ class TourListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tour
         exclude = ('pending_users', 'confirmed_users')
-        fields = ('current_confirmed',)
 
 
 class AddTourSerializers(serializers.ModelSerializer):
@@ -58,12 +53,6 @@ class AddTourSerializers(serializers.ModelSerializer):
         if data['start_date'] > data['end_date']:
             raise serializers.ValidationError({"end_date": "Finish must occur after start"})
         return data
-
-
-class UserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        exclude = ('is_admin', 'last_login', 'password')
 
 
 class TourRateSerializer(serializers.ModelSerializer):

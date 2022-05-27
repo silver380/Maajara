@@ -3,8 +3,6 @@ import math
 from django.db.models import ExpressionWrapper, F, Subquery, OuterRef, Sum, Avg, Min, Max, Count
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-
-from django.db.models import FloatField
 from Place.models import Place
 from .serializers import *
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
@@ -42,6 +40,10 @@ class Register(APIView):
             return Response(status=400, data={"error": "Invalid tour"})
 
         registered_tour = get_object_or_404(Tour, pk=request.data['tour_id'])
+
+        if registered_tour.is_full:
+            return Response(status=400, data={"error": "Tour is full."})
+
         registered_tour.pending_users.add(request.user)
         return Response(status=200)
 
@@ -99,6 +101,9 @@ class AcceptUser(APIView):
         if registered_tour.creator != request.user:
             return Response(status=401, data={"error": "invalid tour leader"})
 
+        if registered_tour.is_full:
+            return Response(status=401, data={"error": "Tour is full."})
+
         registered_tour.confirmed_users.add(registered_user)
         registered_tour.pending_users.remove(registered_user)
         return Response(status=200)
@@ -139,7 +144,7 @@ class GetRate(APIView):
         can_rate = (current_tour.end_date < current_date) and (request.user in current_tour.confirmed_users.all())
         try:
             current_rate = TourRate.objects.filter(user_id=request.user.user_id, tour_id=tour_id).values()[0]
-        except Exception as e:
+        except Exception:
             current_rate = None
 
         return_data['current_rate'] = TourRateSerializer(current_rate).data

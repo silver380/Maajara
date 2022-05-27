@@ -69,7 +69,7 @@ class TravelPlanReqSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         self.context['request'].user.decrease_ticket()
-
+        
         plan_req = TravelPlanReq.objects.create(**validated_data, tour_leader=self.context['request'].user,
                                                 travel_plan_id=self.context['request'].data['travel_plan_id'])
         return plan_req

@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import CheckConstraint, Q, F
 
 
 class TourManager(models.Manager):
@@ -42,6 +43,10 @@ class Tour(models.Model):
     @property
     def confirmed_count(self):
         return self.confirmed_users.all().count()
+
+    @property
+    def is_full(self):
+        return self.confirmed_count >= self.tour_capacity
 
     def __str__(self):
         return self.tour_name
