@@ -28,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     # TODO: add certificate to required_for_upgrade
-    required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number']
+    required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number', 'ssn']
     tour_leader_fields = required_for_upgrade + ['telegram_id' + 'whatsapp_id']
 
     class Meta:
@@ -80,4 +80,5 @@ class TicketSerializer(serializers.ModelSerializer):
 class TourLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture', 'gender', 'languages']
+        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id',
+                  'user_id', 'number_of_tickets', 'picture', 'gender', 'languages', 'ssn']

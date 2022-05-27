@@ -45,6 +45,7 @@ class MyUser(AbstractBaseUser):
     languages = models.CharField(max_length=500, default='')
     picture = models.ImageField(upload_to='user/profile/')
     certificate = models.FileField(upload_to='user/certificate/')
+    ssn = models.CharField(max_length=15, default='')
 
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')

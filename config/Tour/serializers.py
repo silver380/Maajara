@@ -4,18 +4,13 @@ from rest_framework import serializers
 from MyUser.serializers import UserInfoSerializer
 from Place.serializers import PlaceSerializers
 from .models import *
-
-
-class CreatorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id', 'user_id', 'number_of_tickets', 'picture', 'languages', 'gender']
+from MyUser.serializers import TourLeaderSerializer
 
 
 class TourListSerializer(serializers.ModelSerializer):
     current_confirmed = serializers.ReadOnlyField(source='confirmed_count')
     avg_rate = serializers.ReadOnlyField()
-    creator = CreatorSerializer(required=False)
+    creator = TourLeaderSerializer(required=False)
     places = PlaceSerializers(many=True, required=False)
 
     class Meta:
