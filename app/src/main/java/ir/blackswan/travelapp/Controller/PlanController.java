@@ -46,7 +46,7 @@ public class PlanController extends Controller {
     public void addPlanToServer(Plan plan, OnResponse onResponse) {
         String json = gsonExpose.toJson(plan);
 
-        json = json.replace("\"places_ids\":", "\"places\":");
+        json = json.replace("\"places_ides\":", "\"places\":");
         Log.d(TAG, "addPlanToServer: " + json);
         api.addPlan(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
@@ -60,13 +60,11 @@ public class PlanController extends Controller {
             search = "";
 
         call = api.searchPlans(AuthController.getTokenString(), search);
-        Log.d(TAG, "getAllPlanFromServer:...URL:  " + call.request().url());
         call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                Log.d("ResponsePlan", "onSuccess: " + response.getResponseBody());
                 allPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
-                Log.d("ResponsePlan", "onSuccess: " + Arrays.toString(allPlans));
+                Log.d("ResponsePlan", "onSuccess: " + allPlans.length + "  " + Arrays.toString(allPlans));
                 onResponse.onSuccess(call, callback, response);
             }
 

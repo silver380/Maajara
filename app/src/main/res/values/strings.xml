@@ -63,5 +63,8 @@
     <string name="my_tours">تورهای من</string>
     <string name="pending_plans">در انتظار تایید</string>
     <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید برنامه تعریف کنید</string>
+    <string name="show_more">نمایش بیشتر</string>
+    <string name="home_tours">تورها</string>
+    <string name="home_plans">برنامه سفر‌ها</string>
 
 </resources>

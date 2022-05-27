@@ -63,8 +63,6 @@ public class HomeFragment extends RefreshingFragment {
 
         reload();
 
-        setPopupMenu();
-
 
         return root;
     }
@@ -108,7 +106,12 @@ public class HomeFragment extends RefreshingFragment {
 
     @SuppressLint("SetTextI18n")
     private void updateTicketView() {
-        binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
+        if (!tourLeader)
+            binding.groupHomeTicket.setVisibility(View.GONE);
+        else {
+            binding.groupHomeTicket.setVisibility(View.VISIBLE);
+            binding.tvHomeTicket.setText(AuthController.getUser().getNumber_of_tickets() + "");
+        }
     }
 
     private void setupWithUser() {
@@ -125,12 +128,15 @@ public class HomeFragment extends RefreshingFragment {
                 saveToggle();
             }
             setSwitch();
+            setPopupMenu();
         }
     }
 
     private void setSwitch() {
-        if (switchPowerMenu == null)
+        if (switchPowerMenu == null) {
             switchPowerMenu = new PowerMenuItem("");
+            switchPowerMenu.setTag(2);
+        }
         if (tourLeader) {
             switchPowerMenu.setTitle("تغییر به مسافر");
             switchPowerMenu.setIcon(R.drawable.ic_padding_user);
@@ -148,6 +154,7 @@ public class HomeFragment extends RefreshingFragment {
 
     private void switchAccount() {
         tourLeader = !tourLeader;
+        updateTicketView();
         saveToggle();
         setCurrentFragment();
         setSwitch();
@@ -156,8 +163,10 @@ public class HomeFragment extends RefreshingFragment {
     private void setPopupMenu() {
         PowerMenuItem exitMenu = new PowerMenuItem("خروج");
         exitMenu.setIcon(R.drawable.ic_logout_padding);
+        exitMenu.setTag(0);
         PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
         pmiSetting.setIcon(R.drawable.ic_setting);
+        pmiSetting.setTag(1);
 
         List<PowerMenuItem> powerMenuItems;
         if (AuthController.getUser().is_tour_leader()) {
@@ -172,14 +181,14 @@ public class HomeFragment extends RefreshingFragment {
             powerMenu.showAsDropDown(v);
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
-                switch (position) {
-                    case 0:
+                switch ((int) item.getTag()){
+                    case 2:
                         switchAccount();
                         break;
                     case 1:
                         mainActivity.startActivityForResult(new Intent(mainActivity, SettingActivity.class), MainActivity.REQUEST_SETTING);
                         break;
-                    case 2:
+                    case 0:
                         AuthController.logout(mainActivity);
                         mainActivity.finish();
                         startActivity(new Intent(mainActivity, IntroActivity.class));

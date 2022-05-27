@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/loading_vlr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
 
-    <TextView
-        android:id="@+id/tv_vlr"
+    <FrameLayout
+        android:id="@+id/fl_vlr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="موردی یافت نشد"
-        android:layout_gravity="top"
-        android:paddingTop="@dimen/padding_small"
-        android:paddingBottom="@dimen/padding_large"
-        android:gravity="center"
-        style="@style/textHint"
-        />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/loading_vlr"
+            android:layout_width="wrap_content"
+            android:indeterminateTint="@color/colorIconTint"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_vlr"
+            style="@style/textHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_large"
+            android:text="موردی یافت نشد" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_vlr_show_more"
+        android:layout_width="@dimen/primary_icon_size"
+        android:layout_height="@dimen/primary_icon_size"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_back"
+        android:tint="@color/colorIconTint"
+        android:rotation="90"
+        android:padding="@dimen/icons_padding_very_large"
+        android:visibility="gone"
+        />
+</LinearLayout>

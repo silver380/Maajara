@@ -4,14 +4,11 @@ import static ir.blackswan.travelapp.Utils.Utils.convertStringToDate;
 import static ir.blackswan.travelapp.Utils.Utils.priceToString;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +36,7 @@ public class Tour implements Serializable {
     private String tour_name;
     @Expose
     private int tour_capacity;
-    private int registerCount;
+    private int confirmed_count;
     @Expose
     private String destination;
     @Expose
@@ -142,10 +139,6 @@ public class Tour implements Serializable {
         return tour_capacity;
     }
 
-    public int getRegisterCount() {
-        return registerCount;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -217,6 +210,10 @@ public class Tour implements Serializable {
         return Objects.hash(tour_id);
     }
 
+    public int getConfirmed_count() {
+        return confirmed_count;
+    }
+
     @Override
     public String toString() {
         return "Tour{" +
@@ -224,11 +221,12 @@ public class Tour implements Serializable {
                 ", creator=" + creator +
                 ", tour_name='" + tour_name + '\'' +
                 ", tour_capacity=" + tour_capacity +
-                ", registerCount=" + registerCount +
+                ", registered_count=" + confirmed_count +
                 ", destination='" + destination + '\'' +
                 ", start_date='" + start_date + '\'' +
                 ", end_date='" + end_date + '\'' +
                 ", places=" + Arrays.toString(places) +
+                ", places_ids=" + Arrays.toString(places_ids) +
                 ", price=" + price +
                 ", residence='" + residence + '\'' +
                 ", has_breakfast=" + has_breakfast +

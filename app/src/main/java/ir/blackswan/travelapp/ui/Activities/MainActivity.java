@@ -44,7 +44,6 @@ public class MainActivity extends AuthActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
 
@@ -86,7 +85,7 @@ public class MainActivity extends AuthActivity {
 
     }
 
-    public void navigateToHome() {
-        navController.navigate(R.id.navigation_home);
+    public void navigateToId(int id) {
+        binding.navView.setSelectedItemId(id);
     }
 }

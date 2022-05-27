@@ -7,13 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
+import java.util.Arrays;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Views.CustomGridLayoutManager;
 import ir.blackswan.travelapp.databinding.FragmentHomeTravelerBinding;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
@@ -30,6 +33,7 @@ public class HomeFragmentPassenger extends Fragment {
     private PlanController planController;
     private Tour[] pendingTours;
     private Tour[] confirmedTours;
+    private Tour[] allTours;
 
     public HomeFragmentPassenger(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -44,14 +48,14 @@ public class HomeFragmentPassenger extends Fragment {
         View root = binding.getRoot();
 
 
-        binding.rclPendingTour.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
+        binding.rclCreatedPlans.setLayoutManager(new CustomGridLayoutManager(mainActivity, 2));
 
-        binding.rclConfirmedTour.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
+        binding.rclConfirmedTour.setLayoutManager(new CustomGridLayoutManager(mainActivity, 2));
 
-        binding.rclCreatedPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
+        binding.rclPendingTour.setLayoutManager(new CustomGridLayoutManager(mainActivity, 2));
+
+        binding.rclHomeTours.setLayoutManager(new CustomGridLayoutManager(mainActivity , 2));
+        setListeners();
 
         reload();
 
@@ -59,6 +63,10 @@ public class HomeFragmentPassenger extends Fragment {
         return root;
     }
 
+    private void setListeners() {
+        binding.btnHomeGotoSearch.setOnClickListener(v ->
+                mainActivity.navigateToId(R.id.navigation_search));
+    }
 
     public void reload() {
         setConfirmedToursRecycler();
@@ -101,10 +109,25 @@ public class HomeFragmentPassenger extends Fragment {
                 binding.rclCreatedPlans.setAdapter(
                         new PlanRecyclerAdapter(mainActivity, PlanController.getCreatedPlans())
                 );
-                mainActivity.getHomeFragment().setRefreshing(false);
+                setTourRecycler();
             }
         });
 
+    }
+
+    private void setTourRecycler() {
+        tourController.getAllTourFromServer(new OnResponseDialog(mainActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                allTours = TourController.getAllTours();
+                binding.rclHomeTours.setAdapter(
+                        new TourRecyclerAdapter(mainActivity ,
+                                Arrays.copyOf(allTours , 6))
+                );
+                mainActivity.getHomeFragment().setRefreshing(false);
+            }
+        }, "");
     }
 
 }

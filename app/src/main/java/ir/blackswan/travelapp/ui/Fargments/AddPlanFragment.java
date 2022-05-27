@@ -19,8 +19,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -33,7 +31,6 @@ import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
@@ -242,7 +239,7 @@ public class AddPlanFragment extends Fragment {
                         Toast.makeText(mainActivity, "برنامه سفر با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
 
-                        mainActivity.navigateToHome();
+                        mainActivity.navigateToId(R.id.navigation_home);
                         binding = null;
                         FragmentDataHandler.clear(mainActivity, KEY_ADD_PLAN_FRAGMENT);
                     }

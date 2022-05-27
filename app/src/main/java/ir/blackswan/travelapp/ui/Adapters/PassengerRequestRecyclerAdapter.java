@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -25,7 +27,8 @@ import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder> {
+public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<PassengerRequestRecyclerAdapter.ViewHolder>
+implements HasArray<User>{
     ArrayList<User> allRequestedUsers;
     ArrayList<User> confirmedUsers;
     AuthActivity activity;
@@ -85,6 +88,17 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     @Override
     public int getItemCount() {
         return allRequestedUsers.size();
+    }
+
+    @Override
+    public User[] getData() {
+        return allRequestedUsers.toArray(new User[0]);
+    }
+
+    @Override
+    public void setData(User[] data) {
+        allRequestedUsers = new ArrayList<>(Arrays.asList(data));
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

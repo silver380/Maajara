@@ -51,5 +51,6 @@
     <dimen name="btn_large_padding_vertical">6dp</dimen>
     <dimen name="icons_padding">7dp</dimen>
     <dimen name="icons_padding_large">10dp</dimen>
+    <dimen name="icons_padding_very_large">12dp</dimen>
 
 </resources>

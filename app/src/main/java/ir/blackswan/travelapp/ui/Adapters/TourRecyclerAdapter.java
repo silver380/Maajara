@@ -19,7 +19,8 @@ import ir.blackswan.travelapp.ui.Activities.TourPageActivity;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.WebImageView;
 
-public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.ViewHolder> {
+public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.ViewHolder>
+implements HasArray<Tour>{
     Tour[] tours;
     Activity activity;
     public TourRecyclerAdapter(Activity activity , Tour[] tours) {
@@ -66,6 +67,18 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
             return 0;
         return tours.length;
     }
+
+    @Override
+    public Tour[] getData() {
+        return tours;
+    }
+
+    @Override
+    public void setData(Tour[] data) {
+        tours = data;
+        notifyDataSetChanged();
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder{
         WebImageView image;

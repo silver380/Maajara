@@ -42,19 +42,20 @@ public class LoadingRecyclerView extends FrameLayout {
         init(attrs);
     }
 
-    private void init(AttributeSet attributeSet) {
+    protected void init(AttributeSet attributeSet) {
         inflate(getContext(), R.layout.view_loading_recycler, this);
         if (attributeSet != null)
             recyclerView = new RecyclerView(getContext(), attributeSet);
         else
             recyclerView = new RecyclerView(getContext());
         recyclerView.setId(R.id.loading_recycler);
-        addView(recyclerView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ((ViewGroup)findViewById(R.id.fl_vlr)).addView(recyclerView,
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         loading = findViewById(R.id.loading_vlr);
         textView = findViewById(R.id.tv_vlr);
         errorText = getContext().getString(DEFAULT_ERROR_TEXT);
         text = getContext().getString(DEFAULT_TEXT);
-        loadingState();
+
     }
 
     public void setText(String text) {
@@ -69,11 +70,12 @@ public class LoadingRecyclerView extends FrameLayout {
 
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         recyclerView.setLayoutManager(layoutManager);
+        loadingState();
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
-        if (recyclerView.getAdapter().getItemCount() > 0)
+        if (adapter.getItemCount() > 0)
             recyclerState();
         else
             textState();

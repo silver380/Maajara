@@ -21,7 +21,8 @@ import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
 
-public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder> {
+public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder>
+        implements HasArray<Plan> {
 
     AuthActivity authActivity;
     Plan[] plans;
@@ -73,6 +74,17 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
     @Override
     public int getItemCount() {
         return plans.length;
+    }
+
+    @Override
+    public Plan[] getData() {
+        return plans;
+    }
+
+    @Override
+    public void setData(Plan[] data) {
+        plans = data;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

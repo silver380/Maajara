@@ -31,7 +31,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 
-public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder> {
+public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder>
+implements HasArray<PlanRequest>{
 
     PlanRequest[] allTourLeaders_req;
     User confirmedTourLeader;
@@ -118,6 +119,18 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.accept.setClickable(false);
         holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
     }
+
+    @Override
+    public PlanRequest[] getData() {
+        return allTourLeaders_req;
+    }
+
+    @Override
+    public void setData(PlanRequest[] data) {
+        allTourLeaders_req = data;
+        notifyDataSetChanged();
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ProfileImageView leaderImageView;

@@ -17,7 +17,8 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.WebImageView;
 import ir.blackswan.travelapp.ui.Dialogs.PlaceDialog;
 
-public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder> {
+public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder>
+implements HasArray<Place>{
     Place[] places;
     HashSet<Place> selectedPlaces;
     Activity activity;
@@ -103,6 +104,17 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
     @Override
     public int getItemCount() {
         return places.length;
+    }
+
+    @Override
+    public Place[] getData() {
+        return places;
+    }
+
+    @Override
+    public void setData(Place[] data) {
+        places = data;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

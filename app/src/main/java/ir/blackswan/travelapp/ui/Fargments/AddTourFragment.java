@@ -235,7 +235,7 @@ public class AddTourFragment extends Fragment {
                         Toast.makeText(mainActivity, "تور با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
 
-                        mainActivity.navigateToHome();
+                        mainActivity.navigateToId(R.id.navigation_home);
                         binding = null;
                         FragmentDataHandler.clear(mainActivity, KEY_ADD_TOUR_FRAGMENT);
 

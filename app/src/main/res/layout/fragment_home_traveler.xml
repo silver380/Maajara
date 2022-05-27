@@ -1,55 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.Fargments.HomeFragment"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
+    android:layout_height="match_parent"
+    tools:context=".ui.Fargments.HomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirmedTours"
-        style="@style/textTittleMedium"
-        android:layout_marginRight="@dimen/margin_medium"
-        />
-    <ir.blackswan.travelapp.Views.LoadingRecyclerView
-        android:id="@+id/rcl_confirmed_tour"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pendingTours"
-        style="@style/textTittleMedium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_medium"
-        />
-    <ir.blackswan.travelapp.Views.LoadingRecyclerView
-        android:id="@+id/rcl_pending_tour"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:orientation="vertical">
 
-        />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/createdPlans"
-        style="@style/textTittleMedium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_medium"
-        />
-    <ir.blackswan.travelapp.Views.LoadingRecyclerView
-        android:id="@+id/rcl_created_plans"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
+        <TextView
+            style="@style/textTittleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmedTours" />
 
-        />
-</LinearLayout>
+        <ir.blackswan.travelapp.Views.ShowMoreRecyclerView
+            android:id="@+id/rcl_confirmed_tour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small" />
+
+        <TextView
+            style="@style/textTittleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/pendingTours" />
+
+        <ir.blackswan.travelapp.Views.ShowMoreRecyclerView
+            android:id="@+id/rcl_pending_tour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+
+            />
+
+        <TextView
+            style="@style/textTittleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/createdPlans" />
+
+        <ir.blackswan.travelapp.Views.ShowMoreRecyclerView
+            android:id="@+id/rcl_created_plans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+
+            />
+
+        <TextView
+            style="@style/textTittleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/home_tours" />
+
+        <ir.blackswan.travelapp.Views.LoadingRecyclerView
+            android:id="@+id/rcl_home_tours"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/margin_small"
+
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_home_goto_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button.TextButton"
+            android:text="@string/show_more"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import java.util.Arrays;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -16,6 +19,8 @@ import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Views.CustomGridLayoutManager;
 import ir.blackswan.travelapp.databinding.FragmentHomeLeaderBinding;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
@@ -32,6 +37,7 @@ public class HomeFragmentLeader extends Fragment {
     private Tour[] createdTours;
     private Plan[] pendingPlans;
     private Plan[] confirmedPlans;
+    private Plan[] allPlans;
 
     public HomeFragmentLeader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -45,34 +51,26 @@ public class HomeFragmentLeader extends Fragment {
         binding = FragmentHomeLeaderBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.rclCreatedTour.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
+        binding.rclCreatedTour.setLayoutManager( new CustomGridLayoutManager(mainActivity, 2));
+        binding.rclPendingPlans.setLayoutManager( new CustomGridLayoutManager(mainActivity, 2));
+        binding.rclConfirmedPlans.setLayoutManager( new CustomGridLayoutManager(mainActivity, 2));
+        binding.rclHomePlans.setLayoutManager(new CustomGridLayoutManager(mainActivity , 2));
 
-        binding.rclPendingPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
-
-        binding.rclConfirmedPlans.setLayoutManager(new LinearLayoutManager(mainActivity,
-                LinearLayoutManager.HORIZONTAL, false));
-
-
+        setListeners();
         reload();
 
         return root;
+    }
+
+    private void setListeners() {
+        binding.btnHomeGotoSearch.setOnClickListener(v ->
+                mainActivity.navigateToId(R.id.navigation_search));
     }
 
     public void reload() {
         setCreatedToursRecycler();
     }
 
-    private void setRecyclers() {
-        TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), createdTours);
-        binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
-
-        binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(mainActivity , pendingPlans));
-        binding.rclConfirmedPlans.setAdapter(new PlanRecyclerAdapter(mainActivity, confirmedPlans));
-
-        mainActivity.getHomeFragment().setRefreshing(false);
-    }
 
     private void setCreatedToursRecycler() {
 
@@ -81,6 +79,14 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 createdTours = tourController.getCreatedTours();
+                TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(getActivity(), createdTours);
+                binding.rclCreatedTour.setAdapter(tourRecyclerAdapter);
+                setPendingPlansRecycler();
+            }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclCreatedTour.textState(true);
                 setPendingPlansRecycler();
             }
         });
@@ -94,7 +100,13 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 pendingPlans = PlanController.getPendingPlans();
-
+                binding.rclPendingPlans.setAdapter(new PlanRecyclerAdapter(mainActivity , pendingPlans));
+                setConfirmedPlansRecycler();
+            }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclPendingPlans.textState(true);
                 setConfirmedPlansRecycler();
             }
         });
@@ -108,10 +120,39 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 confirmedPlans = PlanController.getConfirmedPlans();
+                binding.rclConfirmedPlans.setAdapter(new PlanRecyclerAdapter(mainActivity, confirmedPlans));
+                setPlansRecycler();
+            }
 
-                setRecyclers();
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclConfirmedPlans.textState(true);
+                setPlansRecycler();
             }
         });
 
+    }
+
+    private void setPlansRecycler() {
+        planController.getAllPlanFromServer(new OnResponseDialog(mainActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                allPlans = PlanController.getAllPlans();
+                Plan[] plans = Arrays.copyOf(allPlans , 6);
+                Log.d("ResponsePlan", "setPlansRecycler onSuccess: " + Arrays.toString(plans));
+                binding.rclHomePlans.setAdapter(new PlanRecyclerAdapter(
+                        mainActivity , plans));
+                mainActivity.getHomeFragment().setRefreshing(false);
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclHomePlans.textState(true);
+                mainActivity.getHomeFragment().setRefreshing(false);
+            }
+        }, "");
     }
 }

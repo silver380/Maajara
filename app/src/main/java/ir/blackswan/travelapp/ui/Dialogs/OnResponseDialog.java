@@ -20,7 +20,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
     public OnResponseDialog(AuthActivity activity ) {
         binding = DialogOnResponseBinding.inflate(activity.getLayoutInflater());
         this.activity = activity;
-        init(activity , binding.getRoot() , DIALOG_TYPE_ROUNDED_BOTTOM_SHEET);
+        init(activity , binding.getRoot() , DIALOG_TYPE_BOTTOM_SHEET);
         getDialog().getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT)
         );

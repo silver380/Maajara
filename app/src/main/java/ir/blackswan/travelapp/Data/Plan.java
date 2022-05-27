@@ -124,19 +124,7 @@ public class Plan implements Serializable {
     @Override
     public String toString() {
         return "Plan{" +
-                "plan_creator=" + plan_creator +
-                ", destination='" + destination + '\'' +
-                ", travel_plan_name='" + travel_plan_name + '\'' +
-                ", start_date='" + start_date + '\'' +
-                ", end_date='" + end_date + '\'' +
-                ", wanted_list='" + wanted_list + '\'' +
-                ", requestedGuides=" + requestedGuides +
-                ", registeredUser=" + registeredUser +
-                ", places_ides=" + Arrays.toString(places_ides) +
-                ", places=" + Arrays.toString(places) +
-                ", travel_plan_id=" + travel_plan_id +
-                ", confirmed_tour_leader=" + confirmed_tour_leader +
-                ", accepted_price='" + accepted_price + '\'' +
+                "destination='" + destination + '\'' +
                 '}';
     }
 

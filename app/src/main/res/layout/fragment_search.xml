@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
-            android:layout_marginTop="@dimen/margin_very_small"
-            android:background="@drawable/rec_medium_raidus_no_fill"
+            android:layout_marginTop="@dimen/margin_small"
+
             app:toggle_horizontalSpacing="0dp"> <!-- this attribute is from the underlying FlexboxLayout -->
 
             <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -46,7 +46,8 @@
                 app:toggle_backgroundColor="@color/colorTransparent"
                 app:toggle_btnCornerRadius="@dimen/radius_medium"
                 app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_selectedTextColor="?attr/colorPrimary"
+                app:toggle_selectedBackgroundColor="@color/colorTransparent"
                 app:toggle_text="تور" />
 
             <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -56,7 +57,8 @@
                 app:toggle_backgroundColor="@color/colorTransparent"
                 app:toggle_btnCornerRadius="@dimen/radius_medium"
                 app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_selectedBackgroundColor="@color/colorTransparent"
+                app:toggle_selectedTextColor="?attr/colorPrimary"
                 app:toggle_text="برنامه ‌سفر" />
 
             <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -66,7 +68,8 @@
                 app:toggle_backgroundColor="@color/colorTransparent"
                 app:toggle_btnCornerRadius="@dimen/radius_medium"
                 app:toggle_fontFamily="vazir_medium.ttf"
-                app:toggle_selectedBackgroundColor="?android:attr/colorPrimary"
+                app:toggle_selectedBackgroundColor="@color/colorTransparent"
+                app:toggle_selectedTextColor="?attr/colorPrimary"
                 app:toggle_text="مکان" />
 
 
@@ -77,7 +80,7 @@
             android:id="@+id/rcl_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
             android:orientation="vertical" />
 
 
