@@ -33,7 +33,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password', 'number_of_tickets']
+        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password', 'number_of_tickets', 'total_rate', 'rate_count']
 
     def update(self, instance, validated_data):
         is_upgrading = False
@@ -67,6 +67,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
+    avg_rate = serializers.ReadOnlyField()
+
     class Meta:
         model = get_user_model()
         exclude = ('is_admin', 'last_login', 'password')

@@ -128,7 +128,7 @@ class Add(CreateAPIView):
 class AddRate(CreateAPIView):
     model = TourRate
     serializer_class = TourRateSerializer
-    permission_classes = [permissions.IsAuthenticated and CanRate]
+    # permission_classes = [permissions.IsAuthenticated and CanRate]
 
 
 class GetRate(APIView):

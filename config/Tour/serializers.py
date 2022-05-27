@@ -9,13 +9,12 @@ from MyUser.serializers import TourLeaderSerializer
 
 class TourListSerializer(serializers.ModelSerializer):
     current_confirmed = serializers.ReadOnlyField(source='confirmed_count')
-    avg_rate = serializers.ReadOnlyField()
     creator = TourLeaderSerializer(required=False)
     places = PlaceSerializers(many=True, required=False)
 
     class Meta:
         model = Tour
-        exclude = ('pending_users', 'confirmed_users', 'total_rate', 'rate_count')
+        exclude = ('pending_users', 'confirmed_users')
 
 
 class AddTourSerializers(serializers.ModelSerializer):
@@ -65,5 +64,5 @@ class TourRateSerializer(serializers.ModelSerializer):
         rate = TourRate.objects.create(**validated_data, user_id=self.context['request'].user.user_id,
                                        tour_id=self.context['request'].data['tour_id'])
         tour = get_object_or_404(Tour, pk=self.context['request'].data['tour_id'])
-        tour.add_rate(rate.tour_rate)
+        tour.creator.add_rate(rate.tour_rate)
         return rate

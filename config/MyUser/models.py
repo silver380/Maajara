@@ -46,6 +46,8 @@ class MyUser(AbstractBaseUser):
     picture = models.ImageField(upload_to='user/profile/')
     certificate = models.FileField(upload_to='user/certificate/')
     ssn = models.CharField(max_length=15, default='')
+    total_rate = models.IntegerField(default=0)
+    rate_count = models.IntegerField(default=0)
 
     phone_number = models.CharField(max_length=50, default='')
     telegram_id = models.CharField(max_length=50, default='')
@@ -94,3 +96,16 @@ class MyUser(AbstractBaseUser):
             print(e)
             raise ValidationError({'error': 'Not enough tickets'})
         return self.number_of_tickets
+
+    @property
+    def avg_rate(self):
+        if self.rate_count == 0:
+            return 0
+
+        return self.total_rate / self.rate_count
+
+    def add_rate(self, rate):
+        self.rate_count += 1
+        self.total_rate += rate
+        self.save(update_fields=['rate_count', 'total_rate'])
+
