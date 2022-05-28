@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.Activities.MapsActivity"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/tb_map"
+        style="@style/activity_toolbar"
+        android:layout_height="?android:attr/actionBarSize"
+        app:title="انتخاب موقعیت"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.Activities.MapsActivity"
+        />
+
+   <com.google.android.material.button.MaterialButton
+       android:id="@+id/btn_submit_place_location"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       style="@style/button.primaryButton"
+       android:text="تایید"
+       android:layout_marginHorizontal="@dimen/margin_large"
+       android:layout_marginBottom="@dimen/margin_medium"
+       />
+    </FrameLayout>
+
+</LinearLayout>

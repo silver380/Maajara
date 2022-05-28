@@ -46,6 +46,7 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
+//startActivity(new Intent(this, MapsActivity.class));
 
     }
 
@@ -70,10 +71,6 @@ public class MainActivity extends AuthActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     public HomeFragment getHomeFragment() {
         return homeFragment;
@@ -85,7 +82,7 @@ public class MainActivity extends AuthActivity {
 
     }
 
-    public void resetTicket(){
+    public void resetTicket() {
         homeFragment.updateTicketView();
     }
 

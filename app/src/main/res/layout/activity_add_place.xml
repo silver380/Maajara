@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Activities.AddPlaceActivity"
+    android:orientation="vertical"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_add_place"
+        style="@style/activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="اضافه کردن مکان" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorBackgroundDarker"
+
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+
+    <ImageView
+        android:id="@+id/place_img"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_very_small"
+        app:riv_corner_radius="@dimen/radius_medium"
+        />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginVertical="@dimen/margin_small"
+                android:id="@+id/btn_choose_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/button.outLineButton"
+                android:text="انتخاب عکس"
+                android:layout_marginHorizontal="@dimen/margin_medium"/>
+
+        </LinearLayout>
+
+        <com.google.android.gms.maps.MapView
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:id="@+id/place_mapview"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+        style="@style/textInputLayout.outLinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_large"
+        android:hint="نام مکان"
+        app:startIconDrawable="@drawable/ic_place_name">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/place_name_tv"
+        style="@style/editText.oneLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="@integer/max_user_name_length" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/textInputLayout.outLinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:hint="نام شهر"
+        app:startIconDrawable="@drawable/ic_place_city">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_setting_email"
+            style="@style/editText.oneLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        >
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/textInputLayout.outLinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="توضیحات"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/explain_place_tv"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLines="30"
+            android:minLines="5"
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_setting_bio_counter"
+        style="@style/textSmall.hintColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/margin_very_small"
+        android:text="0/750" />
+    </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginVertical="@dimen/margin_small"
+            android:id="@+id/btn_submit_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/button.primaryButton"
+            android:text="ارسال درخواست"
+            android:layout_marginHorizontal="@dimen/margin_medium"/>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
