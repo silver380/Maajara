@@ -60,7 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marker.remove();
             }
             marker = mMap.addMarker(markerOptions.position(latLng));
-
         });
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney , 12));
 
