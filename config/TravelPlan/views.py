@@ -7,17 +7,16 @@ import json
 from django.shortcuts import get_object_or_404
 from .models import TravelPlan, TravelPlanReq
 from .permissions import IsTourLeader
-from .serializers import TravelPlanSerializer,  TravelPlanReqSerializer, AddTravelPlanSerializer
+from .serializers import TravelPlanSerializer, TravelPlanReqSerializer, AddTravelPlanSerializer
 from MyUser.serializers import UserInfoSerializer
 from django.contrib.auth import get_user_model
 
 
-
 class TravelPlanListAPIView(ListAPIView):
-    search_fields = ['places','destination']
+    search_fields = ['places__name', 'destination']
     filter_backends = (filters.SearchFilter,)
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
-    queryset = TravelPlan.objects.all()
+    queryset = TravelPlan.objects.active()
     serializer_class = TravelPlanSerializer
 
 
@@ -38,7 +37,6 @@ class AddPlan(CreateAPIView):
         return serializer.save()
 
     def create(self, request, *args, **kwargs):
-
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)
@@ -67,7 +65,6 @@ class MyPendingReqs(GenericAPIView):
         return Response(return_data)
 
 
-
 class MyPendingTravelPlans(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
 
@@ -77,11 +74,12 @@ class MyPendingTravelPlans(GenericAPIView):
         for req in travel_plans_reqs:
             travel_plan = TravelPlanSerializer(req.travel_plan).data
 
-            if(travel_plan['confirmed_tour_leader']==None):
+            if (travel_plan['confirmed_tour_leader'] == None):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
         return Response(return_data)
+
 
 class MyConfirmedTravelPlans(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
@@ -97,11 +95,12 @@ class MyConfirmedTravelPlans(GenericAPIView):
             else:
                 confirmed_tour_leader_id = -1
 
-            if(confirmed_tour_leader_id == request.user.user_id):
+            if (confirmed_tour_leader_id == request.user.user_id):
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
         return Response(return_data)
+
 
 class AcceptTourLeader(GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -125,5 +124,3 @@ class AcceptTourLeader(GenericAPIView):
         travel_plan.accepted_price = travel_plan_req.suggested_price
         travel_plan.save()
         return Response(status=200)
-
-
