@@ -25,7 +25,6 @@ import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
-import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
@@ -88,10 +87,10 @@ public class HomeFragment extends RefreshingFragment {
     }
 
     public void reload() {
-        Log.d("TAG", "reload: ");
         if (!mainActivity.isAuthing()) {
             setupWithUser();
             setCurrentFragment();
+            Log.d("TAG", "reload: ");
         }
     }
 
@@ -134,7 +133,7 @@ public class HomeFragment extends RefreshingFragment {
         }
     }
 
-    private void updateToggleTv(){
+    private void updateToggleTv() {
         if (tourLeader)
             binding.tvHomeMode.setText("راهنمای سفر");
         else
@@ -149,8 +148,7 @@ public class HomeFragment extends RefreshingFragment {
         if (tourLeader) {
             switchPowerMenu.setTitle("تغییر به مسافر");
             switchPowerMenu.setIcon(R.drawable.ic_padding_user);
-        }
-        else {
+        } else {
             switchPowerMenu.setTitle("تغییر به راهنما");
             switchPowerMenu.setIcon(R.drawable.ic_padding_guide);
         }
@@ -187,11 +185,11 @@ public class HomeFragment extends RefreshingFragment {
 
         binding.ivHomeProfile.setOnClickListener(v -> {
             PowerMenu powerMenu = PopupMenuCreator.create(mainActivity, powerMenuItems, v);
-            powerMenu.setWidth(dp2px(mainActivity , 250));
+            powerMenu.setWidth(dp2px(mainActivity, 250));
             powerMenu.showAsDropDown(v);
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
-                switch ((int) item.getTag()){
+                switch ((int) item.getTag()) {
                     case 2:
                         switchAccount();
                         break;

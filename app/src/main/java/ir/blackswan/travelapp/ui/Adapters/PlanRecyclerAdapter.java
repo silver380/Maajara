@@ -17,7 +17,6 @@ import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 import ir.blackswan.travelapp.Utils.Utils;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
@@ -25,21 +24,21 @@ import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
 public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder>
         implements HasArray<Object> {
 
-    AuthActivity authActivity;
+    MainActivity mainActivity;
     Plan[] plans;
     PlanRequest[] planRequests;
     Object[] data;
     RecyclerView recyclerView;
     private boolean byPlanRequest = false;
 
-    public PlanRecyclerAdapter(AuthActivity authActivity, Plan[] plans) {
-        this.authActivity = authActivity;
+    public PlanRecyclerAdapter(MainActivity mainActivity, Plan[] plans) {
+        this.mainActivity = mainActivity;
         this.plans = plans;
         data = plans;
     }
 
-    public PlanRecyclerAdapter(AuthActivity authActivity, PlanRequest[] planRequests) {
-        this.authActivity = authActivity;
+    public PlanRecyclerAdapter(MainActivity mainActivity, PlanRequest[] planRequests) {
+        this.mainActivity = mainActivity;
         this.planRequests = planRequests;
         data = planRequests;
         byPlanRequest = true;
@@ -54,7 +53,7 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
     @NonNull
     @Override
     public PlanRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = authActivity.getLayoutInflater().inflate(R.layout.travel_plan_view_holder, parent, false);
+        View view = mainActivity.getLayoutInflater().inflate(R.layout.travel_plan_view_holder, parent, false);
         if (!(recyclerView.getLayoutManager() instanceof GridLayoutManager))
             view.getLayoutParams().width = Utils.getScreenWidth() * 32 / 100;
 
@@ -73,12 +72,12 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
 
         holder.startDate.setText(startDate.getShortDate());
         holder.city.setText(plan.getDestination());
-        holder.itemView.setOnClickListener(v -> new PlanDialog(authActivity, plan).show());
+        holder.itemView.setOnClickListener(v -> new PlanDialog(mainActivity, plan).show());
         if (plan.getPlan_creator().equals(AuthController.getUser())) {
             holder.groupRequest.setVisibility(View.VISIBLE);
             holder.requests.setOnClickListener(v -> {
-                authActivity.startActivityForResult(new Intent(
-                        authActivity, TLeaderRequestActivity.class)
+                mainActivity.startActivityForResult(new Intent(
+                        mainActivity, TLeaderRequestActivity.class)
                         .putExtra(TRAVEL_PLAN_ID, plan), MainActivity.REQUEST_LEADER_REQUESTS);
             });
         } else

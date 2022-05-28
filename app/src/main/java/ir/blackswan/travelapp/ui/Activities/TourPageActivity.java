@@ -409,6 +409,7 @@ public class TourPageActivity extends ToolbarActivity {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         pendingTours.add(tour);
+                        setResult(RESULT_OK);
                         setTourMode();
                     }
                 });

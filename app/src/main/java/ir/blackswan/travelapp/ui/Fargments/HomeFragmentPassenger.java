@@ -67,6 +67,9 @@ public class HomeFragmentPassenger extends Fragment {
         binding.btnHomeGotoSearch.setOnClickListener(v ->
                 mainActivity.navigateToId(R.id.navigation_search));
     }
+    private void updateGotoSearchVisibility(){
+        binding.btnHomeGotoSearch.setVisibility(allTours.length > 6 ? View.VISIBLE : View.GONE);
+    }
 
     public void reload() {
         setConfirmedToursRecycler();
@@ -81,6 +84,12 @@ public class HomeFragmentPassenger extends Fragment {
 
                 TourRecyclerAdapter tourRecyclerAdapter2 = new TourRecyclerAdapter(getActivity(), confirmedTours);
                 binding.rclConfirmedTour.setAdapter(tourRecyclerAdapter2);
+                setPendingToursRecycler();
+            }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclConfirmedTour.textState(true);
                 setPendingToursRecycler();
             }
         });
@@ -98,6 +107,12 @@ public class HomeFragmentPassenger extends Fragment {
                 binding.rclPendingTour.setAdapter(tourRecyclerAdapter);
                 setCreatedPlansRecycler();
             }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclPendingTour.textState(true);
+                setCreatedPlansRecycler();
+            }
         });
     }
 
@@ -109,6 +124,12 @@ public class HomeFragmentPassenger extends Fragment {
                 binding.rclCreatedPlans.setAdapter(
                         new PlanRecyclerAdapter(mainActivity, PlanController.getCreatedPlans())
                 );
+                setTourRecycler();
+            }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclCreatedPlans.textState(true);
                 setTourRecycler();
             }
         });
@@ -125,6 +146,13 @@ public class HomeFragmentPassenger extends Fragment {
                         new TourRecyclerAdapter(mainActivity ,
                                 Arrays.copyOf(allTours , Math.min(allTours.length , 6)))
                 );
+                updateGotoSearchVisibility();
+                mainActivity.getHomeFragment().setRefreshing(false);
+            }
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
+                binding.rclHomeTours.textState(true);
                 mainActivity.getHomeFragment().setRefreshing(false);
             }
         }, "");

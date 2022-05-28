@@ -16,6 +16,10 @@ public class Place implements Serializable {
         picture = serverPicturePath;
     }
 
+    public Place(int place_id) {
+        this.place_id = place_id;
+    }
+
     public String getName() {
         return name;
     }

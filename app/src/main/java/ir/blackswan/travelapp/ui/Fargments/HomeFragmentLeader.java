@@ -135,6 +135,10 @@ public class HomeFragmentLeader extends Fragment {
 
     }
 
+    private void updateGotoSearchVisibility(){
+        binding.btnHomeGotoSearch.setVisibility(allPlans.length > 6 ? View.VISIBLE : View.GONE);
+    }
+
     private void setPlansRecycler() {
         planController.getAllPlanFromServer(new OnResponseDialog(mainActivity) {
             @Override
@@ -145,6 +149,7 @@ public class HomeFragmentLeader extends Fragment {
                 Log.d("ResponsePlan", "setPlansRecycler onSuccess: " + Arrays.toString(plans));
                 binding.rclHomePlans.setAdapter(new PlanRecyclerAdapter(
                         mainActivity , plans));
+                updateGotoSearchVisibility();
                 mainActivity.getHomeFragment().setRefreshing(false);
             }
 

@@ -22,6 +22,7 @@ import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
@@ -36,7 +37,7 @@ public class SearchFragment extends RefreshingFragment {
     public static final int SEARCH_DELAY = 500;
     private static int toggle = -1;
     private FragmentSearchBinding binding;
-    private AuthActivity authActivity;
+    private MainActivity mainActivity;
     private TourController tourController;
     private PlaceController placeController;
     private PlanController planController;
@@ -50,14 +51,14 @@ public class SearchFragment extends RefreshingFragment {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         init(root);
-        authActivity = (AuthActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
 
         setToggle();
         setListeners();
 
-        tourController = new TourController(authActivity);
-        planController = new PlanController(authActivity);
-        placeController = new PlaceController(authActivity);
+        tourController = new TourController(mainActivity);
+        planController = new PlanController(mainActivity);
+        placeController = new PlaceController(mainActivity);
 
         binding.rclSearch.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         binding.etSearch.setText(lastSearch);
@@ -146,11 +147,11 @@ public class SearchFragment extends RefreshingFragment {
     }
 
     private void reloadPlans(String search) {
-        planController.getAllPlanFromServer(new OnResponseDialog(authActivity) {
+        planController.getAllPlanFromServer(new OnResponseDialog(mainActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                binding.rclSearch.setAdapter(new PlanRecyclerAdapter(authActivity, PlanController.getAllPlans()));
+                binding.rclSearch.setAdapter(new PlanRecyclerAdapter(mainActivity, PlanController.getAllPlans()));
                 setRefreshing(false);
             }
         }, search);
@@ -158,22 +159,22 @@ public class SearchFragment extends RefreshingFragment {
 
     private void reloadTours(String search) {
 
-        tourController.getAllTourFromServer(new OnResponseDialog(authActivity) {
+        tourController.getAllTourFromServer(new OnResponseDialog(mainActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                binding.rclSearch.setAdapter(new TourRecyclerAdapter(authActivity, TourController.getAllTours()));
+                binding.rclSearch.setAdapter(new TourRecyclerAdapter(mainActivity, TourController.getAllTours()));
                 setRefreshing(false);
             }
         }, search);
     }
 
     private void reloadPlaces(String search) {
-        placeController.getAllPlacesFromServer(new OnResponseDialog(authActivity) {
+        placeController.getAllPlacesFromServer(new OnResponseDialog(mainActivity) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-                binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(authActivity, PlaceController.getAllPlaces()));
+                binding.rclSearch.setAdapter(new PlacesRecyclerAdapter(mainActivity, PlaceController.getAllPlaces()));
                 setRefreshing(false);
             }
         }, search);

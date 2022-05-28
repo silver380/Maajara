@@ -12,13 +12,24 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.Controller.PlanController;
+import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.Data.Place;
+import ir.blackswan.travelapp.Data.Plan;
+import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 import ir.blackswan.travelapp.ui.Fargments.RefreshingFragment;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class MainActivity extends AuthActivity {
 
@@ -47,6 +58,42 @@ public class MainActivity extends AuthActivity {
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
 
+
+    }
+
+    private void setFakeData() { //todo: After debug and test remove this
+        TourController tourController = new TourController(this);
+        PlanController planController = new PlanController(this);
+        for (int i = 0; i < 10; i++) {
+            Place[] place = new Place[]{new Place(1)};
+            Tour tour = new Tour("تست " + i , 2 , 20000 , "شهر تست " + i
+            , "2022-10-10" , "2022-10-20" ,place  , "None"
+             , true , true , true , "None");
+            tourController.addTourToServer(tour, new OnResponse() {
+                @Override
+                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                }
+
+                @Override
+                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                }
+            });
+            Plan plan = new Plan("شهر تست " + i , "2022-10-12" , "2022-10-20" ,
+                    new ArrayList<>() , place);
+            planController.addPlanToServer(plan, new OnResponse() {
+                @Override
+                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                }
+
+                @Override
+                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -58,6 +105,7 @@ public class MainActivity extends AuthActivity {
             if (requestCode == REQUEST_SETTING) {
                 homeFragment.reload();
             } else if (requestCode == REQUEST_LEADER_REQUESTS || requestCode == REQUEST_TOUR_PAGE) {
+                homeFragment.refresh();
                 List<Fragment> childFragments = navHostFragment.getChildFragmentManager().getFragments();
                 for (Fragment frag : childFragments) {
                     if (frag instanceof RefreshingFragment) {
