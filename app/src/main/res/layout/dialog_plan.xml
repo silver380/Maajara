@@ -13,7 +13,7 @@
         style="@style/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:title="برنامه سفر به" />
+        app:title="ماجرایی به " />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

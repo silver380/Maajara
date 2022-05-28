@@ -34,7 +34,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/textInputLayout.outLinedBox"
-        android:hint="از سفرتان بیشتر برایمان بگویید"
+        android:hint="@string/report"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_medium"
         android:layout_width="match_parent">
