@@ -43,8 +43,8 @@ public interface Api {
                                     @Field("travel_plan_id") int travel_plan_id,
                                     @Field("user_id") int user_id);
 
-    //todo >> change the URL
-    @GET("/???/")
+
+    @GET("/travelplan/myconfirmedplans/")
     Call<ResponseBody> getConfirmedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingplans/")
