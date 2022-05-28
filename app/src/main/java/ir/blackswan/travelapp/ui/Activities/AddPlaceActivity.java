@@ -31,7 +31,6 @@ import com.google.android.gms.tasks.Task;
 
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.ActivityAddPlaceBinding;
-import ir.blackswan.travelapp.databinding.ActivityUserRequestsBinding;
 
 public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallback {
     com.google.android.gms.location.LocationRequest locationRequest;

@@ -67,6 +67,7 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.6-native' //cropper
     implementation 'com.github.ome450901:SimpleRatingBar:1.5.1' //star rating
 
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
 
 }
