@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:id="@+id/tb_map"
+        android:id="@+id/tb_activity"
         style="@style/activity_toolbar"
         android:layout_height="?android:attr/actionBarSize"
         app:title="انتخاب موقعیت"
