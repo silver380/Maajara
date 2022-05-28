@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import java.util.Arrays;
 
 import ir.blackswan.travelapp.Data.Plan;
+import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -19,8 +20,8 @@ public class PlanController extends Controller {
 
     static Plan[] allPlans = new Plan[0];
     static Plan[] createdPlans = new Plan[0];
-    static Plan[] pendingPlans = new Plan[0];
-    static Plan[] confirmedPlans = new Plan[0];
+    static PlanRequest[] pendingPlans = new PlanRequest[0];
+    static PlanRequest[] confirmedPlans = new PlanRequest[0];
 
     /*
     static {
@@ -101,7 +102,8 @@ public class PlanController extends Controller {
         api.getPendingPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                pendingPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
+                Log.d(MyCallback.TAG, "getPendingPlanFromServer: " + response);
+                pendingPlans = gson.fromJson(response.getResponseBody(), PlanRequest[].class);
                 onResponse.onSuccess(call, callback, response);
             }
 
@@ -117,7 +119,7 @@ public class PlanController extends Controller {
         api.getConfirmedPlans(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                confirmedPlans = gson.fromJson(response.getResponseBody(), Plan[].class);
+                confirmedPlans = gson.fromJson(response.getResponseBody(), PlanRequest[].class);
                 onResponse.onSuccess(call, callback, response);
             }
 
@@ -155,11 +157,11 @@ public class PlanController extends Controller {
         return createdPlans;
     }
 
-    public static Plan[] getPendingPlans() {
+    public static PlanRequest[] getPendingPlans() {
         return pendingPlans;
     }
 
-    public static Plan[] getConfirmedPlans() {
+    public static PlanRequest[] getConfirmedPlans() {
         return confirmedPlans;
     }
 }

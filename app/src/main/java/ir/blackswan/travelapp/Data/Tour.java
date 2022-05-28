@@ -36,7 +36,7 @@ public class Tour implements Serializable {
     private String tour_name;
     @Expose
     private int tour_capacity;
-    private int confirmed_count;
+    private int current_confirmed;
     @Expose
     private String destination;
     @Expose
@@ -88,6 +88,9 @@ public class Tour implements Serializable {
         return start_date;
     }
 
+    public boolean isFull(){
+        return current_confirmed >= tour_capacity;
+    }
 
 
     public String getPriceString(){
@@ -211,7 +214,7 @@ public class Tour implements Serializable {
     }
 
     public int getConfirmed_count() {
-        return confirmed_count;
+        return current_confirmed;
     }
 
     @Override
@@ -221,7 +224,7 @@ public class Tour implements Serializable {
                 ", creator=" + creator +
                 ", tour_name='" + tour_name + '\'' +
                 ", tour_capacity=" + tour_capacity +
-                ", registered_count=" + confirmed_count +
+                ", registered_count=" + current_confirmed +
                 ", destination='" + destination + '\'' +
                 ", start_date='" + start_date + '\'' +
                 ", end_date='" + end_date + '\'' +

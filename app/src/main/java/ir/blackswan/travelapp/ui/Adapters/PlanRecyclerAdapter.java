@@ -3,7 +3,6 @@ package ir.blackswan.travelapp.ui.Adapters;
 import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL_PLAN_ID;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Data.Plan;
+import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
 import ir.blackswan.travelapp.Utils.Utils;
@@ -23,15 +23,26 @@ import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import ir.blackswan.travelapp.ui.Dialogs.PlanDialog;
 
 public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapter.ViewHolder>
-        implements HasArray<Plan> {
+        implements HasArray<Object> {
 
     AuthActivity authActivity;
     Plan[] plans;
+    PlanRequest[] planRequests;
+    Object[] data;
     RecyclerView recyclerView;
+    private boolean byPlanRequest = false;
 
     public PlanRecyclerAdapter(AuthActivity authActivity, Plan[] plans) {
         this.authActivity = authActivity;
         this.plans = plans;
+        data = plans;
+    }
+
+    public PlanRecyclerAdapter(AuthActivity authActivity, PlanRequest[] planRequests) {
+        this.authActivity = authActivity;
+        this.planRequests = planRequests;
+        data = planRequests;
+        byPlanRequest = true;
     }
 
     @Override
@@ -43,10 +54,9 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
     @NonNull
     @Override
     public PlanRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = authActivity.getLayoutInflater().inflate(R.layout.travel_plan_view_holder , parent , false);
+        View view = authActivity.getLayoutInflater().inflate(R.layout.travel_plan_view_holder, parent, false);
         if (!(recyclerView.getLayoutManager() instanceof GridLayoutManager))
             view.getLayoutParams().width = Utils.getScreenWidth() * 32 / 100;
-
 
 
         return new PlanRecyclerAdapter.ViewHolder(view);
@@ -54,42 +64,47 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PlanRecyclerAdapter.ViewHolder holder, int position) {
-        Plan plan = plans[position];
+        Plan plan;
+        if (byPlanRequest)
+            plan = planRequests[position].getTravel_plan();
+        else
+            plan = plans[position];
         MyPersianCalender startDate = plan.getPersianStartDate();
 
         holder.startDate.setText(startDate.getShortDate());
         holder.city.setText(plan.getDestination());
-        holder.itemView.setOnClickListener(v ->  new PlanDialog(authActivity , plan).show());
+        holder.itemView.setOnClickListener(v -> new PlanDialog(authActivity, plan).show());
         if (plan.getPlan_creator().equals(AuthController.getUser())) {
             holder.groupRequest.setVisibility(View.VISIBLE);
             holder.requests.setOnClickListener(v -> {
                 authActivity.startActivityForResult(new Intent(
                         authActivity, TLeaderRequestActivity.class)
-                        .putExtra(TRAVEL_PLAN_ID, plan) , MainActivity.REQUEST_LEADER_REQUESTS);
+                        .putExtra(TRAVEL_PLAN_ID, plan), MainActivity.REQUEST_LEADER_REQUESTS);
             });
-        }
-        else
+        } else
             holder.groupRequest.setVisibility(View.GONE);
     }
 
     @Override
     public int getItemCount() {
-        return plans.length;
+        return data.length;
     }
 
     @Override
-    public Plan[] getData() {
-        return plans;
+    public Object[] getData() {
+
+        return data;
     }
 
     @Override
-    public void setData(Plan[] data) {
-        plans = data;
+    public void setData(Object[] data) {
+        this.data = data;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        TextView city , startDate , requests;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView city, startDate, requests;
         ViewGroup groupRequest;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             city = itemView.findViewById(R.id.tv_pvh_city);

@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -20,14 +21,14 @@ import retrofit2.http.Url;
 
 public interface Api {
 
-    @POST("/tour/addrate/add_rate/")
+    @POST("/tour/addrate/")
     @FormUrlEncoded
     Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
                                     @Field("tour_id") int tour_id,
                                     @Field("tour_rate") int rate,
                                     @Field("tour_report") String report);
 
-    @GET("/tour/getrate/{tour_id}/get_rate/")
+    @GET("/tour/getrate/{tour_id}/")
     Call<ResponseBody> getRateStatus(@Header("Authorization") String token,
                                      @Path("tour_id") String tour_id);
     //todo >> change the URL
@@ -120,12 +121,15 @@ public interface Api {
     @FormUrlEncoded
     Call<ResponseBody> token(@Field("email") String email, @Field("password") String password);
 
+
+    @PATCH("/auth/upgrade/")
+    Call<ResponseBody> upgradeData(@Header("Authorization") String token,
+                                   @Body RequestBody user );
     @Multipart
     @PATCH("/auth/upgrade/")
-    Call<ResponseBody> upgrade(@Header("Authorization") String token,
-                               @Part("Body") RequestBody user ,
-                               @Part MultipartBody.Part image ,
-                               @Part MultipartBody.Part doc
+    Call<ResponseBody> upgradeFiles(@Header("Authorization") String token,
+                                    @Part MultipartBody.Part image ,
+                                    @Part MultipartBody.Part doc
     );
 
 

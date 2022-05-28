@@ -5,29 +5,19 @@ import static ir.blackswan.travelapp.Utils.Utils.getScreenHeight;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowInsets;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -37,17 +27,16 @@ import java.util.concurrent.atomic.AtomicReference;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.OnResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.TourRecyclerAdapter;
+import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.blackswan.travelapp.ui.Dialogs.ReportDialog;
 import okhttp3.ResponseBody;
@@ -67,6 +56,7 @@ public class TourPageActivity extends ToolbarActivity {
     private boolean canRate;
     private int rate;
     private Tour[] suggestionTours;
+    private LoadingDialog loadingDialog;
 
 
     @Override
@@ -97,9 +87,9 @@ public class TourPageActivity extends ToolbarActivity {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
 
-        setRateStatus();
-
         setSuggestionToursRecycler();
+
+
 
     }
 
@@ -108,31 +98,32 @@ public class TourPageActivity extends ToolbarActivity {
         binding.rclSuggestionTours.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        tourController.getSuggestionToursFromServer(tour.getTour_id() ,new OnResponseDialog(this) {
+        tourController.getSuggestionToursFromServer(tour.getTour_id(), new OnResponseDialog(this) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 suggestionTours = TourController.getSuggestionTours();
 
                 TourRecyclerAdapter tourRecyclerAdapter = new TourRecyclerAdapter(TourPageActivity.this
-                        ,suggestionTours);
+                        , suggestionTours);
                 binding.rclSuggestionTours.setAdapter(tourRecyclerAdapter);
             }
         });
 
     }
 
-    private void setRateStatus(){
-        tourController.getRateStatusFromServer(new OnResponseDialog(this){
+    private void setRateStatus() {
+        tourController.getRateStatusFromServer(new OnResponseDialog(this) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 canRate = tourController.canRate();
                 rate = tourController.getRate();
-
+                Log.d(TAG, "setRateStatus: " + canRate + " " + rate);
                 setRate();
+                setTourMode();
             }
-        }, Integer.toString(tour.getTour_id()) );
+        }, Integer.toString(tour.getTour_id()));
     }
 
     private void setRate() {
@@ -195,13 +186,15 @@ public class TourPageActivity extends ToolbarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_USERS_ACTIVITY)
             if (resultCode == RESULT_OK) {
+
                 setResult(RESULT_OK);
             }
     }
 
 
     private void setPendingUsers() {
-
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
         tourController.getPendingTourFromServer(new OnResponseDialog(this) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -218,6 +211,8 @@ public class TourPageActivity extends ToolbarActivity {
 
     }
 
+
+
     private void setConfirmTours() {
         tourController.getConfirmedTourFromServer(new OnResponseDialog(this) {
             @Override
@@ -229,7 +224,8 @@ public class TourPageActivity extends ToolbarActivity {
                 else
                     confirmTours = new HashSet<>();
                 Log.d(TAG, "onSuccess: " + confirmTours);
-                onLoadUsers();
+                setRateStatus();
+
             }
         });
     }
@@ -368,13 +364,31 @@ public class TourPageActivity extends ToolbarActivity {
         });
     }
 
-    private void onLoadUsers() {
-        if (tour.getCreator().getUser_id() == user.getUser_id()) {
+    private void setTourMode() {
+        loadingDialog.dismiss();
+        boolean passedTour = false;
+        try {
+            long tourStartTime = tour.getPersianStartDate().getTimestamp();
+            passedTour = Utils.isTimeInPassed(tourStartTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (tour.getCreator().equals(user)) {
             binding.btnTourPageRegister.setText("درخواست‌ها");
             binding.btnTourPageRegister.setEnabled(true);
             binding.btnTourPageRegister.setOnClickListener(v -> {
-                startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour_id", tour.getTour_id())
+                startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour", tour)
                         , REQUEST_USERS_ACTIVITY);
+            });
+        } else if (passedTour) {
+            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
+        } else if (tour.isFull()) {
+            binding.btnTourPageRegister.setText("ظرفیت تکمیل است");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (confirmTours.contains(tour)) {
             binding.btnTourPageRegister.setText("قطعی شده");
@@ -386,7 +400,7 @@ public class TourPageActivity extends ToolbarActivity {
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
-        } else {
+        } else { // user registering
             binding.btnTourPageRegister.setText("ثبت‌نام");
             binding.btnTourPageRegister.setEnabled(true);
             binding.btnTourPageRegister.setOnClickListener(v -> {
@@ -395,13 +409,16 @@ public class TourPageActivity extends ToolbarActivity {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         pendingTours.add(tour);
-                        onLoadUsers();
+                        setTourMode();
                     }
                 });
             });
         }
 
     }
+
+
+
 
     private void setTourData() {
         binding.ivTourPageImage.setImagePath(tour.getPlaces()[0].getPicture());
@@ -414,6 +431,8 @@ public class TourPageActivity extends ToolbarActivity {
         binding.tvTourPageStartDate.setText(tour.getPersianStartDate().getShortDate());
         binding.tvTourPageFinalDate.setText(tour.getPersianEndDate().getShortDate());
         binding.tvTourPageCity.setText(tour.getDestination());
+        binding.tvTourPageCapacity.setText(tour.getTour_capacity() + "");
+        binding.tvTourPageConfirmedCount.setText(tour.getConfirmed_count() + "");
 
         //options
         boolean breakfast = tour.isHas_breakfast(), lunch = tour.isHas_lunch(), dinner = tour.isHas_dinner();

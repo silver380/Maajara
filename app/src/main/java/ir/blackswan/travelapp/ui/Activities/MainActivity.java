@@ -85,6 +85,10 @@ public class MainActivity extends AuthActivity {
 
     }
 
+    public void resetTicket(){
+        homeFragment.updateTicketView();
+    }
+
     public void navigateToId(int id) {
         binding.navView.setSelectedItemId(id);
     }

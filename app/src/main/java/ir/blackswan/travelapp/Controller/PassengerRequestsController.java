@@ -38,7 +38,7 @@ public class PassengerRequestsController extends Controller {
 
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public void getPendingUsersFromServer(OnResponse onResponse){
@@ -56,7 +56,7 @@ public class PassengerRequestsController extends Controller {
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        })).showLoadingDialog());
+        })));
     }
 
     public static Map<String, User[]> getAllPendingUsers(){return map_TID_UserPending;}
@@ -64,7 +64,7 @@ public class PassengerRequestsController extends Controller {
 
     public void addAcceptedUserToServer(User user, int tour_id, OnResponse onResponse){
         api.acceptUser(AuthController.getTokenString(), tour_id, user.getUser_id())
-        .enqueue(new MyCallback(authActivity, onResponse));
+        .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
 
     }
 }

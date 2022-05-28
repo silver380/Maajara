@@ -1,5 +1,7 @@
 package ir.blackswan.travelapp.Data;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ir.blackswan.travelapp.Utils.MyPersianCalender;
+import ir.blackswan.travelapp.Utils.Utils;
 
 public class Plan implements Serializable {
     private User plan_creator;
@@ -32,8 +35,8 @@ public class Plan implements Serializable {
     private User confirmed_tour_leader;
     private int accepted_price;
 
-    public int getAccepted_price() {
-        return accepted_price;
+    public String getAccepted_price() {
+        return Utils.getPriceString(accepted_price);
     }
 
 
@@ -116,7 +119,6 @@ public class Plan implements Serializable {
     }
 
     private Date convertStringToDate(String date) throws ParseException {
-
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
 
     }

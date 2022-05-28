@@ -24,7 +24,12 @@ import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.io.File;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -75,7 +80,6 @@ public class Utils {
         window.setStatusBarColor(color);
 
     }
-
 
 
     public static void setStatusBarColorToTheme(Activity activity) {
@@ -284,5 +288,27 @@ public class Utils {
         return priceToString(price) + " تومان";
     }
 
+    public static long getTime() throws Exception {
+        String url = "https://time.is/Unix_time_now";
+        Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
+        String[] tags = new String[]{
+                "div[id=time_section]",
+                "div[id=clock0_bg]"
+        };
+        Elements elements = doc.select(tags[0]);
+        for (String tag : tags) {
+            elements = elements.select(tag);
+        }
+        return Long.parseLong(elements.text());
+    }
+
+    public static boolean isTimeInPassed(long time) throws Exception {
+        Calendar today = new GregorianCalendar();
+        today.setTimeInMillis(Utils.getTime());
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        return today.getTimeInMillis() > time;
+    }
 
 }

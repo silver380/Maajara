@@ -36,13 +36,16 @@ public class TourController extends Controller {
     }
 
     public void getRateStatusFromServer(OnResponse onResponse, String tour_id) {
+        Call<ResponseBody> call = api.getRateStatus(AuthController.getTokenString(), tour_id);
+        Log.d(TAG, "getRateStatusFromServer: ..." + call.request().url());
 
-        api.getRateStatus(AuthController.getTokenString(), tour_id).enqueue(new MyCallback(authActivity, new OnResponse() {
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 CurrentTour currentTour = gson.fromJson(response.getResponseBody(), CurrentTour.class);
                 canRate = currentTour.can_rate;
                 rate = currentTour.current_rate.tour_rate;
+                Log.d(TAG, "getRateStatusFromServer: ..." + response);
                 if(rate == null)
                     rate = -1;
                 onResponse.onSuccess(call, callback, response);

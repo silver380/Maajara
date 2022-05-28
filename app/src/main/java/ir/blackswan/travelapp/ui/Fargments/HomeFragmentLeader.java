@@ -18,6 +18,7 @@ import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Plan;
+import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Views.CustomGridLayoutManager;
@@ -35,8 +36,8 @@ public class HomeFragmentLeader extends Fragment {
     private TourController tourController;
     private PlanController planController;
     private Tour[] createdTours;
-    private Plan[] pendingPlans;
-    private Plan[] confirmedPlans;
+    private PlanRequest[] pendingPlans;
+    private PlanRequest[] confirmedPlans;
     private Plan[] allPlans;
 
     public HomeFragmentLeader(MainActivity mainActivity) {
@@ -140,7 +141,7 @@ public class HomeFragmentLeader extends Fragment {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 allPlans = PlanController.getAllPlans();
-                Plan[] plans = Arrays.copyOf(allPlans , 6);
+                Plan[] plans = Arrays.copyOf(allPlans , Math.min(allPlans.length, 6));
                 Log.d("ResponsePlan", "setPlansRecycler onSuccess: " + Arrays.toString(plans));
                 binding.rclHomePlans.setAdapter(new PlanRecyclerAdapter(
                         mainActivity , plans));

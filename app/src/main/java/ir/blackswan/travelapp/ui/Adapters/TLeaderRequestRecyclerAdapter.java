@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.util.Log;
@@ -71,6 +72,7 @@ implements HasArray<PlanRequest>{
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlanRequest tourLeader_req = allTourLeaders_req[position];
@@ -78,6 +80,7 @@ implements HasArray<PlanRequest>{
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getFullNameWithPrefix());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
         holder.price.setText(tourLeader_req.getSuggested_price());
+        holder.avg.setText(tourLeader_req.getTour_leader().getAvg_rate() + "");
 
         TourLeaderVerticalView.setContactWays(tourLeader_req.getTour_leader() , holder.telegram ,
                 holder.whatsapp , holder.phone , holder.mail);
@@ -85,7 +88,7 @@ implements HasArray<PlanRequest>{
         if (confirmedTourLeader != null) {
             if (confirmedTourLeader.equals(tourLeader_req.getTour_leader())) {
                 acceptTourLeader(holder);
-                holder.price.setText(Utils.getPriceString(tourLeader_req.getTravel_plan().getAccepted_price()));
+                holder.price.setText(tourLeader_req.getTravel_plan().getAccepted_price());
             } else {
                 holder.accept.setEnabled(false);
             }
@@ -136,6 +139,7 @@ implements HasArray<PlanRequest>{
         TextView userName_Lastname;
         TextView biography;
         TextView price;
+        TextView avg;
         MaterialButton accept;
         ImageView telegram , whatsapp , phone , mail;
 
@@ -150,6 +154,7 @@ implements HasArray<PlanRequest>{
             whatsapp = itemView.findViewById(R.id.w_app_iv);
             phone = itemView.findViewById(R.id.phone_iv);
             mail = itemView.findViewById(R.id.e_mail_iv);
+            avg = itemView.findViewById(R.id.pointsOf_tl_tv);
         }
     }
 

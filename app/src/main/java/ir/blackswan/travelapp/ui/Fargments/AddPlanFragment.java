@@ -126,7 +126,7 @@ public class AddPlanFragment extends Fragment {
         if (binding == null)
             return;
         Log.d("saveFragments", "save: ");
-        FragmentDataHandler.save(mainActivity, KEY_ADD_PLAN_FRAGMENT, new FragmentsData(
+        FragmentDataHandler.save(KEY_ADD_PLAN_FRAGMENT, new FragmentsData(
                 getEditableText(binding.etPlanDestination.getText()),
                 startDate.getGregorianY_M_D(),
                 finalDate.getGregorianY_M_D(), selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray(),
@@ -135,7 +135,7 @@ public class AddPlanFragment extends Fragment {
     }
 
     private void load() {
-        FragmentsData fragmentsData = FragmentDataHandler.load(mainActivity, KEY_ADD_PLAN_FRAGMENT);
+        FragmentsData fragmentsData = FragmentDataHandler.load(KEY_ADD_PLAN_FRAGMENT);
         Log.d("saveFragments", "load: ");
         if (fragmentsData == null)
             return;
@@ -241,7 +241,7 @@ public class AddPlanFragment extends Fragment {
 
                         mainActivity.navigateToId(R.id.navigation_home);
                         binding = null;
-                        FragmentDataHandler.clear(mainActivity, KEY_ADD_PLAN_FRAGMENT);
+                        FragmentDataHandler.clear(KEY_ADD_PLAN_FRAGMENT);
                     }
 
                 });

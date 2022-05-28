@@ -123,7 +123,7 @@ public class HomeFragmentPassenger extends Fragment {
                 allTours = TourController.getAllTours();
                 binding.rclHomeTours.setAdapter(
                         new TourRecyclerAdapter(mainActivity ,
-                                Arrays.copyOf(allTours , 6))
+                                Arrays.copyOf(allTours , Math.min(allTours.length , 6)))
                 );
                 mainActivity.getHomeFragment().setRefreshing(false);
             }

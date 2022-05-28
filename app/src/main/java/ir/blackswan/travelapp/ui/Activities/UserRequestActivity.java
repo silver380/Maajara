@@ -14,6 +14,7 @@ import java.util.Map;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PassengerRequestsController;
+import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.databinding.ActivityUserRequestsBinding;
 import ir.blackswan.travelapp.ui.Adapters.PassengerRequestRecyclerAdapter;
@@ -29,7 +30,7 @@ public class UserRequestActivity extends ToolbarActivity{
     private User[] pendingUsers;
     ArrayList<User> tourUsers;
     Intent intent;
-    int tour_id;
+    Tour tour;
 
 
     @Override
@@ -39,13 +40,14 @@ public class UserRequestActivity extends ToolbarActivity{
         super.onCreate(savedInstanceState);
         passengerRequestsController = new PassengerRequestsController(this);
         setPendingUsersRecycler();
+        binding.rscUserReq.loadingState();
         intent = getIntent();
-        tour_id = intent.getIntExtra("tour_id", -1);
+        tour = (Tour) intent.getSerializableExtra("tour");
     }
 
     private void setRecyclers() {
         PassengerRequestRecyclerAdapter userRecyclerAdapter = new PassengerRequestRecyclerAdapter(tourUsers,
-                new ArrayList<>(Arrays.asList(confirmedUsers)) ,this, tour_id);
+                new ArrayList<>(Arrays.asList(confirmedUsers)) ,this, tour);
         binding.rscUserReq.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
         binding.rscUserReq.setAdapter(userRecyclerAdapter);
     }
@@ -58,7 +60,7 @@ public class UserRequestActivity extends ToolbarActivity{
                 super.onSuccess(call, callback, response);
 
                 Map<String, User[]> allPendingUsers_map = passengerRequestsController.getAllPendingUsers();
-                pendingUsers = allPendingUsers_map.get(tour_id + "");
+                pendingUsers = allPendingUsers_map.get(tour.getTour_id() + "");
                 if (pendingUsers == null)
                     pendingUsers = new User[0];
                 Log.d("Response", "onSuccess: " + Arrays.toString(pendingUsers));
@@ -74,7 +76,7 @@ public class UserRequestActivity extends ToolbarActivity{
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
                 Map<String, User[]> allConfirmedUsers_map = passengerRequestsController.getAllConfirmedUsers();
-                confirmedUsers = allConfirmedUsers_map.get(tour_id + "");
+                confirmedUsers = allConfirmedUsers_map.get(tour.getTour_id() + "");
                 tourUsers = new ArrayList<>();
                 if (confirmedUsers != null)
                     tourUsers.addAll(Arrays.asList(confirmedUsers));

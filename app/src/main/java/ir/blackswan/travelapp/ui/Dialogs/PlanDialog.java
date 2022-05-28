@@ -4,6 +4,7 @@ import static ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity.TRAVEL
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.util.Map;
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
+import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.Data.PlanRequest;
@@ -42,6 +44,7 @@ public class PlanDialog extends MyDialog {
     public static final int MODE_CREATED = 0, MODE_PASSENGER = 1, MODE_REQUESTED_TOUR_LEADER = 2, MODE_NOT_REQUESTED_TOUR_LEADER = 3, MODE_CONFIRMED_TOUR_LEADER = 4;
     DialogPlanBinding binding;
     TourLeaderRequestController requestController;
+    PlanController planController;
     Plan plan;
     @Nullable
     PlanRequest alreadyRequest;
@@ -55,6 +58,7 @@ public class PlanDialog extends MyDialog {
         setTransparent();
         this.plan = plan;
         this.authActivity = authActivity;
+        planController = new PlanController(authActivity);
         setChecker();
         setData();
         setPrice();
@@ -120,6 +124,7 @@ public class PlanDialog extends MyDialog {
             binding.pbPlanDialogLoading.setVisibility(View.VISIBLE);
             binding.llPlanSendRequest.setVisibility(View.GONE);
             binding.btnSeeRequests.setVisibility(View.GONE);
+            binding.groupPlanRequest.setVisibility(View.GONE);
         } else {
             binding.pbPlanDialogLoading.setVisibility(View.GONE);
         }
@@ -135,19 +140,20 @@ public class PlanDialog extends MyDialog {
             setDialogMode(MODE_CONFIRMED_TOUR_LEADER);
         } else {
             setLoading(true);
-            requestController.getPendingTLRequestsFromServer(new OnResponseDialog(authActivity) {
+            planController.getPendingPlanFromServer(new OnResponseDialog(authActivity) {
                 @Override
                 public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                     super.onSuccess(call, callback, response);
                     setLoading(false);
-                    Map<String, PlanRequest[]> planRequestsMap = TourLeaderRequestController.getMap_planRequests();
-                    PlanRequest[] planRequests = planRequestsMap.get(plan.getTravel_plan_id() + "");
+                    PlanRequest[] planRequests = PlanController.getPendingPlans();
                     if (planRequests == null) {
                         planRequests = new PlanRequest[0];
                     }
                     PlanRequest userPlanRequest = null;
                     for (PlanRequest planReq : planRequests) {
-                        if (planReq.getTravel_plan().getPlan_creator().equals(user)) {
+
+                        if (planReq.getTour_leader().equals(AuthController.getUser()) && planReq
+                        .getTravel_plan().equals(plan)) {
                             userPlanRequest = planReq;
                             break;
                         }
@@ -201,29 +207,37 @@ public class PlanDialog extends MyDialog {
             case MODE_CREATED:
                 binding.btnSeeRequests.setVisibility(View.VISIBLE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
-                binding.tvPlanDialogAlreadyRequested.setVisibility(View.GONE);
+                binding.groupPlanRequest.setVisibility(View.GONE);
                 break;
             case MODE_PASSENGER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
-                binding.tvPlanDialogAlreadyRequested.setVisibility(View.GONE);
+                binding.groupPlanRequest.setVisibility(View.GONE);
                 break;
             case MODE_CONFIRMED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
-                binding.tvPlanDialogAlreadyRequested.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogAlreadyRequested.setText("درخواست شما با قیمت پیشنهادی " + plan.getAccepted_price() + "تایید شده است.");
+                binding.groupPlanRequest.setVisibility(View.VISIBLE);
+                binding.tvPlanDialogRequestPrice.setText(plan.getAccepted_price());
+                binding.tvPlanDialogRequestStatus.setBackgroundTintList(
+                        ColorStateList.valueOf(authActivity.getColor(R.color.colorSuccess))
+                );
+                binding.tvPlanDialogRequestStatus.setText("تایید شده");
                 break;
             case MODE_REQUESTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
-                binding.tvPlanDialogAlreadyRequested.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogAlreadyRequested.setText("درخواست شما با قیمت پیشنهادی " + alreadyRequest.getSuggested_price() + " در انتظار تایید است.");
+                binding.groupPlanRequest.setVisibility(View.VISIBLE);
+                binding.tvPlanDialogRequestPrice.setText(alreadyRequest.getSuggested_price());
+                binding.tvPlanDialogRequestStatus.setBackgroundTintList(
+                        ColorStateList.valueOf(authActivity.getColor(R.color.colorWarning))
+                );
+                binding.tvPlanDialogRequestStatus.setText("در انتظار تایید");
                 break;
             case MODE_NOT_REQUESTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogAlreadyRequested.setVisibility(View.GONE);
+                binding.groupPlanRequest.setVisibility(View.GONE);
                 break;
 
         }

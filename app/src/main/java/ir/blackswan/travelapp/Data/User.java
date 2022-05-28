@@ -55,7 +55,7 @@ public class User implements Serializable {
     private String picture;
     private int number_of_tickets;
     private String certificate;
-    private double rate;
+    private double avg_rate;
 
     public User(String first_name, String last_name, String email, String ssn, String date_of_birth,
                 String gender, String biography, String languages, String phone_number,
@@ -142,8 +142,8 @@ public class User implements Serializable {
         this.whatsapp_id = whatsapp_id;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    public void setAvg_rate(double avg_rate) {
+        this.avg_rate = avg_rate;
     }
 
     public boolean isBanned() {
@@ -220,8 +220,8 @@ public class User implements Serializable {
         return getNullifEmpty(whatsapp_id);
     }
 
-    public double getRate() {
-        return rate;
+    public double getAvg_rate() {
+        return avg_rate;
     }
 
     public String getNameAndLastname() {
@@ -254,7 +254,7 @@ public class User implements Serializable {
                 ", picture='" + picture + '\'' +
                 ", ticket=" + number_of_tickets +
                 ", certificate='" + certificate + '\'' +
-                ", rate=" + rate +
+                ", rate=" + avg_rate +
                 '}';
     }
 

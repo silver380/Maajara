@@ -39,6 +39,7 @@ import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Utils.WebFileTransfer;
 import ir.blackswan.travelapp.databinding.ActivitySettingBinding;
+import ir.blackswan.travelapp.ui.Dialogs.LoadingDialog;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import okhttp3.ResponseBody;
@@ -55,6 +56,7 @@ public class SettingActivity extends ToolbarActivity {
     private AuthController authController;
     private TextInputsChecker checker = new TextInputsChecker();
     private boolean checkForLeaderInfo;
+    private boolean filesChanges = false;
 
 
     @Override
@@ -72,7 +74,7 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private void setTourLeaderStatus() {
-        //todo: @Sara complete this
+
     }
 
     private void setInputTypes() {
@@ -88,6 +90,7 @@ public class SettingActivity extends ToolbarActivity {
                         Uri uri = result.getData().getData();
                         Log.d("FileChooser", "DocFile path: " + uri.getPath());
                         selectedClearanceDoc = FileUtil.from(this, uri);
+                        filesChanges = true;
                         binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -124,6 +127,7 @@ public class SettingActivity extends ToolbarActivity {
                 final Uri resultUri = UCrop.getOutput(data);
                 binding.pivSetting.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
                 profileFile = FileUtil.from(this, resultUri);
+                filesChanges = true;
 
             } catch (IOException e) {
                 Log.e("FileChooser", "onActivityResult:Crop error ", e);
@@ -198,7 +202,6 @@ public class SettingActivity extends ToolbarActivity {
         };
 
         binding.etSettingTelegram.setEnabled(false);
-        binding.etSettingMobile.setEnabled(false);
         binding.etSettingWhatsapp.setEnabled(false);
 
         binding.cbSettingTelegram.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -206,7 +209,8 @@ public class SettingActivity extends ToolbarActivity {
 
         binding.btnSettingLeaderSubmit.setOnClickListener(v -> {
             if (checkInputs()) {
-
+                LoadingDialog loadingDialog = new LoadingDialog(this);
+                loadingDialog.show();
                 String gender = this.gender.get(0) ? "Male" : "Female";
                 List<String> connectStrings = getConnectStrings();
 
@@ -222,18 +226,23 @@ public class SettingActivity extends ToolbarActivity {
                             AuthController.getUser().getEmail());
 
 
-                authController.upgrade(user, profileFile, selectedClearanceDoc, new OnResponseDialog(this) {
-                    @Override
-                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                        super.onSuccess(call, callback, response);
-                        Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
-                                , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
-                        setResult(RESULT_OK);
-                        finish();
-                    }
+                authController.upgrade(user, filesChanges ? profileFile : null
+                        , filesChanges ? selectedClearanceDoc : null
+                        , new OnResponseDialog(this) {
+                            @Override
+                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                super.onSuccess(call, callback, response);
+                                Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
+                                        , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
+                                setResult(RESULT_OK);
+                                loadingDialog.dismiss();
+                                finish();
 
-                });
+                            }
+
+                        });
             } else {
+
                 Toast.makeText(this, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             }
         });
@@ -250,14 +259,15 @@ public class SettingActivity extends ToolbarActivity {
 
     private List<String> getConnectStrings() {
 
-        return Arrays.asList( addIranCode(binding.etSettingMobile.getText().toString()),
+        return Arrays.asList(addIranCode(binding.etSettingMobile.getText().toString()),
                 binding.cbSettingTelegram.isChecked() ? binding.etSettingTelegram.getText().toString() : null,
-                binding.cbSettingWhatsapp.isChecked() ? addIranCode(binding.etSettingMobile.getText().toString()) : null);
+                binding.cbSettingWhatsapp.isChecked() ? addIranCode(binding.etSettingWhatsapp.getText().toString()) : null);
     }
 
     private String addIranCode(String number) {
         return "+98" + number;
     }
+    private String removeIranCode(String number){return number.substring(3);}
 
     private boolean checkInputs() {
         return !checker.checkAllError();
@@ -287,12 +297,18 @@ public class SettingActivity extends ToolbarActivity {
                 if (getEditableText(editText.getText()).isEmpty())
                     return editText.getHint() + " ضروری است";
                 if (!isValidMobileNumber(getEditableText(editText.getText())))
-                    return "فرمت شماره تماس نادرست است!";
+                    return "فرمت شماره تماس نادرست است (مثال: 9120000000)";
                 return null;
             });
-        } else {
-            checker.add(Arrays.asList(binding.etSettingName, binding.etSettingLastname));
+
+            checker.add(binding.etSettingBio, (TextInputsChecker.Error) editText -> {
+                if (getEditableText(editText.getText()).length() > BIO_MAX_LENGTH)
+                    return "تعداد کاراکتر بیش از حد مجاز است";
+                return null;
+            });
         }
+
+        checker.add(Arrays.asList(binding.etSettingName, binding.etSettingLastname));
 
     }
 
@@ -304,10 +320,10 @@ public class SettingActivity extends ToolbarActivity {
         binding.tvSettingBioCounter.setText("0/" + BIO_MAX_LENGTH);
         binding.etSettingSsn.setText(user.getSsn());
         binding.etSettingBio.setText(user.getBiography());
-        if (birthDate.getCalendar() != null) {
-            birthDate.setCalendar(user.getPersianBirthDate());
-            binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
-        }
+
+        birthDate.setCalendar(user.getPersianBirthDate());
+        binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
+
         binding.etSettingLanguageSkills.setText(user.getLanguagesWithEnter());
         if (user.getGender().equals("Male"))
             gender.set(0, true);
@@ -315,7 +331,8 @@ public class SettingActivity extends ToolbarActivity {
             gender.set(1, true);
         binding.etSettingGender.setText(user.getPersianGender());
 
-        setContactInfo(user.getWhatsapp_id(), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
+        binding.etSettingMobile.setText(removeIranCode(user.getPhone_number()));
+        setContactInfo(removeIranCode(user.getWhatsapp_id()), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
         setContactInfo(user.getTelegram_id(), binding.cbSettingTelegram, binding.etSettingTelegram);
 
 
@@ -341,7 +358,7 @@ public class SettingActivity extends ToolbarActivity {
     private void setContactInfo(String contactInfo, MaterialCheckBox checkBox, TextInputEditText editText) {
         if (!isStringEmptyOrNull(contactInfo)) {
             editText.setEnabled(true);
-            editText.setText(user.getPhone_number());
+            editText.setText(contactInfo);
             checkBox.setChecked(true);
         } else {
             editText.setEnabled(false);

@@ -187,17 +187,43 @@
                                         app:layout_constraintRight_toLeftOf="@id/iv_icon_capacity"
                                         app:layout_constraintTop_toTopOf="@id/iv_icon_capacity" />
 
+                                    <LinearLayout
+                                        android:id="@+id/group_tour_page_capacity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintRight_toLeftOf="@id/tv_label_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/tv_label_capacity"
+                                        android:layout_marginRight="@dimen/margin_medium"
+                                        >
+
                                     <androidx.appcompat.widget.AppCompatTextView
-                                        android:id="@+id/tv_tour_page_capacity"
+                                        android:id="@+id/tv_tour_page_confirmed_count"
                                         style="@style/textRegular"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginRight="@dimen/margin_medium"
                                         android:gravity="right"
-                                        android:text="۴ از ۷"
-                                        app:layout_constraintRight_toLeftOf="@id/tv_label_capacity"
-                                        app:layout_constraintTop_toTopOf="@id/tv_label_capacity" />
+                                        android:text="4"
+                                         />
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/textSmall.hintColor"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right"
+                                            android:layout_marginHorizontal="@dimen/margin_small"
+                                            android:text="از"
 
+                                            />
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_capacity"
+                                            style="@style/textRegular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right"
+                                            android:text="7"
+                                            />
+
+                                    </LinearLayout>
                                     <androidx.appcompat.widget.AppCompatImageView
                                         android:id="@+id/iv_icon_calender"
                                         android:layout_width="@dimen/quantity_icon_size"
@@ -223,7 +249,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:orientation="horizontal"
-                                        app:layout_constraintRight_toRightOf="@id/tv_tour_page_capacity"
+                                        app:layout_constraintRight_toRightOf="@id/group_tour_page_capacity"
                                         app:layout_constraintTop_toTopOf="@id/tv_label_calender">
 
                                         <androidx.appcompat.widget.AppCompatTextView
@@ -284,7 +310,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="right"
                                         android:text="گیلان"
-                                        app:layout_constraintRight_toRightOf="@id/tv_tour_page_capacity"
+                                        app:layout_constraintRight_toRightOf="@id/group_tour_page_capacity"
                                         app:layout_constraintTop_toTopOf="@id/tv_label_city" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -432,13 +458,11 @@
                                     android:id="@+id/tour_rating_bar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    app:srb_clearRatingEnabled="true"
                                     app:srb_clickable="true"
                                     app:srb_isIndicator="true"
                                     app:srb_minimumStars="1"
                                     app:srb_numStars="5"
                                     app:srb_rating="0"
-                                    app:srb_scrollable="true"
                                     app:srb_starHeight="0dp"
                                     app:srb_starPadding="5dp"
                                     app:srb_starWidth="0dp"

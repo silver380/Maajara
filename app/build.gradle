@@ -62,7 +62,7 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.0' //auto size text view
     implementation 'com.github.yalantis:ucrop:2.2.6-native' //cropper
     implementation 'com.github.ome450901:SimpleRatingBar:1.5.1' //star rating
-
+    implementation 'org.jsoup:jsoup:1.13.1' //
 
 
 }

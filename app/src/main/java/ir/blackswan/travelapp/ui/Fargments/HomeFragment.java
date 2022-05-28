@@ -105,7 +105,7 @@ public class HomeFragment extends RefreshingFragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private void updateTicketView() {
+    public void updateTicketView() {
         if (!tourLeader)
             binding.groupHomeTicket.setVisibility(View.GONE);
         else {

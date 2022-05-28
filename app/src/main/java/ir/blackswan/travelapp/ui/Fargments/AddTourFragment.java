@@ -13,17 +13,23 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.Calendar;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
@@ -47,7 +53,6 @@ public class AddTourFragment extends Fragment {
     static String[] vehicle = {"Car", "Minibus", "Bus", "Van"};
     private TourController tourController;
     private MainActivity mainActivity;
-    private final static String SAVED_DATA = "data";
     private TextInputsChecker checker = new TextInputsChecker();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -91,7 +96,7 @@ public class AddTourFragment extends Fragment {
         if (binding == null)
             return;
         Log.d("saveFragments", "save: ");
-        FragmentDataHandler.save(mainActivity, KEY_ADD_TOUR_FRAGMENT, new FragmentsData(
+        FragmentDataHandler.save(KEY_ADD_TOUR_FRAGMENT, new FragmentsData(
                 getEditableText(binding.etAddTourName.getText()),
                 getEditableText(binding.etAddTourCapacity.getText()),
                 getEditableText(binding.etAddTourPrice.getText()),
@@ -103,7 +108,7 @@ public class AddTourFragment extends Fragment {
     }
 
     private void load() {
-        FragmentsData fragmentsData = FragmentDataHandler.load(mainActivity, KEY_ADD_TOUR_FRAGMENT);
+        FragmentsData fragmentsData = FragmentDataHandler.load(KEY_ADD_TOUR_FRAGMENT);
         Log.d("saveFragments", "load: ");
         if (fragmentsData == null)
             return;
@@ -206,7 +211,7 @@ public class AddTourFragment extends Fragment {
 
                 String sDate = startDate.getGregorianY_M_D();
 
-                String fDate = startDate.getGregorianY_M_D();
+                String fDate = finalDate.getGregorianY_M_D();
 
                 int capacity = Integer.parseInt(binding.etAddTourCapacity.getText().toString());
 
@@ -234,10 +239,12 @@ public class AddTourFragment extends Fragment {
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
                         Toast.makeText(mainActivity, "تور با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
-
+                        Tour tour1 = new Gson().fromJson(response.getResponseBody() , Tour.class);
+                        AuthController.getUser().setNumber_of_tickets(tour1.getCreator().getNumber_of_tickets());
+                        mainActivity.resetTicket();
                         mainActivity.navigateToId(R.id.navigation_home);
                         binding = null;
-                        FragmentDataHandler.clear(mainActivity, KEY_ADD_TOUR_FRAGMENT);
+                        FragmentDataHandler.clear(KEY_ADD_TOUR_FRAGMENT);
 
 
                     }
@@ -264,17 +271,18 @@ public class AddTourFragment extends Fragment {
 
     private void setChecker() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR , 0);calendar.set(Calendar.MINUTE , 0);calendar.set(Calendar.SECOND , 0);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         TextInputsChecker.Error error = editText -> {
             if (getEditableText(editText.getText()).isEmpty())
                 return editText.getHint() + " ضروری است";
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
             else if (startDate.getCalendar().getTimestamp() < calendar.getTimeInMillis()
-                    || finalDate.getCalendar().getTimestamp() < calendar.getTimeInMillis() ){
+                    || finalDate.getCalendar().getTimestamp() < calendar.getTimeInMillis()) {
                 return getString(R.string.date_greater_of_now);
-            }
-            else if (Utils.isDateGreaterOrEqual(
+            } else if (Utils.isDateGreaterOrEqual(
                     startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
 
@@ -297,8 +305,24 @@ public class AddTourFragment extends Fragment {
             return null;
 
         };
-        checker.add(Arrays.asList(binding.etAddTourDestination, binding.etAddTourCapacity, binding.etAddTourName,
+        checker.add(Arrays.asList(binding.etAddTourDestination, binding.etAddTourName,
                 binding.etAddTourPrice));
+        checker.add(binding.etAddTourCapacity, editText -> {
+            String capacity = getEditableText(editText.getText());
+            if (capacity.isEmpty()) {
+                return "ظرفیت نمی‌تواند خالی باشد";
+            }
+
+            try {
+                int c = Integer.parseInt(capacity);
+                if (c <= 0)
+                    return "ظرفیت باید بزرگتر از صفر باشد";
+            } catch (NumberFormatException e) {
+                return "ظرفیت باید عدد باشد";
+            }
+
+            return null;
+        });
         checker.add(binding.etAddTourStartDate, error);
         checker.add(binding.etAddTourFinalDate, error);
     }

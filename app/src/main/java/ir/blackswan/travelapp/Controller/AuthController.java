@@ -22,7 +22,7 @@ import retrofit2.Call;
 
 public class AuthController extends Controller {
 
-    public static final String FILE_TYPE_IMAGE = "image/jpg" , FILE_TYPE_PDF = "application/pdf";
+    public static final String FILE_TYPE_IMAGE = "image/jpg", FILE_TYPE_PDF = "application/pdf";
     private static User user;
     private static String token;
     private static boolean loadingUser = false;
@@ -37,7 +37,7 @@ public class AuthController extends Controller {
         return "Token " + token;
     }
 
-    private static void setToken(Context context ,String token){
+    private static void setToken(Context context, String token) {
         AuthController.token = token;
         new SharedPrefManager(context).putString(SharedPrefManager.USER_TOKEN, token);
     }
@@ -74,7 +74,7 @@ public class AuthController extends Controller {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "login success " + email);
-                setToken(authActivity , getTokenFromResponseBody(response.getResponseBody()));
+                setToken(authActivity, getTokenFromResponseBody(response.getResponseBody()));
                 SharedPrefManager.changeSharedName(token);
                 completeUserInfo(onResponse);
             }
@@ -116,46 +116,60 @@ public class AuthController extends Controller {
                 Log.d(TAG, "completeUserInfo Success   user: " + user);
                 loadingUser = false;
                 onResponse.onSuccess(call, callback, response);
-                
+
             }
 
             @Override
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
-                
+
             }
         }));
     }
 
 
-    public void upgrade(User user , File pictureFile , File certificateFile ,  OnResponse onResponse) {
+    public void upgrade(User user, File pictureFile, File certificateFile, OnResponse onResponse) {
         String json = gsonExpose.toJson(user);
-        Log.d(TAG, "upgrade... " + json);
+        Log.d(TAG, "upgradeFiles... " + json);
         RequestBody userRequestBody = RequestBody.create(MediaType.parse("application/json"), json);
 
 
-        api.upgrade(getTokenString() ,userRequestBody , pictureFile != null ? createMultipartBody(pictureFile , "picture") : null ,
-                certificateFile != null ? createMultipartBody(certificateFile , "certificate"): null )
-                .enqueue(new MyCallback(authActivity, new OnResponse() {
+        Call<ResponseBody> call = api.upgradeData(getTokenString(), userRequestBody);
+
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                Log.d(TAG, "upgrade success" + response.getResponseBody());
-                onResponse.onSuccess(call, callback, response);
-                AuthController.user = gson.fromJson(response.getResponseBody() , User.class);
+                if (pictureFile == null && certificateFile == null) {
+                    completeUserInfo(onResponse);
+                    return;
+                }
+                api.upgradeFiles(getTokenString(), pictureFile != null ? createMultipartBody(pictureFile, "picture") : null,
+                        certificateFile != null ? createMultipartBody(certificateFile, "certificate") : null)
+                        .enqueue(new MyCallback(authActivity, new OnResponse() {
+                            @Override
+                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                completeUserInfo(onResponse);
+                            }
+
+                            @Override
+                            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                onResponse.onFailed(call, callback, response);
+                            }
+                        }));
             }
 
             @Override
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 onResponse.onFailed(call, callback, response);
             }
-        }).showLoadingDialog());
+        }));
     }
 
     public static boolean isLoadingUser() {
         return loadingUser;
     }
 
-    public static MultipartBody.Part createMultipartBody(File file , String field){
+    public static MultipartBody.Part createMultipartBody(File file, String field) {
         RequestBody requestFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
 

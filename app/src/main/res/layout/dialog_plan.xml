@@ -122,8 +122,8 @@
             android:id="@+id/ll_places"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/iv_final_date"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/iv_final_date">
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
         </LinearLayout>
 
@@ -235,9 +235,8 @@
                     android:layout_height="wrap_content"
                     android:hint="قیمت پیشنهادی"
                     app:errorEnabled="true"
-                    app:startIconDrawable="@drawable/ic_price"
                     app:helperTextTextAppearance="@style/textHint"
-                    >
+                    app:startIconDrawable="@drawable/ic_price">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_plan_suggest_price"
@@ -263,14 +262,42 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_plan_dialog_already_requested"
-                style="@style/textRegular"
+            <LinearLayout
+                android:id="@+id/group_plan_request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="درخواست شما ثبت شده است" />
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_small"
+                android:visibility="visible">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHint"
+                    android:text="درخواست شما" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_plan_dialog_request_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginLeft="@dimen/margin_very_small"
+                    style="@style/textTittleMedium"
+                    android:text="0 هزار تومان"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_plan_dialog_request_status"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rec_small_radius_filled"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/padding_small"
+                    android:text="تایید نشده" />
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
