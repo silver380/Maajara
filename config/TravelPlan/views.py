@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import permissions
 from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
@@ -25,7 +27,7 @@ class CreatedTravelPlans(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return TravelPlan.objects.filter(plan_creator=self.request.user)
+        return TravelPlan.objects.active_or_not_ended().filter(plan_creator=self.request.user)
 
 
 class AddPlan(CreateAPIView):
@@ -55,7 +57,7 @@ class MyPendingReqs(GenericAPIView):
 
     def get(self, request):
         return_data = {}
-        for travel_plan in TravelPlan.objects.filter(plan_creator=request.user):
+        for travel_plan in TravelPlan.objects.active().filter(plan_creator=request.user):
             data = []
             for req in TravelPlanReq.objects.filter(travel_plan_id=travel_plan.travel_plan_id):
                 serialized_data = TravelPlanReqSerializer(req)
@@ -71,10 +73,12 @@ class MyPendingTravelPlans(GenericAPIView):
     def get(self, request):
         travel_plans_reqs = TravelPlanReq.objects.filter(tour_leader=request.user)
         return_data = []
+
         for req in travel_plans_reqs:
             travel_plan = TravelPlanSerializer(req.travel_plan).data
-
-            if (travel_plan['confirmed_tour_leader'] == None):
+            if travel_plan['start_date'] < datetime.date(datetime.now()):
+                continue
+            if travel_plan['confirmed_tour_leader'] is None:
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
@@ -89,13 +93,16 @@ class MyConfirmedTravelPlans(GenericAPIView):
         return_data = []
         for req in travel_plans_reqs:
             travel_plan = json.loads(json.dumps(TravelPlanSerializer(req.travel_plan).data))
+            if travel_plan['end_date'] < datetime.date(datetime.now()):
+                continue
+
             confirmed_tour_leader = (travel_plan.get('confirmed_tour_leader'))
-            if confirmed_tour_leader != None:
+            if confirmed_tour_leader is not None:
                 confirmed_tour_leader_id = confirmed_tour_leader['user_id']
             else:
                 confirmed_tour_leader_id = -1
 
-            if (confirmed_tour_leader_id == request.user.user_id):
+            if confirmed_tour_leader_id == request.user.user_id:
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
 
@@ -107,14 +114,11 @@ class AcceptTourLeader(GenericAPIView):
     serializer_class = UserInfoSerializer
 
     def post(self, request):
-
-        # get a user_id travel_plan_id
-        # print(request.data)
         if 'travel_plan_id' not in request.data or 'user_id' not in request.data:
             return Response(status=401, data={"error": "invalid data"})
 
         travel_plan = get_object_or_404(TravelPlan, pk=request.data['travel_plan_id'])
-        if travel_plan.confirmed_tour_leader != None:
+        if travel_plan.confirmed_tour_leader is not None:
             return Response(status=401, data={"error": "already confirmed Tour leader"})
 
         tour_leader = get_object_or_404(get_user_model(), pk=request.data['user_id'])

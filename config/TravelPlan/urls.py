@@ -12,6 +12,6 @@ urlpatterns = [
     path('addplanreq/', AddPlanReq.as_view(), name="addplanreq"),
     path('mypendingreqs/', MyPendingReqs.as_view(), name="mypendingreqs"),
     path('mypendingplans/', MyPendingTravelPlans.as_view(), name="mypendingplans"),
-    path('myConfirmedplans/', MyConfirmedTravelPlans.as_view(), name="myConfirmedplans"),
+    path('myconfirmedplans/', MyConfirmedTravelPlans.as_view(), name="myConfirmedplans"),
     path('accepttourleader/', AcceptTourLeader.as_view(), name="accepttourleader"),
 ]

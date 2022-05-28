@@ -12,6 +12,10 @@ class TravelPlanManager(models.Manager):
         now = datetime.now()
         return self.get_queryset().filter(start_date__lt=now)
 
+    def active_or_not_ended(self):
+        now = datetime.now()
+        return self.get_queryset().filter(end_date__gte=now)
+
 
 class TravelPlan(models.Model):
     objects = TravelPlanManager()
