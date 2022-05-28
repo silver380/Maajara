@@ -8,13 +8,14 @@ import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.ApiException;
@@ -31,22 +32,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.util.Arrays;
 
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MyInputTypes;
+import ir.blackswan.travelapp.Utils.PermissionRequest;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityAddPlaceBinding;
 
 public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallback {
+    private static final String TAG = "GoogleMap";
     com.google.android.gms.location.LocationRequest locationRequest;
     Marker marker;
-    private final LatLng defaultLang = new LatLng(35.7219 , 51.3347);
+    private final LatLng defaultLang = new LatLng(35.7219, 51.3347);
     LatLng lang;
     ActivityAddPlaceBinding binding;
     GoogleMap map;
@@ -68,7 +71,9 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
+
         getCurrentLocation();
+
 
         setPlacePicture();
     }
@@ -98,7 +103,6 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         binding.placeMapview.onLowMemory();
     }
 
-
     public void setPlacePicture() {
         MyInputTypes.showFileChooser(binding.btnChooseImg, this, "image/*", result -> {
             if (result.getData() != null) {
@@ -116,10 +120,21 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: " + requestCode + "  " + resultCode);
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+
+                getCurrentLocation();
+            }
+        }
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
             //todo: upload file
             binding.placeImg.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+            binding.placeImg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+            binding.placeImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            binding.groupPlaceImg.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
 
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
@@ -132,8 +147,9 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "onRequestPermissionsResult: " + requestCode + "  " + Arrays.toString(grantResults));
         if (requestCode == 1) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (isGPS_on()) {
                     getCurrentLocation();
                 } else {
@@ -147,6 +163,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
+            Log.d("GoogleMap", "getCurrentLocation: ");
             if (isGPS_on()) {
                 LocationServices.getFusedLocationProviderClient(AddPlaceActivity.this)
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
@@ -156,20 +173,24 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
                                 LocationServices.getFusedLocationProviderClient(AddPlaceActivity.this)
                                         .removeLocationUpdates(this);
 
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                if (locationResult.getLocations().size() > 0) {
 
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
 
                                     lang = new LatLng(latitude, longitude);
+                                    Log.d("GoogleMap", "getCurrentLocation: " + lang);
                                     setMarker();
                                 }
                             }
                         }, Looper.getMainLooper());
-            }else {
-                setMarker();
+            } else {
+                turnOnGPS();
             }
+        } else {
+            PermissionRequest.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, 1);
+            Log.d("GoogleMap", "getCurrentLocation: " + "DENIED");
         }
 
     }
@@ -183,31 +204,29 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getApplicationContext())
                 .checkLocationSettings(builder.build());
 
-        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+        result.addOnCompleteListener(task -> {
 
-                try {
-                    LocationSettingsResponse response = task.getResult(ApiException.class);
+            try {
+                LocationSettingsResponse response = task.getResult(ApiException.class);
 //                    Toast.makeText(MainActivity.this, "GPS is already tured on", Toast.LENGTH_SHORT).show();
+                getCurrentLocation();
 
-                } catch (ApiException e) {
+            } catch (ApiException e) {
+                Log.d(TAG, "turnOnGPS: " + e.getStatusCode());
+                switch (e.getStatusCode()) {
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
 
-                    switch (e.getStatusCode()) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                            resolvableApiException.startResolutionForResult(AddPlaceActivity.this, 2);
+                        } catch (IntentSender.SendIntentException ex) {
+                            Log.e(TAG, "turnOnGPS: ", e);
+                        }
+                        break;
 
-                            try {
-                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
-                                resolvableApiException.startResolutionForResult(AddPlaceActivity.this, 2);
-                            } catch (IntentSender.SendIntentException ex) {
-                                ex.printStackTrace();
-                            }
-                            break;
-
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            //Device does not have location
-                            break;
-                    }
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        //Device does not have location
+                        break;
                 }
             }
         });
@@ -215,15 +234,13 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     }
 
     private boolean isGPS_on() {
-        LocationManager locationManager = null;
-        boolean isON = false;
+        LocationManager locationManager;
+        boolean isON;
 
-        if (locationManager == null) {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         isON = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        Log.d("GoogleMap", "isGPS_on: " + isON);
         return isON;
     }
 
@@ -231,7 +248,6 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
 
-        setMarker();
     }
 
     private void setMarker() {
@@ -242,10 +258,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
                     marker.remove();
                 }
                 marker = map.addMarker(new MarkerOptions().position(lang));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(lang , 12));
-            }else {
-                lang = defaultLang;
-                setMarker();
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(lang, 12));
             }
         }
     }

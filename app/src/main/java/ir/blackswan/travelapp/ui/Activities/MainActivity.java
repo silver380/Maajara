@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -37,9 +38,12 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
+
+
+
+    }
+    public void test(View view){
         startActivity(new Intent(this, AddPlaceActivity.class));
-
-
     }
 
     public HomeFragment getHomeFragment() {
