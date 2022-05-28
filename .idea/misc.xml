@@ -52,10 +52,12 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_small_radius_filled.xml" value="0.242" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/telegram_back.xml" value="0.1275" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_place.xml" value="0.2138728323699422" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_add_tour.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_fullscreen.xml" value="0.2359375" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_intro.xml" value="0.264" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_maps.xml" value="0.16259057971014493" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_test.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tleader_request.xml" value="0.10208333333333333" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.1867704280155642" />
