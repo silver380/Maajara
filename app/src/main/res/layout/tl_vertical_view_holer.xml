@@ -26,7 +26,6 @@
                 android:layout_height="0dp"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test_picture"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintBottom_toBottomOf="parent"

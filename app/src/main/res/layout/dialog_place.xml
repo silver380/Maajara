@@ -18,7 +18,7 @@
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/test_picture" />
+             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

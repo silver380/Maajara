@@ -20,6 +20,7 @@ import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
@@ -102,10 +103,10 @@ public class SearchFragment extends RefreshingFragment {
     private void setToggle() {
 
         if (HomeFragment.isTourLeader()) {
-            binding.toggleSearch.setButtonsTextByArray("برنامه سفر", "مکان");
+            binding.toggleSearch.setButtonsTextByArray(getString(R.string.plan), "مکان");
             toggle = TOGGLE_PLAN;
         } else {
-            binding.toggleSearch.setButtonsTextByArray("تور", "مکان");
+            binding.toggleSearch.setButtonsTextByArray(getString(R.string.toggle_tour), "مکان");
             toggle = TOGGLE_TOUR;
         }
 

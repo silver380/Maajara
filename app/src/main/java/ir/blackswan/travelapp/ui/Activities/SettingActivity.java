@@ -317,41 +317,43 @@ public class SettingActivity extends ToolbarActivity {
         binding.etSettingName.setText(user.getFirst_name());
         binding.etSettingLastname.setText(user.getLast_name());
         binding.etSettingEmail.setText(user.getEmail());
-        binding.tvSettingBioCounter.setText("0/" + BIO_MAX_LENGTH);
-        binding.etSettingSsn.setText(user.getSsn());
-        binding.etSettingBio.setText(user.getBiography());
+        if (user.is_tour_leader()) {
+            binding.tvSettingBioCounter.setText("0/" + BIO_MAX_LENGTH);
+            binding.etSettingSsn.setText(user.getSsn());
+            binding.etSettingBio.setText(user.getBiography());
 
-        birthDate.setCalendar(user.getPersianBirthDate());
-        binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
+            birthDate.setCalendar(user.getPersianBirthDate());
+            binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
 
-        binding.etSettingLanguageSkills.setText(user.getLanguagesWithEnter());
-        if (user.getGender().equals("Male"))
-            gender.set(0, true);
-        else if (user.getGender().equals("Female"))
-            gender.set(1, true);
-        binding.etSettingGender.setText(user.getPersianGender());
+            binding.etSettingLanguageSkills.setText(user.getLanguagesWithEnter());
+            if (user.getGender().equals("Male"))
+                gender.set(0, true);
+            else if (user.getGender().equals("Female"))
+                gender.set(1, true);
+            binding.etSettingGender.setText(user.getPersianGender());
 
-        binding.etSettingMobile.setText(removeIranCode(user.getPhone_number()));
-        setContactInfo(removeIranCode(user.getWhatsapp_id()), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
-        setContactInfo(user.getTelegram_id(), binding.cbSettingTelegram, binding.etSettingTelegram);
+            binding.etSettingMobile.setText(removeIranCode(user.getPhone_number()));
+            setContactInfo(removeIranCode(user.getWhatsapp_id()), binding.cbSettingWhatsapp, binding.etSettingWhatsapp);
+            setContactInfo(user.getTelegram_id(), binding.cbSettingTelegram, binding.etSettingTelegram);
 
 
-        cacher = new Cacher(this);
-        String docFilePath = cacher.getLocalPathByServerPath(user.getCertificate());
-        if (docFilePath == null) {
-            WebFileTransfer.downloadFile(this, user.getCertificate(), "certificate", ".pdf",
-                    file -> {
-                        if (file != null) {
-                            cacher.saveLocalPath(user.getCertificate(), file.getPath());
-                            selectedClearanceDoc = file;
-                            binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
-                        }
-                        binding.pbSettingDoc.setVisibility(View.GONE);
-                    });
-        } else {
-            selectedClearanceDoc = new File(docFilePath);
-            binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
-            binding.pbSettingDoc.setVisibility(View.GONE);
+            cacher = new Cacher(this);
+            String docFilePath = cacher.getLocalPathByServerPath(user.getCertificate());
+            if (docFilePath == null) {
+                WebFileTransfer.downloadFile(this, user.getCertificate(), "certificate", ".pdf",
+                        file -> {
+                            if (file != null) {
+                                cacher.saveLocalPath(user.getCertificate(), file.getPath());
+                                selectedClearanceDoc = file;
+                                binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
+                            }
+                            binding.pbSettingDoc.setVisibility(View.GONE);
+                        });
+            } else {
+                selectedClearanceDoc = new File(docFilePath);
+                binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
+                binding.pbSettingDoc.setVisibility(View.GONE);
+            }
         }
     }
 

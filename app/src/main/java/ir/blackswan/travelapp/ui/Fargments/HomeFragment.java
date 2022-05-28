@@ -26,6 +26,7 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
+import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
