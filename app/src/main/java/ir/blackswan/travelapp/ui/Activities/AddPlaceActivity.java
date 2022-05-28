@@ -2,12 +2,16 @@ package ir.blackswan.travelapp.ui.Activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,24 +25,32 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
 
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.MyInputTypes;
+import ir.blackswan.travelapp.Utils.Toast;
+import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityAddPlaceBinding;
 
 public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallback {
     com.google.android.gms.location.LocationRequest locationRequest;
     Marker marker;
+    private final LatLng defaultLang = new LatLng(35.7219 , 51.3347);
     LatLng lang;
     ActivityAddPlaceBinding binding;
     GoogleMap map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +59,74 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
 
 
+        binding.placeMapview.onCreate(savedInstanceState);
+
+        binding.placeMapview.getMapAsync(this);
 
         locationRequest = com.google.android.gms.location.LocationRequest.create();
         locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
+        getCurrentLocation();
+
+        setPlacePicture();
+    }
+
+    @Override
+    public void onResume() {
+        binding.placeMapview.onResume();
+        super.onResume();
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.placeMapview.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding.placeMapview.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        binding.placeMapview.onLowMemory();
+    }
+
+
+    public void setPlacePicture() {
+        MyInputTypes.showFileChooser(binding.btnChooseImg, this, "image/*", result -> {
+            if (result.getData() != null) {
+                Uri uri = result.getData().getData();
+                Log.d("FileChooser", "Image path: " + uri.getPath());
+                UCrop.of(uri, Uri.fromFile(new File(Utils.getFilePath(
+                        this, "Cropped Image", ".jpg"))))
+                        .withMaxResultSize(512, 512)
+                        .start(this);
+
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            //todo: upload file
+            binding.placeImg.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
+            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره سعی کنید", Toast.LENGTH_LONG,
+                    Toast.TYPE_ERROR).show();
+        }
     }
 
     @Override
@@ -60,13 +134,9 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 if (isGPS_on()) {
-
                     getCurrentLocation();
-
                 } else {
-
                     turnOnGPS();
                 }
             }
@@ -97,10 +167,13 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
                                 }
                             }
                         }, Looper.getMainLooper());
+            }else {
+                setMarker();
             }
         }
 
     }
+
 
     private void turnOnGPS() {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -157,16 +230,22 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
+
         setMarker();
     }
 
     private void setMarker() {
+        Log.d("GoogleMap", "setMarker: " + map + "  " + lang);
         if (map != null) {
             if (lang != null) {
                 if (marker != null) {
                     marker.remove();
                 }
                 marker = map.addMarker(new MarkerOptions().position(lang));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(lang , 12));
+            }else {
+                lang = defaultLang;
+                setMarker();
             }
         }
     }

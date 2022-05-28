@@ -59,6 +59,14 @@
         </LinearLayout>
 
 
+        <com.google.android.gms.maps.MapView
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:id="@+id/place_mapview"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            />
+
 
         <com.google.android.material.textfield.TextInputLayout
         style="@style/textInputLayout.outLinedBox"
