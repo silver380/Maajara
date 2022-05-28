@@ -42,9 +42,9 @@ class AddTourSerializers(serializers.ModelSerializer):
     def create(self, validated_data):
         id_place = validated_data.pop('places')
         id_place = [place for place in id_place if Place.objects.get(pk=place.place_id).is_active]
+        self.context['request'].user.decrease_ticket()
         tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
         tour.places.add(*id_place)
-        self.context['request'].user.decrease_ticket()
         return tour
 
     def validate(self, data):

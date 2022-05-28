@@ -59,8 +59,7 @@ class MyUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    number_of_tickets = models.IntegerField(default=10)
-    # tour_rate = models.IntegerField(default=0) #?
+    number_of_tickets = models.IntegerField(default=5)
 
     objects = MyUserManager()
 
@@ -100,7 +99,7 @@ class MyUser(AbstractBaseUser):
     @property
     def avg_rate(self):
         if self.rate_count == 0:
-            return 0
+            return 5
 
         return self.total_rate / self.rate_count
 
