@@ -3,7 +3,6 @@ package ir.blackswan.travelapp.ui.Adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import ir.blackswan.travelapp.Controller.TourLeaderRequestController;
 import ir.blackswan.travelapp.Data.PlanRequest;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
-import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.ProfileImageView;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
@@ -79,7 +77,7 @@ implements HasArray<PlanRequest>{
         holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getFullNameWithPrefix());
         holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
-        holder.price.setText(tourLeader_req.getSuggested_price());
+        holder.price.setText(tourLeader_req.getSuggested_priceString());
         holder.avg.setText(tourLeader_req.getTour_leader().getAvg_rate() + "");
 
         TourLeaderVerticalView.setContactWays(tourLeader_req.getTour_leader() , holder.telegram ,

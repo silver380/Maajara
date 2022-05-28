@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
 
-import java.util.Map;
-
 import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -106,7 +104,7 @@ public class PlanDialog extends MyDialog {
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
         binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
-        binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity , plan.getPlaces()));
+        binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity, plan.getPlaces()));
 
         binding.llPlanReq.removeAllViews();
         for (String req : plan.getWanted_list()) {
@@ -144,46 +142,28 @@ public class PlanDialog extends MyDialog {
                 @Override
                 public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                     super.onSuccess(call, callback, response);
-                    setLoading(false);
-                    PlanRequest[] planRequests = PlanController.getPendingPlans();
-                    if (planRequests == null) {
-                        planRequests = new PlanRequest[0];
-                    }
-                    PlanRequest userPlanRequest = null;
-                    for (PlanRequest planReq : planRequests) {
 
-                        if (planReq.getTour_leader().equals(AuthController.getUser()) && planReq
-                        .getTravel_plan().equals(plan)) {
-                            userPlanRequest = planReq;
-                            break;
-                        }
-                    }
-                    if (userPlanRequest == null) {
-                        setDialogMode(MODE_NOT_REQUESTED_TOUR_LEADER);
-
-                        PlanDialog.this.binding.btnSendPlanRequest.setOnClickListener(v -> {
-                            if (!checker.checkAllError()) {
-                                PlanRequest planRequest = new PlanRequest(plan.getTravel_plan_id(),
-                                        Integer.parseInt(PlanDialog.this.binding.etPlanSuggestPrice.getText().toString()));
-
-                                requestController.addPlanRequest(planRequest, new OnResponseDialog(authActivity) {
-                                    @Override
-                                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                        super.onSuccess(call, callback, response);
-                                        Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
-                                                Toast.TYPE_SUCCESS).show();
-                                        Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
-                                        alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);
-                                        setDialogMode(MODE_REQUESTED_TOUR_LEADER);
-                                    }
-                                });
-
+                    PlanRequest[] pendingPlanRequests = PlanController.getPendingPlans();
+                    PlanRequest pendingReq = findPlanReq(pendingPlanRequests);
+                    if (pendingReq == null) {
+                        planController.getConfirmedPlansFromServer(new OnResponseDialog(authActivity) {
+                            @Override
+                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                super.onSuccess(call, callback, response);
+                                PlanRequest[] confirmedPlanRequests = PlanController.getConfirmedPlans();
+                                PlanRequest confirmedReq = findPlanReq(confirmedPlanRequests);
+                                if (confirmedReq == null) {
+                                    setupForRequest();
+                                } else {
+                                    plan.setAccepted_price(confirmedReq.getSuggested_price());
+                                    setDialogMode(MODE_CONFIRMED_TOUR_LEADER);
+                                }
                             }
                         });
 
-
                     } else {
-                        alreadyRequest = userPlanRequest;
+
+                        alreadyRequest = pendingReq;
                         setDialogMode(MODE_REQUESTED_TOUR_LEADER);
                     }
 
@@ -201,8 +181,46 @@ public class PlanDialog extends MyDialog {
         });
     }
 
+    private void setupForRequest() {
+        setDialogMode(MODE_NOT_REQUESTED_TOUR_LEADER);
+
+        PlanDialog.this.binding.btnSendPlanRequest.setOnClickListener(v -> {
+            if (!checker.checkAllError()) {
+                PlanRequest planRequest = new PlanRequest(plan.getTravel_plan_id(),
+                        Integer.parseInt(PlanDialog.this.binding.etPlanSuggestPrice.getText().toString()));
+
+                requestController.addPlanRequest(planRequest, new OnResponseDialog(authActivity) {
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        super.onSuccess(call, callback, response);
+                        Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
+                                Toast.TYPE_SUCCESS).show();
+                        Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
+                        alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);
+                        setDialogMode(MODE_REQUESTED_TOUR_LEADER);
+                    }
+                });
+
+            }
+        });
+    }
+
+    private PlanRequest findPlanReq(PlanRequest[] planRequests) {
+        PlanRequest userPlanRequest = null;
+        for (PlanRequest planReq : planRequests) {
+
+            if (planReq.getTour_leader().equals(AuthController.getUser()) && planReq
+                    .getTravel_plan().equals(plan)) {
+                userPlanRequest = planReq;
+                break;
+            }
+        }
+        return userPlanRequest;
+    }
+
     @SuppressLint("SetTextI18n")
     public void setDialogMode(int mode) {
+        setLoading(false);
         switch (mode) {
             case MODE_CREATED:
                 binding.btnSeeRequests.setVisibility(View.VISIBLE);
@@ -228,7 +246,7 @@ public class PlanDialog extends MyDialog {
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
                 binding.groupPlanRequest.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogRequestPrice.setText(alreadyRequest.getSuggested_price());
+                binding.tvPlanDialogRequestPrice.setText(alreadyRequest.getSuggested_priceString());
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
                         ColorStateList.valueOf(authActivity.getColor(R.color.colorWarning))
                 );

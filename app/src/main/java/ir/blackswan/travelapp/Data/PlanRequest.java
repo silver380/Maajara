@@ -37,8 +37,12 @@ public class PlanRequest implements Serializable {
         return travel_plan;
     }
 
-    public String getSuggested_price() {
+    public String getSuggested_priceString() {
         return getPriceString(suggested_price);
+    }
+
+    public int getSuggested_price() {
+        return suggested_price;
     }
 
     public String getShortPriceString() {

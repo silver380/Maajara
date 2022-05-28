@@ -62,6 +62,10 @@ public class Plan implements Serializable {
 
     }
 
+    public void setAccepted_price(int accepted_price) {
+        this.accepted_price = accepted_price;
+    }
+
     public User getPlan_creator() {
         return plan_creator;
     }
