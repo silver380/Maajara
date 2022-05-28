@@ -14,15 +14,16 @@
     <string name="duration">مدت زمان</string>
     <string name="tl_name">نام راهنمای سفر</string>
     <string name="biography">بیوگرافی</string>
-    <string name="nameError">نام نمی‌تواند خالی باشد</string>
-    <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد</string>
-    <string name="emailError">فرمت ایمیل صحیح نیست</string>
-    <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد</string>
+    <string name="nameError">نام نمی‌تواند خالی باشد.</string>
+    <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد.</string>
+    <string name="emailError">فرمت ایمیل صحیح نیست.</string>
+    <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد.</string>
     <string name="picture_download_failed">خطا در بارگذاری تصویر</string>
-    <string name="picture_not_found">تصویر پیدا نشد</string>
-    <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را برسی کنید</string>
-    <string name="error_email_exist">با این ایمیل قبلا ثبت‌نام شده است</string>
-    <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره سعی کنید</string>
+    <string name="picture_not_found">تصویر پیدا نشد.</string>
+    <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را بررسی کنید.</string>
+    <string name="error_email_exist">این ایمیل قبلا ثبت‌نام شده است.</string>
+    <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره تلاش کنید.</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
 
     <string name="city">شهر</string>
     <string name="title_activity_setting">تنیمات</string>
@@ -35,18 +36,19 @@
     <string name="add_tour_tittle">ماجرای جدید</string>
     <string name="add_plan_tittle">برنامه سفر جدید</string>
 
-    <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد</string>
+    <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد.</string>
 
-    <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید</string>
+
     <string name="text_problem">به سفرتان</string>
     <string name="clickable_text_problem">امتیاز دهید.</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید.</string>
 
-    <string name="no_place_select">مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید</string>
+    <string name="no_place_select">مکانی انتخاب نشده است.\nبرای انتخاب + را کلیک نمایید.</string>
 
     <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
-    <string name="recycler_default_text">موردی یافت نشد</string>
     <string name="my_tours">ماجراهای من</string>
+    <string name="recycler_default_text">موردی یافت نشد.</string>
     <string name="pending_plans">در انتظار تایید</string>
     <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید</string>
     <string name="show_more">نمایش بیشتر</string>
@@ -57,5 +59,6 @@
     <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است</string>
     <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید</string>
     <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد</string>
+
 
 </resources>
