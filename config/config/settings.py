@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'Place.apps.PlaceConfig',
     'TravelPlan.apps.TravelplanConfig',
     'MediaHandler.apps.MediahandlerConfig',
+    'django_nose',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# NOSE_ARGS = [
+#     '--with-coverage',
+#     '--cover-package=MyUser,Tour',
+# ]
