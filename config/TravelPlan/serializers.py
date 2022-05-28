@@ -1,6 +1,7 @@
 from rest_framework import serializers
+
+from Place.models import Place
 from .models import TravelPlan, TravelPlanReq
-from django.contrib.auth import get_user_model
 from Place.serializers import PlaceSerializers
 from MyUser.serializers import TourLeaderSerializer, UserSerializer, UserInfoSerializer
 
@@ -19,9 +20,10 @@ class AddTravelPlanSerializer(serializers.ModelSerializer):
     wanted_list = serializers.CharField()
 
     def create(self, validated_data):
-        id_place = validated_data.pop('places')
+        places = validated_data.pop('places')
+        places = [place for place in places if Place.objects.get(pk=place.place_id).is_active]
         travel_plan = TravelPlan.objects.create(**validated_data, plan_creator=self.context['request'].user)
-        travel_plan.places.add(*id_place)
+        travel_plan.places.add(*places)
         return travel_plan
 
     def validate(self, data):

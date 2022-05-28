@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from MyUser.serializers import UserInfoSerializer
+from Place.models import Place
 from Place.serializers import PlaceSerializers
 from .models import *
 from MyUser.serializers import TourLeaderSerializer
@@ -40,6 +41,7 @@ class AddTourSerializers(serializers.ModelSerializer):
 
     def create(self, validated_data):
         id_place = validated_data.pop('places')
+        id_place = [place for place in id_place if Place.objects.get(pk=place.place_id).is_active]
         tour = Tour.objects.create(**validated_data, creator_id=self.context['request'].user.user_id)
         tour.places.add(*id_place)
         self.context['request'].user.decrease_ticket()
