@@ -37,14 +37,16 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'maajara.contact@gmail.com'
+EMAIL_HOST_PASSWORD = 'kxrtuxxelnumlqla'
 
 DJOSER = {
-    # todo: recover
-    # "SEND_ACTIVATION_EMAIL": True,
-    # "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
 }
 
 INSTALLED_APPS = [
@@ -80,7 +82,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'django_admin_geomap', 'templates'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'django_admin_geomap', 'templates'),
+                 os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
