@@ -90,7 +90,6 @@ public class TourPageActivity extends ToolbarActivity {
         setSuggestionToursRecycler();
 
 
-
     }
 
     private void setSuggestionToursRecycler() {
@@ -128,7 +127,7 @@ public class TourPageActivity extends ToolbarActivity {
 
     private void setRate() {
         //tour not finished yet
-        if(canRate == false) {
+        if (canRate == false) {
             binding.tourRatingBar.setVisibility(View.GONE);
             binding.llRateReport.setVisibility(View.GONE);
         }
@@ -136,13 +135,13 @@ public class TourPageActivity extends ToolbarActivity {
         //tour is finished
         else {
             //already rated
-            if(rate != -1){
+            if (rate != -1) {
                 binding.llRateReport.setVisibility(View.GONE);
                 binding.tourRatingBar.setRating((float) rate);
             }
 
             //not rated yet
-            else{
+            else {
                 binding.tourRatingBar.setVisibility(View.GONE);
             }
         }
@@ -210,7 +209,6 @@ public class TourPageActivity extends ToolbarActivity {
         });
 
     }
-
 
 
     private void setConfirmTours() {
@@ -380,16 +378,6 @@ public class TourPageActivity extends ToolbarActivity {
                 startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour", tour)
                         , REQUEST_USERS_ACTIVITY);
             });
-        } else if (passedTour) {
-            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است");
-            binding.btnTourPageRegister.setEnabled(false);
-            binding.btnTourPageRegister.setOnClickListener(v -> {
-            });
-        } else if (tour.isFull()) {
-            binding.btnTourPageRegister.setText("ظرفیت تکمیل است");
-            binding.btnTourPageRegister.setEnabled(false);
-            binding.btnTourPageRegister.setOnClickListener(v -> {
-            });
         } else if (confirmTours.contains(tour)) {
             binding.btnTourPageRegister.setText("قطعی شده");
             binding.btnTourPageRegister.setEnabled(false);
@@ -400,6 +388,17 @@ public class TourPageActivity extends ToolbarActivity {
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
+        } else if (passedTour) {
+            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
+        } else if (tour.isFull()) {
+            binding.btnTourPageRegister.setText("ظرفیت تکمیل است");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
+
         } else { // user registering
             binding.btnTourPageRegister.setText("ثبت‌نام");
             binding.btnTourPageRegister.setEnabled(true);
@@ -409,6 +408,7 @@ public class TourPageActivity extends ToolbarActivity {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         pendingTours.add(tour);
+                        setResult(RESULT_OK);
                         setTourMode();
                     }
                 });
@@ -416,8 +416,6 @@ public class TourPageActivity extends ToolbarActivity {
         }
 
     }
-
-
 
 
     private void setTourData() {

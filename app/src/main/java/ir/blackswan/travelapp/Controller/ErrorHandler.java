@@ -8,7 +8,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +48,11 @@ public class ErrorHandler {
             case "email exists.":
                 return context.getString(R.string.error_email_exist);
             case "Unable to log in with provided credentials.":
-                return "ایمیل یا رمز عبور نادرست است";
+                return context.getString(R.string.error_email_or_password_incorrect);
             case "Invalid token.":
-                return "برای ادامه باید دوباره وارد برنامه شوید";
+                return context.getString(R.string.error_login_again);
+            case "Not enough tickets":
+                return context.getString(R.string.error_ticket_not_enough);
 
         }
         return msg;

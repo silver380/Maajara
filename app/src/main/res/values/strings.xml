@@ -4,7 +4,7 @@
     <string name="title_search">جستجو</string>
     <string name="title_add">افزودن</string>
     <string name="title_archive">آرشیو</string>
-    <string name="TourName">نام تور</string>
+    <string name="TourName">نام ماجرا</string>
     <string name="location">موقعیت مکانی</string>
     <string name="places">مکان‌ها</string>
     <string name="information">اطلاعات</string>
@@ -23,31 +23,16 @@
     <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را برسی کنید</string>
     <string name="error_email_exist">با این ایمیل قبلا ثبت‌نام شده است</string>
     <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره سعی کنید</string>
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+
     <string name="city">شهر</string>
-    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_setting">تنیمات</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="createdPlans">برنامه‌های سفر من</string>
     <string name="pendingTours">در انتظار تایید</string>
     <string name="confirmedTours">قطعی شده‌ها</string>
     <string name="wanted_list">مواردی که می‌خواهم</string>
-    <string name="add_tour_tittle">تور جدید</string>
+    <string name="add_tour_tittle">ماجرای جدید</string>
     <string name="add_plan_tittle">برنامه سفر جدید</string>
 
     <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد</string>
@@ -61,11 +46,16 @@
 
     <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
     <string name="recycler_default_text">موردی یافت نشد</string>
-    <string name="my_tours">تورهای من</string>
+    <string name="my_tours">ماجراهای من</string>
     <string name="pending_plans">در انتظار تایید</string>
-    <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید برنامه تعریف کنید</string>
+    <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید</string>
     <string name="show_more">نمایش بیشتر</string>
-    <string name="home_tours">تورها</string>
+    <string name="home_tours">ماجراها</string>
     <string name="home_plans">برنامه سفر‌ها</string>
+    <string name="toggle_tour">ماجرا</string>
+    <string name="plan">برنامه سفر</string>
+    <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است</string>
+    <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید</string>
+    <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد</string>
 
 </resources>

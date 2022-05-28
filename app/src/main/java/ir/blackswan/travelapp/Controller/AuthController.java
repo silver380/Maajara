@@ -104,7 +104,7 @@ public class AuthController extends Controller {
     }
 
 
-    private void completeUserInfo(OnResponse onResponse) {
+    public void completeUserInfo(OnResponse onResponse) {
         loadingUser = true;
         String tokenString = getTokenString();
         Log.d(TAG, "On completeUserInfo...:TOKEN: " + tokenString);

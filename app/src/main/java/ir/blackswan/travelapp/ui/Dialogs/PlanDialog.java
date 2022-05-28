@@ -30,7 +30,6 @@ import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogPlanBinding;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.TLeaderRequestActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
@@ -46,17 +45,17 @@ public class PlanDialog extends MyDialog {
     Plan plan;
     @Nullable
     PlanRequest alreadyRequest;
-    AuthActivity authActivity;
+    MainActivity mainActivity;
     TextInputsChecker checker;
 
 
-    public PlanDialog(AuthActivity authActivity, Plan plan) {
-        binding = DialogPlanBinding.inflate(authActivity.getLayoutInflater());
-        init(authActivity, binding.getRoot(), DIALOG_TYPE_ALERT);
+    public PlanDialog(MainActivity mainActivity, Plan plan) {
+        binding = DialogPlanBinding.inflate(mainActivity.getLayoutInflater());
+        init(mainActivity, binding.getRoot(), DIALOG_TYPE_ALERT);
         setTransparent();
         this.plan = plan;
-        this.authActivity = authActivity;
-        planController = new PlanController(authActivity);
+        this.mainActivity = mainActivity;
+        planController = new PlanController(mainActivity);
         setChecker();
         setData();
         setPrice();
@@ -99,16 +98,16 @@ public class PlanDialog extends MyDialog {
 
     private void setData() {
         binding.tbPlanDialog.setTitle("برنامه سفر به " + plan.getDestination());
-        requestController = new TourLeaderRequestController(authActivity);
+        requestController = new TourLeaderRequestController(mainActivity);
         binding.tvPlanCity.setText(plan.getDestination());
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());
-        binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(authActivity, LinearLayoutManager.HORIZONTAL, false));
-        binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(authActivity, plan.getPlaces()));
+        binding.rycPlanDialogPlaces.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+        binding.rycPlanDialogPlaces.setAdapter(new PlacesRecyclerAdapter(mainActivity, plan.getPlaces()));
 
         binding.llPlanReq.removeAllViews();
         for (String req : plan.getWanted_list()) {
-            ViewGroup viewReq = authActivity.getLayoutInflater().inflate(R.layout.view_request, null)
+            ViewGroup viewReq = mainActivity.getLayoutInflater().inflate(R.layout.view_request, null)
                     .findViewById(R.id.group_req);
             TextView tvReq = viewReq.findViewById(R.id.tv_req);
             tvReq.setText(req);
@@ -138,7 +137,7 @@ public class PlanDialog extends MyDialog {
             setDialogMode(MODE_CONFIRMED_TOUR_LEADER);
         } else {
             setLoading(true);
-            planController.getPendingPlanFromServer(new OnResponseDialog(authActivity) {
+            planController.getPendingPlanFromServer(new OnResponseDialog(mainActivity) {
                 @Override
                 public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                     super.onSuccess(call, callback, response);
@@ -146,7 +145,7 @@ public class PlanDialog extends MyDialog {
                     PlanRequest[] pendingPlanRequests = PlanController.getPendingPlans();
                     PlanRequest pendingReq = findPlanReq(pendingPlanRequests);
                     if (pendingReq == null) {
-                        planController.getConfirmedPlansFromServer(new OnResponseDialog(authActivity) {
+                        planController.getConfirmedPlansFromServer(new OnResponseDialog(mainActivity) {
                             @Override
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
@@ -175,8 +174,8 @@ public class PlanDialog extends MyDialog {
         }
 
         PlanDialog.this.binding.btnSeeRequests.setOnClickListener(v -> {
-            authActivity.startActivityForResult(new Intent(
-                    authActivity, TLeaderRequestActivity.class)
+            mainActivity.startActivityForResult(new Intent(
+                    mainActivity, TLeaderRequestActivity.class)
                     .putExtra(TRAVEL_PLAN_ID, plan), MainActivity.REQUEST_LEADER_REQUESTS);
         });
     }
@@ -189,14 +188,15 @@ public class PlanDialog extends MyDialog {
                 PlanRequest planRequest = new PlanRequest(plan.getTravel_plan_id(),
                         Integer.parseInt(PlanDialog.this.binding.etPlanSuggestPrice.getText().toString()));
 
-                requestController.addPlanRequest(planRequest, new OnResponseDialog(authActivity) {
+                requestController.addPlanRequest(planRequest, new OnResponseDialog(mainActivity) {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
-                        Toast.makeText(authActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
+                        Toast.makeText(mainActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
                                 Toast.TYPE_SUCCESS).show();
                         Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
                         alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);
+                        mainActivity.getHomeFragment().refresh();
                         setDialogMode(MODE_REQUESTED_TOUR_LEADER);
                     }
                 });
@@ -238,7 +238,7 @@ public class PlanDialog extends MyDialog {
                 binding.groupPlanRequest.setVisibility(View.VISIBLE);
                 binding.tvPlanDialogRequestPrice.setText(plan.getAccepted_price());
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
-                        ColorStateList.valueOf(authActivity.getColor(R.color.colorSuccess))
+                        ColorStateList.valueOf(mainActivity.getColor(R.color.colorSuccess))
                 );
                 binding.tvPlanDialogRequestStatus.setText("تایید شده");
                 break;
@@ -248,7 +248,7 @@ public class PlanDialog extends MyDialog {
                 binding.groupPlanRequest.setVisibility(View.VISIBLE);
                 binding.tvPlanDialogRequestPrice.setText(alreadyRequest.getSuggested_priceString());
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
-                        ColorStateList.valueOf(authActivity.getColor(R.color.colorWarning))
+                        ColorStateList.valueOf(mainActivity.getColor(R.color.colorWarning))
                 );
                 binding.tvPlanDialogRequestStatus.setText("در انتظار تایید");
                 break;

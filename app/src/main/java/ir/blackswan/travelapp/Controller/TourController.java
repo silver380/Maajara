@@ -65,7 +65,7 @@ public class TourController extends Controller {
     public void register(int tourId, OnResponse onResponse){
         Log.d(MyCallback.TAG, "register: ");
         api.register(AuthController.getTokenString(), tourId)
-                .enqueue(new MyCallback(authActivity, onResponse));
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
 
     }
 
@@ -110,7 +110,22 @@ public class TourController extends Controller {
         json = json.replace("\"places_ids\":", "\"places\":");
 
         api.addTour(AuthController.getTokenString(), RequestBody.create(MediaType.parse("application/json"), json))
-                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+                .enqueue(new MyCallback(authActivity, new OnResponse() {
+                    @Override
+                    public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        Log.d(TAG, "addTourToServer onSuccess: " + response);
+                        AuthController.getUser().setNumber_of_tickets(
+                                gson.fromJson(response.getResponseBody() , Tour.class)
+                                        .getCreator().getNumber_of_tickets()
+                        );
+                        onResponse.onSuccess(call, callback, response);
+                    }
+
+                    @Override
+                    public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                        onFailed(call, callback, response);
+                    }
+                }).showLoadingDialog());
     }
 
     public void getAllTourFromServer(OnResponse onResponse , @Nullable String search) {
