@@ -1,3 +1,5 @@
+import json
+
 import requests
 from django.shortcuts import render
 from rest_framework import permissions
@@ -42,7 +44,7 @@ class UserInfo(RetrieveAPIView):
 
 class ActivateUser(APIView):
     def get(self, request, uid, token):
-        payload = {'uid': uid, 'token': token}
+        payload = json.dumps({'uid': uid, 'token': token})
         url = "http://localhost:8000/auth/users/activation/"
         response = requests.post(url, data=payload)
         if response.status_code == 204:
