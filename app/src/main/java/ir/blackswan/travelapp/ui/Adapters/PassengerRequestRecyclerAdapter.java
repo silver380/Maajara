@@ -99,11 +99,13 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
         holder.accept.setRippleColor(ColorStateList.valueOf(activity.getColor(R.color.colorTransparent)));
         holder.accept.setClickable(false);
         holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));
+        holder.reject.setVisibility(View.INVISIBLE);
     }
 
     private void disable(ViewHolder holder) {
         holder.accept.setText("ظرفیت تکمیل");
         holder.accept.setEnabled(false);
+        holder.reject.setVisibility(View.INVISIBLE);
     }
 
     @Override
