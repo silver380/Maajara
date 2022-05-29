@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 
 from .permissions import *
 from .serializers import *
+import datetime
 
 
 class TourListAPIView(ListAPIView):
@@ -134,7 +135,7 @@ class GetRate(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, tour_id):
-
+        # TODO: date set
         return_data = {}
         current_tour = get_object_or_404(Tour, pk=tour_id)
         current_date = datetime.date.today()
@@ -163,6 +164,16 @@ class TourSuggestion(APIView):
         except ZeroDivisionError:
             latitude_avg = 32
             longitude_avg = 53
+
+        # places_with_distance = Place.objects.annotate(
+        #     distance=(tour_places.annotate(
+        #         distance_to_place_in_set=(
+        #             Min(
+        #                 (F('latitude') - OuterRef('latitude')) * (F('latitude') - OuterRef('latitude')) +
+        #                 (F('longitude') - OuterRef('longitude')) * (F('longitude') - OuterRef('longitude'))
+        #             )
+        #         )
+        #     ).values('distance_to_place_in_set')))
 
         places_with_distance = Place.objects.annotate(distance=(
                 ((F('latitude') - latitude_avg) * (F('latitude') - latitude_avg)) +

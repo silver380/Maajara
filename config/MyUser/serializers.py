@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(max_length=50, required=True)
     last_name = serializers.CharField(max_length=50, required=True)
     password = serializers.CharField(write_only=True, required=True)
-    user_id = serializers.IntegerField(read_only = True)
+    user_id = serializers.IntegerField(read_only=True)
 
     def create(self, validated_data):
         user = get_user_model().objects.create_user(**validated_data)
@@ -32,7 +32,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        exclude = ['is_tour_leader', 'is_admin', 'is_active', 'email', 'password', 'number_of_tickets', 'total_rate', 'rate_count']
+        exclude = ['requested_for_upgrade', 'upgrade_note', 'is_tour_leader', 'is_admin', 'is_active', 'email',
+                   'password', 'number_of_tickets', 'total_rate', 'rate_count', 'travel_plans']
 
     def update(self, instance, validated_data):
         is_upgrading = False
@@ -70,7 +71,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        exclude = ('is_admin', 'last_login', 'password')
+        exclude = ('is_admin', 'last_login', 'password', 'total_rate', 'rate_count', 'travel_plans', 'is_active')
 
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -82,4 +83,4 @@ class TourLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['email', 'first_name', 'last_name', 'biography', 'phone_number', 'telegram_id', 'whatsapp_id',
-                  'user_id', 'number_of_tickets', 'picture', 'gender', 'languages', 'ssn']
+                  'user_id', 'number_of_tickets', 'picture', 'gender', 'languages', 'ssn', 'requested_for_upgrade', 'upgrade_note', 'avg_rate']
