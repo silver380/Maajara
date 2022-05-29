@@ -58,6 +58,9 @@ class MyPendingReqs(GenericAPIView):
     def get(self, request):
         return_data = {}
         for travel_plan in TravelPlan.objects.active().filter(plan_creator=request.user):
+            if travel_plan.start_date < datetime.today().date():
+                continue
+
             data = []
             for req in TravelPlanReq.objects.filter(travel_plan_id=travel_plan.travel_plan_id):
                 serialized_data = TravelPlanReqSerializer(req)

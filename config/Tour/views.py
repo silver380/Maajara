@@ -38,7 +38,9 @@ class Register(APIView):
 
         if registered_tour.is_full:
             return Response(status=400, data={"error": "Tour is full."})
-        if registered_tour.start_date < datetime.date(datetime.now()):
+
+        current_date = datetime.date.today()
+        if registered_tour.start_date < current_date:
             return Response(status=400, data={"error": "Cant register past tours."})
 
         registered_tour.pending_users.add(request.user)
@@ -49,7 +51,7 @@ class MyConfirmedTours(ListAPIView):
     serializer_class = TourListSerializer
 
     def get_queryset(self):
-        now = datetime.now()
+        now = datetime.date.today()
         return self.request.user.confirmed_tours.filter(end_date__gte=now)
 
 
@@ -57,8 +59,8 @@ class MyPendingTours(ListAPIView):
     serializer_class = TourListSerializer
 
     def get_queryset(self):
-        now = datetime.now()
-        return self.request.user.pending_tours.filter(end_date__gte=now)
+        now = datetime.datetime.now()
+        return self.request.user.pending_tours.filter(start_date__gte=now)
 
 
 class MyPendingUsers(APIView):
@@ -68,6 +70,10 @@ class MyPendingUsers(APIView):
     def get(self, request):
         return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
+            now = datetime.date.today()
+            if tour.end_date < now:
+                continue
+
             serializer = UserInfoSerializer(tour.pending_users.all(), many=True)
             return_data[tour.tour_id] = serializer.data
         return Response(return_data)
@@ -79,6 +85,9 @@ class MyConfirmedUsers(APIView):
     def get(self, request):
         return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
+            now = datetime.date.today()
+            if tour.end_date < now:
+                continue
             serializer = UserInfoSerializer(tour.confirmed_users.all(), many=True)
             return_data[tour.tour_id] = serializer.data
         return Response(return_data)
