@@ -33,7 +33,7 @@ public class TourLeaderRequestController extends Controller {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         Log.d(TAG, "addPlanRequest onSuccess: " + response);
                         AuthController.getUser().setNumber_of_tickets(
-                                gson.fromJson(response.getResponseBody() , PlanRequest.class)
+                                gson.fromJson(response.getResponseBody(), PlanRequest.class)
                                         .getTour_leader().getNumber_of_tickets()
                         );
                         onResponse.onSuccess(call, callback, response);

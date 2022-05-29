@@ -2,63 +2,76 @@
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/colorBackgroundDarker"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorBackgroundDarker">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_small">
-        
+
         <ir.blackswan.travelapp.Views.ProfileImageView
             android:id="@+id/user_iv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="@dimen/profile_view_size"
             android:layout_height="@dimen/profile_view_size"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:riv_corner_radius="@dimen/profile_view_half_size"
-            />
-        
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/profile_view_half_size" />
+
         <TextView
             android:id="@+id/user_Name_LastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toLeftOf="@id/user_iv"
-            app:layout_constraintTop_toTopOf="@id/user_iv"
-            app:layout_constraintBottom_toBottomOf="@id/user_iv"
-            android:text="نام و نام خانوادگی"
             style="@style/textRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_small"
-            />
+            android:text="نام و نام خانوادگی"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/user_iv"
+            app:layout_constraintTop_toTopOf="@id/user_iv" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_rvh_accept"
             style="@style/button.primaryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="0dp"
-            android:textSize="16sp"
             android:layout_marginHorizontal="@dimen/margin_small"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+            android:text="تایید"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="تایید" />
+            app:layout_constraintTop_toBottomOf="@id/user_Name_LastName"
+            app:layout_constraintRight_toLeftOf="@id/btn_rvh_reject"
+            />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_rvh_reject"
+            style="@style/button.primaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:backgroundTint="@color/colorError"
+            android:text="رد"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_rvh_accept"
+            app:layout_constraintRight_toLeftOf="@id/user_iv"
+            app:layout_constraintTop_toTopOf="@id/btn_rvh_accept" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/user_iv"
-        android:background="@color/colorDividers"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginHorizontal="@dimen/margin_large"
         android:layout_gravity="bottom"
-        />
-    
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@color/colorDividers"
+        app:layout_constraintTop_toBottomOf="@id/user_iv" />
+
 </com.google.android.material.card.MaterialCardView>

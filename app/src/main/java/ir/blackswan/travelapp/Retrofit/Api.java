@@ -104,6 +104,12 @@ public interface Api {
                                   @Field("tour_id") int tour_id,
                                   @Field("user_id") int user_id
     );
+    @POST("/tour/rejectuser/")
+    @FormUrlEncoded
+    Call<ResponseBody> rejectUser(@Header("Authorization") String token,
+                                  @Field("tour_id") int tour_id,
+                                  @Field("user_id") int user_id
+    );
 
     @GET("/tour/confirmedtours/")
     Call<ResponseBody> getConfirmedTour(@Header("Authorization") String token);

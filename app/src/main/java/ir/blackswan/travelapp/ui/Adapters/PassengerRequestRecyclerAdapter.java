@@ -58,7 +58,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
             acceptUser(holder);
         else if (tour.isFull())
             disable(holder);
-        else
+        else {
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -76,6 +76,23 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
 
                 }
             });
+            holder.reject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    passengerRequestsController.rejectUserToServer(user, tour.getTour_id(), new OnResponseDialog(activity) {
+                        @Override
+                        public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                            super.onSuccess(call, callback, response);
+                            allRequestedUsers.remove(user);
+                            activity.setResult(Activity.RESULT_OK);
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            });
+        }
     }
 
     private void acceptUser(ViewHolder holder) {
@@ -108,13 +125,14 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     class ViewHolder extends RecyclerView.ViewHolder {
         ProfileImageView userImage;
         TextView userName_Lastname;
-        MaterialButton accept;
+        MaterialButton accept , reject;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userImage = itemView.findViewById(R.id.user_iv);
             userName_Lastname = itemView.findViewById(R.id.user_Name_LastName);
             accept = itemView.findViewById(R.id.btn_rvh_accept);
+            reject = itemView.findViewById(R.id.btn_rvh_reject);
         }
     }
 }

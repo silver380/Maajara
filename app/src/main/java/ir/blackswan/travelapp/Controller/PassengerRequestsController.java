@@ -67,4 +67,10 @@ public class PassengerRequestsController extends Controller {
         .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
 
     }
+
+    public void rejectUserToServer(User user, int tour_id, OnResponse onResponse){
+        api.rejectUser(AuthController.getTokenString(), tour_id, user.getUser_id())
+                .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
+
+    }
 }

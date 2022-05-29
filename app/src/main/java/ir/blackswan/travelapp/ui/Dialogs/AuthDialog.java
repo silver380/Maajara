@@ -25,6 +25,7 @@ import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
@@ -158,8 +159,16 @@ public class AuthDialog extends MyDialog {
                     String lastName = getEditableText(binding.etLoginLastName.getText());
                     String email = getEditableText(binding.etLoginEmail.getText()).toLowerCase();
                     authController.register(email,
-                            getEditableText(binding.etLoginPassword.getText()), name, lastName, onResponseDialog);
-                    //todo: go to login
+                            getEditableText(binding.etLoginPassword.getText()), name, lastName, new OnResponseDialog(mActivity) {
+                                @Override
+                                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                    super.onSuccess(call, callback, response);
+                                    Toast.makeText(activity, "ایمیل تایید با موفقیت ارسال شد. پس " +
+                                            "از تایید ایمیل دوباره وارد شوید", Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                    changeTypeAndStep(true, STEP_LOGIN, false);
+                                }
+                            });
+
                 } else if (step == STEP_VERIFY) {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
@@ -181,8 +190,7 @@ public class AuthDialog extends MyDialog {
                 changeTypeAndStep(false, STEP_REGISTER, false);
                 binding.etLoginName.requestFocus();
                 clearError();
-            }
-            else {
+            } else {
                 changeTypeAndStep(true, STEP_LOGIN, false);
                 binding.etLoginEmail.requestFocus();
                 clearError();
@@ -223,13 +231,13 @@ public class AuthDialog extends MyDialog {
         }
     }
 
-    public void restart(){
+    public void restart() {
         for (TextInputEditText ti : textInputs) {
             ti.setText("");
         }
         stopLoadingAnimation();
         stepsStack.clear();
-        changeTypeAndStep(true , STEP_LOGIN , true);
+        changeTypeAndStep(true, STEP_LOGIN, true);
         binding.etLoginEmail.requestFocus();
         clearError();
     }
@@ -237,7 +245,7 @@ public class AuthDialog extends MyDialog {
     private void setTexts() {
         final String login = "ورود", register = "ثبت‌نام",
                 goToLogin = "قبلا ثبت نام کرده‌اید؟";
-        final String goToRegister = String.format("حسابی در %s ندارید؟" , mActivity.getString(R.string.app_name));
+        final String goToRegister = String.format("حسابی در %s ندارید؟", mActivity.getString(R.string.app_name));
 
         if (forLogin) {
             binding.tvLoginTittle.setText(login);
