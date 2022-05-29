@@ -45,8 +45,8 @@ EMAIL_HOST_USER = 'maajara.contact@gmail.com'
 EMAIL_HOST_PASSWORD = 'kxrtuxxelnumlqla'
 
 DJOSER = {
-    "SEND_ACTIVATION_EMAIL": True,
-    "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
+    # "SEND_ACTIVATION_EMAIL": True,
+    # "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
 }
 
 INSTALLED_APPS = [

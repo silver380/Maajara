@@ -1,6 +1,7 @@
 import json
 
 import requests
+from rest_framework.authtoken.models import Token
 from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.views import APIView
@@ -48,6 +49,9 @@ class ActivateUser(APIView):
         url = "http://maajara.pythonanywhere.com/auth/users/activation/"
 
         # response = requests.post(url, data=payload)
+        user = Token.objects.get(key=token).user.is_active
+        user.is_active = True
+        user.save()
         return render(request, 'activation_success.html')
 
 
