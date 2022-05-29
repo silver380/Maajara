@@ -117,6 +117,27 @@ class AcceptUser(APIView):
         return Response(status=200)
 
 
+class RejectUser(APIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+
+    def post(self, request):
+        if 'tour_id' not in request.data or 'user_id' not in request.data:
+            return Response(status=400, data={"error": "Invalid data"})
+
+        registered_user = get_object_or_404(get_user_model(), pk=request.data['user_id'])
+        registered_tour = get_object_or_404(Tour, pk=request.data['tour_id'])
+
+        if registered_user not in registered_tour.pending_users.all():
+            return Response(status=400, data={"error": "Invalid pending user"})
+
+        if registered_tour.creator != request.user:
+            return Response(status=401, data={"error": "invalid tour leader"})
+
+
+        registered_tour.pending_users.remove(registered_user)
+        return Response(status=200)
+
+
 class Add(CreateAPIView):
     model = Tour
     serializer_class = AddTourSerializers

@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
     MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, TourSuggestion, AddRate, GetRate, ArchivedTourTL, \
-    ArchivedTourUser
+    ArchivedTourUser, RejectUser
 
 app_name = 'Tour'
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('confirmedusers/', MyConfirmedUsers.as_view(), name="created_tours"),
     path('addtour/', Add.as_view(), name="add_tour"),
     path('acceptuser/', AcceptUser.as_view(), name="accept_user"),
+    path('rejectuser/', RejectUser.as_view(), name="reject_user"),
     path('addrate/', AddRate.as_view(), name="add_rate"),
     path('getrate/<int:tour_id>/', GetRate.as_view(), name="get_rate"),
     path('suggestion/<int:pk>/', TourSuggestion.as_view(), name="tour_suggestion"),
