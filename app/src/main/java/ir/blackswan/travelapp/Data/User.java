@@ -37,7 +37,7 @@ public class User implements Serializable {
      */
 
     private int user_id = -1;
-    private boolean isBanned, isValidatedByAdmin;
+    private boolean isValidatedByAdmin;
     @Expose
     private String first_name, last_name, email, ssn;
     @Expose
@@ -50,6 +50,8 @@ public class User implements Serializable {
     private String languages;
     @Expose
     private String phone_number, telegram_id, whatsapp_id;
+    private boolean requested_for_upgrade;
+    private String upgrade_note;
 
     private boolean is_tour_leader;
     private String picture;
@@ -91,6 +93,14 @@ public class User implements Serializable {
         } catch (JsonSyntaxException e) {
             return null;
         }
+    }
+
+    public boolean isRequested_for_upgrade() {
+        return requested_for_upgrade;
+    }
+
+    public String getUpgrade_note() {
+        return upgrade_note;
     }
 
     public String getPersianGender() {
@@ -144,10 +154,6 @@ public class User implements Serializable {
 
     public void setAvg_rate(double avg_rate) {
         this.avg_rate = avg_rate;
-    }
-
-    public boolean isBanned() {
-        return isBanned;
     }
 
     public boolean isValidatedByAdmin() {
@@ -228,7 +234,7 @@ public class User implements Serializable {
         return first_name + " " + last_name;
     }
 
-    public String getFullNameWithPrefix(){
+    public String getFullNameWithPrefix() {
         if (gender == null)
             return getNameAndLastname();
         return gender.equals("Male") ? "آقای " + getNameAndLastname() : "خانم " + getNameAndLastname();
@@ -238,7 +244,6 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "user_id=" + user_id +
-                ", isBanned=" + isBanned +
                 ", isValidatedByAdmin=" + isValidatedByAdmin +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +

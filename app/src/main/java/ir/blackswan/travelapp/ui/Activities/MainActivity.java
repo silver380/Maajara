@@ -57,7 +57,6 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-        startAddPlace();
 
     }
 

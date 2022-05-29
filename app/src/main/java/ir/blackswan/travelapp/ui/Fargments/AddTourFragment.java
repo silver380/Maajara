@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -29,7 +27,6 @@ import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Tour;
-import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.GroupButtons;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
@@ -239,7 +236,7 @@ public class AddTourFragment extends Fragment {
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
                         Toast.makeText(mainActivity, "تور با موفقیت اضافه شد",
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
-                        Tour tour1 = new Gson().fromJson(response.getResponseBody() , Tour.class);
+                        Tour tour1 = new Gson().fromJson(response.getResponseBody(), Tour.class);
                         AuthController.getUser().setNumber_of_tickets(tour1.getCreator().getNumber_of_tickets());
                         mainActivity.resetTicket();
                         mainActivity.navigateToId(R.id.navigation_home);
@@ -279,10 +276,7 @@ public class AddTourFragment extends Fragment {
                 return editText.getHint() + " ضروری است";
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
-            else if (startDate.getCalendar().getTimestamp() < calendar.getTimeInMillis()
-                    || finalDate.getCalendar().getTimestamp() < calendar.getTimeInMillis()) {
-                return getString(R.string.date_greater_of_now);
-            } else if (Utils.isDateGreaterOrEqual(
+            else if (Utils.isDateGreaterOrEqual(
                     startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
 

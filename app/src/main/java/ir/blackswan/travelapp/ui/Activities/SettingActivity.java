@@ -4,6 +4,8 @@ import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 import static ir.blackswan.travelapp.Utils.Utils.isValidMobileNumber;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,7 +76,26 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private void setTourLeaderStatus() {
-
+        String text;
+        int backColor;
+        Resources r = getResources();
+        if (!user.is_tour_leader()){
+            if (!user.isRequested_for_upgrade()){
+                text = "درخواستی ارسال نشده";
+                backColor = r.getColor(R.color.colorHint);
+            }else if(user.getUpgrade_note() == null || user.getUpgrade_note().isEmpty()) {
+                text = "در انتظار تایید";
+                backColor = r.getColor(R.color.colorWarning);
+            }else{
+                text = "درخواست رد شده";
+                backColor = r.getColor(R.color.colorError);
+            }
+        }else {
+            text = "تایید شده";
+            backColor = r.getColor(R.color.colorSuccess);
+        }
+        binding.tvLeaderInfoStatus.setText(text);
+        binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(backColor));
     }
 
     private void setInputTypes() {
@@ -150,7 +171,7 @@ public class SettingActivity extends ToolbarActivity {
             leaderVis = View.VISIBLE;
             btnVis = View.GONE;
         } else {
-            if (user.is_tour_leader()) {
+            if (user.is_tour_leader() || user.isRequested_for_upgrade()) {
                 checkForLeaderInfo = true;
                 binding.ivCloseLeader.setVisibility(View.GONE);
                 leaderVis = View.VISIBLE;
@@ -236,6 +257,7 @@ public class SettingActivity extends ToolbarActivity {
                                         , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                                 setResult(RESULT_OK);
                                 loadingDialog.dismiss();
+                                setTourLeaderStatus();
                                 finish();
 
                             }

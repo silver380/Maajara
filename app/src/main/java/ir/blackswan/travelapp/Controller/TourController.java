@@ -123,7 +123,7 @@ public class TourController extends Controller {
 
                     @Override
                     public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                        onFailed(call, callback, response);
+                        onResponse.onFailed(call, callback, response);
                     }
                 }).showLoadingDialog());
     }
