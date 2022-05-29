@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_large"
-        android:text="سفرهای انجام شده" />
+        android:text="@string/archived_tours" />
 
     <ScrollView
         android:layout_width="match_parent"

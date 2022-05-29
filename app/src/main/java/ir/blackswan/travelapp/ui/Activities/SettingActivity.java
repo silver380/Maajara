@@ -157,7 +157,7 @@ public class SettingActivity extends ToolbarActivity {
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
-            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره سعی کنید", Toast.LENGTH_LONG,
+            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره تلاش کنید.", Toast.LENGTH_LONG,
                     Toast.TYPE_ERROR).show();
         }
     }
@@ -319,13 +319,13 @@ public class SettingActivity extends ToolbarActivity {
                 if (getEditableText(editText.getText()).isEmpty())
                     return editText.getHint() + " ضروری است";
                 if (!isValidMobileNumber(getEditableText(editText.getText())))
-                    return "فرمت شماره تماس نادرست است (مثال: 9120000000)";
+                    return "فرمت شماره تماس نادرست است. (مثال: 9120000000)";
                 return null;
             });
 
             checker.add(binding.etSettingBio, (TextInputsChecker.Error) editText -> {
                 if (getEditableText(editText.getText()).length() > BIO_MAX_LENGTH)
-                    return "تعداد کاراکتر بیش از حد مجاز است";
+                    return "تعداد کاراکتر بیش از حد مجاز است.";
                 return null;
             });
         }

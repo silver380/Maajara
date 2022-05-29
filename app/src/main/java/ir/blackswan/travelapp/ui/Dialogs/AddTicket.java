@@ -3,6 +3,7 @@ package ir.blackswan.travelapp.ui.Dialogs;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TicketController;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.DialogAddTicketBinding;
@@ -26,7 +27,7 @@ public class AddTicket extends MyDialog {
                             @Override
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
-                                Toast.makeText(activity, "خرید با موفقیت انجام شد", Toast.LENGTH_SHORT , Toast.TYPE_SUCCESS).show();
+                                Toast.makeText(activity, activity.getString(R.string.success_buy_ticket), Toast.LENGTH_SHORT , Toast.TYPE_SUCCESS).show();
                                 AddTicket.this.dialog.dismiss();
                                 onTicketChange.onChange();
                             }

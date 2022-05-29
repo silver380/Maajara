@@ -25,14 +25,20 @@
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/view_image_profile.xml" value="0.2234375" />
         <entry key="..\:/AS_Projects/SE_Project/app/src/main/res/layout/web_image_view.xml" value="0.2234375" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_place.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_add_tour.xml" value="0.1859375" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_intro.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_maps.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_setting.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_tleader_request.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_tour_page.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/activity_user_requests.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/cases_view.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_on_response.xml" value="0.25" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_plan.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_register_login.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_report.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_response_messge.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/dialog_select_places.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/fragment_add.xml" value="0.2" />
@@ -45,6 +51,8 @@
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/fragment_search.xml" value="0.1859375" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/tl_request_view_holder.xml" value="0.25" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/tl_vertical_view_holer.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/toggle_view.xml" value="0.2" />
+        <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/tour_view_holder.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/user_req_view_holder.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />

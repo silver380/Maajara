@@ -46,7 +46,7 @@ public class TextInputsChecker {
     public void add(TextInputEditText inputEditText ){
         add(inputEditText, editText ->{
             if (Utils.getEditableText(editText.getText()).isEmpty())
-                return inputEditText.getHint() + " ضروری است";
+                return inputEditText.getHint() + " ضروری است.";
             return null;
         });
     }

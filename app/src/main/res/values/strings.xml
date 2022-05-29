@@ -16,7 +16,7 @@
     <string name="biography">بیوگرافی</string>
     <string name="nameError">نام نمی‌تواند خالی باشد.</string>
     <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد.</string>
-    <string name="emailError">فرمت ایمیل صحیح نیست.</string>
+    <string name="emailError">فرمت ایمیل نادرست است.</string>
     <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد.</string>
     <string name="picture_download_failed">خطا در بارگذاری تصویر</string>
     <string name="picture_not_found">تصویر پیدا نشد.</string>
@@ -26,15 +26,15 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
 
     <string name="city">شهر</string>
-    <string name="title_activity_setting">تنیمات</string>
+    <string name="title_activity_setting">تنظیمات</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="createdPlans">برنامه‌های سفر من</string>
+    <string name="createdPlans">ماجراهای ساخته شده من</string>
     <string name="pendingTours">در انتظار تایید</string>
     <string name="confirmedTours">قطعی شده‌ها</string>
     <string name="wanted_list">مواردی که می‌خواهم</string>
     <string name="add_tour_tittle">ماجرای جدید</string>
-    <string name="add_plan_tittle">برنامه سفر جدید</string>
+    <string name="add_plan_tittle">ماجرای جدید</string>
 
     <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد.</string>
 
@@ -47,18 +47,21 @@
     <string name="no_place_select">مکانی انتخاب نشده است.\nبرای انتخاب + را کلیک نمایید.</string>
 
     <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
-    <string name="my_tours">ماجراهای من</string>
+    <string name="my_tours">ماجراهای ساخته شده من</string>
     <string name="recycler_default_text">موردی یافت نشد.</string>
     <string name="pending_plans">در انتظار تایید</string>
-    <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید</string>
+    <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید.</string>
     <string name="show_more">نمایش بیشتر</string>
-    <string name="home_tours">ماجراها</string>
-    <string name="home_plans">برنامه سفر‌ها</string>
+    <string name="home_tours">سایر ماجراها</string>
+    <string name="home_plans">سایر ماجراها‌</string>
     <string name="toggle_tour">ماجرا</string>
-    <string name="plan">برنامه سفر</string>
-    <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است</string>
-    <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید</string>
-    <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد</string>
+    <string name="plan">ماجرا</string>
+    <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است.</string>
+    <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید.</string>
+    <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد.</string>
+    <string name="report">از سفرتان بیشتر برایمان بگویید..</string>
+    <string name="archived_tours">ماجراهای گذشته</string>
+    <string name="success_buy_ticket">خرید با موفقیت انجام شد.</string>
 
 
 </resources>

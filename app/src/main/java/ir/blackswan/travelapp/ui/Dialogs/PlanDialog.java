@@ -97,7 +97,7 @@ public class PlanDialog extends MyDialog {
     }
 
     private void setData() {
-        binding.tbPlanDialog.setTitle("برنامه سفر به " + plan.getDestination());
+        binding.tbPlanDialog.setTitle("ماجرایی به " + plan.getDestination());
         requestController = new TourLeaderRequestController(mainActivity);
         binding.tvPlanCity.setText(plan.getDestination());
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
@@ -192,7 +192,7 @@ public class PlanDialog extends MyDialog {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
-                        Toast.makeText(mainActivity, "درخواست با موفقیت ارسال شد", Toast.LENGTH_SHORT,
+                        Toast.makeText(mainActivity, "درخواست با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
                                 Toast.TYPE_SUCCESS).show();
                         Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
                         alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);

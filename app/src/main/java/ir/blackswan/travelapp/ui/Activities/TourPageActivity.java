@@ -389,12 +389,12 @@ public class TourPageActivity extends ToolbarActivity {
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (passedTour) {
-            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است");
+            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است.");
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (tour.isFull()) {
-            binding.btnTourPageRegister.setText("ظرفیت تکمیل است");
+            binding.btnTourPageRegister.setText("ظرفیت تکمیل است.");
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
