@@ -77,8 +77,8 @@ class MyPendingTravelPlans(GenericAPIView):
 
         for req in travel_plans_reqs:
             travel_plan = TravelPlanSerializer(req.travel_plan).data
-            # if datetime.date(travel_plan['start_date']) < datetime.date(datetime.now()):
-            #     continue
+            if datetime.fromisoformat(travel_plan['end_date']) < datetime.now():
+                continue
             if travel_plan['confirmed_tour_leader'] is None:
                 serialized_data = TravelPlanReqSerializer(req)
                 return_data.append(serialized_data.data)
@@ -94,8 +94,8 @@ class MyConfirmedTravelPlans(GenericAPIView):
         return_data = []
         for req in travel_plans_reqs:
             travel_plan = json.loads(json.dumps(TravelPlanSerializer(req.travel_plan).data))
-            # if datetime.date(travel_plan['end_date']) < datetime.date(datetime.now()):
-            #     continue
+            if datetime.fromisoformat(travel_plan['end_date']) < datetime.now():
+                continue
 
             confirmed_tour_leader = (travel_plan.get('confirmed_tour_leader'))
             if confirmed_tour_leader is not None:
