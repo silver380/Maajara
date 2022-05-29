@@ -34,6 +34,14 @@ public class Place implements Serializable {
         return place_id;
     }
 
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
     public String getCity() {
         return city;
     }

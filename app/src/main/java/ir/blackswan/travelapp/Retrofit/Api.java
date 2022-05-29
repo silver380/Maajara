@@ -43,10 +43,11 @@ public interface Api {
     Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token, @Path("tour_id") String tour_id);
 
     @Multipart
-    @POST
+    @POST("/place/")
     Call<ResponseBody> addPlace(@Header("Authorization") String token,
                                 @Part MultipartBody.Part file,
-                                @Part MultipartBody.Part data);
+                                @Part MultipartBody.Part name, @Part MultipartBody.Part city , @Part MultipartBody.Part dest
+     ,@Part MultipartBody.Part lat , @Part MultipartBody.Part lng );
 
 
     @GET("/travelplan/mypendingreqs/")
@@ -63,7 +64,7 @@ public interface Api {
                                     @Field("user_id") int user_id);
 
 
-    @GET("/travelplan/myConfirmedplans/")
+    @GET("/travelplan/myconfirmedplans/")
     Call<ResponseBody> getConfirmedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/mypendingplans/")

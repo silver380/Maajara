@@ -1,5 +1,8 @@
 package ir.blackswan.travelapp.ui.Activities;
 
+import static ir.blackswan.travelapp.Utils.Utils.changeStatusColor;
+import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -39,16 +42,24 @@ import com.google.android.gms.tasks.Task;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.FileUtil;
 import ir.blackswan.travelapp.Utils.MyInputTypes;
 import ir.blackswan.travelapp.Utils.PermissionRequest;
+import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityAddPlaceBinding;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallback {
     private static final String TAG = "GoogleMap";
@@ -60,8 +71,9 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     ActivityAddPlaceBinding binding;
     GoogleMap map;
     File image;
+    TextInputsChecker checker = new TextInputsChecker();
 
-
+ //todo: editText texes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         binding = ActivityAddPlaceBinding.inflate(getLayoutInflater());
@@ -93,14 +105,48 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
             }
         }.execute();
 
+        setChecker();
 
         setPlacePicture();
 
         binding.btnSubmitPlace.setOnClickListener(v -> {
-            new PlaceController(this).addPlace(new Place(
-                    binding.etSettingEmail
-            ));
+            if (checkInputs()) {
+                new PlaceController(this).addPlace(new Place(
+                                getEditableText(binding.etPlaceName.getText()), getEditableText(binding.etPlaceCity.getText()),
+                                getEditableText(binding.etPlaceDescription.getText()), (float) lang.latitude, (float) lang.longitude), image,
+                        new OnResponseDialog(this) {
+                            @Override
+                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                super.onSuccess(call, callback, response);
+                                Log.d(MyCallback.TAG, "addPlace onSuccess: " + response);
+                                Toast.makeText(AddPlaceActivity.this, "درخواست اضافه کردن مکان با موفقیت ارسال شد", Toast.LENGTH_SHORT
+                                        , Toast.TYPE_SUCCESS).show();
+                                setResult(RESULT_OK);
+                            }
+
+                            @Override
+                            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                super.onFailed(call, callback, response);
+                                Log.d(MyCallback.TAG, "addPlace onFailed: " + response);
+                            }
+                        });
+            }else {
+                Toast.makeText(this, getString(R.string.fix_errors), Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
+            }
         });
+    }
+
+    private void setChecker() {
+        checker.add(Arrays.asList(binding.etPlaceName , binding.etPlaceCity));
+    }
+
+    boolean checkInputs(){
+        boolean returnValue = !checker.checkAllError();
+        if (image == null || lang == null) {
+            returnValue = false;
+        }
+        return returnValue;
+
     }
 
     private void setMapLoading(boolean loading) {
@@ -172,12 +218,16 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
 
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
-            image = FileUtil.from(this, resultUri);
-            binding.placeImg.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
-            binding.placeImg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
-            binding.placeImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            binding.groupPlaceImg.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+            try {
+                image = FileUtil.from(this, resultUri);
+                binding.placeImg.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
+                binding.placeImg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+                binding.placeImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                binding.groupPlaceImg.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+            } catch (IOException e) {
+                Log.d(TAG, "onActivityResult: " , e);
+            }
 
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);

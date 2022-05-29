@@ -2,6 +2,8 @@ package ir.blackswan.travelapp.Controller;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import java.io.File;
 
 import ir.blackswan.travelapp.Data.Place;
@@ -22,9 +24,15 @@ public class PlaceController extends Controller {
 
     public void addPlace(Place place , File image , OnResponse onResponse){
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg") , image);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("filename", image.getName(), requestFile);
-        MultipartBody.Part data = MultipartBody.Part.createFormData("data", gsonExpose.toJson(place));
-        api.addPlace(AuthController.getTokenString() , body, data).enqueue(new MyCallback(authActivity ,onResponse));
+        MultipartBody.Part body = MultipartBody.Part.createFormData("picture", image.getName(), requestFile);
+        MultipartBody.Part name = MultipartBody.Part.createFormData("name", place.getName());
+        MultipartBody.Part city = MultipartBody.Part.createFormData("city", place.getCity());
+        MultipartBody.Part des = MultipartBody.Part.createFormData("description", place.getDescription());
+        MultipartBody.Part lat = MultipartBody.Part.createFormData("latitude", place.getLatitude() + "");
+        MultipartBody.Part lng = MultipartBody.Part.createFormData("longitude", place.getLongitude() + "");
+
+        Call<ResponseBody> call = api.addPlace(AuthController.getTokenString() , body , name , city , des , lat , lng);
+        call.enqueue(new MyCallback(authActivity ,onResponse).showLoadingDialog());
     }
 
     public void getAllPlacesFromServer(OnResponse onResponse , @Nullable String search) {

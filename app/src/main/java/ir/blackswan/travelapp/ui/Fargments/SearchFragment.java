@@ -22,7 +22,6 @@ import ir.blackswan.travelapp.Controller.PlanController;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.databinding.FragmentSearchBinding;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
 import ir.blackswan.travelapp.ui.Adapters.PlanRecyclerAdapter;
@@ -87,6 +86,8 @@ public class SearchFragment extends RefreshingFragment {
                 restartSearchHandler();
             }
         });
+
+        binding.btnAddPlace.setOnClickListener(v -> mainActivity.startAddPlace());
     }
 
     private void restartSearchHandler() {
@@ -138,7 +139,7 @@ public class SearchFragment extends RefreshingFragment {
     }
 
     public void refresh(@Nullable String search) {
-
+        binding.btnAddPlace.setVisibility(toggle == TOGGLE_PLACE ? View.VISIBLE : View.GONE);
         if (toggle == TOGGLE_TOUR)
             reloadTours(search);
         else if (toggle == TOGGLE_PLAN)

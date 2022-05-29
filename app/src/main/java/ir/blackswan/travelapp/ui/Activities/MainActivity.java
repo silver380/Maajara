@@ -34,7 +34,7 @@ import retrofit2.Call;
 public class MainActivity extends AuthActivity {
 
     private ActivityMainBinding binding;
-    public static final int REQUEST_SETTING = 0, REQUEST_LEADER_REQUESTS = 1, REQUEST_TOUR_PAGE = 2;
+    public static final int REQUEST_SETTING = 0, REQUEST_LEADER_REQUESTS = 1, REQUEST_TOUR_PAGE = 2 , REQUEST_ADD_PLACE = 3;
     private HomeFragment homeFragment;
 
     NavHostFragment navHostFragment;
@@ -57,8 +57,7 @@ public class MainActivity extends AuthActivity {
 
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
-//startActivity(new Intent(this, MapsActivity.class));
-
+        startAddPlace();
 
     }
 
@@ -105,7 +104,7 @@ public class MainActivity extends AuthActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_SETTING) {
                 homeFragment.reload();
-            } else if (requestCode == REQUEST_LEADER_REQUESTS || requestCode == REQUEST_TOUR_PAGE) {
+            } else if (requestCode == REQUEST_LEADER_REQUESTS || requestCode == REQUEST_TOUR_PAGE || requestCode == REQUEST_ADD_PLACE) {
                 homeFragment.refresh();
                 List<Fragment> childFragments = navHostFragment.getChildFragmentManager().getFragments();
                 for (Fragment frag : childFragments) {
@@ -114,7 +113,6 @@ public class MainActivity extends AuthActivity {
                         Log.d("TLeaderRecycler", "REFRESHED " + frag);
                     }
                 }
-
             }
         }
     }
@@ -136,5 +134,9 @@ public class MainActivity extends AuthActivity {
 
     public void navigateToId(int id) {
         binding.navView.setSelectedItemId(id);
+    }
+
+    public void startAddPlace() {
+        startActivityForResult(new Intent(this , AddPlaceActivity.class) , REQUEST_ADD_PLACE);
     }
 }
