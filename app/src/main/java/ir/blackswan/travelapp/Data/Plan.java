@@ -86,7 +86,7 @@ public class Plan implements Serializable {
         try {
             return new Gson().fromJson(wanted_list, List.class);
         } catch (JsonSyntaxException e) {
-            return new ArrayList<>(); //todo: remove this
+            return new ArrayList<>();
         }
     }
 
