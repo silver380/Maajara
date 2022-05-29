@@ -56,7 +56,7 @@ class MyUser(AbstractBaseUser):
     requested_for_upgrade = models.BooleanField(default=False)
     upgrade_note = models.CharField(max_length=100, default='')
 
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     number_of_tickets = models.IntegerField(default=5)
