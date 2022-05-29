@@ -62,9 +62,8 @@ public class ArchiveFragment extends RefreshingFragment {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 super.onSuccess(call, callback, response);
-
-                binding.rclArchivedTours.setAdapter(new TourRecyclerAdapter(mainActivity,
-                                                    TourController.getArchiveTours()));
+                archivedTours = tourController.getArchiveTours();
+                binding.rclArchivedTours.setAdapter(new TourRecyclerAdapter(mainActivity, archivedTours));
                 setRefreshing(false);
             }
         });
