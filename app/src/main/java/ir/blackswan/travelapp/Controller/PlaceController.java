@@ -2,10 +2,13 @@ package ir.blackswan.travelapp.Controller;
 
 import android.util.Log;
 
-import androidx.annotation.Nullable;
+import java.io.File;
 
 import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -15,6 +18,13 @@ public class PlaceController extends Controller {
 
     public PlaceController(AuthActivity authActivity) {
         super(authActivity);
+    }
+
+    public void addPlace(Place place , File image , OnResponse onResponse){
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg") , image);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("filename", image.getName(), requestFile);
+        MultipartBody.Part data = MultipartBody.Part.createFormData("data", gsonExpose.toJson(place));
+        api.addPlace(AuthController.getTokenString() , body, data).enqueue(new MyCallback(authActivity ,onResponse));
     }
 
     public void getAllPlacesFromServer(OnResponse onResponse , @Nullable String search) {

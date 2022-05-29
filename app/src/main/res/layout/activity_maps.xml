@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:id="@+id/tb_map"
+        android:id="@+id/tb_activity"
         style="@style/activity_toolbar"
         android:layout_height="?android:attr/actionBarSize"
         app:title="انتخاب موقعیت"
@@ -20,6 +20,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/primary_icon_size"
+            android:layout_height="@dimen/primary_icon_size"
+            android:src="@drawable/ic_map_marker"
+            android:translationZ="5dp"
+            android:tint="@color/colorIconTint"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/primary_icon_size"
+            />
 
     <fragment
         android:id="@+id/map"
@@ -31,12 +41,13 @@
 
    <com.google.android.material.button.MaterialButton
        android:id="@+id/btn_submit_place_location"
-       android:layout_width="match_parent"
+       android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_gravity="bottom"
+       android:layout_gravity="bottom|center"
        style="@style/button.primaryButton"
        android:text="تایید"
-       android:layout_marginHorizontal="@dimen/margin_large"
+       android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+       android:paddingVertical="@dimen/btn_large_padding_vertical"
        android:layout_marginBottom="@dimen/margin_medium"
        />
     </FrameLayout>

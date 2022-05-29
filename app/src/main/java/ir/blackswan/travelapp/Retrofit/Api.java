@@ -42,6 +42,13 @@ public interface Api {
     @GET("/tour/suggestion/{tour_id}/")
     Call<ResponseBody> getSuggestionTours(@Header("Authorization") String token, @Path("tour_id") String tour_id);
 
+    @Multipart
+    @POST
+    Call<ResponseBody> addPlace(@Header("Authorization") String token,
+                                @Part MultipartBody.Part file,
+                                @Part MultipartBody.Part data);
+
+
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 

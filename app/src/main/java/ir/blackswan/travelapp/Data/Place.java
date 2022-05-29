@@ -1,19 +1,25 @@
 package ir.blackswan.travelapp.Data;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Place implements Serializable {
     private int place_id;
+    @Expose
     private String name , city, description;
+    @Expose
+    private float latitude , longitude;
     private String picture;
     private Tag tag;
 
-    public Place(String name, String city, String description, String localPicturePath , String serverPicturePath) {
+    public Place(String name, String city, String description, float latitude, float longitude) {
         this.name = name;
         this.city = city;
         this.description = description;
-        picture = serverPicturePath;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Place(int place_id) {

@@ -16,6 +16,7 @@ public abstract class ToolbarActivity extends AuthActivity {
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null)
             actionbar.setDisplayHomeAsUpEnabled(true);
-        tb.setNavigationOnClickListener(view -> onBackPressed());
+        if (tb != null)
+            tb.setNavigationOnClickListener(view -> onBackPressed());
     }
 }

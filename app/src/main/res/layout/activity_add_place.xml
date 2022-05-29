@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Activities.AddPlaceActivity"
     android:orientation="vertical"
-    >
+    tools:context=".ui.Activities.AddPlaceActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_add_place"
+        android:id="@+id/tb_activity"
         style="@style/activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
@@ -24,135 +23,194 @@
 
         >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            >
+            android:paddingHorizontal="@dimen/padding_large">
 
-
-
-    <ImageView
-        android:id="@+id/place_img"
-        android:layout_width="match_parent"
-        android:layout_height="275dp"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_very_small"
-        app:riv_corner_radius="@dimen/radius_medium"
-        />
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_marginVertical="@dimen/margin_small"
-                android:id="@+id/btn_choose_img"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/button.outLineButton"
-                android:text="انتخاب عکس"
-                android:layout_marginHorizontal="@dimen/margin_medium"/>
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تصویری از مکان"
+                    style="@style/textTittleMedium"
+                    android:layout_marginTop="@dimen/margin_medium"
+
+                    />
+
+
+                <FrameLayout
+                    android:id="@+id/group_place_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_very_small"
+                    android:background="@color/colorDividers">
+
+                    <ImageView
+                        android:id="@+id/place_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:minHeight="200dp"
+                        android:src="@drawable/ic_image" />
+
+                </FrameLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_choose_img"
+                    style="@style/button.outLineButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+                    android:layout_marginTop="@dimen/margin_very_small"
+                    android:text="انتخاب عکس" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="موقعیت جغرافیایی"
+                style="@style/textTittleMedium"
+                android:layout_marginTop="@dimen/margin_large"
+
+                />
+
+            <FrameLayout
+                android:id="@+id/group_place_map"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <FrameLayout
+                    android:id="@+id/group_place_map_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:translationZ="1dp">
+
+
+                    <ProgressBar
+                        android:id="@+id/pb_place_map_loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/colorIconTint"
+                        android:translationZ="2dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha=".7"
+                        android:background="@color/colorWhite"
+                        android:translationZ="1dp" />
+                </FrameLayout>
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/place_mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="اطلاعات مکان"
+                style="@style/textTittleMedium"
+                android:layout_marginTop="@dimen/margin_large"
+
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/textInputLayout.outLinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="نام مکان"
+                app:startIconDrawable="@drawable/ic_place_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_place_name"
+                    style="@style/editText.oneLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/max_user_name_length" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/textInputLayout.outLinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="نام شهر"
+                app:startIconDrawable="@drawable/ic_place_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_place_city"
+                    style="@style/editText.oneLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputLayout.outLinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    android:hint="توضیحات">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_place_description"
+                        style="@style/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:maxLines="30"
+                        android:minLines="5" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_setting_bio_counter"
+                    style="@style/textSmall.hintColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:text="0/750" />
+            </FrameLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_submit_place"
+                style="@style/button.primaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:text="ارسال درخواست" />
 
         </LinearLayout>
-
-        <com.google.android.gms.maps.MapView
-            android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:id="@+id/place_mapview"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-        style="@style/textInputLayout.outLinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_large"
-        android:hint="نام مکان"
-        app:startIconDrawable="@drawable/ic_place_name">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/place_name_tv"
-        style="@style/editText.oneLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLength="@integer/max_user_name_length" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/textInputLayout.outLinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:hint="نام شهر"
-        app:startIconDrawable="@drawable/ic_place_city">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_setting_email"
-            style="@style/editText.oneLine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_bio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        >
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/textInputLayout.outLinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="توضیحات"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/explain_place_tv"
-            style="@style/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:maxLines="30"
-            android:minLines="5"
-            />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_setting_bio_counter"
-        style="@style/textSmall.hintColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="@dimen/margin_very_small"
-        android:text="0/750" />
-    </FrameLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_marginVertical="@dimen/margin_small"
-            android:id="@+id/btn_submit_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/button.primaryButton"
-            android:text="ارسال درخواست"
-            android:layout_marginHorizontal="@dimen/margin_medium"/>
-
-    </LinearLayout>
     </ScrollView>
 </LinearLayout>
