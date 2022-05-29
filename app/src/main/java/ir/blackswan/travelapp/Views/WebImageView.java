@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Views;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.io.File;
 
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.ui.Activities.FullscreenImageActivity;
 
 public class WebImageView extends LoadableImageView {
 
@@ -128,6 +130,7 @@ public class WebImageView extends LoadableImageView {
     }
 
     public void setImageByFile(File pictureFile) {
+        super.setImageByFile(pictureFile);
         new AsyncTask<Void, Void, Bitmap>() {
             @Override
             protected void onPreExecute() {
@@ -158,9 +161,10 @@ public class WebImageView extends LoadableImageView {
         imageState();
     }
 
-    public Drawable getDrawable(){
+    public Drawable getDrawable() {
         return imageView.getDrawable();
     }
+
     public void setCornerRadius(float radius) {
         imageView.setCornerRadius(radius);
     }

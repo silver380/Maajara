@@ -12,7 +12,6 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -24,9 +23,9 @@ public interface Api {
     @POST("/tour/addrate/")
     @FormUrlEncoded
     Call<ResponseBody> sendTourRateReport(@Header("Authorization") String token,
-                                    @Field("tour_id") int tour_id,
-                                    @Field("tour_rate") int rate,
-                                    @Field("tour_report") String report);
+                                          @Field("tour_id") int tour_id,
+                                          @Field("tour_rate") int rate,
+                                          @Field("tour_report") String report);
 
     @GET("/tour/getrate/{tour_id}/")
     Call<ResponseBody> getRateStatus(@Header("Authorization") String token,
@@ -39,7 +38,7 @@ public interface Api {
     Call<ResponseBody> getArchiveToursPs(@Header("Authorization") String token);
 
     @POST("/auth/increaseticket/")
-    Call<ResponseBody> increaseTickets(@Header("Authorization") String token , @Body RequestBody ticket);
+    Call<ResponseBody> increaseTickets(@Header("Authorization") String token, @Body RequestBody ticket);
 
 
     @GET("/tour/suggestion/{tour_id}/")
@@ -49,8 +48,8 @@ public interface Api {
     @POST("/place/")
     Call<ResponseBody> addPlace(@Header("Authorization") String token,
                                 @Part MultipartBody.Part file,
-                                @Part MultipartBody.Part name, @Part MultipartBody.Part city , @Part MultipartBody.Part dest
-     ,@Part MultipartBody.Part lat , @Part MultipartBody.Part lng );
+                                @Part MultipartBody.Part name, @Part MultipartBody.Part city, @Part MultipartBody.Part dest
+            , @Part MultipartBody.Part lat, @Part MultipartBody.Part lng);
 
 
     @GET("/travelplan/mypendingreqs/")
@@ -77,7 +76,7 @@ public interface Api {
     Call<ResponseBody> getCreatedPlans(@Header("Authorization") String token);
 
     @GET("/travelplan/all/")
-    Call<ResponseBody> searchPlans(@Header("Authorization") String token , @Query("search") String search);
+    Call<ResponseBody> searchPlans(@Header("Authorization") String token, @Query("search") String search);
 
 
     @POST("/travelplan/addplan/")
@@ -104,6 +103,7 @@ public interface Api {
                                   @Field("tour_id") int tour_id,
                                   @Field("user_id") int user_id
     );
+
     @POST("/tour/rejectuser/")
     @FormUrlEncoded
     Call<ResponseBody> rejectUser(@Header("Authorization") String token,
@@ -124,7 +124,7 @@ public interface Api {
     Call<ResponseBody> getConfirmedUsers(@Header("Authorization") String token);
 
     @GET("/tour/all/")
-    Call<ResponseBody> searchTours(@Header("Authorization") String token , @Query("search") String search);
+    Call<ResponseBody> searchTours(@Header("Authorization") String token, @Query("search") String search);
 
     @GET("/tour/createdtours/")
     Call<ResponseBody> getCreatedTour(@Header("Authorization") String token);
@@ -139,14 +139,21 @@ public interface Api {
     Call<ResponseBody> token(@Field("email") String email, @Field("password") String password);
 
 
-    @PATCH("/auth/upgrade/")
-    Call<ResponseBody> upgradeData(@Header("Authorization") String token,
-                                   @Body RequestBody user );
     @Multipart
     @PATCH("/auth/upgrade/")
-    Call<ResponseBody> upgradeFiles(@Header("Authorization") String token,
-                                    @Part MultipartBody.Part image ,
-                                    @Part MultipartBody.Part doc
+    Call<ResponseBody> upgrade(@Header("Authorization") String token,
+                               @Part MultipartBody.Part name,
+                               @Part MultipartBody.Part lastName,
+                               @Part MultipartBody.Part ssn,
+                               @Part MultipartBody.Part date_of_birth,
+                               @Part MultipartBody.Part gender,
+                               @Part MultipartBody.Part biography,
+                               @Part MultipartBody.Part languages,
+                               @Part MultipartBody.Part phone_number,
+                               @Part MultipartBody.Part telegram_id,
+                               @Part MultipartBody.Part whatsapp_id,
+                               @Part MultipartBody.Part doc,
+                               @Part MultipartBody.Part picture
     );
 
 

@@ -36,16 +36,24 @@ public class TourLeaderVerticalView extends MaterialCardView {
 
     public TourLeaderVerticalView setData(User user) {
         name.setText(user.getFullNameWithPrefix());
-        bio.setText(user.getBiography());
+        bio.setText(getBioPlusLang(user));
         rate.setText(user.getAvg_rate() + "");
+        image.setFullScreen(true);
         image.setDataByUser(user);
 
-        setContactWays(user , telegram , whatsapp , phone , mail);
+        setContactWays(user, telegram, whatsapp, phone, mail);
 
 
         return this;
     }
 
+    public static String getBioPlusLang(User user) {
+        String langs = user.getLanguagesWithSeparator("، ");
+        if (!langs.isEmpty())
+            return user.getBiography() + " مسلط به زبان‌های: " + langs;
+        else
+            return user.getBiography();
+    }
 
     private void init() {
         inflate(getContext(), R.layout.tl_vertical_view_holer, this);
@@ -63,7 +71,7 @@ public class TourLeaderVerticalView extends MaterialCardView {
         return image;
     }
 
-    public static void setContactWays(User user , View telegram , View whatsapp , View phone , View mail ){
+    public static void setContactWays(User user, View telegram, View whatsapp, View phone, View mail) {
         Context context = telegram.getContext();
         String telegramID = user.getTelegram_id();
         String whatsappNum = user.getWhatsapp_id();

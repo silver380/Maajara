@@ -40,6 +40,7 @@ public class PlanDialog extends MyDialog {
 
     public static final int MODE_CREATED = 0, MODE_PASSENGER = 1, MODE_REQUESTED_TOUR_LEADER = 2, MODE_NOT_REQUESTED_TOUR_LEADER = 3,
             MODE_CONFIRMED_TOUR_LEADER = 4, MODE_REJECTED_TOUR_LEADER = 5;
+    private static final int MODE_ALREADY_HAS_TOUR_LEADER = 6;
     DialogPlanBinding binding;
     TourLeaderRequestController requestController;
     PlanController planController;
@@ -143,32 +144,48 @@ public class PlanDialog extends MyDialog {
                 @Override
                 public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                     super.onSuccess(call, callback, response);
-
-                    PlanRequest[] pendingPlanRequests = PlanController.getPendingPlans();
-                    PlanRequest pendingReq = findPlanReq(pendingPlanRequests);
-                    if (pendingReq == null) {
-                        planController.getConfirmedPlansFromServer(new OnResponseDialog(mainActivity) {
-                            @Override
-                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                super.onSuccess(call, callback, response);
-                                PlanRequest[] confirmedPlanRequests = PlanController.getConfirmedPlans();
-                                PlanRequest confirmedReq = findPlanReq(confirmedPlanRequests);
+                    planController.getConfirmedPlansFromServer(new OnResponseDialog(mainActivity) {
+                        @Override
+                        public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                            super.onSuccess(call, callback, response);
+                            setLoading(false);
+                            PlanRequest[] confirmedPlanRequests = PlanController.getConfirmedPlans();
+                            PlanRequest confirmedReq = findPlanReq(confirmedPlanRequests);
+                            PlanRequest[] pendingPlanRequests = PlanController.getPendingPlans();
+                            PlanRequest pendingReq = findPlanReq(pendingPlanRequests);
+                            User confirmedUser = plan.getConfirmed_tour_leader();
+                            Log.d("PlanDialog", "PendingReq: " + pendingReq);
+                            Log.d("PlanDialog", "ConfirmedReq: " + confirmedReq);
+                            Log.d("PlanDialog", "ConfirmedUser: " + confirmedUser);
+                            if (confirmedUser == null) {
                                 if (confirmedReq == null) {
-                                    setupForRequest();
+                                    if (pendingReq == null) {
+                                        setupForRequest();
+                                        setDialogMode(MODE_NOT_REQUESTED_TOUR_LEADER);
+                                    } else {
+                                        alreadyRequest = pendingReq;
+                                        setDialogMode(MODE_REQUESTED_TOUR_LEADER);
+                                    }
                                 } else {
-                                    plan.setAccepted_price(confirmedReq.getSuggested_price());
+                                    alreadyRequest = confirmedReq;
                                     setDialogMode(MODE_CONFIRMED_TOUR_LEADER);
                                 }
+                            } else {
+                                if (confirmedUser.equals(user)) {
+                                    plan.setAccepted_price(confirmedReq.getSuggested_price());
+                                    setDialogMode(MODE_CONFIRMED_TOUR_LEADER);
+                                } else {
+                                    if (pendingReq != null) {
+                                        alreadyRequest = pendingReq;
+                                        setDialogMode(MODE_REJECTED_TOUR_LEADER);
+                                    } else {
+                                        setDialogMode(MODE_ALREADY_HAS_TOUR_LEADER);
+                                    }
+                                }
                             }
-                        });
 
-                    } else {
-                        alreadyRequest = pendingReq;
-                        if (plan.getConfirmed_tour_leader() != null && !plan.getConfirmed_tour_leader().equals(user)) {
-                            setDialogMode(MODE_REJECTED_TOUR_LEADER);
-                        } else
-                            setDialogMode(MODE_REQUESTED_TOUR_LEADER);
-                    }
+                        }
+                    });
 
 
                 }
@@ -225,6 +242,14 @@ public class PlanDialog extends MyDialog {
     @SuppressLint("SetTextI18n")
     public void setDialogMode(int mode) {
         setLoading(false);
+        if (mode == MODE_ALREADY_HAS_TOUR_LEADER) {
+            binding.tvYourRequestLabel.setVisibility(View.GONE);
+            binding.tvPlanDialogRequestStatus.setVisibility(View.GONE);
+        } else {
+            binding.tvYourRequestLabel.setVisibility(View.VISIBLE);
+            binding.tvPlanDialogRequestStatus.setVisibility(View.VISIBLE);
+        }
+
         switch (mode) {
             case MODE_CREATED:
                 binding.btnSeeRequests.setVisibility(View.VISIBLE);
@@ -265,6 +290,13 @@ public class PlanDialog extends MyDialog {
                         ColorStateList.valueOf(mainActivity.getColor(R.color.colorWarning))
                 );
                 binding.tvPlanDialogRequestStatus.setText("در انتظار تایید");
+                break;
+
+            case MODE_ALREADY_HAS_TOUR_LEADER:
+                binding.btnSeeRequests.setVisibility(View.GONE);
+                binding.llPlanSendRequest.setVisibility(View.GONE);
+                binding.groupPlanRequest.setVisibility(View.VISIBLE);
+                binding.tvPlanDialogRequestPrice.setText("راهنمای سفر این ماجرا ثبت شده است.");
                 break;
 
             case MODE_NOT_REQUESTED_TOUR_LEADER:

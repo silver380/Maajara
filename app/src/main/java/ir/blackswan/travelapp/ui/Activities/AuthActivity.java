@@ -55,8 +55,4 @@ public abstract class AuthActivity extends AppCompatActivity {
         return AuthController.isLoadingUser() || getAuthDialog().isShowing();
     }
 
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-    }
 }

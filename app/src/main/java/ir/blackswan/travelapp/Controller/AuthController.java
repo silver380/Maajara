@@ -75,7 +75,6 @@ public class AuthController extends Controller {
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "login success " + email);
                 setToken(authActivity, getTokenFromResponseBody(response.getResponseBody()));
-                SharedPrefManager.changeSharedName(token);
                 completeUserInfo(onResponse);
             }
 
@@ -111,7 +110,7 @@ public class AuthController extends Controller {
         api.info(tokenString).enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
+                Log.d(TAG, "completeUserInfo Success   user: " + response);
                 user = gson.fromJson(response.getResponseBody(), User.class);
                 Log.d(TAG, "completeUserInfo Success   user: " + user);
                 loadingUser = false;
@@ -129,34 +128,42 @@ public class AuthController extends Controller {
 
 
     public void upgrade(User user, File pictureFile, File certificateFile, OnResponse onResponse) {
-        String json = gsonExpose.toJson(user);
-        Log.d(TAG, "upgradeFiles... " + json);
-        RequestBody userRequestBody = RequestBody.create(MediaType.parse("application/json"), json);
+        MultipartBody.Part image = null;
+        MultipartBody.Part certificate = null;
+        if (pictureFile != null) {
+            RequestBody requestImage = RequestBody.create(MediaType.parse("image/jpg"), pictureFile);
+            image = MultipartBody.Part.createFormData("picture", pictureFile.getName(), requestImage);
+        }
+        if (certificateFile != null) {
+            RequestBody requestCertification = RequestBody.create(MediaType.parse("application/pdf"), certificateFile);
+            certificate = MultipartBody.Part.createFormData("certificate", certificateFile.getName(), requestCertification);
+        }
 
+        MultipartBody.Part name = MultipartBody.Part.createFormData("first_name", user.getFirst_name());
+        MultipartBody.Part last_name = MultipartBody.Part.createFormData("last_name", user.getLast_name());
+        MultipartBody.Part ssn = null, gender = null, date_of_birth = null, biography = null,
+                languages = null, phone_number = null, telegram_id = null, whatsapp_id = null;
+        if (user.getSsn() != null) {
+            ssn = MultipartBody.Part.createFormData("ssn", user.getSsn());
+            gender = MultipartBody.Part.createFormData("gender", user.getGender());
+            date_of_birth = MultipartBody.Part.createFormData("date_of_birth", user.getDate_of_birth());
+            biography = MultipartBody.Part.createFormData("biography", user.getBiography());
+            languages = MultipartBody.Part.createFormData("languages", user.getLanguages());
+            phone_number = MultipartBody.Part.createFormData("phone_number", user.getPhone_number());
+            telegram_id = MultipartBody.Part.createFormData("telegram_id", user.getTelegram_id());
+            whatsapp_id = MultipartBody.Part.createFormData("whatsapp_id", user.getWhatsapp_id());
+        }
 
-        Call<ResponseBody> call = api.upgradeData(getTokenString(), userRequestBody);
+        Call<ResponseBody> call = api.upgrade(getTokenString(), name, last_name, ssn,
+                date_of_birth, gender, biography, languages, phone_number,
+                telegram_id, whatsapp_id, certificate, image);
 
         call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                if (pictureFile == null && certificateFile == null) {
-                    completeUserInfo(onResponse);
-                    return;
-                }
-                api.upgradeFiles(getTokenString(), pictureFile != null ? createMultipartBody(pictureFile, "picture") : null,
-                        certificateFile != null ? createMultipartBody(certificateFile, "certificate") : null)
-                        .enqueue(new MyCallback(authActivity, new OnResponse() {
-                            @Override
-                            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                completeUserInfo(onResponse);
-                            }
-
-                            @Override
-                            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-                                onResponse.onFailed(call, callback, response);
-                            }
-                        }));
+                completeUserInfo(onResponse);
             }
+
 
             @Override
             public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {

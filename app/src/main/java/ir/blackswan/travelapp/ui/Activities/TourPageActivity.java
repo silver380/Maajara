@@ -31,6 +31,7 @@ import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
 import ir.blackswan.travelapp.databinding.ActivityTourPageBinding;
@@ -410,6 +411,8 @@ public class TourPageActivity extends ToolbarActivity {
                         pendingTours.add(tour);
                         setResult(RESULT_OK);
                         setTourMode();
+                        Toast.makeText(TourPageActivity.this, "ثبت‌نام با موفقیت انجام شد",
+                                Toast.LENGTH_SHORT , Toast.TYPE_SUCCESS).show();
                     }
                 });
             });

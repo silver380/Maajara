@@ -53,6 +53,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = allRequestedUsers.get(position);
         holder.userName_Lastname.setText(user.getNameAndLastname());
+        holder.userImage.setFullScreen(true);
         holder.userImage.setDataByUser(user);
         if (confirmedUsers.contains(user))
             acceptUser(holder);

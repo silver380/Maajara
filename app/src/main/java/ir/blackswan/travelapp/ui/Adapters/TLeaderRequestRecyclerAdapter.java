@@ -31,7 +31,7 @@ import retrofit2.Call;
 
 
 public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderRequestRecyclerAdapter.ViewHolder>
-implements HasArray<PlanRequest>{
+        implements HasArray<PlanRequest> {
 
     PlanRequest[] allTourLeaders_req;
     User confirmedTourLeader;
@@ -50,9 +50,9 @@ implements HasArray<PlanRequest>{
         if (confirmedTourLeader == null)
             return;
         ArrayList<PlanRequest> planRequests = new ArrayList<>(Arrays.asList(allTourLeaders_req));
-        PlanRequest confirmedRequest = new PlanRequest(confirmedTourLeader , allTourLeaders_req[0].getTravel_plan());
+        PlanRequest confirmedRequest = new PlanRequest(confirmedTourLeader, allTourLeaders_req[0].getTravel_plan());
         planRequests.remove(confirmedRequest);
-        planRequests.add(0 , confirmedRequest);
+        planRequests.add(0, confirmedRequest);
         allTourLeaders_req = planRequests.toArray(new PlanRequest[0]);
     }
 
@@ -74,14 +74,15 @@ implements HasArray<PlanRequest>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlanRequest tourLeader_req = allTourLeaders_req[position];
+        holder.leaderImageView.setFullScreen(true);
         holder.leaderImageView.setDataByUser(tourLeader_req.getTour_leader());
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getFullNameWithPrefix());
-        holder.biography.setText(tourLeader_req.getTour_leader().getBiography());
+        holder.biography.setText(TourLeaderVerticalView.getBioPlusLang(tourLeader_req.getTour_leader()));
         holder.price.setText(tourLeader_req.getSuggested_priceString());
         holder.avg.setText(tourLeader_req.getTour_leader().getAvg_rate() + "");
 
-        TourLeaderVerticalView.setContactWays(tourLeader_req.getTour_leader() , holder.telegram ,
-                holder.whatsapp , holder.phone , holder.mail);
+        TourLeaderVerticalView.setContactWays(tourLeader_req.getTour_leader(), holder.telegram,
+                holder.whatsapp, holder.phone, holder.mail);
 
         if (confirmedTourLeader != null) {
             if (confirmedTourLeader.equals(tourLeader_req.getTour_leader())) {
@@ -140,7 +141,7 @@ implements HasArray<PlanRequest>{
         TextView price;
         TextView avg;
         MaterialButton accept;
-        ImageView telegram , whatsapp , phone , mail;
+        ImageView telegram, whatsapp, phone, mail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

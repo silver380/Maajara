@@ -130,7 +130,9 @@ public class Plan implements Serializable {
     @Override
     public String toString() {
         return "Plan{" +
-                "destination='" + destination + '\'' +
+                "plan_creator=" + plan_creator +
+                ", destination='" + destination + '\'' +
+                ", confirmed_tour_leader=" + confirmed_tour_leader +
                 '}';
     }
 

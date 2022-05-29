@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import ir.blackswan.travelapp.Controller.AuthController;
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.PlaceController;
@@ -139,7 +140,10 @@ public class SearchFragment extends RefreshingFragment {
     }
 
     public void refresh(@Nullable String search) {
-        binding.btnAddPlace.setVisibility(toggle == TOGGLE_PLACE ? View.VISIBLE : View.GONE);
+        if (AuthController.getUser().is_tour_leader())
+            binding.btnAddPlace.setVisibility(toggle == TOGGLE_PLACE ? View.VISIBLE : View.GONE);
+        else
+            binding.btnAddPlace.setVisibility(View.GONE);
         if (toggle == TOGGLE_TOUR)
             reloadTours(search);
         else if (toggle == TOGGLE_PLAN)

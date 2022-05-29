@@ -2,6 +2,7 @@ package ir.blackswan.travelapp.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,8 @@ import java.io.File;
 
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.ui.Activities.FullscreenImageActivity;
 
 public class ProfileImageView extends LoadableImageView {
 
@@ -72,8 +75,8 @@ public class ProfileImageView extends LoadableImageView {
         });
     }
 
-    public void setDataByUser(User user){
-        setData(user.getPicture() , user.getNameAndLastname());
+    public void setDataByUser(User user) {
+        setData(user.getPicture(), user.getNameAndLastname());
     }
 
     public void setData(@Nullable String imageServerPath, String fullName) {
@@ -86,7 +89,7 @@ public class ProfileImageView extends LoadableImageView {
     public void update() {
         String[] f_lName = fullName.split(" ");
         textView.setText(f_lName[0].charAt(0) + "‌" +
-                f_lName[f_lName.length-1].charAt(0));
+                f_lName[f_lName.length - 1].charAt(0));
         noImageState();
         textView.setMaxTextSize(maxTextSize);
         setImagePath(imageServerPath);
@@ -118,6 +121,7 @@ public class ProfileImageView extends LoadableImageView {
     }
 
     public void setImageByFile(File pictureFile) {
+        super.setImageByFile(pictureFile);
         Bitmap myBitmap = BitmapFactory.decodeFile(pictureFile.getPath());
         setImageBitmap(myBitmap);
     }
@@ -129,7 +133,14 @@ public class ProfileImageView extends LoadableImageView {
 
     public void setImageBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
-
         imageState();
+        if (fullScreen) {
+            setOnClickListener(v -> {
+                Utils.createImageFromBitmap(getContext() , bitmap);
+                getContext().startActivity(new Intent(getContext(), FullscreenImageActivity.class));
+
+            });
+        }
     }
+
 }

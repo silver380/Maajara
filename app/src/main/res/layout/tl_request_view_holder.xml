@@ -47,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_very_small"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text=" راهنمای سفر"
                 app:layout_constraintBottom_toTopOf="@id/bio_tv"
                 app:layout_constraintLeft_toRightOf="@id/pointsOf_tl_tv"

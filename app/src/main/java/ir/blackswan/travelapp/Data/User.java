@@ -85,7 +85,7 @@ public class User implements Serializable {
         return ssn;
     }
 
-    public String[] getLanguages() {
+    public String[] getLanguagesArray() {
         try {
             if (languages == null)
                 return null;
@@ -93,6 +93,10 @@ public class User implements Serializable {
         } catch (JsonSyntaxException e) {
             return null;
         }
+    }
+
+    public String getLanguages() {
+        return languages;
     }
 
     public boolean isRequested_for_upgrade() {
@@ -107,15 +111,15 @@ public class User implements Serializable {
         return gender.equals("Male") ? "مرد" : "زن";
     }
 
-    public String getLanguagesWithEnter() {
-        String[] languages = getLanguages();
+    public String getLanguagesWithSeparator(String separator) {
+        String[] languages = getLanguagesArray();
         if (languages == null)
             return "";
         StringBuilder lan = new StringBuilder();
         for (int i = 0; i < languages.length; i++) {
             lan.append(languages[i]);
             if (i < languages.length - 1)
-                lan.append("\n");
+                lan.append(separator);
         }
         return lan.toString();
     }

@@ -68,36 +68,46 @@ public class SettingActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         user = AuthController.getUser();
         authController = getAuthController();
-        setVisibilities(false);
         setInputTypes();
         setListeners();
-        setDataToInputs();
-        setTourLeaderStatus();
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+        authController.completeUserInfo(new OnResponseDialog(this) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                setVisibilities(false);
+                setDataToInputs();
+                setTourLeaderStatus();
+                loadingDialog.dismiss();
+            }
+        });
+
     }
 
     private void setTourLeaderStatus() {
         String text;
         int backColor;
         Resources r = getResources();
-        if (!user.is_tour_leader()){
-            if (!user.isRequested_for_upgrade()){
-                text = "درخواستی ارسال نشده";
-                backColor = r.getColor(R.color.colorHint);
-            }else if(user.getUpgrade_note() == null || user.getUpgrade_note().isEmpty()) {
+        if (!user.is_tour_leader()) {
+            if (!user.isRequested_for_upgrade()) {
+                text = "ارسال نشده";
+                backColor = r.getColor(R.color.colorDividers);
+            } else if (user.getUpgrade_note() == null || user.getUpgrade_note().isEmpty()) {
                 text = "در انتظار تایید";
                 backColor = r.getColor(R.color.colorWarning);
-            }else{
+            } else {
                 text = "درخواست رد شده";
                 backColor = r.getColor(R.color.colorError);
                 binding.tvLeaderInfoStatus.setOnClickListener(v -> {
                     OnResponseDialog onResponseDialog = new OnResponseDialog(this);
                     onResponseDialog.getBinding().btnOnResponseTryAgain.setText("باشه");
                     onResponseDialog.getBinding().btnOnResponseTryAgain.setOnClickListener(v1 -> onResponseDialog.dismiss());
-                    onResponseDialog.getBinding().tvOnResponseMessage.setText("خیلی خری");
+                    onResponseDialog.getBinding().tvOnResponseMessage.setText(user.getUpgrade_note());
                     onResponseDialog.show();
                 });
             }
-        }else {
+        } else {
             text = "تایید شده";
             backColor = r.getColor(R.color.colorSuccess);
         }
@@ -154,6 +164,7 @@ public class SettingActivity extends ToolbarActivity {
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             try {
                 final Uri resultUri = UCrop.getOutput(data);
+
                 binding.pivSetting.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
                 profileFile = FileUtil.from(this, resultUri);
                 filesChanges = true;
@@ -297,7 +308,10 @@ public class SettingActivity extends ToolbarActivity {
     private String addIranCode(String number) {
         return "+98" + number;
     }
-    private String removeIranCode(String number){return number.substring(3);}
+
+    private String removeIranCode(String number) {
+        return number.substring(3);
+    }
 
     private boolean checkInputs() {
         return !checker.checkAllError();
@@ -343,11 +357,12 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private void setDataToInputs() {
+        binding.pivSetting.setFullScreen(true);
         binding.pivSetting.setData(user.getPicture(), user.getNameAndLastname());
         binding.etSettingName.setText(user.getFirst_name());
         binding.etSettingLastname.setText(user.getLast_name());
         binding.etSettingEmail.setText(user.getEmail());
-        if (user.is_tour_leader()) {
+        if (user.is_tour_leader() || user.isRequested_for_upgrade()) {
             binding.tvSettingBioCounter.setText("0/" + BIO_MAX_LENGTH);
             binding.etSettingSsn.setText(user.getSsn());
             binding.etSettingBio.setText(user.getBiography());
@@ -355,7 +370,7 @@ public class SettingActivity extends ToolbarActivity {
             birthDate.setCalendar(user.getPersianBirthDate());
             binding.etSettingBirthday.setText(birthDate.getCalendar().getPersianLongDate());
 
-            binding.etSettingLanguageSkills.setText(user.getLanguagesWithEnter());
+            binding.etSettingLanguageSkills.setText(user.getLanguagesWithSeparator("\n"));
             if (user.getGender().equals("Male"))
                 gender.set(0, true);
             else if (user.getGender().equals("Female"))
@@ -384,7 +399,8 @@ public class SettingActivity extends ToolbarActivity {
                 binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
                 binding.pbSettingDoc.setVisibility(View.GONE);
             }
-        }
+        } else
+            binding.pbSettingDoc.setVisibility(View.GONE);
     }
 
     private void setContactInfo(String contactInfo, MaterialCheckBox checkBox, TextInputEditText editText) {

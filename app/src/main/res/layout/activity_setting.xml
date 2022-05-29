@@ -257,8 +257,8 @@
                         android:layout_marginTop="@dimen/margin_small"
                         android:hint="کد ملی"
                         app:errorEnabled="true"
-                        app:layout_constraintLeft_toRightOf="@id/view_middle"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/view_middle"
+                        app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ll_top_card"
                         app:startIconDrawable="@drawable/ic_personal_card">
 
@@ -278,8 +278,8 @@
                         android:layout_height="wrap_content"
                         android:hint="جنسیت"
                         app:errorEnabled="true"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/view_middle"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/view_middle"
                         app:layout_constraintTop_toTopOf="@id/til_ssn"
                         app:startIconDrawable="@drawable/ic_gender">
 

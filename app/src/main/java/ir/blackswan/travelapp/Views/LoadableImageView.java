@@ -1,6 +1,7 @@
 package ir.blackswan.travelapp.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -12,9 +13,11 @@ import java.io.File;
 
 import ir.blackswan.travelapp.Utils.Cacher;
 import ir.blackswan.travelapp.Utils.WebFileTransfer;
+import ir.blackswan.travelapp.ui.Activities.FullscreenImageActivity;
 
 public abstract class LoadableImageView extends FrameLayout {
 
+    boolean fullScreen = false;
     public LoadableImageView(@NonNull Context context) {
         super(context);
     }
@@ -31,7 +34,12 @@ public abstract class LoadableImageView extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setImagePath(String serverPath) {
+    public void setFullScreen(boolean fullScreen) {
+        this.fullScreen = fullScreen;
+    }
+
+    public void setImagePath(String serverPath , boolean fullScreenOnClick) {
+        fullScreen = fullScreenOnClick;
         loadingState();
         Cacher cacher = new Cacher(getContext());
         String localPath = null;
@@ -63,10 +71,23 @@ public abstract class LoadableImageView extends FrameLayout {
             errorState(false, null);
         }
     }
+    public void setImagePath(String serverPath) {
+        setImagePath(serverPath , fullScreen);
+    }
 
     abstract void loadingState();
 
-    abstract void setImageByFile(File file);
+    public void setImageByFile(File file){
+        if (fullScreen) {
+            setOnClickListener(v -> {
+
+                getContext().startActivity(new Intent(getContext(), FullscreenImageActivity.class).putExtra(
+                        FullscreenImageActivity.IMAGE_URL, file.getPath()
+                ));
+
+            });
+        }
+    }
 
     abstract void errorState(boolean b, @Nullable String servePath);
 }

@@ -21,16 +21,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import ir.blackswan.travelapp.Controller.AuthController;
+import ir.blackswan.travelapp.Controller.MyCallback;
+import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.databinding.FragmentHomeBinding;
-import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import ir.blackswan.travelapp.ui.Activities.IntroActivity;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Activities.SettingActivity;
 import ir.blackswan.travelapp.ui.Dialogs.AddTicket;
+import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 public class HomeFragment extends RefreshingFragment {
 
@@ -97,11 +101,17 @@ public class HomeFragment extends RefreshingFragment {
 
 
     public void refresh() {
+        mainActivity.getAuthController().completeUserInfo(new OnResponseDialog(mainActivity) {
+            @Override
+            public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onSuccess(call, callback, response);
+                updateTicketView();
+            }
+        });
         if (tourLeader)
             homeFragmentLeader.reload();
         else
             homeFragmentPassenger.reload();
-        updateTicketView();
     }
 
     @SuppressLint("SetTextI18n")

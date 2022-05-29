@@ -34,6 +34,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.Activities.IntroActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,6 +66,10 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.Activities.FullscreenImageActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
