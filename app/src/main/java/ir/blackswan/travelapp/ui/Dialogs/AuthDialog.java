@@ -166,6 +166,7 @@ public class AuthDialog extends MyDialog {
                                     Toast.makeText(activity, "ایمیل تایید با موفقیت ارسال شد. پس " +
                                             "از تایید ایمیل دوباره وارد شوید", Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
                                     changeTypeAndStep(true, STEP_LOGIN, false);
+                                    stopLoadingAnimation();
                                 }
                             });
 

@@ -93,6 +93,7 @@ public class AuthController extends Controller {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 Log.d(TAG, "Register success " + email);
+                onResponse.onSuccess(call, callback, response);
             }
 
             @Override
