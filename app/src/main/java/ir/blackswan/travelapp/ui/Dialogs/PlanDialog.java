@@ -99,6 +99,7 @@ public class PlanDialog extends MyDialog {
     private void setData() {
         binding.tbPlanDialog.setTitle("ماجرایی به " + plan.getDestination());
         requestController = new TourLeaderRequestController(mainActivity);
+        binding.tvPlanCreator.setText(plan.getPlan_creator().getFullNameWithPrefix());
         binding.tvPlanCity.setText(plan.getDestination());
         binding.tvPlanStartDate.setText(plan.getPersianStartDate().getPersianLongDate());
         binding.tvPlanFinalDate.setText(plan.getPersianEndDate().getPersianLongDate());

@@ -23,6 +23,36 @@
         android:paddingTop="?android:attr/actionBarSize"
         android:paddingBottom="@dimen/padding_medium">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_user"
+            android:layout_width="@dimen/quantity_icon_size"
+            android:layout_height="@dimen/quantity_icon_size"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:src="@drawable/ic_user"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorIconTint" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_plan_creator_label"
+            style="@style/textSmall.hintColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_small"
+            android:text="مسافر"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user"
+            app:layout_constraintRight_toLeftOf="@id/iv_user"
+            app:layout_constraintTop_toTopOf="@id/iv_user" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_plan_creator"
+            style="@style/textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="نام کاربر"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user"
+            app:layout_constraintRight_toRightOf="@id/tv_plan_start_date"
+            app:layout_constraintTop_toTopOf="@id/iv_user" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_location"
@@ -30,8 +60,8 @@
             android:layout_height="@dimen/quantity_icon_size"
             android:layout_marginTop="@dimen/margin_medium"
             android:src="@drawable/ic_location"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@id/iv_user"
+            app:layout_constraintTop_toBottomOf="@id/iv_user"
             app:tint="@color/colorIconTint" />
 
         <androidx.appcompat.widget.AppCompatTextView

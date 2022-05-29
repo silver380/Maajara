@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Dialogs;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 
@@ -17,10 +18,10 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
     DialogOnResponseBinding binding;
     private static boolean showing = false;
 
-    public OnResponseDialog(AuthActivity activity ) {
+    public OnResponseDialog(AuthActivity activity) {
         binding = DialogOnResponseBinding.inflate(activity.getLayoutInflater());
         this.activity = activity;
-        init(activity , binding.getRoot() , DIALOG_TYPE_BOTTOM_SHEET);
+        init(activity, binding.getRoot(), DIALOG_TYPE_BOTTOM_SHEET);
         getDialog().getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT)
         );
@@ -28,8 +29,8 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
     }
 
 
-    private void showErrorToast(String error){
-        Toast.makeText(activity , error , Toast.LENGTH_SHORT , Toast.TYPE_ERROR).show();
+    private void showErrorToast(String error) {
+        Toast.makeText(activity, error, Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
     }
 
     @Override
@@ -47,11 +48,11 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
 
     @Override
     public void dismiss() {
-        showing = false;
         super.dismiss();
+        showing = false;
     }
 
-    public void onTryAgain(){
+    public void onTryAgain() {
 
     }
 
@@ -61,8 +62,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             showErrorToast(response.getErrorMessage());
             Log.d(MyCallback.TAG, "onFailed: UnAuth  showAuthDialog:");
             activity.showAuthDialog(() -> call.clone().enqueue(callback.reload()));
-        }
-        else if (response.getCode() == MyResponse.NETWORK_ERROR) {
+        } else if (response.getCode() == MyResponse.NETWORK_ERROR) {
             show();
             Log.d("ResponseDialog", "onFailed: " + response);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
@@ -73,11 +73,12 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
                 onTryAgain();
             });
             getDialog().setCancelable(false);
-        }else {
+        } else {
             binding.btnOnResponseTryAgain.setText("باشه");
             getDialog().setCancelable(true);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
             show();
+            dialog.setOnDismissListener(dialog -> showing = false);
             binding.btnOnResponseTryAgain.setOnClickListener(v -> {
                 dismiss();
             });
