@@ -38,7 +38,8 @@ import retrofit2.Call;
 
 public class PlanDialog extends MyDialog {
 
-    public static final int MODE_CREATED = 0, MODE_PASSENGER = 1, MODE_REQUESTED_TOUR_LEADER = 2, MODE_NOT_REQUESTED_TOUR_LEADER = 3, MODE_CONFIRMED_TOUR_LEADER = 4;
+    public static final int MODE_CREATED = 0, MODE_PASSENGER = 1, MODE_REQUESTED_TOUR_LEADER = 2, MODE_NOT_REQUESTED_TOUR_LEADER = 3,
+            MODE_CONFIRMED_TOUR_LEADER = 4, MODE_REJECTED_TOUR_LEADER = 5;
     DialogPlanBinding binding;
     TourLeaderRequestController requestController;
     PlanController planController;
@@ -162,9 +163,11 @@ public class PlanDialog extends MyDialog {
                         });
 
                     } else {
-
                         alreadyRequest = pendingReq;
-                        setDialogMode(MODE_REQUESTED_TOUR_LEADER);
+                        if (plan.getConfirmed_tour_leader() != null && !plan.getConfirmed_tour_leader().equals(user)) {
+                            setDialogMode(MODE_REJECTED_TOUR_LEADER);
+                        } else
+                            setDialogMode(MODE_REQUESTED_TOUR_LEADER);
                     }
 
 
@@ -243,6 +246,16 @@ public class PlanDialog extends MyDialog {
                 );
                 binding.tvPlanDialogRequestStatus.setText("تایید شده");
                 break;
+            case MODE_REJECTED_TOUR_LEADER:
+                binding.btnSeeRequests.setVisibility(View.GONE);
+                binding.llPlanSendRequest.setVisibility(View.GONE);
+                binding.groupPlanRequest.setVisibility(View.VISIBLE);
+                binding.tvPlanDialogRequestPrice.setText(alreadyRequest.getSuggested_priceString());
+                binding.tvPlanDialogRequestStatus.setBackgroundTintList(
+                        ColorStateList.valueOf(mainActivity.getColor(R.color.colorError))
+                );
+                binding.tvPlanDialogRequestStatus.setText("رد شده");
+                break;
             case MODE_REQUESTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
@@ -253,6 +266,7 @@ public class PlanDialog extends MyDialog {
                 );
                 binding.tvPlanDialogRequestStatus.setText("در انتظار تایید");
                 break;
+
             case MODE_NOT_REQUESTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.VISIBLE);
