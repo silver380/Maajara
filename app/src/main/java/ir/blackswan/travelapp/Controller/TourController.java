@@ -46,7 +46,7 @@ public class TourController extends Controller {
                 canRate = currentTour.can_rate;
                 rate = currentTour.current_rate.tour_rate;
                 Log.d(TAG, "getRateStatusFromServer: ..." + response);
-                if(rate == null)
+                if (rate == null)
                     rate = -1;
                 onResponse.onSuccess(call, callback, response);
             }
@@ -59,10 +59,9 @@ public class TourController extends Controller {
         }));
 
 
-
     }
 
-    public void register(int tourId, OnResponse onResponse){
+    public void register(int tourId, OnResponse onResponse) {
         Log.d(MyCallback.TAG, "register: ");
         api.register(AuthController.getTokenString(), tourId)
                 .enqueue(new MyCallback(authActivity, onResponse).showLoadingDialog());
@@ -87,9 +86,15 @@ public class TourController extends Controller {
                 }));
     }
 
-    public void getArchiveTourFromServer(OnResponse onResponse){
-        Log.d(MyCallback.TAG, "getArchiveTourFromServer: ");
-        api.getArchiveTours(AuthController.getTokenString()).enqueue(new MyCallback(authActivity, new OnResponse() {
+    public void getArchiveTourFromServer(OnResponse onResponse, boolean tourLeader) {
+        Log.d(MyCallback.TAG, "getArchiveTourFromServer: " + tourLeader);
+        Call<ResponseBody> call;
+        if (tourLeader)
+            call = api.getArchiveToursTl(AuthController.getTokenString());
+        else
+            call = api.getArchiveToursPs(AuthController.getTokenString());
+
+        call.enqueue(new MyCallback(authActivity, new OnResponse() {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                 archiveTours = gson.fromJson(response.getResponseBody(), Tour[].class);
@@ -103,6 +108,7 @@ public class TourController extends Controller {
         }));
     }
 
+
     public void addTourToServer(Tour tour, OnResponse onResponse) {
         Log.d(TAG, "addTourToServer " + tour);
 
@@ -115,7 +121,7 @@ public class TourController extends Controller {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         Log.d(TAG, "addTourToServer onSuccess: " + response);
                         AuthController.getUser().setNumber_of_tickets(
-                                gson.fromJson(response.getResponseBody() , Tour.class)
+                                gson.fromJson(response.getResponseBody(), Tour.class)
                                         .getCreator().getNumber_of_tickets()
                         );
                         onResponse.onSuccess(call, callback, response);
@@ -128,7 +134,7 @@ public class TourController extends Controller {
                 }).showLoadingDialog());
     }
 
-    public void getAllTourFromServer(OnResponse onResponse , @Nullable String search) {
+    public void getAllTourFromServer(OnResponse onResponse, @Nullable String search) {
         Log.d(MyCallback.TAG, "getAllTourFromServer: ");
         Call<ResponseBody> call;
         if (search == null)

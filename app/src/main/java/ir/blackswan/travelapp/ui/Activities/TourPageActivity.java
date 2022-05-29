@@ -378,6 +378,11 @@ public class TourPageActivity extends ToolbarActivity {
                 startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour", tour)
                         , REQUEST_USERS_ACTIVITY);
             });
+        } else if (passedTour) {
+            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است.");
+            binding.btnTourPageRegister.setEnabled(false);
+            binding.btnTourPageRegister.setOnClickListener(v -> {
+            });
         } else if (confirmTours.contains(tour)) {
             binding.btnTourPageRegister.setText("قطعی شده");
             binding.btnTourPageRegister.setEnabled(false);
@@ -385,11 +390,6 @@ public class TourPageActivity extends ToolbarActivity {
             });
         } else if (pendingTours.contains(tour)) {
             binding.btnTourPageRegister.setText("در انتظار تایید");
-            binding.btnTourPageRegister.setEnabled(false);
-            binding.btnTourPageRegister.setOnClickListener(v -> {
-            });
-        } else if (passedTour) {
-            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است.");
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });

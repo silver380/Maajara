@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundDarker"
-    android:orientation="vertical"
-    tools:context=".ui.Fargments.ArchiveFragment"
-    android:layout_marginHorizontal="@dimen/margin_medium"
-    >
+    android:foregroundTint="@color/colorIconTint">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/archive_title"
-        style="@style/textTittleBold"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:text="@string/archived_tours" />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        android:background="@color/colorBackgroundDarker"
+        android:orientation="vertical"
+        tools:context=".ui.Fargments.ArchiveFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ir.blackswan.travelapp.Views.LoadingRecyclerView
-            android:id="@+id/rcl_archived_tours"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/archive_title"
+            style="@style/textTittleBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            />
-    </ScrollView>
-</LinearLayout>
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:text="@string/archived_tours" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ir.blackswan.travelapp.Views.LoadingRecyclerView
+                android:id="@+id/rcl_archived_tours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -37,6 +37,7 @@ public class ArchiveFragment extends RefreshingFragment {
         binding = FragmentArchiveBinding.inflate(inflater, container, false);
         mainActivity = (MainActivity) getActivity();
         View root = binding.getRoot();
+        init(root);
         tourController = new TourController(mainActivity);
 
         binding.rclArchivedTours.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -66,6 +67,6 @@ public class ArchiveFragment extends RefreshingFragment {
                 binding.rclArchivedTours.setAdapter(new TourRecyclerAdapter(mainActivity, archivedTours));
                 setRefreshing(false);
             }
-        });
+        } , HomeFragment.isTourLeader());
     }
 }

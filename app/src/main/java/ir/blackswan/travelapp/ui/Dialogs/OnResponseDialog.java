@@ -25,9 +25,12 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
         getDialog().getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT)
         );
-
+        dialog.setOnDismissListener(dialog -> showing = false);
     }
 
+    public DialogOnResponseBinding getBinding() {
+        return binding;
+    }
 
     private void showErrorToast(String error) {
         Toast.makeText(activity, error, Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
@@ -78,7 +81,6 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             getDialog().setCancelable(true);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
             show();
-            dialog.setOnDismissListener(dialog -> showing = false);
             binding.btnOnResponseTryAgain.setOnClickListener(v -> {
                 dismiss();
             });

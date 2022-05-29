@@ -89,6 +89,13 @@ public class SettingActivity extends ToolbarActivity {
             }else{
                 text = "درخواست رد شده";
                 backColor = r.getColor(R.color.colorError);
+                binding.tvLeaderInfoStatus.setOnClickListener(v -> {
+                    OnResponseDialog onResponseDialog = new OnResponseDialog(this);
+                    onResponseDialog.getBinding().btnOnResponseTryAgain.setText("باشه");
+                    onResponseDialog.getBinding().btnOnResponseTryAgain.setOnClickListener(v1 -> onResponseDialog.dismiss());
+                    onResponseDialog.getBinding().tvOnResponseMessage.setText("خیلی خری");
+                    onResponseDialog.show();
+                });
             }
         }else {
             text = "تایید شده";
@@ -96,6 +103,7 @@ public class SettingActivity extends ToolbarActivity {
         }
         binding.tvLeaderInfoStatus.setText(text);
         binding.tvLeaderInfoStatus.setBackgroundTintList(ColorStateList.valueOf(backColor));
+
     }
 
     private void setInputTypes() {

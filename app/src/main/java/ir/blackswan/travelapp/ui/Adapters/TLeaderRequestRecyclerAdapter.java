@@ -100,8 +100,9 @@ implements HasArray<PlanRequest>{
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
                                 confirmedTourLeader = tourLeader_req.getTour_leader();
-                                recyclerView.setAdapter(TLeaderRequestRecyclerAdapter.this);
                                 setConfirmedToTop();
+                                tourLeader_req.getTravel_plan().setAccepted_price(tourLeader_req.getSuggested_price());
+                                recyclerView.setAdapter(TLeaderRequestRecyclerAdapter.this);
                                 activity.setResult(Activity.RESULT_OK);
                             }
                         });
