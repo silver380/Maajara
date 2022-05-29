@@ -69,7 +69,6 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                             super.onSuccess(call, callback, response);
                             acceptUser(holder);
                             confirmedUsers.add(user);
-                            //todo: current confirmed update
                             activity.setResult(Activity.RESULT_OK);
                         }
                     });

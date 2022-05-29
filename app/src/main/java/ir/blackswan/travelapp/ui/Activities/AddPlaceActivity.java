@@ -73,7 +73,6 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     File image;
     TextInputsChecker checker = new TextInputsChecker();
 
- //todo: editText texes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         binding = ActivityAddPlaceBinding.inflate(getLayoutInflater());

@@ -21,7 +21,7 @@ import ir.blackswan.travelapp.Utils.Utils;
 public class Plan implements Serializable {
     private User plan_creator;
     @Expose
-    private String destination, travel_plan_name = "قرار نیس نمایش بدیم:)"; //todo: remove this when server updated
+    private String destination;
     @Expose
     private String start_date, end_date;
     @Expose

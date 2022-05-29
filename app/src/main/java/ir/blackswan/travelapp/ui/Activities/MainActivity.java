@@ -60,40 +60,6 @@ public class MainActivity extends AuthActivity {
 
     }
 
-    private void setFakeData() { //todo: After debug and test remove this
-        TourController tourController = new TourController(this);
-        PlanController planController = new PlanController(this);
-        for (int i = 0; i < 10; i++) {
-            Place[] place = new Place[]{new Place(1)};
-            Tour tour = new Tour("تست " + i , 2 , 20000 , "شهر تست " + i
-            , "2022-10-10" , "2022-10-20" ,place  , "None"
-             , true , true , true , "None");
-            tourController.addTourToServer(tour, new OnResponse() {
-                @Override
-                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
-                }
-
-                @Override
-                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
-                }
-            });
-            Plan plan = new Plan("شهر تست " + i , "2022-10-12" , "2022-10-20" ,
-                    new ArrayList<>() , place);
-            planController.addPlanToServer(plan, new OnResponse() {
-                @Override
-                public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
-                }
-
-                @Override
-                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
-
-                }
-            });
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

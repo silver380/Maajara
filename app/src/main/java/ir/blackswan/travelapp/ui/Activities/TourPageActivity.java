@@ -69,7 +69,7 @@ public class TourPageActivity extends ToolbarActivity {
         user = AuthController.getUser();
         setPendingUsers();
         tour = (Tour) getIntent().getSerializableExtra(EXTRA_TOUR);
-        Log.d(TAG, "onCreate: " + tour); //todo: email is null
+
         setTourData();
 
         setGlobalTree();

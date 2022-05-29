@@ -31,7 +31,7 @@ public interface Api {
     @GET("/tour/getrate/{tour_id}/")
     Call<ResponseBody> getRateStatus(@Header("Authorization") String token,
                                      @Path("tour_id") String tour_id);
-    //todo >> change the URL
+
     @GET("/tour/archivedtl/")
     Call<ResponseBody> getArchiveToursTl(@Header("Authorization") String token);
 

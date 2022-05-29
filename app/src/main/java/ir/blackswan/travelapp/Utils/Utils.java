@@ -151,7 +151,7 @@ public class Utils {
     }
 
     public static boolean isValidPassword(String password) {
-        return password.length() >= 3; //todo: set it 8
+        return password.length() >= 8;
     }
 
     public static boolean isValidEmailAddress(String email) {

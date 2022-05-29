@@ -89,7 +89,7 @@ public class User implements Serializable {
         try {
             if (languages == null)
                 return null;
-            return new Gson().fromJson(languages, String[].class); //todo remove try catch
+            return new Gson().fromJson(languages, String[].class);
         } catch (JsonSyntaxException e) {
             return null;
         }

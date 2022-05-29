@@ -179,8 +179,7 @@ public class AuthDialog extends MyDialog {
                 }
 
             } else {
-                //todo
-                //getStringErrors error
+
             }
 
         });
