@@ -194,3 +194,20 @@ class TourSuggestion(APIView):
 
         serialized = TourListSerializer(closest[:5], many=True)
         return Response(serialized.data)
+
+class ArchivedTourTL(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated and IsTourLeader]
+    serializer_class = TourListSerializer
+
+    def get_queryset(self):
+        return Tour.objects.inactive().filter(creator=self.request.user)
+
+class ArchivedTourUser(ListAPIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = TourListSerializer
+
+    def get_queryset(self):
+
+        return self.request.user.confirmed_tours.inactive()
+        

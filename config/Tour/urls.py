@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
-    MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, TourSuggestion, AddRate, GetRate
+    MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, TourSuggestion, AddRate, GetRate, ArchivedTourTL, \
+    ArchivedTourUser
 
 app_name = 'Tour'
 urlpatterns = [
@@ -17,5 +18,7 @@ urlpatterns = [
     path('addrate/', AddRate.as_view(), name="add_rate"),
     path('getrate/<int:tour_id>/', GetRate.as_view(), name="get_rate"),
     path('suggestion/<int:pk>/', TourSuggestion.as_view(), name="tour_suggestion"),
+    path('archivedtl/',ArchivedTourTL.as_view(), name="archived_tour_tl"),
+    path('archiveduser/', ArchivedTourUser.as_view(), name="archived_tour_user"),
     # path('searchtour/', SearchTour.as_view(), name="search_tour"),
 ]
