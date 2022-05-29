@@ -45,7 +45,7 @@ class UserInfo(RetrieveAPIView):
 class ActivateUser(APIView):
     def get(self, request, uid, token):
         payload = {'uid': uid, 'token': token}
-        url = "https://maajara.pythonanywhere.com/auth/users/activation/"
+        url = "http://maajara.pythonanywhere.com/auth/users/activation/"
         response = requests.post(url, data=payload)
         if response.status_code == 204:
             return render(request, 'activation_success.html')
