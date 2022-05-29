@@ -45,7 +45,7 @@ class UserInfo(RetrieveAPIView):
 class ActivateUser(APIView):
     def get(self, request, uid, token):
         headers = {}
-        payload = json.dumps({'uid': uid, 'token': token})
+        payload = {'uid': uid, 'token': token}
         url = "http://localhost:8000/auth/users/activation/"
         response = requests.post(url, data=payload, headers=headers)
         if response.status_code == 204:
