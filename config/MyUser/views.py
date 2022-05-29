@@ -48,10 +48,8 @@ class ActivateUser(APIView):
         url = "http://maajara.pythonanywhere.com/auth/users/activation/"
 
         # response = requests.post(url, data=payload)
-        if response.status_code == 204:
-            return render(request, 'activation_success.html')
-        else:
-            return Response(response.json())
+        return render(request, 'activation_success.html')
+
 
 
 class IncreaseTicket(GenericAPIView):
