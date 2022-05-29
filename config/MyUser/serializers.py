@@ -4,7 +4,6 @@ from rest_framework.exceptions import NotAcceptable
 from rest_framework.exceptions import PermissionDenied
 
 
-# TODO: change based on
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
@@ -48,7 +47,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
                 if item not in validated_data:
                     is_data_complete = False
             if is_data_complete:
-                validated_data['is_tour_leader'] = True
+                validated_data['requested_for_upgrade'] = True
                 instance = super().update(instance, validated_data)
             else:
                 raise NotAcceptable("Incomplete data")

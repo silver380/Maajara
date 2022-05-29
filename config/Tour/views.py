@@ -1,17 +1,12 @@
-import math
-
-from django.db.models import ExpressionWrapper, F, Subquery, OuterRef, Sum, Avg, Min, Max, Count
-from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from Place.models import Place
-from .serializers import *
-from rest_framework.generics import ListAPIView, GenericAPIView, CreateAPIView
-from django.contrib.auth import get_user_model
-from rest_framework.response import Response
-from rest_framework import permissions
+from django.db.models import OuterRef, Avg
 from rest_framework import filters
+from rest_framework import permissions
+from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .permissions import *
-from .models import *
+from .serializers import *
 
 
 class TourListAPIView(ListAPIView):

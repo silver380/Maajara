@@ -1,9 +1,7 @@
-from pyexpat import model
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db import models, IntegrityError
 
-# from config.TravelPlan.models import TravelPlan
-from django.db.models import CheckConstraint, F, Q
+from django.db.models import CheckConstraint, Q
 from rest_framework.exceptions import ValidationError
 
 
@@ -54,6 +52,9 @@ class MyUser(AbstractBaseUser):
     whatsapp_id = models.CharField(max_length=50, default='')
 
     is_tour_leader = models.BooleanField(default=False)
+
+    requested_for_upgrade = models.BooleanField(default=False)
+    upgrade_note = models.CharField(max_length=100, default='')
 
     # todo default should be false
     is_active = models.BooleanField(default=True)
