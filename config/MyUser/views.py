@@ -44,6 +44,7 @@ class UserInfo(RetrieveAPIView):
 
 class ActivateUser(APIView):
     def get(self, request, uid, token):
+        print(request.data)
         headers = {}
         payload = {'uid': uid, 'token': token}
         url = "http://localhost:8000/auth/users/activation/"
