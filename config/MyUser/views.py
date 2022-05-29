@@ -47,7 +47,7 @@ class ActivateUser(APIView):
         print(request.data)
         headers = {}
         payload = {'uid': uid, 'token': token}
-        url = "http://www.pythonanywhere.com//auth/users/activation/"
+        url = "http://www.pythonanywhere.com/auth/users/activation/"
         response = requests.post(url, data=payload, headers=headers)
         if response.status_code == 204:
             return render(request, 'activation_success.html')
