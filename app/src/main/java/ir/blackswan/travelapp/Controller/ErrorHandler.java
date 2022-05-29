@@ -46,6 +46,7 @@ public class ErrorHandler {
     private static String translate(Context context, String msg) {
         switch (msg) {
             case "email exists.":
+            case "my user with this email already exists.":
                 return context.getString(R.string.error_email_exist);
             case "Unable to log in with provided credentials.":
                 return context.getString(R.string.error_email_or_password_incorrect);

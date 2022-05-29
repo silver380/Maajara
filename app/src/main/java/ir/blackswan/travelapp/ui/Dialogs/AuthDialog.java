@@ -168,6 +168,12 @@ public class AuthDialog extends MyDialog {
                                     changeTypeAndStep(true, STEP_LOGIN, false);
                                     stopLoadingAnimation();
                                 }
+
+                                @Override
+                                public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                                    super.onFailed(call, callback, response);
+                                    stopLoadingAnimation();
+                                }
                             });
 
                 } else if (step == STEP_VERIFY) {
