@@ -165,7 +165,6 @@ class GetRate(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, tour_id):
-        # TODO: date set
         return_data = {}
         current_tour = get_object_or_404(Tour, pk=tour_id)
         current_date = datetime.date.today()
