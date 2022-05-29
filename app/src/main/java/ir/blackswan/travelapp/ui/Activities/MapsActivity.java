@@ -1,11 +1,9 @@
 package ir.blackswan.travelapp.ui.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,6 +21,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
+    private LatLng latLng;
     Marker marker;
 
     @Override
@@ -36,6 +35,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Intent intent = getIntent();
+        latLng = new LatLng(intent.getDoubleExtra("lat", 0),
+                intent.getDoubleExtra("lang", 0));
+
+        binding.btnSubmitPlaceLocation.setOnClickListener(v ->{
+            setResult(RESULT_OK , new Intent().putExtra("lat" , latLng.latitude)
+            .putExtra("lang" , latLng.longitude));
+            finish();
+        });
     }
 
     /**
@@ -51,17 +59,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        MarkerOptions markerOptions = new MarkerOptions().position(sydney).title("Marker in Sydney");
-        marker = mMap.addMarker(markerOptions);
-        mMap.setOnMapClickListener(latLng -> {
-            if(marker != null) {
-                marker.remove();
-            }
-            marker = mMap.addMarker(markerOptions.position(latLng));
+        mMap.setOnCameraMoveListener(() -> {
+            latLng = mMap.getCameraPosition().target;
         });
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney , 12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
 
     }
 

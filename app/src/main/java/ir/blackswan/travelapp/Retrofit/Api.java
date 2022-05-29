@@ -29,6 +29,13 @@ public interface Api {
     Call<ResponseBody> sendTourReport(@Header("Authorization") String token,
                                       @Field("tour_report") String tour_report);
 
+    @Multipart
+    @POST
+    Call<ResponseBody> addPlace(@Header("Authorization") String token,
+                                @Part MultipartBody.Part file,
+                                @Part MultipartBody.Part data);
+
+
     @GET("/travelplan/mypendingreqs/")
     Call<ResponseBody> getPendingTLRequests(@Header("Authorization") String token);
 

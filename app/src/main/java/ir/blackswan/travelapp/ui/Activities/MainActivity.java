@@ -39,12 +39,12 @@ public class MainActivity extends AuthActivity {
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
 
-
+        binding.btnTest.setOnClickListener(v ->
+                startActivity(new Intent( this, AddPlaceActivity.class)));
 
     }
-    public void test(View view){
-        startActivity(new Intent(this, AddPlaceActivity.class));
-    }
+
+
 
     public HomeFragment getHomeFragment() {
         return homeFragment;
