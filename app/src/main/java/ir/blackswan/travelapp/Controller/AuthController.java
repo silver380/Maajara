@@ -148,10 +148,16 @@ public class AuthController extends Controller {
             gender = MultipartBody.Part.createFormData("gender", user.getGender());
             date_of_birth = MultipartBody.Part.createFormData("date_of_birth", user.getDate_of_birth());
             biography = MultipartBody.Part.createFormData("biography", user.getBiography());
-            languages = MultipartBody.Part.createFormData("languages", user.getLanguages());
             phone_number = MultipartBody.Part.createFormData("phone_number", user.getPhone_number());
-            telegram_id = MultipartBody.Part.createFormData("telegram_id", user.getTelegram_id());
-            whatsapp_id = MultipartBody.Part.createFormData("whatsapp_id", user.getWhatsapp_id());
+
+            if (user.getLanguages() != null)
+                languages = MultipartBody.Part.createFormData("languages", user.getLanguages());
+
+            if (user.getTelegram_id() != null)
+                telegram_id = MultipartBody.Part.createFormData("telegram_id", user.getTelegram_id());
+
+            if (user.getWhatsapp_id() != null)
+                whatsapp_id = MultipartBody.Part.createFormData("whatsapp_id", user.getWhatsapp_id());
         }
 
         Call<ResponseBody> call = api.upgrade(getTokenString(), name, last_name, ssn,

@@ -361,6 +361,7 @@
                             style="@style/textInputLayout.outLinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:hint="شرح‌حال و سابقه فعالیت در زمینه گردشگری"
                             app:errorEnabled="true">
 

@@ -310,6 +310,8 @@ public class SettingActivity extends ToolbarActivity {
     }
 
     private String removeIranCode(String number) {
+        if (number == null)
+            return "";
         return number.substring(3);
     }
 
