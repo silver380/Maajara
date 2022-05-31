@@ -65,7 +65,7 @@ class IncreaseTicket(GenericAPIView):
     def post(self, request):
         if 'value' not in request.data:
             return Response(status=401, data={"error": "invalid data"})
-        if request.data['value'] < 0:
+        if int(request.data['value']) < 0:
             return Response(status=401, data={"error": "invalid data"})
 
         request.user.increase_ticket(request.data['value'])
