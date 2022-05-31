@@ -46,9 +46,10 @@ class UserInfo(RetrieveAPIView):
 class ActivateUser(APIView):
     def get(self, request, uid, token):
         payload = {'uid': uid, 'token': token}
-        url = "http://maajara.pythonanywhere.com/auth/users/activation/"
+        url = "https://maajara.pythonanywhere.com/auth/users/activation/"
 
-        response = requests.post(url, data=payload)
+        print('*' * 20)
+        response = requests.post(url, data=payload, verify=True)
         print(response)
         # user = Token.objects.get(key=token).user.is_active
         # user.is_active = True
@@ -66,6 +67,9 @@ class IncreaseTicket(GenericAPIView):
     def post(self, request):
         if 'value' not in request.data:
             return Response(status=401, data={"error": "invalid data"})
+
+        print(request.data['value'])
+        print(type(request.data['value']))
         if request.data['value'] < 0:
             return Response(status=401, data={"error": "invalid data"})
 
