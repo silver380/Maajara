@@ -47,13 +47,14 @@ class ActivateUser(APIView):
     def get(self, request, uid, token):
         payload = {'uid': uid, 'token': token}
         url = "https://maajara.pythonanywhere.com/auth/users/activation/"
+        headers = {'Content-Type': 'application/json'}
 
         print('*' * 20)
-        # response = requests.post(url, data=payload, verify=True)
-        # print(response)
-        # user = Token.objects.get(key=token).user.is_active
-        # user.is_active = True
-        # user.save()
+        response = requests.post(url, data=payload, verify=True, headers=headers, timeout=1.5)
+        print(response)
+        user = Token.objects.get(key=token).user.is_active
+        user.is_active = True
+        user.save()
         return render(request, 'activation_success.html')
 
 
