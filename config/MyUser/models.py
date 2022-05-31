@@ -81,7 +81,7 @@ class MyUser(AbstractBaseUser):
         return self.is_admin
 
     def increase_ticket(self, value):
-        self.number_of_tickets = self.number_of_tickets + value
+        self.number_of_tickets = self.number_of_tickets + int(value)
         self.save(update_fields=['number_of_tickets'])
         return self.number_of_tickets
 
