@@ -49,8 +49,8 @@ class ActivateUser(APIView):
         url = "https://maajara.pythonanywhere.com/auth/users/activation/"
 
         print('*' * 20)
-        response = requests.post(url, data=payload, verify=True)
-        print(response)
+        # response = requests.post(url, data=payload, verify=True)
+        # print(response)
         # user = Token.objects.get(key=token).user.is_active
         # user.is_active = True
         # user.save()
