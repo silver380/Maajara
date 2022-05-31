@@ -114,7 +114,8 @@ class AcceptUser(APIView):
 
         registered_tour.confirmed_users.add(registered_user)
         registered_tour.pending_users.remove(registered_user)
-        return Response(status=200)
+        registered_tour = TourListSerializer(registered_tour).data
+        return Response(registered_tour, status=200)
 
 
 class RejectUser(APIView):
@@ -176,6 +177,7 @@ class GetRate(APIView):
 
         return_data['current_rate'] = TourRateSerializer(current_rate).data
         return_data['can_rate'] = can_rate
+        return_data['Tour'] = TourListSerializer(current_tour).data
         return Response(return_data)
 
 
