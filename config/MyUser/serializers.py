@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number', 'ssn', 'certificate']
+    required_for_upgrade = ['date_of_birth', 'gender', 'biography', 'languages', 'phone_number', 'ssn']
     tour_leader_fields = required_for_upgrade + ['telegram_id' + 'whatsapp_id']
 
     class Meta:
@@ -47,7 +47,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
                 if item not in validated_data:
                     is_data_complete = False
             if is_data_complete:
-                validated_data['requested_for_upgrade'] = True
+                validated_data['is_tour_leader'] = True #Test
                 instance = super().update(instance, validated_data)
             else:
                 raise NotAcceptable("Incomplete data")

@@ -99,3 +99,46 @@ class RegisterAndAuthenticateTest(APITestCase):
 			
 		response = self.client.patch(('/auth/upgrade/'),user_info)
 		self.assertEqual(response.status_code, 200)
+	def authenticate_upgrade(self):
+		
+		self.authenticate()
+		user_info = {
+			"date_of_birth":"2000-12-30",
+			"gender":"Female",
+			"biography":'tvsbjfsvdfk', 
+			"languages":"English", 
+			"phone_number":916,
+			"ssn":1234}
+				
+		response = self.client.patch(('/auth/upgrade/'),user_info)	
+
+	def test_should_get_user_info(self):
+		self.authenticate()
+		response = self.client.get(('/auth/info/'))
+		self.assertEqual(response.status_code, 200)
+
+	def test_should_not_increase_ticket_empty_value(self):
+
+		self.authenticate_upgrade()
+		response = self.client.post(('/auth/increaseticket/'),{})
+		self.assertEqual(response.status_code,401 )
+
+	def test_should_not_increase_ticket_neg_value(self):
+		self.authenticate_upgrade()
+		response = self.client.post(('/auth/increaseticket/'),{"value": -1})
+		self.assertEqual(response.status_code,401)
+
+	def test_should_increase_ticket(self):
+		self.authenticate_upgrade()
+		response = self.client.post(('/auth/increaseticket/'),{"value":5})
+		self.assertEqual(response.status_code,200 )
+
+	def test_should_not_increase_ticket_user(self):
+
+		self.authenticate()
+		response = self.client.post(('/auth/increaseticket/'),{"value":10})
+		self.assertEqual(response.status_code,403)
+	def test_should_not_increase_ticket_not_auth(self):
+
+		response = self.client.post(('/auth/increaseticket/'),{"value":10})
+		self.assertEqual(response.status_code,401)
