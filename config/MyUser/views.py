@@ -46,8 +46,11 @@ class UserInfo(RetrieveAPIView):
 class ActivateUser(APIView):
     def get(self, request, uid, token):
         payload = {'uid': uid, 'token': token}
-        url = "https://maajara.pythonanywhere.com/auth/users/activation/"
-        headers = {'Content-Type': 'application/json'}
+        url = "http://maajara.pythonanywhere.com/auth/users/activation/"
+        headers = {
+            'Content-Type': 'application/json',
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.52 Safari/536.5",
+        }
 
         print('*' * 20)
         response = requests.post(url, data=payload, verify=True, headers=headers, timeout=1.5)
