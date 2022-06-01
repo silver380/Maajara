@@ -51,6 +51,7 @@ class ActivateUser(APIView):
         uid = utils.decode_uid(uid)
         user = get_user_model().objects.get(pk=uid)
         user.is_active = True
+        user.save()
         return render(request, 'activation_success.html')
 
 
