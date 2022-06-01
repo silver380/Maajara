@@ -47,8 +47,17 @@ class AddTourTest(APITestCase):
 			self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.data['token'])
 
 		def authenticate_upgrade(self):
-		
-			self.authenticate()
+			user_info = {
+			"email":"tl@tl.com",
+			"password":123 ,
+			"first_name":"tl",
+			"last_name" :"tl"}
+			
+			self.client.post(('/auth/register/'),user_info)
+			response = self.client.post(('/auth/token/'), {"username":"tl@tl.com",
+				                                           "password":123})
+
+			self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.data['token'])
 			user_info = {
 				"date_of_birth":"2000-12-30",
 				"gender":"Female",
@@ -91,6 +100,20 @@ class AddTourTest(APITestCase):
 				    "places": [],
 				    "price": 10}
 			self.client.post(('/tour/addtour/'), tour_info)
+			tour_info = {
+				    "tour_name": "1",
+				    "tour_capacity": 1,
+				    "destination": 1,
+				    "residence": "Hotel",
+				    "start_date": "2023-10-10",
+				    "end_date": "2023-10-10",
+				    "has_breakfast": "True",
+				    "has_lunch": "True",
+				    "has_dinner": "True",
+				    "has_transportation": "Car",
+				    "places": [],
+				    "price": 10}
+			self.client.post(('/tour/addtour/'), tour_info)
 
 		def test_should_not_create_tour_invalid_token(self):
 
@@ -107,10 +130,9 @@ class AddTourTest(APITestCase):
 				    "has_transportation": "Car",
 				    "places": [],
 				    "price": 10}
-			self.authenticate()
 
 			response = self.client.post(('/tour/addtour/'), tour_info)
-			self.assertEqual(response.status_code, 403)
+			self.assertEqual(response.status_code, 401)
 
 		def test_should_not_create_tour_incomplete_data(self):
 
@@ -245,3 +267,54 @@ class AddTourTest(APITestCase):
 			self.authenticate()
 			response = self.client.get('/tour/archiveduser/')
 			self.assertEqual(response.status_code, 200)
+
+
+		def test_should_not_register_incomplete_data(self):
+			
+			self.authenticate() #authenticate user
+			register_info={
+
+			}
+			response = self.client.post(('/tour/register/'), register_info)
+			self.assertEqual(response.status_code, 400)
+
+		def test_should_not_register_invalid_tour(self):
+			self.authenticate() #authenticate user
+			register_info={
+				"tour_id" : 1
+			}
+			response = self.client.post(('/tour/register/'), register_info)
+			self.assertEqual(response.status_code, 404)
+
+		def test_should_not_register_invalid_date(self):
+			self.create_tour()
+			self.authenticate()
+			register_info={
+				"tour_id" : 1
+			}
+			response = self.client.post(('/tour/register/'), register_info)
+			self.assertEqual(response.status_code, 400)
+
+		def test_should_register(self):
+			self.create_tour()
+			self.authenticate()
+			register_info={
+				"tour_id" : 3
+			}
+			response = self.client.post(('/tour/register/'), register_info)
+			self.assertEqual(response.status_code, 200)
+
+
+		def test_should_not_register_invalid_full(self):
+			self.create_tour()
+			self.authenticate()
+			register_info={
+					"tour_id" : 1
+				}
+			self.client.post(('/tour/register/'), register_info)
+			self.authenticate()
+			response = self.client.post(('/tour/register/'), register_info)
+			self.assertEqual(response.status_code, 400)
+
+
+
