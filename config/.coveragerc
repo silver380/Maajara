@@ -1,0 +1,9 @@
+[run]
+#source=MyUser/, Tour/, TravelPlan/,
+omit=
+	*/venv/*
+	*/tests/*
+	*/__init__.py
+	*/migrations/*
+	*/package/migrations/*
+    */package/__init__.py
