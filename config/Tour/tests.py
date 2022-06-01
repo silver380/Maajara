@@ -216,3 +216,32 @@ class AddTourTest(APITestCase):
 			self.create_tour()
 			response = self.client.get('/tour/confirmedusers/')
 			self.assertEqual(response.status_code, 200)
+
+		def test_should_not_get_archived_tourTl_not_tl(self):
+
+			self.authenticate()
+			response = self.client.get('/tour/archivedtl/')
+			self.assertEqual(response.status_code, 403)
+
+		def test_should_not_get_archived_tourTl_not_auth(self):
+
+			response = self.client.get('/tour/archivedtl/')
+			self.assertEqual(response.status_code, 401)
+
+		def test_should_get_archived_tourTl(self):
+
+			self.create_tour()
+			response = self.client.get('/tour/archivedtl/')
+			self.assertEqual(response.status_code, 200)
+
+
+		def test_should_not_get_archived_touruser_not_auth(self):
+
+			response = self.client.get('/tour/archiveduser/')
+			self.assertEqual(response.status_code, 401)
+
+		def test_should_get_archived_tourTl(self):
+
+			self.authenticate()
+			response = self.client.get('/tour/archiveduser/')
+			self.assertEqual(response.status_code, 200)
