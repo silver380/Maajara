@@ -12,6 +12,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIVie
 from .serializers import UserSerializer, UserUpdateSerializer, UserInfoSerializer, TicketSerializer
 from .permissions import IsOwner
 from Tour.permissions import IsTourLeader
+import base64
 
 
 class RegisterUsers(CreateAPIView):
@@ -47,13 +48,7 @@ class ActivateUser(APIView):
     def get(self, request, uid, token):
         payload = {'uid': uid, 'token': token}
         url = "http://maajara.pythonanywhere.com/auth/users/activation/"
-
-        # response = requests.post(url, data=payload)
-        user = Token.objects.get(key=token).user.is_active
-        user.is_active = True
-        user.save()
         return render(request, 'activation_success.html')
-
 
 
 class IncreaseTicket(GenericAPIView):

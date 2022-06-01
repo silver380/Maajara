@@ -36,7 +36,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         is_upgrading = False
-        if not instance.is_tour_leader:
+        if not (instance.is_tour_leader or instance.requested_for_upgrade):
             for item in validated_data:
                 if item in self.required_for_upgrade:
                     is_upgrading = True
