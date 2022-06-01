@@ -1,13 +1,19 @@
 from django.db.models import OuterRef, Avg
 from rest_framework import filters
 from rest_framework import permissions
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .permissions import *
 from .serializers import *
 import datetime
+
+
+class TourRetAPIView(RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Tour.objects.all()
+    serializer_class = TourListSerializer
 
 
 class TourListAPIView(ListAPIView):
@@ -134,7 +140,6 @@ class RejectUser(APIView):
         if registered_tour.creator != request.user:
             return Response(status=401, data={"error": "invalid tour leader"})
 
-
         registered_tour.pending_users.remove(registered_user)
         return Response(status=200)
 
@@ -217,6 +222,7 @@ class TourSuggestion(APIView):
         serialized = TourListSerializer(closest[:5], many=True)
         return Response(serialized.data)
 
+
 class ArchivedTourTL(ListAPIView):
     permission_classes = [permissions.IsAuthenticated and IsTourLeader]
     serializer_class = TourListSerializer
@@ -224,12 +230,10 @@ class ArchivedTourTL(ListAPIView):
     def get_queryset(self):
         return Tour.objects.inactive().filter(creator=self.request.user)
 
-class ArchivedTourUser(ListAPIView):
 
+class ArchivedTourUser(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = TourListSerializer
 
     def get_queryset(self):
-
         return self.request.user.confirmed_tours.inactive()
-        

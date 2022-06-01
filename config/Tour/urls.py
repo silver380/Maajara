@@ -2,11 +2,12 @@ from django.urls import path
 
 from .views import TourListAPIView, CreatedTours, Register, MyConfirmedTours, MyPendingTours, \
     MyPendingUsers, MyConfirmedUsers, AcceptUser, Add, TourSuggestion, AddRate, GetRate, ArchivedTourTL, \
-    ArchivedTourUser, RejectUser
+    ArchivedTourUser, RejectUser, TourRetAPIView
 
 app_name = 'Tour'
 urlpatterns = [
     path('all/', TourListAPIView.as_view(), name="all_tours"),
+    path('<int:pk>', TourRetAPIView.as_view(), name="all_tours"),
     path('register/', Register.as_view(), name="created_tours"),
     path('createdtours/', CreatedTours.as_view(), name="created_tours"),
     path('confirmedtours/', MyConfirmedTours.as_view(), name="created_tours"),
