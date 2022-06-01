@@ -30,6 +30,7 @@ public class PassengerRequestsController extends Controller {
                 map_TID_UserConfirmed = gson.fromJson(response.getResponseBody(), new
                         TypeToken<HashMap <String, User[]>> () { }.getType());
                 Log.d(MyCallback.TAG, map_TID_UserConfirmed.toString());
+
                 onResponse.onSuccess(call, callback, response);
             }
 

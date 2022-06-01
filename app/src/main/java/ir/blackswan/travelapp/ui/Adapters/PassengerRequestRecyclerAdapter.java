@@ -1,6 +1,9 @@
 package ir.blackswan.travelapp.ui.Adapters;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,9 +72,11 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                         @Override
                         public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                             super.onSuccess(call, callback, response);
+                            tour = new Gson().fromJson(response.getResponseBody() , Tour.class);
                             acceptUser(holder);
                             confirmedUsers.add(user);
-                            activity.setResult(Activity.RESULT_OK);
+                            activity.setResult(RESULT_OK , new Intent().putExtra("tour" , tour));
+                            notifyDataSetChanged();
                         }
                     });
 
@@ -85,7 +91,7 @@ public class PassengerRequestRecyclerAdapter extends RecyclerView.Adapter<Passen
                         public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                             super.onSuccess(call, callback, response);
                             allRequestedUsers.remove(user);
-                            activity.setResult(Activity.RESULT_OK);
+                            activity.setResult(RESULT_OK);
                             notifyDataSetChanged();
                         }
                     });

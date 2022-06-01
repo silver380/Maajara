@@ -79,7 +79,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
         holder.userName_Lastname.setText(tourLeader_req.getTour_leader().getFullNameWithPrefix());
         holder.biography.setText(TourLeaderVerticalView.getBioPlusLang(tourLeader_req.getTour_leader()));
         holder.price.setText(tourLeader_req.getSuggested_priceString());
-        holder.avg.setText(tourLeader_req.getTour_leader().getAvg_rate() + "");
+        holder.avg.setText(tourLeader_req.getTour_leader().getAvg_rate());
 
         TourLeaderVerticalView.setContactWays(tourLeader_req.getTour_leader(), holder.telegram,
                 holder.whatsapp, holder.phone, holder.mail);

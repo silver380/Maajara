@@ -183,8 +183,8 @@ public class Utils {
     }
 
 
-    public static boolean isDateGreaterOrEqual(Date date1, Date date2) {
-        return date1.getTime() >= date2.getTime();
+    public static boolean isDateGreater(Date date1, Date date2) {
+        return date1.getTime() > date2.getTime();
     }
 
     public static long numDaysBetween(long fromTime, long toTime) {
@@ -279,14 +279,16 @@ public class Utils {
                 priceToString.insert(0, ",");
             priceToString.insert(0, priceChar[i]);
         }
-        return priceToString.toString().toString();
+        return priceToString.toString();
     }
 
-    public static String getPriceString(int price) {
-        if (price > 1000000)
+    public static String getPriceString(int price) { //1,300,200
+        if (price > 1000000) {
             return priceToString(price / 1000000) + " میلیون تومان";
-        else if (price > 1000)
+        }
+        else if (price > 1000) {
             return priceToString(price / 1000) + " هزار تومان";
+        }
 
         return priceToString(price) + " تومان";
     }
@@ -305,9 +307,9 @@ public class Utils {
         return Long.parseLong(elements.text());
     }
 
-    public static boolean isTimeInPassed(long time) throws Exception {
+    public static boolean isTimeInPassed(long time){
         Calendar today = new GregorianCalendar();
-        today.setTimeInMillis(Utils.getTime());
+        today.setTimeInMillis(System.currentTimeMillis());
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
@@ -315,7 +317,7 @@ public class Utils {
     }
 
 
-    public static String createImageFromBitmap(Context context , Bitmap bitmap) {
+    public static String createImageFromBitmap(Context context, Bitmap bitmap) {
         String fileName = "myImage";//no .png or .jpg needed
         try {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -329,5 +331,16 @@ public class Utils {
             fileName = null;
         }
         return fileName;
+    }
+
+    public static boolean openMapApp(Context context, double latitude, double longitude) {
+        String uri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+            return true;
+        }
+        return false;
     }
 }

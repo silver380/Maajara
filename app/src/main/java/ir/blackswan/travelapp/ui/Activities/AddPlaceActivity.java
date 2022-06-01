@@ -121,6 +121,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
                                 Toast.makeText(AddPlaceActivity.this, "درخواست اضافه کردن مکان با موفقیت ارسال شد", Toast.LENGTH_SHORT
                                         , Toast.TYPE_SUCCESS).show();
                                 setResult(RESULT_OK);
+                                finish();
                             }
 
                             @Override
@@ -219,6 +220,11 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
             final Uri resultUri = UCrop.getOutput(data);
             try {
                 image = FileUtil.from(this, resultUri);
+                binding.placeImg.setOnClickListener(v -> {
+                    startActivity(new Intent(this , FullscreenImageActivity.class).putExtra(
+                            FullscreenImageActivity.IMAGE_URL , image.getPath()
+                    ));
+                });
                 binding.placeImg.setImageBitmap(BitmapFactory.decodeFile(resultUri.getPath()));
                 binding.placeImg.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));

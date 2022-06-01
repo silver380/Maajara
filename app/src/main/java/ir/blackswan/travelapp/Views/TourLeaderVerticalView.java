@@ -37,7 +37,7 @@ public class TourLeaderVerticalView extends MaterialCardView {
     public TourLeaderVerticalView setData(User user) {
         name.setText(user.getFullNameWithPrefix());
         bio.setText(getBioPlusLang(user));
-        rate.setText(user.getAvg_rate() + "");
+        rate.setText(user.getAvg_rate());
         image.setFullScreen(true);
         image.setDataByUser(user);
 

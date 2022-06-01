@@ -70,6 +70,7 @@ public class SettingActivity extends ToolbarActivity {
         authController = getAuthController();
         setInputTypes();
         setListeners();
+
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
         authController.completeUserInfo(new OnResponseDialog(this) {
@@ -79,6 +80,12 @@ public class SettingActivity extends ToolbarActivity {
                 setVisibilities(false);
                 setDataToInputs();
                 setTourLeaderStatus();
+                loadingDialog.dismiss();
+            }
+
+            @Override
+            public void onFailed(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
+                super.onFailed(call, callback, response);
                 loadingDialog.dismiss();
             }
         });
@@ -249,8 +256,6 @@ public class SettingActivity extends ToolbarActivity {
 
         binding.btnSettingLeaderSubmit.setOnClickListener(v -> {
             if (checkInputs()) {
-                LoadingDialog loadingDialog = new LoadingDialog(this);
-                loadingDialog.show();
                 String gender = this.gender.get(0) ? "Male" : "Female";
                 List<String> connectStrings = getConnectStrings();
 
@@ -275,7 +280,6 @@ public class SettingActivity extends ToolbarActivity {
                                 Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
                                         , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                                 setResult(RESULT_OK);
-                                loadingDialog.dismiss();
                                 setTourLeaderStatus();
                                 finish();
 
@@ -396,13 +400,32 @@ public class SettingActivity extends ToolbarActivity {
                             }
                             binding.pbSettingDoc.setVisibility(View.GONE);
                         });
+
+
             } else {
                 selectedClearanceDoc = new File(docFilePath);
                 binding.etSettingClearanceDoc.setText(selectedClearanceDoc.getName());
                 binding.pbSettingDoc.setVisibility(View.GONE);
             }
-        } else
+
+
+        }
+        else
             binding.pbSettingDoc.setVisibility(View.GONE);
+
+
+        if (user.is_tour_leader()) {
+            binding.etSettingName.setEnabled(false);
+            binding.etSettingLastname.setEnabled(false);
+            binding.etSettingGender.setEnabled(false);
+            binding.etSettingGender.setOnClickListener(v -> { });
+            binding.etSettingSsn.setEnabled(false);
+            binding.etSettingBirthday.setOnClickListener(v -> { });
+            binding.etSettingBirthday.setEnabled(false);
+            binding.etSettingClearanceDoc.setEnabled(false);
+            binding.etSettingClearanceDoc.setOnClickListener(v -> { });
+        }
+
     }
 
     private void setContactInfo(String contactInfo, MaterialCheckBox checkBox, TextInputEditText editText) {

@@ -49,7 +49,6 @@ public class ArchiveFragment extends RefreshingFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
     @Override

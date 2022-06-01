@@ -100,6 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_medium"
                         android:alpha=".75"
                         android:text="نام راهنمای سفر"
                         android:textColor="@color/colorWhite" />
@@ -436,20 +437,21 @@
 
                                 </ir.blackswan.travelapp.Views.LoadingRecyclerView>
 
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="راهنمای سفر" />
                                 <LinearLayout
                                     android:id="@+id/ll_tour_page_leader"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:layout_marginTop="@dimen/margin_small"
                                     android:orientation="vertical">
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        style="@style/textTittleMedium"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:layout_marginBottom="@dimen/margin_small"
-                                        android:text="راهنمای سفر" />
+
 
 
                                 </LinearLayout>

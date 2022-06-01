@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ public class User implements Serializable {
                                @Field("whatsapp_id") String whatsappId
      */
 
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private int user_id = -1;
     private boolean isValidatedByAdmin;
     @Expose
@@ -156,10 +158,6 @@ public class User implements Serializable {
         this.whatsapp_id = whatsapp_id;
     }
 
-    public void setAvg_rate(double avg_rate) {
-        this.avg_rate = avg_rate;
-    }
-
     public boolean isValidatedByAdmin() {
         return isValidatedByAdmin;
     }
@@ -230,8 +228,8 @@ public class User implements Serializable {
         return getNullifEmpty(whatsapp_id);
     }
 
-    public double getAvg_rate() {
-        return avg_rate;
+    public String getAvg_rate() {
+        return DECIMAL_FORMAT.format(avg_rate);
     }
 
     public String getNameAndLastname() {

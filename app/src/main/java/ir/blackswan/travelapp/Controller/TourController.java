@@ -241,23 +241,51 @@ public class TourController extends Controller {
     public static Tour[] getArchiveTours() {
         return archiveTours;
     }
+
+    public static class CurrentTour {
+        Tour Tour;
+        boolean can_rate;
+        CurrentRate current_rate;
+
+        public CurrentTour(boolean can_rate, Integer tourRate, String tourReport) {
+            this.can_rate = can_rate;
+            current_rate = new CurrentRate();
+            current_rate.tour_rate = tourRate;
+            current_rate.tour_report = tourReport;
+        }
+
+        static class CurrentRate {
+            Integer tour_rate;
+            String tour_report;
+
+            public Integer getTour_rate() {
+                return tour_rate;
+            }
+
+            public String getTour_report() {
+                return tour_report;
+            }
+        }
+
+        public Tour getTour() {
+            return Tour;
+        }
+
+        public boolean can_rate() {
+            return can_rate;
+        }
+
+        public int getTourRate() {
+            return current_rate.getTour_rate();
+        }
+
+        public String getTourReport() {
+            return current_rate.getTour_report();
+        }
+    }
 }
 
-class CurrentTour {
-    boolean can_rate;
-    CurrentRate current_rate;
 
-    public CurrentTour(boolean can_rate, Integer tourRate, String tourReport) {
-        this.can_rate = can_rate;
-        current_rate = new CurrentRate();
-        current_rate.tour_rate = tourRate;
-        current_rate.tour_report = tourReport;
-    }
 
-    static class CurrentRate {
-        Integer tour_rate;
-        String tour_report;
-    }
 
-}
 

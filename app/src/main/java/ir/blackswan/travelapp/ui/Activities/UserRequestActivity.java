@@ -80,8 +80,12 @@ public class UserRequestActivity extends ToolbarActivity{
                 tourUsers = new ArrayList<>();
                 if (confirmedUsers != null)
                     tourUsers.addAll(Arrays.asList(confirmedUsers));
+                else
+                    confirmedUsers = new User[0];
                 if (pendingUsers != null)
                     tourUsers.addAll(Arrays.asList(pendingUsers));
+                else
+                    pendingUsers = new User[0];
                 setRecyclers();
             }
         });

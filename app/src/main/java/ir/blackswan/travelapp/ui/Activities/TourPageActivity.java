@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicLong;
@@ -112,7 +114,7 @@ public class TourPageActivity extends ToolbarActivity {
 
     }
 
-    private void setRateStatus() {
+    private void setRateStatus(boolean updateTour) {
         tourController.getRateStatusFromServer(new OnResponseDialog(this) {
             @Override
             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
@@ -120,15 +122,21 @@ public class TourPageActivity extends ToolbarActivity {
                 canRate = tourController.canRate();
                 rate = tourController.getRate();
                 Log.d(TAG, "setRateStatus: " + canRate + " " + rate);
-                setRate();
+                if (updateTour) {
+                    Log.d(TAG, "getRateStatusFromServer onSuccess:" + response.getResponseBody());
+                    tour = new Gson().fromJson(response.getResponseBody(), TourController.CurrentTour.class).getTour();
+                    setTourData();
+                }
+
                 setTourMode();
+                setRate();
             }
         }, Integer.toString(tour.getTour_id()));
     }
 
     private void setRate() {
         //tour not finished yet
-        if (canRate == false) {
+        if (!canRate) {
             binding.tourRatingBar.setVisibility(View.GONE);
             binding.llRateReport.setVisibility(View.GONE);
         }
@@ -138,11 +146,13 @@ public class TourPageActivity extends ToolbarActivity {
             //already rated
             if (rate != -1) {
                 binding.llRateReport.setVisibility(View.GONE);
+                binding.tourRatingBar.setVisibility(View.VISIBLE);
                 binding.tourRatingBar.setRating((float) rate);
             }
 
             //not rated yet
             else {
+                binding.llRateReport.setVisibility(View.VISIBLE);
                 binding.tourRatingBar.setVisibility(View.GONE);
             }
         }
@@ -186,7 +196,11 @@ public class TourPageActivity extends ToolbarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_USERS_ACTIVITY)
             if (resultCode == RESULT_OK) {
-
+                if (data != null) {
+                    tour = (Tour) data.getSerializableExtra("tour");
+                    setTourData();
+                    setTourMode();
+                }
                 setResult(RESULT_OK);
             }
     }
@@ -223,7 +237,7 @@ public class TourPageActivity extends ToolbarActivity {
                 else
                     confirmTours = new HashSet<>();
                 Log.d(TAG, "onSuccess: " + confirmTours);
-                setRateStatus();
+                setRateStatus(false);
 
             }
         });
@@ -249,6 +263,8 @@ public class TourPageActivity extends ToolbarActivity {
         binding.scTourPage.post(() -> {
             binding.scTourPage.smoothScrollTo(0, maxScrollY);
         });
+        if (!bottomViewIsOpen)
+            binding.scTourPageBottom.scrollTo(0 , 0);
 
 
         bottomViewIsOpen = true;
@@ -262,7 +278,9 @@ public class TourPageActivity extends ToolbarActivity {
 
     private void onClickListenerReportAndStar() {
         binding.btnRateReport.setOnClickListener(view -> {
-            ReportDialog reportDialog = new ReportDialog(this, tour.getTour_id());
+            ReportDialog reportDialog = new ReportDialog(this, tour.getTour_id(), () -> {
+                setRateStatus(true);
+            });
             reportDialog.show();
         });
 
@@ -365,13 +383,11 @@ public class TourPageActivity extends ToolbarActivity {
 
     private void setTourMode() {
         loadingDialog.dismiss();
-        boolean passedTour = false;
-        try {
-            long tourStartTime = tour.getPersianStartDate().getTimestamp();
-            passedTour = Utils.isTimeInPassed(tourStartTime);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        boolean passedTour;
+
+        long tourStartTime = tour.getPersianEndDate().getTimestamp();
+        passedTour = Utils.isTimeInPassed(tourStartTime);
+
         if (tour.getCreator().equals(user)) {
             binding.btnTourPageRegister.setText("درخواست‌ها");
             binding.btnTourPageRegister.setEnabled(true);
@@ -380,7 +396,7 @@ public class TourPageActivity extends ToolbarActivity {
                         , REQUEST_USERS_ACTIVITY);
             });
         } else if (passedTour) {
-            binding.btnTourPageRegister.setText("ثبت‌نام پایان یافته است.");
+            binding.btnTourPageRegister.setText("ماجرا تمام شده است.");
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
@@ -412,7 +428,7 @@ public class TourPageActivity extends ToolbarActivity {
                         setResult(RESULT_OK);
                         setTourMode();
                         Toast.makeText(TourPageActivity.this, "ثبت‌نام با موفقیت انجام شد",
-                                Toast.LENGTH_SHORT , Toast.TYPE_SUCCESS).show();
+                                Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                     }
                 });
             });
@@ -474,7 +490,7 @@ public class TourPageActivity extends ToolbarActivity {
 
 
         TourLeaderVerticalView tourLeaderView = new TourLeaderVerticalView(this).setData(tour.getCreator());
-
+        binding.llTourPageLeader.removeAllViews();
         binding.llTourPageLeader.addView(tourLeaderView);
 
         binding.cardBackTourPage.setOnClickListener(v -> {

@@ -276,7 +276,7 @@ public class AddTourFragment extends Fragment {
                 return editText.getHint() + " ضروری است.";
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
-            else if (Utils.isDateGreaterOrEqual(
+            else if (Utils.isDateGreater(
                     startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
 
@@ -286,7 +286,7 @@ public class AddTourFragment extends Fragment {
                     binding.tilAddTourStartDate.setError(getString(R.string.date_error));
                 }
                 return getString(R.string.date_error);
-            } else if (!Utils.isDateGreaterOrEqual(startDate.getCalendar().getGregorianDate(),
+            } else if (!Utils.isDateGreater(startDate.getCalendar().getGregorianDate(),
                     finalDate.getCalendar().getGregorianDate())) {
                 if (editText.equals(binding.etAddTourStartDate)) {
                     binding.tilAddTourFinalDate.setError(null);
