@@ -99,6 +99,21 @@ class RegisterAndAuthenticateTest(APITestCase):
 			
 		response = self.client.patch(('/auth/upgrade/'),user_info)
 		self.assertEqual(response.status_code, 200)
+
+	def test_should_not_upgrade_tl_incompelete_data(self):
+
+		self.authenticate()
+		user_info = {
+			"date_of_birth":"2000-12-30",
+			"gender":"Female",
+			"biography":'tvsbjfsvdfk', 
+			"languages":"English", 
+			"phone_number":916,
+			}
+			
+		response = self.client.patch(('/auth/upgrade/'),user_info)
+		self.assertEqual(response.status_code, 406)
+
 	def authenticate_upgrade(self):
 		
 		self.authenticate()
@@ -110,7 +125,8 @@ class RegisterAndAuthenticateTest(APITestCase):
 			"phone_number":916,
 			"ssn":1234}
 				
-		response = self.client.patch(('/auth/upgrade/'),user_info)	
+		response = self.client.patch(('/auth/upgrade/'),user_info)
+
 
 	def test_should_get_user_info(self):
 		self.authenticate()
@@ -142,3 +158,19 @@ class RegisterAndAuthenticateTest(APITestCase):
 
 		response = self.client.post(('/auth/increaseticket/'),{"value":10})
 		self.assertEqual(response.status_code,401)
+
+	def test_should_active_user(self):
+
+		user_info = {
+		"email":"u@u.com",
+		"password":123 ,
+		"first_name":"User",
+		"last_name" :"User"}
+		
+		self.client.post(('/auth/register/'),user_info)
+		response = self.client.post(('/auth/token/'), {"username":"u@u.com",
+			                                           "password":123})
+
+		self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.data['token'])
+
+		response = self.client.get(('/auth/activate/1/'+response.data['token']+'/'))

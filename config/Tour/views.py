@@ -49,7 +49,7 @@ class Register(APIView):
 
 class MyConfirmedTours(ListAPIView):
     serializer_class = TourListSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         now = datetime.date.today()
         return self.request.user.confirmed_tours.filter(end_date__gte=now)
@@ -57,7 +57,7 @@ class MyConfirmedTours(ListAPIView):
 
 class MyPendingTours(ListAPIView):
     serializer_class = TourListSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         now = datetime.datetime.now()
         return self.request.user.pending_tours.filter(start_date__gte=now)

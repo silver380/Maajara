@@ -49,7 +49,7 @@ class ActivateUser(APIView):
         url = "http://maajara.pythonanywhere.com/auth/users/activation/"
 
         # response = requests.post(url, data=payload)
-        user = Token.objects.get(key=token).user.is_active
+        user = Token.objects.get(key=token).user
         user.is_active = True
         user.save()
         return render(request, 'activation_success.html')
