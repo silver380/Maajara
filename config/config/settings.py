@@ -46,7 +46,7 @@ EMAIL_HOST_PASSWORD = 'kxrtuxxelnumlqla'
 
 DJOSER = {
     "SEND_ACTIVATION_EMAIL": True,
-    "ACTIVATION_URL": 'auth/users/activation/{uid}/{token}',
+    "ACTIVATION_URL": 'auth/activate/{uid}/{token}',
 }
 
 INSTALLED_APPS = [

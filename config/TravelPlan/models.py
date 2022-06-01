@@ -16,6 +16,9 @@ class TravelPlanManager(models.Manager):
         now = datetime.now()
         return self.get_queryset().filter(end_date__gte=now)
 
+    def get_queryset(self):
+        return super(TravelPlanManager, self).get_queryset().order_by('start_date')
+
 
 class TravelPlan(models.Model):
     objects = TravelPlanManager()

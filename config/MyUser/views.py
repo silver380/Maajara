@@ -1,5 +1,6 @@
 import json
 
+import djoser.serializers
 import requests
 from rest_framework.authtoken.models import Token
 from django.shortcuts import render
@@ -13,6 +14,7 @@ from .serializers import UserSerializer, UserUpdateSerializer, UserInfoSerialize
 from .permissions import IsOwner
 from Tour.permissions import IsTourLeader
 import base64
+from djoser import utils
 
 
 class RegisterUsers(CreateAPIView):
@@ -46,8 +48,9 @@ class UserInfo(RetrieveAPIView):
 
 class ActivateUser(APIView):
     def get(self, request, uid, token):
-        payload = {'uid': uid, 'token': token}
-        url = "http://maajara.pythonanywhere.com/auth/users/activation/"
+        uid = utils.decode_uid(uid)
+        user = get_user_model().objects.get(pk=uid)
+        user.is_active = True
         return render(request, 'activation_success.html')
 
 

@@ -18,6 +18,9 @@ class TourManager(models.Manager):
         now = datetime.now()
         return self.get_queryset().filter(end_date__gte=now)
 
+    def get_queryset(self):
+        return super(TourManager, self).get_queryset().order_by('start_date')
+
 
 class Tour(models.Model):
     objects = TourManager()

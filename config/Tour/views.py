@@ -91,9 +91,6 @@ class MyConfirmedUsers(APIView):
     def get(self, request):
         return_data = {}
         for tour in Tour.objects.filter(creator=request.user):
-            now = datetime.date.today()
-            if tour.end_date < now:
-                continue
             serializer = UserInfoSerializer(tour.confirmed_users.all(), many=True)
             return_data[tour.tour_id] = serializer.data
         return Response(return_data)
@@ -120,6 +117,9 @@ class AcceptUser(APIView):
 
         registered_tour.confirmed_users.add(registered_user)
         registered_tour.pending_users.remove(registered_user)
+        if registered_tour.is_full:
+            registered_tour.pending_users.clear()
+
         registered_tour = TourListSerializer(registered_tour).data
         return Response(registered_tour, status=200)
 
