@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorNormalText">#1A1A1A</color>
+    <color name="colorHint">#505050</color>
+    <color name="colorDividers">#C9C9C9</color>
+    <color name="colorBackgroundLighter">#fff</color>
+    <color name="colorBackgroundDarker">#F4FAFA</color>
+    <color name="colorIconTint">#29BDB9</color>
+
+    <color name="colorError">#fc5c65</color>
+    <color name="colorSuccess">#26de81</color>
+    <color name="colorWarning">#FFD940</color>
+
+    <color name="colorWhite">#fff</color>
+    <color name="colorBlack">#000</color>
+
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+
+    <color name="colorMainStatusBar">#DADADA</color>
+    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorIntroTittle">#032C2A</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="ticket_background">#C5F3F1</color>
+</resources>

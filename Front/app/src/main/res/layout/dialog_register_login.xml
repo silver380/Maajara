@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_large"
+    android:paddingVertical="@dimen/padding_medium">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_login_tittle"
+            style="@style/textTittleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ورود"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/iv_login_back"
+            android:layout_width="@dimen/secondary_icon_size"
+            android:layout_height="@dimen/secondary_icon_size"
+            android:layout_gravity="right|center"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_back"
+            app:tint="@color/colorNormalText" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_active_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_login_send_code"
+            style="@style/textSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="کد فعالسازی برای ... ارسال شد لطفا کد را وارد کنید" />
+
+        <com.poovam.pinedittextfield.LinePinField
+            android:id="@+id/pin_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_small"
+            android:inputType="number"
+            android:textSelectHandle="@drawable/text_handle"
+            android:textSize="16sp"
+            app:bottomTextPaddingDp="15dp"
+            app:distanceInBetween="10dp"
+            app:fieldColor="@color/colorHint"
+            app:highlightColor="?android:attr/colorPrimary"
+            app:highlightType="allFields"
+            app:isCursorEnabled="true"
+            app:isCustomBackground="true"
+            app:noOfFields="4" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_send_again"
+            style="@style/button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:layout_marginRight="-10dp"
+            android:text="ارسال مجدد کد" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_edit_texes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_large"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_name"
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="نام"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_user">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_name"
+                style="@style/editText.oneLine"
+                android:inputType="textPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_last_name"
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="نام خانوادگی"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_user">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_last_name"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_email"
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ایمیل"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_email"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_login_password"
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="کلمه ‌عبور"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_lock">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_password"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_large">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/button.primaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
+            android:paddingVertical="@dimen/btn_large_padding_vertical"
+            android:text=""
+            app:cornerRadius="@dimen/radius_medium"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loading_login"
+            style="@style/SpinKitView.ThreeBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:translationZ="5dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorWhite" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_login_go_to_another"
+            style="@style/textHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="حسابی در برنامه ندارید؟" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_go_to_another"
+            style="@style/button.TextButton.small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_small"
+            android:text="ثبت‌نام" />
+
+    </LinearLayout>
+
+</LinearLayout>

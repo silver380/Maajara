@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        style="@style/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:title="انتخاب مکان" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_medium">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/textInputLayout.outLinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_small"
+            android:hint="جستجو"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_select_places_search"
+                style="@style/editText.oneLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ir.blackswan.travelapp.Views.LoadingRecyclerView
+            android:id="@+id/rcl_select_places"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/margin_very_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/btn_select_place_submit"
+            style="@style/button.primaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/margin_very_small"
+            android:text="تایید"
+            app:elevation="0dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

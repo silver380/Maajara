@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ir.blackswan.travelapp.Views.WebImageView
+        android:id="@+id/iv_tour_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_back_tour_page"
+        android:layout_width="@dimen/secondary_icon_size"
+        android:layout_height="@dimen/secondary_icon_size"
+        android:layout_gravity="top|right"
+        android:layout_margin="@dimen/margin_medium"
+        android:alpha=".6"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/colorBlack"
+        app:cardCornerRadius="@dimen/half_secondary_icon_size"
+        app:cardElevation="@dimen/card_elevation_medium"
+        app:rippleColor="@color/colorDividers">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/secondary_icon_size"
+            android:layout_height="@dimen/secondary_icon_size"
+            android:padding="@dimen/icons_padding"
+            android:src="@drawable/ic_back"
+            app:tint="@color/colorWhite" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:id="@+id/view_tour_page_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/colorBlack" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_tour_page_open"
+        android:layout_width="@dimen/secondary_icon_size"
+        android:layout_height="@dimen/secondary_icon_size"
+        android:layout_gravity="center|bottom"
+        android:layout_marginTop="-20dp"
+        android:padding="3dp"
+        android:rotation="-90"
+        android:src="@drawable/ic_back"
+        app:tint="@color/colorWhite" />
+
+
+    <ScrollView
+        android:id="@+id/sc_tour_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        tools:context=".ui.Activities.TourPageActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".ui.Activities.TourPageActivity">
+
+
+            <FrameLayout
+                android:id="@+id/view_for_showing_image"
+                android:layout_width="match_parent"
+                android:layout_height="738dp">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_tour_page_names"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bac_grad_black"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_large"
+                    android:translationZ="-5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_tour_page_name"
+                        style="@style/textTittleBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="نام تور"
+                        android:textColor="@color/colorWhite" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_tour_page_leader_name"
+                        style="@style/textTittleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:alpha=".75"
+                        android:text="نام راهنمای سفر"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/vg_tour_page_bottom_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorBackgroundDarker"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:orientation="vertical">
+
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/tb_activity"
+                        style="@style/activity_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:attr/actionBarSize"
+                        android:layout_marginTop="-100dp"
+                        android:clickable="false"
+                        app:title="نام تور" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/padding_large"
+                        android:paddingBottom="@dimen/padding_medium">
+
+
+                        <androidx.core.widget.NestedScrollView
+                            android:id="@+id/sc_tour_page_bottom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_label_details"
+                                        style="@style/textTittleMedium"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_small"
+                                        android:gravity="right"
+                                        android:text="جزئیات"
+
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/iv_icon_capacity"
+                                        android:layout_width="@dimen/quantity_icon_size"
+                                        android:layout_height="@dimen/quantity_icon_size"
+                                        android:layout_marginTop="@dimen/margin_small"
+                                        android:src="@drawable/ic_capacity"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/tv_label_details"
+                                        app:tint="@color/colorIconTint" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_label_capacity"
+                                        style="@style/textSmall.hintColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="@dimen/margin_small"
+                                        android:gravity="right"
+                                        android:text="ظرفیت"
+                                        app:layout_constraintBottom_toBottomOf="@id/iv_icon_capacity"
+                                        app:layout_constraintRight_toLeftOf="@id/iv_icon_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/iv_icon_capacity" />
+
+                                    <LinearLayout
+                                        android:id="@+id/group_tour_page_capacity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintRight_toLeftOf="@id/tv_label_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/tv_label_capacity"
+                                        android:layout_marginRight="@dimen/margin_medium"
+                                        >
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_tour_page_confirmed_count"
+                                        style="@style/textRegular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="4"
+                                         />
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/textSmall.hintColor"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right"
+                                            android:layout_marginHorizontal="@dimen/margin_small"
+                                            android:text="از"
+
+                                            />
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_capacity"
+                                            style="@style/textRegular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="right"
+                                            android:text="7"
+                                            />
+
+                                    </LinearLayout>
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/iv_icon_calender"
+                                        android:layout_width="@dimen/quantity_icon_size"
+                                        android:layout_height="@dimen/quantity_icon_size"
+                                        android:layout_marginTop="@dimen/margin_medium"
+                                        android:src="@drawable/ic_calendar"
+                                        app:layout_constraintRight_toRightOf="@id/iv_icon_capacity"
+                                        app:layout_constraintTop_toBottomOf="@id/iv_icon_capacity"
+                                        app:tint="@color/colorIconTint" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_label_calender"
+                                        style="@style/textSmall.hintColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="بازه"
+                                        app:layout_constraintBottom_toBottomOf="@id/iv_icon_calender"
+                                        app:layout_constraintRight_toRightOf="@id/tv_label_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/iv_icon_calender" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintRight_toRightOf="@id/group_tour_page_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/tv_label_calender">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/textSmall.hintColor"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/margin_small"
+                                            android:text="از" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_start_date"
+                                            style="@style/textRegular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="۲۲/۲۲/۲۳" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/textSmall.hintColor"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginHorizontal="@dimen/margin_small"
+                                            android:text="تا" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_final_date"
+                                            style="@style/textRegular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="۲۲/۲۲/۲۳" />
+                                    </LinearLayout>
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/iv_icon_location"
+                                        android:layout_width="@dimen/quantity_icon_size"
+                                        android:layout_height="@dimen/quantity_icon_size"
+                                        android:layout_marginTop="@dimen/margin_medium"
+                                        android:src="@drawable/ic_location"
+                                        app:layout_constraintRight_toRightOf="@id/iv_icon_capacity"
+                                        app:layout_constraintTop_toBottomOf="@id/iv_icon_calender"
+                                        app:tint="@color/colorIconTint" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_label_city"
+                                        style="@style/textSmall.hintColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="شهر"
+                                        app:layout_constraintBottom_toBottomOf="@id/iv_icon_location"
+                                        app:layout_constraintRight_toRightOf="@id/tv_label_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/iv_icon_location" />
+
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_tour_page_city"
+                                        style="@style/textRegular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="گیلان"
+                                        app:layout_constraintRight_toRightOf="@id/group_tour_page_capacity"
+                                        app:layout_constraintTop_toTopOf="@id/tv_label_city" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_tour_page_options"
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="امکانات" />
+
+                                <LinearLayout
+                                    android:id="@+id/threeoptions"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent">
+
+
+                                    <LinearLayout
+                                        android:id="@+id/group_tour_page_place"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingVertical="@dimen/padding_medium"
+                                        android:paddingLeft="@dimen/padding_medium"
+                                        android:paddingRight="0dp">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:id="@+id/bed"
+                                            android:layout_width="@dimen/tertiary_icon_size"
+                                            android:layout_height="@dimen/tertiary_icon_size"
+                                            android:src="@drawable/ic_bed"
+                                            app:layout_constraintLeft_toLeftOf="parent"
+                                            app:layout_constraintRight_toRightOf="parent"
+                                            app:tint="@color/colorIconTint" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_place"
+                                            style="@style/textSmall"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="اقامتگاه"
+                                            app:layout_constraintLeft_toLeftOf="parent"
+                                            app:layout_constraintRight_toRightOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/bed" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/group_tour_page_vehicle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="@dimen/margin_medium"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_medium">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:id="@+id/car"
+                                            android:layout_width="@dimen/tertiary_icon_size"
+                                            android:layout_height="@dimen/tertiary_icon_size"
+                                            android:src="@drawable/ic_car"
+                                            app:layout_constraintLeft_toLeftOf="parent"
+                                            app:layout_constraintRight_toRightOf="parent"
+                                            app:tint="@color/colorIconTint" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_vehicle"
+                                            style="@style/textSmall"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="وسیله نقلیه"
+                                            app:layout_constraintLeft_toLeftOf="parent"
+                                            app:layout_constraintRight_toRightOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/car" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/group_tour_page_food"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="@dimen/margin_medium"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_medium">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:id="@+id/food"
+                                            android:layout_width="@dimen/tertiary_icon_size"
+                                            android:layout_height="@dimen/tertiary_icon_size"
+                                            android:src="@drawable/ic_food"
+                                            app:layout_constraintLeft_toLeftOf="parent"
+                                            app:layout_constraintRight_toRightOf="parent"
+                                            app:tint="@color/colorIconTint" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_tour_page_food"
+                                            style="@style/textSmall"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="تغذیه" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="مکان‌ها" />
+
+                                <ir.blackswan.travelapp.Views.LoadingRecyclerView
+                                    android:id="@+id/ryc_tour_page_places"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:orientation="horizontal">
+
+                                </ir.blackswan.travelapp.Views.LoadingRecyclerView>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="راهنمای سفر" />
+                                <LinearLayout
+                                    android:id="@+id/ll_tour_page_leader"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:orientation="vertical">
+
+
+
+
+                                </LinearLayout>
+
+                                <com.willy.ratingbar.ScaleRatingBar
+                                    android:id="@+id/tour_rating_bar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:srb_clickable="true"
+                                    app:srb_isIndicator="true"
+                                    app:srb_minimumStars="1"
+                                    app:srb_numStars="5"
+                                    app:srb_rating="0"
+                                    app:srb_starHeight="0dp"
+                                    app:srb_starPadding="5dp"
+                                    app:srb_starWidth="0dp"
+                                    app:srb_stepSize="1"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_rate_report"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_rate_report"
+                                        style="@style/textSmall.hintColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/text_problem" />
+
+                                    <com.google.android.material.button.MaterialButton
+                                        android:id="@+id/btn_rate_report"
+                                        style="@style/button.TextButton.small"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="@dimen/padding_small"
+                                        android:text="@string/clickable_text_problem" />
+
+                                </LinearLayout>
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/group_tour_page_register"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small">
+
+
+                                    <View
+                                        android:id="@+id/view_middle"
+                                        android:layout_width="1dp"
+                                        android:layout_height="1dp"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                                    <com.google.android.material.button.MaterialButton
+                                        android:id="@+id/btn_tour_page_register"
+                                        style="@style/button.primaryButton"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/margin_medium"
+                                        android:text="ثبت‌نام"
+                                        app:cornerRadius="@dimen/radius_medium"
+                                        app:layout_constraintLeft_toRightOf="@id/tv_tour_page_price"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_tour_page_price"
+                                        style="@style/textRegular"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/margin_medium"
+                                        android:text="120 هزار تومان"
+                                        app:layout_constraintBottom_toBottomOf="@id/btn_tour_page_register"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintTop_toTopOf="@id/btn_tour_page_register" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/textTittleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_medium"
+                                    android:text="ماجراهای مشابه" />
+
+                                <ir.blackswan.travelapp.Views.LoadingRecyclerView
+                                    android:id="@+id/rcl_suggestion_tours"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?android:attr/actionBarSize"
+                                    android:layout_marginVertical="@dimen/margin_medium" />
+                            </LinearLayout>
+                        </androidx.core.widget.NestedScrollView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>

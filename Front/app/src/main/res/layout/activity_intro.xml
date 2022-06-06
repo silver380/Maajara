@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorIconTint"
+    tools:context=".ui.Activities.IntroActivity">
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_intro_tittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/loading_intro"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:orientation="vertical">
+
+
+
+        <ir.blackswan.travelapp.Views.AutoResizeTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ماجرا"
+            android:fontFamily="@font/craft"
+            android:maxLines="2"
+            android:gravity="center"
+            android:textColor="@color/colorIntroTittle"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:textSize="100sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="گردش کنید گردش ببرید"
+            android:fontFamily="@font/vazir"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginTop="-5dp"
+            android:textColor="@color/colorIntroTittle"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:textSize="16sp"
+            />
+
+
+
+    </LinearLayout>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/loading_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDuration="500"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:SpinKit_Style="ThreeBounce"
+        />
+
+   
+
+</androidx.constraintlayout.widget.ConstraintLayout>
