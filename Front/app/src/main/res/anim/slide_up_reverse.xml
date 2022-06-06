@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="700"
+    android:repeatMode="restart"
+    android:startOffset="500">
+    <alpha
+        android:fromAlpha="0"
+        android:repeatCount="infinite"
+        android:toAlpha="1" />
+    <translate
+        android:fromYDelta="0%p"
+        android:repeatCount="infinite"
+        android:toYDelta="-4%p" />
+
+    <alpha
+        android:fromAlpha="1"
+        android:repeatCount="infinite"
+        android:toAlpha="0" />
+
+
+</set>
