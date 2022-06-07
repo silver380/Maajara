@@ -55,7 +55,7 @@ class ActivateUser(APIView):
         return render(request, 'activation_success.html')
 
 
-class IncreaseTicket(GenericAPIView):
+class IncreaseTicket(APIView):
     permission_classes = [
         permissions.IsAuthenticated,
         IsTourLeader

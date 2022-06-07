@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'TravelPlan.apps.TravelplanConfig',
     'MediaHandler.apps.MediahandlerConfig',
     'django_nose',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

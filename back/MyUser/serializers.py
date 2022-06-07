@@ -7,6 +7,7 @@ from rest_framework.exceptions import PermissionDenied
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
+        ref_name = 'UserSerializer'
         fields = ("email", "password", "first_name", "last_name", "user_id")
 
     email = serializers.EmailField(max_length=255, required=True)
