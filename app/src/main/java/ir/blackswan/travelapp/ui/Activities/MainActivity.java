@@ -1,5 +1,9 @@
 package ir.blackswan.travelapp.ui.Activities;
 
+import static ir.blackswan.travelapp.Utils.Language.applyLanguage;
+import static ir.blackswan.travelapp.Utils.Language.loadLang;
+import static ir.blackswan.travelapp.Utils.Language.toggleLang;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,29 +16,18 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ir.blackswan.travelapp.Controller.MyCallback;
-import ir.blackswan.travelapp.Controller.MyResponse;
-import ir.blackswan.travelapp.Controller.OnResponse;
-import ir.blackswan.travelapp.Controller.PlanController;
-import ir.blackswan.travelapp.Controller.TourController;
-import ir.blackswan.travelapp.Data.Place;
-import ir.blackswan.travelapp.Data.Plan;
-import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 import ir.blackswan.travelapp.ui.Fargments.RefreshingFragment;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 
 public class MainActivity extends AuthActivity {
 
     private ActivityMainBinding binding;
-    public static final int REQUEST_SETTING = 0, REQUEST_LEADER_REQUESTS = 1, REQUEST_TOUR_PAGE = 2 , REQUEST_ADD_PLACE = 3;
+    public static final int REQUEST_SETTING = 0, REQUEST_LEADER_REQUESTS = 1, REQUEST_TOUR_PAGE = 2, REQUEST_ADD_PLACE = 3;
     private HomeFragment homeFragment;
 
     NavHostFragment navHostFragment;
@@ -42,8 +35,8 @@ public class MainActivity extends AuthActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applyLanguage(this, loadLang(this));
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -59,6 +52,16 @@ public class MainActivity extends AuthActivity {
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
 
+        binding.testToggleLang.setText(loadLang(this));
+        binding.testToggleLang.setOnClickListener(v -> {
+            binding.testToggleLang.setText(
+                    toggleLang(this)
+            );
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 
 
@@ -103,6 +106,7 @@ public class MainActivity extends AuthActivity {
     }
 
     public void startAddPlace() {
-        startActivityForResult(new Intent(this , AddPlaceActivity.class) , REQUEST_ADD_PLACE);
+        startActivityForResult(new Intent(this, AddPlaceActivity.class), REQUEST_ADD_PLACE);
     }
+
 }

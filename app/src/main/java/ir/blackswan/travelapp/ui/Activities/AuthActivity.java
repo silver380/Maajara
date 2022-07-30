@@ -1,7 +1,5 @@
 package ir.blackswan.travelapp.ui.Activities;
 
-import android.content.Intent;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import ir.blackswan.travelapp.Controller.AuthController;
@@ -15,6 +13,7 @@ import retrofit2.Call;
 public abstract class AuthActivity extends AppCompatActivity {
     private AuthDialog authDialog;
     private AuthController authController;
+
 
 
     public AuthController getAuthController() {

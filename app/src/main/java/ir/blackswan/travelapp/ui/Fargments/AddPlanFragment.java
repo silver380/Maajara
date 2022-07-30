@@ -1,5 +1,6 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
+import static ir.blackswan.travelapp.Utils.Utils.createImageFromBitmap;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 import static ir.blackswan.travelapp.ui.Fargments.FragmentDataHandler.KEY_ADD_PLAN_FRAGMENT;
 
@@ -123,18 +124,25 @@ public class AddPlanFragment extends Fragment {
     }
 
     public void save() {
+        //todo Bug
+        /*
         if (binding == null)
             return;
         Log.d("saveFragments", "save: ");
         FragmentDataHandler.save(KEY_ADD_PLAN_FRAGMENT, new FragmentsData(
                 getEditableText(binding.etPlanDestination.getText()),
                 startDate.getGregorianY_M_D(),
-                finalDate.getGregorianY_M_D(), selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray(),
+                finalDate.getGregorianY_M_D(),
+                selectPlacesDialog.getPlacesRecyclerAdapter().getSelectedPlacesArray(),
                 getWantedList(true).toArray(new String[0])
         ));
+
+         */
     }
 
     private void load() {
+        /*
+        //todo Bug
         FragmentsData fragmentsData = FragmentDataHandler.load(KEY_ADD_PLAN_FRAGMENT);
         Log.d("saveFragments", "load: ");
         if (fragmentsData == null)
@@ -148,6 +156,8 @@ public class AddPlanFragment extends Fragment {
                 addCase(s);
 
         setPlacesRecyclerAdapter();
+
+         */
 
     }
 

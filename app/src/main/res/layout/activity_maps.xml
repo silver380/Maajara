@@ -13,7 +13,7 @@
         android:id="@+id/tb_activity"
         style="@style/activity_toolbar"
         android:layout_height="?android:attr/actionBarSize"
-        app:title="انتخاب موقعیت"
+        app:title="@string/set_location"
         />
 
     <FrameLayout

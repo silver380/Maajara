@@ -8,6 +8,8 @@ public class SharedPrefManager {
 
     public static final String IS_TOUR_LEADER = "isTourLeader";
 
+    public static final String LANGUAGE = "lang";
+
 
     private final Context mCtx;
 

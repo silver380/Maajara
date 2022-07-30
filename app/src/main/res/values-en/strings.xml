@@ -63,4 +63,6 @@
     <string name="report">از سفرتان بیشتر برایمان بگویید..</string>
     <string name="archived_tours">ماجراهای گذشته</string>
     <string name="success_buy_ticket">خرید با موفقیت انجام شد.</string>
+    <string name="add_place">Add place</string>
+    <string name="set_location">Set location</string>
 </resources>
