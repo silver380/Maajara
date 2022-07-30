@@ -150,9 +150,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     }
 
     private void setMapLoading(boolean loading) {
-
         binding.groupPlaceMapLoading.setVisibility(loading ? View.VISIBLE : View.GONE);
-
 
     }
 
