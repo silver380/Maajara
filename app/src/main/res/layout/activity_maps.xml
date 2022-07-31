@@ -45,7 +45,7 @@
        android:layout_height="wrap_content"
        android:layout_gravity="bottom|center"
        style="@style/button.primaryButton"
-       android:text="تایید"
+       android:text="@string/confirm"
        android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
        android:paddingVertical="@dimen/btn_large_padding_vertical"
        android:layout_marginBottom="@dimen/margin_medium"

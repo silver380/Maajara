@@ -28,32 +28,32 @@
                 android:layout_width="@dimen/profile_view_size"
                 android:layout_height="@dimen/profile_view_size"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_home_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toLeftOf="@id/iv_home_profile"
+                app:layout_constraintStart_toEndOf="@id/iv_home_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_home_profile"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_mode"
-                app:layout_constraintLeft_toRightOf="@id/group_home_ticket"
+                app:layout_constraintEnd_toStartOf="@id/group_home_ticket"
                 android:text="سید محمد حسین حسینی نسب"
                 android:maxLines="1"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_large"
                 style="@style/textTittleMedium"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_home_mode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="@id/tv_home_name"
+                app:layout_constraintStart_toStartOf="@id/tv_home_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_name"
                 app:layout_constraintBottom_toBottomOf="@id/iv_home_profile"
                 app:layout_constraintLeft_toLeftOf="@id/tv_home_name"
-                android:text="راهنمای سفر"
+                android:text="@string/leader"
                 android:textColor="@color/colorHint"
                 android:maxLines="1"
                 style="@style/textRegular"
@@ -71,7 +71,7 @@
                 app:strokeColor="@color/colorHint"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:strokeWidth="1dp">
 
 

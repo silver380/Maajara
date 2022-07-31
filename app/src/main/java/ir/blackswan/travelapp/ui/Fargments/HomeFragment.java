@@ -95,7 +95,6 @@ public class HomeFragment extends RefreshingFragment {
         if (!mainActivity.isAuthing()) {
             setupWithUser();
             setCurrentFragment();
-            Log.d("TAG", "reload: ");
         }
     }
 
@@ -146,9 +145,9 @@ public class HomeFragment extends RefreshingFragment {
 
     private void updateToggleTv() {
         if (tourLeader)
-            binding.tvHomeMode.setText("راهنمای سفر");
+            binding.tvHomeMode.setText(R.string.leader);
         else
-            binding.tvHomeMode.setText("مسافر");
+            binding.tvHomeMode.setText(R.string.passenger);
     }
 
     private void setSwitch() {
@@ -157,10 +156,10 @@ public class HomeFragment extends RefreshingFragment {
             switchPowerMenu.setTag(2);
         }
         if (tourLeader) {
-            switchPowerMenu.setTitle("تغییر به مسافر");
+            switchPowerMenu.setTitle(getString(R.string.switch_to_passenger));
             switchPowerMenu.setIcon(R.drawable.ic_padding_user);
         } else {
-            switchPowerMenu.setTitle("تغییر به راهنما");
+            switchPowerMenu.setTitle(getString(R.string.switch_to_leader));
             switchPowerMenu.setIcon(R.drawable.ic_padding_guide);
         }
 
@@ -180,10 +179,10 @@ public class HomeFragment extends RefreshingFragment {
     }
 
     private void setPopupMenu() {
-        PowerMenuItem exitMenu = new PowerMenuItem("خروج");
+        PowerMenuItem exitMenu = new PowerMenuItem(getString(R.string.exit));
         exitMenu.setIcon(R.drawable.ic_logout_padding);
         exitMenu.setTag(0);
-        PowerMenuItem pmiSetting = new PowerMenuItem("تنظیمات");
+        PowerMenuItem pmiSetting = new PowerMenuItem(getString(R.string.setting));
         pmiSetting.setIcon(R.drawable.ic_setting);
         pmiSetting.setTag(1);
 

@@ -11,11 +11,11 @@
 
         <TextView
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginHorizontal="@dimen/margin_small"
             style="@style/textTittleBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="خرید تیکت"
+            android:text="@string/buy_ticket"
 
             />
 
@@ -23,7 +23,7 @@
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="تعداد"
+            android:hint="@string/count"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_ticket"
             android:layout_marginTop="@dimen/margin_medium"
@@ -44,7 +44,7 @@
             android:id="@+id/btn_buy_ticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="خرید"
+            android:text="@string/buy"
             style="@style/button.primaryButton"
             android:layout_gravity="center"
             android:paddingVertical="@dimen/btn_large_padding_vertical"

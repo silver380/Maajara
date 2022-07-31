@@ -16,9 +16,9 @@
             android:layout_width="@dimen/profile_view_size"
             android:layout_height="@dimen/profile_view_size"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/profile_view_half_size" />
 
@@ -27,10 +27,10 @@
             style="@style/textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_small"
-            android:text="نام و نام خانوادگی"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/user_iv"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:text="@string/tl_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/user_iv"
             app:layout_constraintTop_toTopOf="@id/user_iv" />
 
         <com.google.android.material.button.MaterialButton
@@ -38,14 +38,15 @@
             style="@style/button.primaryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
             android:text="تایید"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_Name_LastName"
-            app:layout_constraintRight_toLeftOf="@id/btn_rvh_reject"
+            app:layout_constraintStart_toEndOf="@id/btn_rvh_reject"
             />
 
         <com.google.android.material.button.MaterialButton
@@ -53,13 +54,13 @@
             style="@style/button.primaryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginStart="@dimen/margin_medium"
             android:backgroundTint="@color/colorError"
             android:text="رد"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/btn_rvh_accept"
-
+            app:layout_constraintEnd_toStartOf="@id/btn_rvh_accept"
+            app:layout_constraintStart_toEndOf="@id/user_iv"
             app:layout_constraintTop_toTopOf="@id/btn_rvh_accept" />
 
 

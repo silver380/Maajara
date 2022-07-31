@@ -22,9 +22,9 @@
         <ir.blackswan.travelapp.Views.AutoResizeTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ماجرا"
+            android:text="@string/intro_majara"
             android:fontFamily="@font/craft"
-            android:maxLines="2"
+            android:maxLines="1"
             android:gravity="center"
             android:textColor="@color/colorIntroTittle"
             android:layout_marginHorizontal="@dimen/margin_medium"
@@ -34,7 +34,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="گردش کنید گردش ببرید"
+            android:text="@string/intro_subline"
             android:fontFamily="@font/vazir"
             android:maxLines="1"
             android:gravity="center"

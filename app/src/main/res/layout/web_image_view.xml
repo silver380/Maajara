@@ -29,7 +29,7 @@
             style="@style/textTittleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تصویر یافت نشد"
+            android:text="@string/image_not_found"
             android:textColor="@color/colorHint" />
 
         <com.google.android.material.card.MaterialCardView
@@ -40,7 +40,8 @@
             android:clickable="true"
             app:cardCornerRadius="@dimen/half_primary_icon_size"
             app:cardElevation="@dimen/card_elevation_medium"
-            app:rippleColor="@color/colorDividers">
+            app:rippleColor="@color/colorDividers"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="@dimen/primary_icon_size"

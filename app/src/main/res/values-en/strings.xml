@@ -13,7 +13,7 @@
     <string name="price">Price</string>
     <string name="start_date">Start date</string>
     <string name="duration">Duration</string>
-    <string name="tl_name">نام راهنمای سفر</string>
+    <string name="tl_name">Leader name</string>
     <string name="biography">Biography</string>
     <string name="nameError">نام نمی‌تواند خالی باشد.</string>
     <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد.</string>
@@ -26,7 +26,7 @@
     <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره تلاش کنید.</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
 
-    <string name="city">شهر</string>
+    <string name="city">City</string>
     <string name="title_activity_setting">تنظیمات</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
@@ -40,8 +40,8 @@
     <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد.</string>
 
 
-    <string name="text_problem">به سفرتان</string>
-    <string name="clickable_text_problem">امتیاز دهید.</string>
+    <string name="text_problem">your trip</string>
+    <string name="clickable_text_problem">Rate</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید.</string>
 
@@ -55,14 +55,71 @@
     <string name="show_more">نمایش بیشتر</string>
     <string name="home_tours">سایر ماجراها</string>
     <string name="home_plans">سایر ماجراها‌</string>
-    <string name="toggle_tour">ماجرا</string>
+
+    <string name="toggle_tour">Tour</string>
+    <string name="toggle_place">Place</string>
+
     <string name="plan">ماجرا</string>
     <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است.</string>
     <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید.</string>
     <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد.</string>
-    <string name="report">از سفرتان بیشتر برایمان بگویید..</string>
-    <string name="archived_tours">ماجراهای گذشته</string>
+    <string name="report">Report illegal action</string>
+    <string name="archived_tours">Passed tours</string>
     <string name="success_buy_ticket">خرید با موفقیت انجام شد.</string>
     <string name="add_place">Add place</string>
     <string name="set_location">Set location</string>
+
+    <string name="switch_to_passenger">Switch to passenger</string>
+    <string name="switch_to_leader">Switch to leader</string>
+    <string name="exit">Exit</string>
+    <string name="setting">Setting</string>
+
+    <string name="leader">Leader</string>
+    <string name="passenger">Passenger</string>
+
+    <string name="intro_majara">MAAJARA</string>
+    <string name="intro_subline">Take a tour, Take a tour</string>
+
+    <string name="confirm">Confirm</string>
+
+    <string name="requests">Requests</string>
+
+    <string name="Details">Details</string>
+
+    <string name="of">of</string>
+    <string name="date_range">Date range</string>
+    <string name="until">until</string>
+    <string name="tour_options">Options</string>
+    <string name="Places">Places</string>
+    <string name="register">Register</string>
+    <string name="similar_tours">Similar tours</string>
+
+    <string name="house">House</string>
+    <string name="hotel">Hotel</string>
+    <string name="villa">Villa</string>
+    <string name="suite">Suite</string>
+    <string name="car">Car</string>
+    <string name="minibus">Minibus</string>
+    <string name="bus">Bus</string>
+    <string name="van">Van</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="comma">,</string>
+    <string name="register_successfully">Successfully registered</string>
+    <string name="tour_ended">Tour is over</string>
+    <string name="decided">Decided</string>
+    <string name="pending">Pending</string>
+    <string name="full_capacity">Full capacity</string>
+    <string name="nothing_found">Nothing found</string>
+    <string name="count">Count</string>
+    <string name="buy_ticket">Buy ticket</string>
+    <string name="buy">Buy</string>
+
+    <string name="travel_rate">Your review about this trip</string>
+    <string name="select_places">Select places</string>
+    <string name="search">Search</string>
+    <string name="send">Send</string>
+
+    <string name="image_not_found">Image not found</string>
 </resources>

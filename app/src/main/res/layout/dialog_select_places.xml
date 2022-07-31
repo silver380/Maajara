@@ -9,7 +9,7 @@
         style="@style/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:title="انتخاب مکان" />
+        app:title="@string/select_places" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_very_small"
-            android:hint="جستجو"
+            android:hint="@string/search"
             app:startIconDrawable="@drawable/ic_search">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_margin="@dimen/margin_very_small"
-            android:text="تایید"
+            android:text="@string/confirm"
             app:elevation="0dp" />
 
     </LinearLayout>

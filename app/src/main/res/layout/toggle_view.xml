@@ -25,7 +25,7 @@
         style="@style/button.TextButton"
         android:minWidth="0dp"
         android:textSize="20sp"
-        android:text="ماجرا"
+        android:text="@string/toggle_tour"
         />
 
     <com.google.android.material.button.MaterialButton
@@ -36,7 +36,7 @@
         app:layout_constraintRight_toLeftOf="@id/view_middle"
         style="@style/button.TextButton"
         android:minWidth="0dp"
-        android:text="مکان"
+        android:text="@string/toggle_place"
         android:textSize="20sp"
         android:textColor="@color/colorHint"
         />

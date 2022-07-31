@@ -33,6 +33,7 @@ import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
 import ir.blackswan.travelapp.Data.User;
 import ir.blackswan.travelapp.R;
+import ir.blackswan.travelapp.Utils.Language;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.Views.TourLeaderVerticalView;
@@ -264,7 +265,7 @@ public class TourPageActivity extends ToolbarActivity {
             binding.scTourPage.smoothScrollTo(0, maxScrollY);
         });
         if (!bottomViewIsOpen)
-            binding.scTourPageBottom.scrollTo(0 , 0);
+            binding.scTourPageBottom.scrollTo(0, 0);
 
 
         bottomViewIsOpen = true;
@@ -389,35 +390,35 @@ public class TourPageActivity extends ToolbarActivity {
         passedTour = Utils.isTimeInPassed(tourStartTime);
 
         if (tour.getCreator().equals(user)) {
-            binding.btnTourPageRegister.setText("درخواست‌ها");
+            binding.btnTourPageRegister.setText(R.string.requests);
             binding.btnTourPageRegister.setEnabled(true);
             binding.btnTourPageRegister.setOnClickListener(v -> {
                 startActivityForResult(new Intent(this, UserRequestActivity.class).putExtra("tour", tour)
                         , REQUEST_USERS_ACTIVITY);
             });
         } else if (passedTour) {
-            binding.btnTourPageRegister.setText("ماجرا تمام شده است.");
+            binding.btnTourPageRegister.setText(R.string.tour_ended);
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (confirmTours.contains(tour)) {
-            binding.btnTourPageRegister.setText("قطعی شده");
+            binding.btnTourPageRegister.setText(R.string.decided);
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (pendingTours.contains(tour)) {
-            binding.btnTourPageRegister.setText("در انتظار تایید");
+            binding.btnTourPageRegister.setText(R.string.pending);
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
         } else if (tour.isFull()) {
-            binding.btnTourPageRegister.setText("ظرفیت تکمیل است.");
+            binding.btnTourPageRegister.setText(R.string.full_capacity);
             binding.btnTourPageRegister.setEnabled(false);
             binding.btnTourPageRegister.setOnClickListener(v -> {
             });
 
         } else { // user registering
-            binding.btnTourPageRegister.setText("ثبت‌نام");
+            binding.btnTourPageRegister.setText(R.string.register);
             binding.btnTourPageRegister.setEnabled(true);
             binding.btnTourPageRegister.setOnClickListener(v -> {
                 tourController.register(tour.getTour_id(), new OnResponseDialog(this) {
@@ -427,7 +428,7 @@ public class TourPageActivity extends ToolbarActivity {
                         pendingTours.add(tour);
                         setResult(RESULT_OK);
                         setTourMode();
-                        Toast.makeText(TourPageActivity.this, "ثبت‌نام با موفقیت انجام شد",
+                        Toast.makeText(TourPageActivity.this, getString(R.string.register_successfully),
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                     }
                 });
@@ -457,16 +458,16 @@ public class TourPageActivity extends ToolbarActivity {
         String resident = translate(tour.getResidence());
         String vehicle = translate(tour.getHas_transportation());
         if (breakfast)
-            foods += "صبحانه";
+            foods += getString(R.string.breakfast);
         if (lunch) {
             if (breakfast)
-                foods += "،" + " ";
-            foods += "ناهار";
+                foods += getString(R.string.comma) + " ";
+            foods += getString(R.string.lunch);
         }
         if (dinner) {
             if (!foods.isEmpty())
-                foods += "،" + " ";
-            foods += "شام";
+                foods += getString(R.string.comma) + " ";
+            foods += getString(R.string.dinner);
         }
         if (foods.isEmpty())
             binding.groupTourPageFood.setVisibility(View.GONE);
@@ -493,6 +494,8 @@ public class TourPageActivity extends ToolbarActivity {
         binding.llTourPageLeader.removeAllViews();
         binding.llTourPageLeader.addView(tourLeaderView);
 
+        if (Language.isEnglish(this))
+            binding.cardBackTourPage.setRotation(180);
         binding.cardBackTourPage.setOnClickListener(v -> {
             closeBottomView();
             onBackPressed();
@@ -505,21 +508,21 @@ public class TourPageActivity extends ToolbarActivity {
             case "None":
                 return "";
             case "House":
-                return "خانه";
+                return getString(R.string.house);
             case "Hotel":
-                return "هتل";
+                return getString(R.string.hotel);
             case "Villa":
-                return "ویلا";
+                return getString(R.string.villa);
             case "Suite":
-                return "سوئیت";
+                return getString(R.string.suite);
             case "Car":
-                return "ماشین";
+                return getString(R.string.car);
             case "Minibus":
-                return "مینی بوس";
+                return getString(R.string.minibus);
             case "Bus":
-                return "اتوبوس";
+                return getString(R.string.bus);
             case "Van":
-                return "ون";
+                return getString(R.string.van);
         }
         return word;
     }

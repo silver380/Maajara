@@ -55,4 +55,8 @@ public class Language {
         return sh.getString(LANGUAGE, LANG_DEFAULT);
     }
 
+    public static Boolean isEnglish(Context context){
+        return context.getResources().getConfiguration().locale.getLanguage().equals(LANG_ENGLISH);
+    }
+
 }

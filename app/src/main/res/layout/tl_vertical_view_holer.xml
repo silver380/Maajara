@@ -29,8 +29,8 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tl_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tl_name"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="100dp" />
 
@@ -39,14 +39,13 @@
                 style="@style/textRegular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_very_small"
-                android:gravity="right"
                 android:maxLines="2"
                 app:layout_constraintHorizontal_weight="3"
                 android:text="امیر حسین دلواری احمد پور"
-                app:layout_constraintLeft_toRightOf="@id/tv_tl_rate"
-                app:layout_constraintRight_toLeftOf="@id/tl_iv"
+                app:layout_constraintEnd_toStartOf="@id/tv_tl_rate"
+                app:layout_constraintStart_toEndOf="@id/tl_iv"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -55,23 +54,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_very_small"
-                android:layout_marginRight="@dimen/margin_very_small"
+                android:layout_marginStart="@dimen/margin_very_small"
                 android:maxLines="3"
-                android:layout_marginLeft="@dimen/margin_very_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:text="@string/biography"
-                app:layout_constraintRight_toRightOf="@id/tl_name"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tl_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_name" />
 
             <ImageView
                 android:id="@+id/iv_star"
                 android:layout_width="@dimen/quantity_icon_size"
                 android:layout_height="@dimen/quantity_icon_size"
-                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_star"
 
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tl_name"
                 app:tint="@color/colorIconTint" />
 
@@ -80,20 +79,20 @@
                 style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_very_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:text="4.3"
                 app:layout_constraintBottom_toBottomOf="@id/iv_star"
-                app:layout_constraintLeft_toRightOf="@id/iv_star"
+                app:layout_constraintEnd_toStartOf="@id/iv_star"
                 app:layout_constraintTop_toTopOf="@id/iv_star" />
 
             <LinearLayout
                 android:id="@+id/g_line"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tl_iv"
+                app:layout_constraintStart_toEndOf="@id/tl_iv"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
@@ -103,8 +102,8 @@
                 android:visibility="gone"
                 android:layout_marginVertical="@dimen/margin_small"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/g_line"
-                app:layout_constraintRight_toLeftOf="@id/tl_iv"
+                app:layout_constraintEnd_toStartOf="@id/g_line"
+                app:layout_constraintStart_toEndOf="@id/tl_iv"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:paddingBottom="@dimen/padding_medium"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/tl_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tl_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_tl_bio"
                 app:layout_constraintBottom_toBottomOf="parent">
 
@@ -126,8 +125,8 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_telephone"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/e_mail_iv"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/e_mail_iv"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -139,8 +138,8 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_email"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/tel_iv"
-                    app:layout_constraintRight_toLeftOf="@id/phone_iv"
+                    app:layout_constraintEnd_toStartOf="@id/tel_iv"
+                    app:layout_constraintStart_toEndOf="@id/phone_iv"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -152,8 +151,8 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_telegram"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/w_app_iv"
-                    app:layout_constraintRight_toLeftOf="@id/e_mail_iv"
+                    app:layout_constraintEnd_toStartOf="@id/w_app_iv"
+                    app:layout_constraintStart_toEndOf="@id/e_mail_iv"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -165,8 +164,8 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_whatsapp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tel_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tel_iv"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

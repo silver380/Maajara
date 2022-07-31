@@ -26,8 +26,8 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_weight="2.35"
-                app:layout_constraintLeft_toRightOf="@id/view_column2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_column2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/confirm_button_tl"
                 app:riv_corner_radius="100dp" />
@@ -37,8 +37,8 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintLeft_toRightOf="@id/ll_iv"
-                app:layout_constraintRight_toLeftOf="@id/iv_tl"
+                app:layout_constraintEnd_toStartOf="@id/ll_iv"
+                app:layout_constraintStart_toEndOf="@id/iv_tl"
                 app:layout_constraintTop_toTopOf="@id/iv_tl" />
 
             <TextView
@@ -46,12 +46,12 @@
                 style="@style/textTittleMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_very_small"
+                android:layout_marginEnd="@dimen/margin_very_small"
                 android:maxLines="2"
-                android:text=" راهنمای سفر"
+                android:text="@string/leader"
                 app:layout_constraintBottom_toTopOf="@id/bio_tv"
-                app:layout_constraintLeft_toRightOf="@id/pointsOf_tl_tv"
-                app:layout_constraintRight_toRightOf="@id/view_column2"
+                app:layout_constraintEnd_toStartOf="@id/ll_leader_rate"
+                app:layout_constraintStart_toStartOf="@id/view_column2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -59,15 +59,15 @@
                 style="@style/textHint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:justificationMode="inter_word"
                 android:maxLines="4"
                 android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون  "
                 app:layout_constraintBottom_toTopOf="@id/price_tv"
-                app:layout_constraintLeft_toRightOf="@id/ll_iv"
-                app:layout_constraintRight_toRightOf="@id/tv_tl_name"
+                app:layout_constraintEnd_toStartOf="@id/ll_iv"
+                app:layout_constraintStart_toStartOf="@id/tv_tl_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_tl_name" />
 
             <TextView
@@ -78,33 +78,47 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="قیمت پیشنهادی"
                 app:layout_constraintBottom_toTopOf="@id/confirm_button_tl"
-                app:layout_constraintRight_toRightOf="@id/bio_tv"
+                app:layout_constraintStart_toStartOf="@id/bio_tv"
                  />
 
-            <ImageView
-                android:id="@+id/iv_star"
-                android:layout_width="@dimen/quantity_icon_size"
-                android:layout_height="@dimen/quantity_icon_size"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
-                android:src="@drawable/ic_star"
-                app:layout_constraintBottom_toBottomOf="@id/pointsOf_tl_tv"
-                app:layout_constraintLeft_toRightOf="@id/ll_iv"
-                app:layout_constraintRight_toLeftOf="@id/pointsOf_tl_tv"
-                app:layout_constraintTop_toTopOf="@id/pointsOf_tl_tv"
-                app:tint="@color/colorIconTint" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/pointsOf_tl_tv"
-                style="@style/textSmall"
+            <LinearLayout
+                android:id="@+id/ll_leader_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small"
-                android:text="4.3"
+                android:layout_marginHorizontal="@dimen/margin_very_small"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@id/tv_tl_name"
-                app:layout_constraintLeft_toRightOf="@id/iv_star"
-                app:layout_constraintRight_toLeftOf="@id/iv_star"
-                app:layout_constraintTop_toTopOf="@id/tv_tl_name" />
+                app:layout_constraintTop_toTopOf="@id/tv_tl_name"
+                app:layout_constraintEnd_toStartOf="@id/ll_iv"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
+                    >
+
+
+                <ImageView
+                    android:layout_width="@dimen/quantity_icon_size"
+                    android:layout_height="@dimen/quantity_icon_size"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/colorIconTint" />
+
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.3"
+                    android:layout_marginHorizontal="@dimen/margin_very_small"
+                    />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_iv"
@@ -112,11 +126,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/view_column2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/view_column2"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
@@ -130,7 +144,7 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_telephone"
                     app:layout_constraintBottom_toTopOf="@id/e_mail_iv"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -143,7 +157,7 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_email"
                     app:layout_constraintBottom_toTopOf="@id/tel_iv"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/phone_iv" />
 
 
@@ -157,7 +171,7 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_telegram"
                     app:layout_constraintBottom_toTopOf="@id/w_app_iv"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/e_mail_iv" />
 
                 <ImageView
@@ -170,7 +184,7 @@
                     android:padding="@dimen/icons_padding"
                     android:src="@drawable/ic_whatsapp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tel_iv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -180,7 +194,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:visibility="gone"
-                app:layout_constraintRight_toLeftOf="@id/iv_tl"
+                app:layout_constraintStart_toEndOf="@id/iv_tl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
@@ -188,12 +202,12 @@
                 style="@style/button.primaryButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:paddingHorizontal="@dimen/padding_small"
                 android:text="تایید"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/ll_iv"
-                app:layout_constraintRight_toRightOf="@id/price_tv"
+                app:layout_constraintEnd_toStartOf="@id/ll_iv"
+                app:layout_constraintStart_toStartOf="@id/price_tv"
                 />
 
 
