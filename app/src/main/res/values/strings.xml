@@ -148,6 +148,9 @@
     <string name="Resent_activation_code">ارسال مجدد کد</string>
     <string name="password">کلمه ‌عبور</string>
     <string name="no_account_question">حسابی در برنامه ندارید؟</string>
+    <string name="destination">مقصد</string>
+    <string name="end_date">تاریخ پایان</string>
+    <string name="no_item_chosen_click_plus">موردی اضافه نشده است. برای افزودن + را کلیک نمایید.</string>
 
 
 </resources>

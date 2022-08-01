@@ -55,7 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:hint="مقصد"
+                        android:hint="@string/destination"
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_location">
 
@@ -73,7 +73,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="تاریخ شروع"
+                        android:hint="@string/start_date"
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_calendar">
 
@@ -90,7 +90,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="تاریخ پایان"
+                        android:hint="@string/end_date"
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_calendar">
 
@@ -157,7 +157,7 @@
                         android:gravity="center"
                         android:paddingTop="@dimen/padding_small"
                         android:paddingBottom="@dimen/padding_large"
-                        android:text="موردی اضافه نشده است\nبرای افزودن + را کلیک نمایید" />
+                        android:text="@string/no_item_chosen_click_plus" />
 
 
                     <LinearLayout
@@ -233,7 +233,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
-                android:text="تایید"
+                android:text="@string/confirm"
                 android:textColor="@color/colorWhite" />
 
 

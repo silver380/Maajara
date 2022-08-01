@@ -35,7 +35,7 @@
     <string name="confirmedTours">قطعی شده‌ها</string>
     <string name="wanted_list">مواردی که می‌خواهم</string>
     <string name="add_tour_tittle">ماجرای جدید</string>
-    <string name="add_plan_tittle">ماجرای جدید</string>
+    <string name="add_plan_tittle">New plan</string>
 
     <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد.</string>
 
@@ -160,4 +160,8 @@
     <string name="Resent_activation_code">Resend activation code.</string>
     <string name="password">Password</string>
     <string name="no_account_question">No account?</string>
+    <string name="destination">Destination</string>
+    <string name="end_date">End date</string>
+    <string name="no_item_chosen_click_plus">No item is chosen. Click + icon.</string>
+
 </resources>
