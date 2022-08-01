@@ -98,24 +98,24 @@ public class SettingActivity extends ToolbarActivity {
         Resources r = getResources();
         if (!user.is_tour_leader()) {
             if (!user.isRequested_for_upgrade()) {
-                text = "ارسال نشده";
+                text = getString(R.string.Unknown);
                 backColor = r.getColor(R.color.colorDividers);
             } else if (user.getUpgrade_note() == null || user.getUpgrade_note().isEmpty()) {
-                text = "در انتظار تایید";
+                text = getString(R.string.pending);
                 backColor = r.getColor(R.color.colorWarning);
             } else {
-                text = "درخواست رد شده";
+                text = getString(R.string.Rejected);
                 backColor = r.getColor(R.color.colorError);
                 binding.tvLeaderInfoStatus.setOnClickListener(v -> {
                     OnResponseDialog onResponseDialog = new OnResponseDialog(this);
-                    onResponseDialog.getBinding().btnOnResponseTryAgain.setText("باشه");
+                    onResponseDialog.getBinding().btnOnResponseTryAgain.setText(R.string.Ok);
                     onResponseDialog.getBinding().btnOnResponseTryAgain.setOnClickListener(v1 -> onResponseDialog.dismiss());
                     onResponseDialog.getBinding().tvOnResponseMessage.setText(user.getUpgrade_note());
                     onResponseDialog.show();
                 });
             }
         } else {
-            text = "تایید شده";
+            text = getString(R.string.Confirmed);
             backColor = r.getColor(R.color.colorSuccess);
         }
         binding.tvLeaderInfoStatus.setText(text);
@@ -126,8 +126,8 @@ public class SettingActivity extends ToolbarActivity {
     private void setInputTypes() {
         birthDate = new MaterialPersianDateChooser(this, binding.etSettingBirthday);
         birthDate.getDialog().setMinYear(1310).setMaxYear(new PersianDateImpl().getPersianYear() - 18);
-        gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem("مرد"),
-                new PowerMenuItem("زن")));
+        gender = MyInputTypes.spinner(binding.etSettingGender, Arrays.asList(new PowerMenuItem(getString(R.string.Male)),
+                new PowerMenuItem(getString(R.string.Female))));
 
         MyInputTypes.showFileChooser(binding.etSettingClearanceDoc, this, "application/pdf", result -> {
             if (result.getResultCode() == RESULT_OK) {
@@ -183,7 +183,7 @@ public class SettingActivity extends ToolbarActivity {
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
-            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره تلاش کنید.", Toast.LENGTH_LONG,
+            Toast.makeText(this, getString(R.string.Image_error), Toast.LENGTH_LONG,
                     Toast.TYPE_ERROR).show();
         }
     }
@@ -277,7 +277,7 @@ public class SettingActivity extends ToolbarActivity {
                             @Override
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
-                                Toast.makeText(SettingActivity.this, "تغییرات با موفقیت ذخیره شد"
+                                Toast.makeText(SettingActivity.this, getString(R.string.changed_succesfully)
                                         , Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                                 setResult(RESULT_OK);
                                 setTourLeaderStatus();
@@ -330,30 +330,30 @@ public class SettingActivity extends ToolbarActivity {
                     binding.etSettingBio, binding.etSettingGender, binding.etSettingClearanceDoc));
             checker.add(binding.etSettingSsn, editText -> {
                 if (getEditableText(editText.getText()).length() != 10)
-                    return "کد ملی حتما باید ۱۰ رقم باشد";
+                    return getString(R.string.national_id_limits);
                 else
                     return null;
             });
             checker.add(binding.etSettingBirthday, editText -> {
                 if (getEditableText(editText.getText()).isEmpty())
-                    return editText.getHint() + " ضروری است";
+                    return editText.getHint() + getString(R.string.it_is_necessary);
                 else if (Utils.numDaysBetween(birthDate.getCalendar().getGregorianDate().getTime()
                         , Calendar.getInstance().getTime().getTime()) < 365 * 18)
-                    return "سن شما باید بزرگتر از ۱۸ باشد";
+                    return getString(R.string.should_older_than_18);
 
                 return null;
             });
             checker.add(binding.etSettingMobile, editText -> {
                 if (getEditableText(editText.getText()).isEmpty())
-                    return editText.getHint() + " ضروری است";
+                    return editText.getHint() + getString(R.string.it_is_necessary);
                 if (!isValidMobileNumber(getEditableText(editText.getText())))
-                    return "فرمت شماره تماس نادرست است. (مثال: 9120000000)";
+                    return getString(R.string.incorrect_phone_number_format_example);
                 return null;
             });
 
             checker.add(binding.etSettingBio, (TextInputsChecker.Error) editText -> {
                 if (getEditableText(editText.getText()).length() > BIO_MAX_LENGTH)
-                    return "تعداد کاراکتر بیش از حد مجاز است.";
+                    return getString(R.string.too_much_characters);
                 return null;
             });
         }

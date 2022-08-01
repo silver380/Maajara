@@ -110,6 +110,39 @@
     <string name="send">ارسال</string>
     <string name="toggle_place">مکان</string>
     <string name="image_not_found">تصویر یافت نشد</string>
+    <string name="passenger_information">اطلاعات مسافر</string>
+    <string name="last_name">نام خانوادگی</string>
+    <string name="first_name">نام</string>
+    <string name="email">ایمیل</string>
+    <string name="tl_information">اطلاعات راهنمای سفر</string>
+    <string name="gender">جنسیت</string>
+    <string name="national_id">کد ملی</string>
+    <string name="birth_date">تاریخ تولد</string>
+    <string name="certificate_of_clean_records">مدرک عدم سوء پیشینه</string>
+    <string name="Biography_and_tourism_experience">شرح‌حال و سابقه فعالیت در زمینه گردشگری</string>
+    <string name="Language_skills">مهارت های زبانی</string>
+    <string name="contacts">راه‌های ارتباطی</string>
+    <string name="Phone_number">شماره تماس</string>
+    <string name="phone_number_example">برای مثال: 9120000000</string>
+    <string name="telegram">تلگرام</string>
+    <string name="user_name">نام کاربری</string>
+    <string name="no_need_for_AT_sign">نیازی به @ نیست</string>
+    <string name="WhatsApp">واتساپ</string>
+    <string name="save">ذخیره</string>
+    <string name="upgrade_tl">ارتقا به راهنمای سفر</string>
+    <string name="Rejected">درخواست رد شده</string>
+    <string name="Unknown">ارسال نشده</string>
+    <string name="Confirmed">تایید شده</string>
+    <string name="Male">مرد</string>
+    <string name="Female">زن</string>
+    <string name="Image_error">خطا در شناسایی تصویر. لطفا دوباره تلاش کنید.</string>
+    <string name="Ok">باشه</string>
+    <string name="changed_succesfully">تغییرات با موفقیت ذخیره شد.</string>
+    <string name="national_id_limits">کد ملی حتما باید ۱۰ رقم باشد</string>
+    <string name="it_is_necessary">ضروری است.</string>
+    <string name="should_older_than_18">سن شما باید بزرگتر از ۱۸ باشد</string>
+    <string name="incorrect_phone_number_format_example">فرمت شماره تماس نادرست است. (مثال: 9120000000)</string>
+    <string name="too_much_characters">تعداد کاراکتر بیش از حد مجاز است.</string>
 
 
 </resources>

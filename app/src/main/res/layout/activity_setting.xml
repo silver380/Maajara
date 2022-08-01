@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="تنظیمات" />
+        app:title="@string/setting" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,8 +34,8 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/margin_medium"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.32" />
 
@@ -48,8 +48,8 @@
                 android:backgroundTint="@color/colorIconTint"
                 android:padding="@dimen/icons_padding"
                 android:src="@drawable/ic_camera"
-                android:layout_marginLeft="@dimen/margin_medium"
-                app:layout_constraintLeft_toRightOf="@id/piv_setting"
+                android:layout_marginEnd="@dimen/margin_medium"
+                app:layout_constraintEnd_toStartOf="@id/piv_setting"
                 app:layout_constraintTop_toTopOf="@id/piv_setting"
                 app:layout_constraintBottom_toBottomOf="@id/piv_setting" />
 
@@ -57,14 +57,14 @@
                 android:id="@+id/iv_setting_delete_profile"
                 android:layout_width="@dimen/secondary_icon_size"
                 android:layout_height="@dimen/secondary_icon_size"
-                android:layout_marginRight="@dimen/margin_very_small"
+                android:layout_marginStart="@dimen/margin_very_small"
                 android:background="@drawable/circle_solid"
                 android:backgroundTint="@color/colorError"
                 android:padding="@dimen/icons_padding"
                 android:visibility="gone"
                 android:src="@drawable/ic_delete"
-                app:layout_constraintLeft_toLeftOf="@id/piv_setting"
-                app:layout_constraintRight_toLeftOf="@id/iv_setting_edit_profile"
+                app:layout_constraintEnd_toEndOf="@id/piv_setting"
+                app:layout_constraintStart_toEndOf="@id/iv_setting_edit_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_setting_edit_profile" />
 
             <com.google.android.material.card.MaterialCardView
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="اطلاعات مسافر" />
+                        android:text="@string/passenger_information" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -103,10 +103,10 @@
                             style="@style/textInputLayout.outLinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_very_small"
+                            android:layout_marginEnd="@dimen/margin_very_small"
                             android:layout_marginTop="@dimen/margin_small"
                             android:layout_weight="1"
-                            android:hint="نام"
+                            android:hint="@string/first_name"
                             app:errorEnabled="true"
                             app:startIconDrawable="@drawable/ic_user">
 
@@ -125,9 +125,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginRight="@dimen/margin_very_small"
+                            android:layout_marginStart="@dimen/margin_very_small"
                             android:layout_weight="1"
-                            android:hint="نام خانوادگی"
+                            android:hint="@string/last_name"
                             app:errorEnabled="true"
                             app:startIconDrawable="@drawable/ic_user">
 
@@ -148,7 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:hint="ایمیل"
+                        android:hint="@string/email"
                         app:startIconDrawable="@drawable/ic_email">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -174,9 +174,9 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
-                android:text="ارتقا به راهنمای سفر"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:text="@string/upgrade_tl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/crd_setting_tour_leader"
 
                 />
@@ -206,7 +206,7 @@
                         android:layout_width="@dimen/tertiary_icon_size"
                         android:layout_height="@dimen/tertiary_icon_size"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_margin="-5dp"
                         android:tint="@color/colorHint"
                         android:padding="@dimen/icons_padding"
@@ -225,7 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="اطلاعات راهنمای سفر" />
+                            android:text="@string/tl_information" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_leader_info_status"
@@ -233,11 +233,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_small"
                             android:background="@drawable/rec_small_radius_filled"
                             android:gravity="center_vertical"
                             android:paddingHorizontal="@dimen/padding_small"
-                            android:text="تایید نشده" />
+                            android:text="@string/pending" />
                     </LinearLayout>
 
                     <View
@@ -245,8 +245,8 @@
                         android:layout_width="@dimen/margin_small"
                         android:layout_height="1dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -255,10 +255,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:hint="کد ملی"
+                        android:hint="@string/national_id"
                         app:errorEnabled="true"
-                        app:layout_constraintRight_toLeftOf="@id/view_middle"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/view_middle"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ll_top_card"
                         app:startIconDrawable="@drawable/ic_personal_card">
 
@@ -276,10 +276,10 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="جنسیت"
+                        android:hint="@string/gender"
                         app:errorEnabled="true"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/view_middle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/view_middle"
                         app:layout_constraintTop_toTopOf="@id/til_ssn"
                         app:startIconDrawable="@drawable/ic_gender">
 
@@ -297,7 +297,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="تاریخ تولد"
+                        android:hint="@string/birth_date"
                         app:errorEnabled="true"
                         app:layout_constraintTop_toBottomOf="@id/til_ssn"
 
@@ -324,7 +324,7 @@
                             style="@style/textInputLayout.outLinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="مدرک عدم سوء پیشینه"
+                            android:hint="@string/certificate_of_clean_records"
                             app:errorEnabled="true"
                             app:startIconDrawable="@drawable/ic_gun">
 
@@ -362,7 +362,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:hint="شرح‌حال و سابقه فعالیت در زمینه گردشگری"
+                            android:hint="@string/Biography_and_tourism_experience"
                             app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -385,7 +385,7 @@
                             style="@style/textSmall.hintColor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|left"
+                            android:layout_gravity="bottom|end"
                             android:layout_margin="@dimen/margin_very_small"
                             android:text="0/300" />
 
@@ -396,7 +396,7 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="مهارت های زبانی"
+                        android:hint="@string/Language_skills"
                         app:layout_constraintTop_toBottomOf="@id/fl_bio">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -420,7 +420,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="راه‌های ارتباطی"
+                        android:text="@string/contacts"
                         app:layout_constraintTop_toBottomOf="@id/til_skills" />
 
 
@@ -429,10 +429,10 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="شماره تماس"
+                        android:hint="@string/Phone_number"
                         android:orientation="horizontal"
                         app:errorEnabled="true"
-                        app:helperText="برای مثال: 9120000000"
+                        app:helperText="@string/phone_number_example"
                         app:helperTextTextAppearance="@style/textHint"
                         app:layout_constraintTop_toBottomOf="@id/tv_connect"
                         app:startIconDrawable="@drawable/ic_telephone">
@@ -455,9 +455,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_very_small"
-                        android:text="تلگرام"
-                        app:layout_constraintLeft_toRightOf="@id/view_middle"
-                        app:layout_constraintRight_toRightOf="parent"
+                        android:text="@string/telegram"
+                        app:layout_constraintEnd_toStartOf="@id/view_middle"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/til_mobile" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -465,11 +465,11 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="نام کاربری"
-                        app:helperText="نیازی به @ نیست"
+                        android:hint="@string/user_name"
+                        app:helperText="@string/no_need_for_AT_sign"
                         app:helperTextTextAppearance="@style/textHint"
-                        app:layout_constraintLeft_toLeftOf="@id/cb_setting_telegram"
-                        app:layout_constraintRight_toRightOf="@id/cb_setting_telegram"
+                        app:layout_constraintEnd_toEndOf="@id/cb_setting_telegram"
+                        app:layout_constraintStart_toStartOf="@id/cb_setting_telegram"
                         app:layout_constraintTop_toBottomOf="@id/cb_setting_telegram"
                         app:startIconDrawable="@drawable/ic_telegram">
 
@@ -487,9 +487,9 @@
                         style="@style/textSmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="واتساپ"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/view_middle"
+                        android:text="@string/WhatsApp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/view_middle"
                         app:layout_constraintTop_toTopOf="@id/cb_setting_telegram" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -497,12 +497,12 @@
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="شماره تماس"
+                        android:hint="@string/Phone_number"
                         app:errorEnabled="true"
-                        app:helperText="برای مثال: 9120000000"
+                        app:helperText="@string/phone_number_example"
                         app:helperTextTextAppearance="@style/textHint"
-                        app:layout_constraintLeft_toLeftOf="@id/cb_setting_whatsapp"
-                        app:layout_constraintRight_toRightOf="@id/cb_setting_whatsapp"
+                        app:layout_constraintEnd_toEndOf="@id/cb_setting_whatsapp"
+                        app:layout_constraintStart_toStartOf="@id/cb_setting_whatsapp"
                         app:layout_constraintTop_toBottomOf="@id/cb_setting_whatsapp"
                         app:startIconDrawable="@drawable/ic_whatsapp">
 
@@ -529,9 +529,9 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                 android:paddingVertical="@dimen/btn_large_padding_vertical"
-                android:text="ذخیره"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_setting_show_leader_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -122,4 +122,37 @@
     <string name="send">Send</string>
 
     <string name="image_not_found">Image not found</string>
+    <string name="passenger_information">Passenger information</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="email">E-mail</string>
+    <string name="tl_information">Tour leader information</string>
+    <string name="gender">Gender</string>
+    <string name="national_id">National ID</string>
+    <string name="birth_date">Birth date</string>
+    <string name="certificate_of_clean_records">Certificate of clean records</string>
+    <string name="Biography_and_tourism_experience">Biography and tourism experience</string>
+    <string name="Language_skills">Language_skills</string>
+    <string name="contacts">Contacts</string>
+    <string name="Phone_number">Phone number</string>
+    <string name="phone_number_example">For example: 9120000000</string>
+    <string name="telegram">Telegram</string>
+    <string name="user_name">User name</string>
+    <string name="no_need_for_AT_sign">No need for @</string>
+    <string name="WhatsApp">WhatsApp</string>
+    <string name="save">Save</string>
+    <string name="upgrade_tl">Upgrade to tour leader</string>
+    <string name="Rejected">Rejected</string>
+    <string name="Unknown">Unknown</string>
+    <string name="Confirmed">Confirmed</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Image_error">Image recognition error.Try again!</string>
+    <string name="Ok">Ok</string>
+    <string name="changed_succesfully">Changed successfully.</string>
+    <string name="national_id_limits">National ID should contain 10 digits.</string>
+    <string name="it_is_necessary">is necessary.</string>
+    <string name="should_older_than_18">You should be older than 18.</string>
+    <string name="incorrect_phone_number_format_example">Incorrect format of phone number.(for example: 9120000000)</string>
+    <string name="too_much_characters">Too much characters.</string>
 </resources>
