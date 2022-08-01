@@ -155,4 +155,9 @@
     <string name="should_older_than_18">You should be older than 18.</string>
     <string name="incorrect_phone_number_format_example">Incorrect format of phone number.(for example: 9120000000)</string>
     <string name="too_much_characters">Too much characters.</string>
+    <string name="login">ورود</string>
+    <string name="Activation_code_sent_Enter">کد فعالسازی برای ... ارسال شد لطفا کد را وارد کنید</string>
+    <string name="Resent_activation_code">ارسال مجدد کد</string>
+    <string name="password">کلمه ‌عبور</string>
+    <string name="no_account_question">حسابی در برنامه ندارید؟</string>
 </resources>

@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ورود"
+            android:text="@string/login"
             android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/iv_login_back"
             android:layout_width="@dimen/secondary_icon_size"
             android:layout_height="@dimen/secondary_icon_size"
-            android:layout_gravity="right|center"
+            android:layout_gravity="start|center"
             android:layout_marginTop="@dimen/margin_very_small"
             android:padding="@dimen/padding_small"
             android:src="@drawable/ic_back"
@@ -46,8 +46,8 @@
             style="@style/textSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="کد فعالسازی برای ... ارسال شد لطفا کد را وارد کنید" />
+            android:gravity="start"
+            android:text="@string/Activation_code_sent_Enter" />
 
         <com.poovam.pinedittextfield.LinePinField
             android:id="@+id/pin_login"
@@ -75,8 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_very_small"
-            android:layout_marginRight="-10dp"
-            android:text="ارسال مجدد کد" />
+            android:layout_marginStart="-10dp"
+            android:text="@string/Resent_activation_code" />
 
     </LinearLayout>
 
@@ -93,7 +93,7 @@
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="نام"
+            android:hint="@string/first_name"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_user">
 
@@ -111,7 +111,7 @@
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="نام خانوادگی"
+            android:hint="@string/last_name"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_user">
 
@@ -129,7 +129,7 @@
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ایمیل"
+            android:hint="@string/email"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_email">
 
@@ -147,7 +147,7 @@
             style="@style/textInputLayout.outLinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="کلمه ‌عبور"
+            android:hint="@string/password"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/ic_lock">
@@ -205,7 +205,7 @@
             style="@style/textHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="حسابی در برنامه ندارید؟" />
+            android:text="@string/no_account_question" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login_go_to_another"
@@ -213,7 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding_small"
-            android:text="ثبت‌نام" />
+            android:text="@string/register" />
 
     </LinearLayout>
 

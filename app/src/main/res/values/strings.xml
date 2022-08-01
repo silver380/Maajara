@@ -143,6 +143,11 @@
     <string name="should_older_than_18">سن شما باید بزرگتر از ۱۸ باشد</string>
     <string name="incorrect_phone_number_format_example">فرمت شماره تماس نادرست است. (مثال: 9120000000)</string>
     <string name="too_much_characters">تعداد کاراکتر بیش از حد مجاز است.</string>
+    <string name="login">ورود</string>
+    <string name="Activation_code_sent_Enter">کد فعالسازی برای ... ارسال شد لطفا کد را وارد کنید</string>
+    <string name="Resent_activation_code">ارسال مجدد کد</string>
+    <string name="password">کلمه ‌عبور</string>
+    <string name="no_account_question">حسابی در برنامه ندارید؟</string>
 
 
 </resources>
