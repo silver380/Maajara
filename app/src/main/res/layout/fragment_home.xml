@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_home_profile"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_mode"
                 app:layout_constraintEnd_toStartOf="@id/group_home_ticket"
-                android:text="سید محمد حسین حسینی نسب"
+                android:text="@string/first_name"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_large"
@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="@id/tv_home_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_name"
                 app:layout_constraintBottom_toBottomOf="@id/iv_home_profile"
-                app:layout_constraintLeft_toLeftOf="@id/tv_home_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_home_name"
                 android:text="@string/leader"
                 android:textColor="@color/colorHint"
                 android:maxLines="1"
@@ -64,7 +64,7 @@
                 android:id="@+id/group_home_ticket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|center"
+                android:layout_gravity="end|center"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/colorBackgroundDarker"
                 app:cardCornerRadius="@dimen/radius_medium"
@@ -78,8 +78,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/padding_medium"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -87,7 +87,7 @@
                         style="@style/textRegular"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_very_small"
+                        android:layout_marginEnd="@dimen/margin_very_small"
                         android:gravity="center"
                         android:text="15" />
 
