@@ -24,12 +24,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
             android:alpha=".7"
             android:background="#CCFFFFFF"
             app:cardCornerRadius="@dimen/radius_small"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
@@ -52,8 +52,8 @@
             android:layout_marginBottom="@dimen/margin_very_small"
             android:src="@drawable/ic_location"
             app:layout_constraintBottom_toTopOf="@id/duration_iv"
-            app:layout_constraintLeft_toLeftOf="@id/duration_iv"
-            app:layout_constraintRight_toRightOf="@id/duration_iv"
+            app:layout_constraintEnd_toEndOf="@id/duration_iv"
+            app:layout_constraintStart_toStartOf="@id/duration_iv"
             app:tint="@color/colorWhite" />
 
         <TextView
@@ -61,22 +61,22 @@
             style="@style/textSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_very_small"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:text="@string/location"
             android:textColor="#E6FFFFFF"
             app:layout_constraintBottom_toBottomOf="@id/loc_iv"
-            app:layout_constraintRight_toLeftOf="@id/loc_iv"
+            app:layout_constraintStart_toEndOf="@id/loc_iv"
             app:layout_constraintTop_toTopOf="@id/loc_iv" />
 
         <ImageView
             android:id="@+id/duration_iv"
             android:layout_width="@dimen/quantity_icon_size"
             android:layout_height="@dimen/quantity_icon_size"
-            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:src="@drawable/ic_duration"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:tint="@color/colorWhite" />
 
         <TextView
@@ -84,35 +84,35 @@
             style="@style/textSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_very_small"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:text="@string/start_date"
             android:textColor="#E6FFFFFF"
             app:layout_constraintBottom_toBottomOf="@id/duration_iv"
-            app:layout_constraintRight_toLeftOf="@id/duration_iv"
+            app:layout_constraintStart_toEndOf="@id/duration_iv"
             app:layout_constraintTop_toTopOf="@id/duration_iv" />
 
         <ImageView
             android:id="@+id/moon_iv"
             android:layout_width="@dimen/quantity_icon_size"
             android:layout_height="@dimen/quantity_icon_size"
-            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:src="@drawable/ic_moon"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/colorWhite" />
 
         <TextView
             android:id="@+id/tv_tvh_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_very_small"
+            android:layout_marginEnd="@dimen/margin_very_small"
             android:text="-1"
             android:visibility="gone"
             android:textColor="#E6FFFFFF"
             app:layout_constraintBottom_toBottomOf="@id/moon_iv"
-            app:layout_constraintLeft_toRightOf="@id/moon_iv"
+            app:layout_constraintEnd_toStartOf="@id/moon_iv"
             app:layout_constraintTop_toTopOf="@id/moon_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
