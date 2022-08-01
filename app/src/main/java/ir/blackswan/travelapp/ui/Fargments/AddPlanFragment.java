@@ -58,7 +58,7 @@ public class AddPlanFragment extends Fragment {
 
         binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL,
                 false));
-        binding.rclPlanPlaces.setText("مکانی انتخاب نشده است\nبرای انتخاب + را کلیک نمایید.");
+        binding.rclPlanPlaces.setText(getString(R.string.no_item_chosen_click_plus));
         binding.rclPlanPlaces.setErrorText(binding.rclPlanPlaces.getText());
         binding.rclPlanPlaces.textState();
 
@@ -84,7 +84,7 @@ public class AddPlanFragment extends Fragment {
     private void setChecker() {
         TextInputsChecker.Error error = editText -> {
             if (editText.getText() == null || editText.getText().toString().isEmpty())
-                return editText.getHint() + " ضروری است";
+                return editText.getHint() + getString(R.string.it_is_necessary);
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
 
@@ -246,7 +246,7 @@ public class AddPlanFragment extends Fragment {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-                        Toast.makeText(mainActivity, "برنامه سفر با موفقیت اضافه شد",
+                        Toast.makeText(mainActivity, getString(R.string.plan_added_successfully),
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
 
                         mainActivity.navigateToId(R.id.navigation_home);

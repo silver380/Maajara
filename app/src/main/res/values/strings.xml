@@ -139,7 +139,7 @@
     <string name="Ok">باشه</string>
     <string name="changed_succesfully">تغییرات با موفقیت ذخیره شد.</string>
     <string name="national_id_limits">کد ملی حتما باید ۱۰ رقم باشد</string>
-    <string name="it_is_necessary">ضروری است.</string>
+    <string name="it_is_necessary"> ضروری است.</string>
     <string name="should_older_than_18">سن شما باید بزرگتر از ۱۸ باشد</string>
     <string name="incorrect_phone_number_format_example">فرمت شماره تماس نادرست است. (مثال: 9120000000)</string>
     <string name="too_much_characters">تعداد کاراکتر بیش از حد مجاز است.</string>
@@ -150,7 +150,9 @@
     <string name="no_account_question">حسابی در برنامه ندارید؟</string>
     <string name="destination">مقصد</string>
     <string name="end_date">تاریخ پایان</string>
-    <string name="no_item_chosen_click_plus">موردی اضافه نشده است. برای افزودن + را کلیک نمایید.</string>
+    <string name="no_item_chosen_click_plus">موردی اضافه نشده است.
+        برای افزودن + را کلیک نمایید.</string>
+    <string name="plan_added_successfully">برنامه سفر با موفقیت اضافه شد.</string>
 
 
 </resources>

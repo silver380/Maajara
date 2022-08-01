@@ -6,7 +6,7 @@
     <string name="title_add">Add</string>
     <string name="title_archive">Archive</string>
     <string name="TourName">نام ماجرا</string>
-    <string name="location">location</string>
+    <string name="location">Location</string>
     <string name="places">Places</string>
     <string name="information">Information</string>
     <string name="capacity">Capacity</string>
@@ -37,13 +37,13 @@
     <string name="add_tour_tittle">ماجرای جدید</string>
     <string name="add_plan_tittle">New plan</string>
 
-    <string name="date_error">تاریخ شروع نمی‌تواند جلوتر از تاریخ پایان باشد.</string>
+    <string name="date_error">ُEnd date is earlier than start date!</string>
 
 
     <string name="text_problem">your trip</string>
     <string name="clickable_text_problem">Rate</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="fix_errors">لطفا موارد نمایش داده شده را برطرف نمایید.</string>
+    <string name="fix_errors">Fix errors!</string>
 
     <string name="no_place_select">مکانی انتخاب نشده است.\nبرای انتخاب + را کلیک نمایید.</string>
 
@@ -151,7 +151,7 @@
     <string name="Ok">Ok</string>
     <string name="changed_succesfully">Changed successfully.</string>
     <string name="national_id_limits">National ID should contain 10 digits.</string>
-    <string name="it_is_necessary">is necessary.</string>
+    <string name="it_is_necessary"> is necessary.</string>
     <string name="should_older_than_18">You should be older than 18.</string>
     <string name="incorrect_phone_number_format_example">Incorrect format of phone number.(for example: 9120000000)</string>
     <string name="too_much_characters">Too much characters.</string>
@@ -163,5 +163,6 @@
     <string name="destination">Destination</string>
     <string name="end_date">End date</string>
     <string name="no_item_chosen_click_plus">No item is chosen. Click + icon.</string>
+    <string name="plan_added_successfully">Added successfully.</string>
 
 </resources>

@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/padding_small"
-                android:text=" 75000ت "
+                android:text=" 75000 "
 
                 />
         </com.google.android.material.card.MaterialCardView>
