@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="تایید شده" />
+            android:text="@string/Confirmed" />
 
         <ir.blackswan.travelapp.Views.ShowMoreRecyclerView
             android:id="@+id/rcl_confirmed_plans"

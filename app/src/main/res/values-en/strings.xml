@@ -48,13 +48,13 @@
     <string name="no_place_select">مکانی انتخاب نشده است.\nبرای انتخاب + را کلیک نمایید.</string>
 
     <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
-    <string name="my_tours">ماجراهای ساخته شده من</string>
+    <string name="my_tours">My tours.</string>
     <string name="recycler_default_text">موردی یافت نشد.</string>
-    <string name="pending_plans">در انتظار تایید</string>
+    <string name="pending_plans">Pending</string>
     <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید.</string>
-    <string name="show_more">نمایش بیشتر</string>
-    <string name="home_tours">سایر ماجراها</string>
-    <string name="home_plans">سایر ماجراها‌</string>
+    <string name="show_more">Show all</string>
+    <string name="home_tours">More</string>
+    <string name="home_plans">More</string>
 
     <string name="toggle_tour">Tour</string>
     <string name="toggle_place">Place</string>
