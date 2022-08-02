@@ -213,7 +213,7 @@ public class PlanDialog extends MyDialog {
                     @Override
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
-                        Toast.makeText(mainActivity, "درخواست با موفقیت ارسال شد.", Toast.LENGTH_SHORT,
+                        Toast.makeText(mainActivity, activity.getString(R.string.request_sent), Toast.LENGTH_SHORT,
                                 Toast.TYPE_SUCCESS).show();
                         Log.d(MyCallback.TAG, "addPlanRequest onSuccess: " + response.getResponseBody());
                         alreadyRequest = new Gson().fromJson(response.getResponseBody(), PlanRequest.class);
@@ -269,7 +269,7 @@ public class PlanDialog extends MyDialog {
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
                         ColorStateList.valueOf(mainActivity.getColor(R.color.colorSuccess))
                 );
-                binding.tvPlanDialogRequestStatus.setText("تایید شده");
+                binding.tvPlanDialogRequestStatus.setText(R.string.confirmed);
                 break;
             case MODE_REJECTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
@@ -279,7 +279,7 @@ public class PlanDialog extends MyDialog {
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
                         ColorStateList.valueOf(mainActivity.getColor(R.color.colorError))
                 );
-                binding.tvPlanDialogRequestStatus.setText("رد شده");
+                binding.tvPlanDialogRequestStatus.setText(R.string.rejected);
                 break;
             case MODE_REQUESTED_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
@@ -289,14 +289,14 @@ public class PlanDialog extends MyDialog {
                 binding.tvPlanDialogRequestStatus.setBackgroundTintList(
                         ColorStateList.valueOf(mainActivity.getColor(R.color.colorWarning))
                 );
-                binding.tvPlanDialogRequestStatus.setText("در انتظار تایید");
+                binding.tvPlanDialogRequestStatus.setText(R.string.pending);
                 break;
 
             case MODE_ALREADY_HAS_TOUR_LEADER:
                 binding.btnSeeRequests.setVisibility(View.GONE);
                 binding.llPlanSendRequest.setVisibility(View.GONE);
                 binding.groupPlanRequest.setVisibility(View.VISIBLE);
-                binding.tvPlanDialogRequestPrice.setText("راهنمای سفر این ماجرا ثبت شده است.");
+                binding.tvPlanDialogRequestPrice.setText(R.string.leader_is_set);
                 break;
 
             case MODE_NOT_REQUESTED_TOUR_LEADER:

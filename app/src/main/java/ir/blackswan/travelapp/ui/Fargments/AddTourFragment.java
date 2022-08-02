@@ -234,7 +234,7 @@ public class AddTourFragment extends Fragment {
                     public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                         super.onSuccess(call, callback, response);
                         Log.d(MyCallback.TAG, "onSuccess: " + response.getResponseBody());
-                        Toast.makeText(mainActivity, "تور با موفقیت اضافه شد.",
+                        Toast.makeText(mainActivity, getString(R.string.successful_add_tour),
                                 Toast.LENGTH_SHORT, Toast.TYPE_SUCCESS).show();
                         Tour tour1 = new Gson().fromJson(response.getResponseBody(), Tour.class);
                         AuthController.getUser().setNumber_of_tickets(tour1.getCreator().getNumber_of_tickets());
@@ -273,7 +273,7 @@ public class AddTourFragment extends Fragment {
         calendar.set(Calendar.SECOND, 0);
         TextInputsChecker.Error error = editText -> {
             if (getEditableText(editText.getText()).isEmpty())
-                return editText.getHint() + " ضروری است.";
+                return editText.getHint() + getString(R.string.necessary);
             else if (startDate.getCalendar() == null || finalDate.getCalendar() == null)
                 return null;
             else if (Utils.isDateGreater(
@@ -304,15 +304,15 @@ public class AddTourFragment extends Fragment {
         checker.add(binding.etAddTourCapacity, editText -> {
             String capacity = getEditableText(editText.getText());
             if (capacity.isEmpty()) {
-                return "ظرفیت نمی‌تواند خالی باشد.";
+                return getString(R.string.capacity_empty);
             }
 
             try {
                 int c = Integer.parseInt(capacity);
                 if (c <= 0)
-                    return "ظرفیت باید بزرگتر از صفر باشد.";
+                    return getString(R.string.capacity_negative);
             } catch (NumberFormatException e) {
-                return "ظرفیت باید عدد باشد.";
+                return getString(R.string.capacity_not_number);
             }
 
             return null;

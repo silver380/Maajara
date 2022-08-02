@@ -110,6 +110,37 @@
     <string name="send">ارسال</string>
     <string name="toggle_place">مکان</string>
     <string name="image_not_found">تصویر یافت نشد</string>
+    <string name="choose_pic">انتخاب عکس</string>
+    <string name="place_info">اطلاعات مکان</string>
+    <string name="Place_name">نام مکان</string>
+    <string name="city_name">نام شهر</string>
+    <string name="explanation">توضیحات</string>
+    <string name="send_req">ارسال درخواست</string>
+    <string name="Adventure">ماجرایی به</string>
+    <string name="end_date">تاریخ پایان</string>
+    <string name="requested_items">موارد خواسته شده</string>
+    <string name="see_req">مشاهده درخواست‌ها</string>
+    <string name="suggested_price">قیمت پیشنهادی</string>
+    <string name="your_req">درخواست شما</string>
+    <string name="destination">مقصد</string>
+    <string name="schedule">زمان</string>
+    <string name="facility">امکانات</string>
+    <string name="residence">محل اسکان</string>
+    <string name="transportation">وسیله نقلیه</string>
+    <string name="Meals">غذا</string>
+    <string name="picture_of_place">تصویری از مکان</string>
+    <string name="successful_place_request_sent">درخواست اضافه کردن مکان با موفقیت ارسال شد</string>
+    <string name="pic_error">خطا در شناسایی تصویر.</string>
+    <string name="try_again">لطفا دوباره سعی کنید</string>
+    <string name="request_sent">درخواست با موفقیت ارسال شد.</string>
+    <string name="confirmed">تایید شده</string>
+    <string name="rejected">رد شده</string>
+    <string name="leader_is_set">راهنمای سفر این ماجرا ثبت شده است.</string>
+    <string name="successful_add_tour">تور با موفقیت اضافه شد.</string>
+    <string name="necessary">ضروری است.</string>
+    <string name="capacity_empty">ظرفیت نمی‌تواند خالی باشد.</string>
+    <string name="capacity_not_number">ظرفیت باید عدد باشد.</string>
+    <string name="capacity_negative">ظرفیت باید بزرگتر از صفر باشد.</string>
 
 
 </resources>

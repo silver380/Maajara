@@ -122,4 +122,35 @@
     <string name="send">Send</string>
 
     <string name="image_not_found">Image not found</string>
+    <string name="choose_pic">Choose a Picture</string>
+    <string name="place_info">Place Information</string>
+    <string name="Place_name">Name</string>
+    <string name="city_name">city</string>
+    <string name="explanation">explanation</string>
+    <string name="send_req">request</string>
+    <string name="Adventure">An Adventure to</string>
+    <string name="end_date">End date</string>
+    <string name="requested_items">Requested items</string>
+    <string name="see_req">see requests</string>
+    <string name="suggested_price">Suggested price</string>
+    <string name="your_req">Your request</string>
+    <string name="destination">Destination</string>
+    <string name="schedule">Schedule</string>
+    <string name="facility">facilities</string>
+    <string name="residence">Residence</string>
+    <string name="transportation">Transportation</string>
+    <string name="Meals">Meals</string>
+    <string name="picture_of_place">Picture</string>
+    <string name="successful_place_request_sent">Request of adding a place has been sent successfully.</string>
+    <string name="pic_error">Error in recognizing the picture.</string>
+    <string name="try_again">Please try again.</string>
+    <string name="request_sent">Request has been sent successfully.</string>
+    <string name="confirmed">confirmed</string>
+    <string name="rejected">rejected</string>
+    <string name="leader_is_set">The leader of this plan has been selected.</string>
+    <string name="successful_add_tour">Tour has been added successfully.</string>
+    <string name="necessary">is necessary.</string>
+    <string name="capacity_empty">Capacity field can not be empty.</string>
+    <string name="capacity_not_number">Capacity must be a positive number.</string>
+    <string name="capacity_negative">Capacity must be more than zero.</string>
 </resources>

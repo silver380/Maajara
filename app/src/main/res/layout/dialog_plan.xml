@@ -19,7 +19,7 @@
             style="@style/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:title="ماجرایی به " />
+            app:title="@string/Adventure" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     android:layout_width="@dimen/quantity_icon_size"
                     android:layout_height="@dimen/quantity_icon_size"
                     android:src="@drawable/ic_user"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/colorIconTint" />
 
@@ -49,10 +49,10 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_small"
-                    android:text="مسافر"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:text="@string/passenger"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user"
-                    app:layout_constraintRight_toLeftOf="@id/iv_user"
+                    app:layout_constraintStart_toEndOf="@id/iv_user"
                     app:layout_constraintTop_toTopOf="@id/iv_user" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="نام کاربر"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_start_date"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_start_date"
                     app:layout_constraintTop_toTopOf="@id/iv_user" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -71,7 +71,7 @@
                     android:layout_height="@dimen/quantity_icon_size"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:src="@drawable/ic_location"
-                    app:layout_constraintRight_toRightOf="@id/iv_user"
+                    app:layout_constraintStart_toStartOf="@id/iv_user"
                     app:layout_constraintTop_toBottomOf="@id/iv_user"
                     app:tint="@color/colorIconTint" />
 
@@ -80,10 +80,10 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_small"
                     android:text="@string/city"
                     app:layout_constraintBottom_toBottomOf="@id/iv_location"
-                    app:layout_constraintRight_toLeftOf="@id/iv_location"
+                    app:layout_constraintStart_toEndOf="@id/iv_location"
                     app:layout_constraintTop_toTopOf="@id/iv_location" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:text="نجف‌آباد"
                     app:layout_constraintBottom_toBottomOf="@id/iv_location"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_start_date"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_start_date"
                     app:layout_constraintTop_toTopOf="@id/iv_location" />
 
 
@@ -103,7 +103,7 @@
                     android:layout_height="@dimen/quantity_icon_size"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:src="@drawable/ic_calendar"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_location"
                     app:tint="@color/colorIconTint" />
 
@@ -112,9 +112,9 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="تاریخ شروع"
+                    android:text="@string/start_date"
                     app:layout_constraintBottom_toBottomOf="@id/iv_start_date"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_city_label"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_city_label"
                     app:layout_constraintTop_toTopOf="@id/iv_start_date" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -122,10 +122,10 @@
                     style="@style/textRegular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_large"
+                    android:layout_marginStart="@dimen/margin_large"
                     android:text="پنج‌شنبه 29 اردیبهشت 1401"
                     app:layout_constraintBottom_toBottomOf="@id/iv_start_date"
-                    app:layout_constraintRight_toLeftOf="@id/tv_plan_start_date_label"
+                    app:layout_constraintStart_toEndOf="@id/tv_plan_start_date_label"
                     app:layout_constraintTop_toTopOf="@id/iv_start_date" />
 
 
@@ -135,7 +135,7 @@
                     android:layout_height="@dimen/quantity_icon_size"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:src="@drawable/ic_calendar"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_start_date"
                     app:tint="@color/colorIconTint" />
 
@@ -144,9 +144,9 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="تاریخ پایان"
+                    android:text="@string/end_date"
                     app:layout_constraintBottom_toBottomOf="@id/iv_final_date"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_city_label"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_city_label"
                     app:layout_constraintTop_toTopOf="@id/iv_final_date" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:text="پنج‌شنبه 29 اردیبهشت 1401"
                     app:layout_constraintBottom_toBottomOf="@id/iv_final_date"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_start_date"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_start_date"
                     app:layout_constraintTop_toTopOf="@id/iv_final_date" />
 
                 <LinearLayout
@@ -172,7 +172,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="مکان‌ها" />
+                        android:text="@string/Places" />
 
                     <ir.blackswan.travelapp.Views.LoadingRecyclerView
                         android:id="@+id/ryc_plan_dialog_places"
@@ -189,7 +189,7 @@
                     android:layout_height="@dimen/quantity_icon_size"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:src="@drawable/ic_requirements"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ll_places"
                     app:tint="@color/colorIconTint" />
 
@@ -198,9 +198,9 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="موارد خواسته شده"
+                    android:text="@string/requested_items"
                     app:layout_constraintBottom_toBottomOf="@id/iv_req"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_city_label"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_city_label"
                     app:layout_constraintTop_toTopOf="@id/iv_req" />
 
 
@@ -210,10 +210,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_very_small"
                     android:orientation="vertical"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="@dimen/margin_small"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="@id/tv_plan_req_label"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/margin_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_plan_req_label"
                     app:layout_constraintTop_toBottomOf="@id/tv_plan_req_label">
 
 
@@ -248,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_small"
-                android:text="مشاهده درخواست‌ها" />
+                android:text="@string/see_req" />
 
             <ProgressBar
                 android:id="@+id/pb_plan_dialog_loading"
@@ -270,7 +270,7 @@
                     style="@style/textInputLayout.outLinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="قیمت پیشنهادی"
+                    android:hint="@string/suggested_price"
                     app:errorEnabled="true"
                     app:helperTextTextAppearance="@style/textHint"
                     app:startIconDrawable="@drawable/ic_price">
@@ -294,7 +294,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                     android:paddingVertical="@dimen/btn_large_padding_vertical"
-                    android:text="ارسال درخواست"
+                    android:text="@string/send_req"
                     android:textColor="@color/colorWhite" />
 
             </LinearLayout>
@@ -313,8 +313,8 @@
                     style="@style/textRegular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_medium"
-                    android:text="درخواست شما"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/your_req"
                     android:textColor="@color/colorHint" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -322,8 +322,8 @@
                     style="@style/textTittleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_very_small"
-                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_very_small"
+                    android:layout_marginStart="@dimen/margin_small"
                     android:text="0 هزار تومان" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -334,9 +334,9 @@
                     android:layout_gravity="center"
                     android:background="@drawable/rec_small_radius_filled"
                     android:gravity="center_vertical"
-                    android:layout_marginRight="@dimen/margin_medium"
+                    android:layout_marginStart="@dimen/margin_medium"
                     android:paddingHorizontal="@dimen/padding_small"
-                    android:text="تایید نشده" />
+                    android:text="@string/pending" />
 
             </LinearLayout>
         </LinearLayout>

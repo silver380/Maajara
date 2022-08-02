@@ -118,7 +118,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
                             public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                 super.onSuccess(call, callback, response);
                                 Log.d(MyCallback.TAG, "addPlace onSuccess: " + response);
-                                Toast.makeText(AddPlaceActivity.this, "درخواست اضافه کردن مکان با موفقیت ارسال شد", Toast.LENGTH_SHORT
+                                Toast.makeText(AddPlaceActivity.this, getString(R.string.successful_place_request_sent), Toast.LENGTH_SHORT
                                         , Toast.TYPE_SUCCESS).show();
                                 setResult(RESULT_OK);
                                 finish();
@@ -235,7 +235,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
-            Toast.makeText(this, "خطا در شناسایی تصویر. لطفا دوباره سعی کنید", Toast.LENGTH_LONG,
+            Toast.makeText(this, getString(R.string.pic_error) +getString(R.string.try_again), Toast.LENGTH_LONG,
                     Toast.TYPE_ERROR).show();
         }
     }

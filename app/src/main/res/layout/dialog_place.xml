@@ -21,7 +21,7 @@
             android:id="@+id/tv_label_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="موقعیت جغرافیایی"
+            android:text="@string/location"
             style="@style/textTittleMedium"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_large"
@@ -50,7 +50,7 @@
                 android:layout_height="@dimen/place_icon_size"
                 android:layout_marginTop="@dimen/margin_large"
                 android:src="@drawable/ic_location"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/colorIconTint" />
 
@@ -60,7 +60,7 @@
                 android:layout_height="@dimen/place_icon_size"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:src="@drawable/ic_map"
-                app:layout_constraintRight_toRightOf="@id/iv_location"
+                app:layout_constraintStart_toStartOf="@id/iv_location"
                 app:layout_constraintTop_toBottomOf="@id/iv_location"
                 app:tint="@color/colorIconTint" />
 
@@ -70,7 +70,7 @@
                 android:layout_height="@dimen/place_icon_size"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:src="@drawable/ic_text"
-                app:layout_constraintRight_toRightOf="@id/iv_location"
+                app:layout_constraintStart_toStartOf="@id/iv_location"
                 app:layout_constraintTop_toBottomOf="@id/iv_city"
                 app:tint="@color/colorIconTint" />
 
@@ -79,10 +79,10 @@
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small"
-                android:text="نام مکان"
+                android:layout_marginStart="@dimen/margin_small"
+                android:text="@string/Place_name"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
-                app:layout_constraintRight_toLeftOf="@id/iv_location"
+                app:layout_constraintStart_toEndOf="@id/iv_location"
                 app:layout_constraintTop_toTopOf="@id/iv_location" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -90,10 +90,10 @@
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small"
-                android:text="نام شهر"
+                android:layout_marginStart="@dimen/margin_small"
+                android:text="@string/city_name"
                 app:layout_constraintBottom_toBottomOf="@id/iv_city"
-                app:layout_constraintRight_toLeftOf="@id/iv_city"
+                app:layout_constraintStart_toEndOf="@id/iv_city"
                 app:layout_constraintTop_toTopOf="@id/iv_city" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -101,22 +101,22 @@
                 style="@style/textSmall.hintColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small"
-                android:text="توضیحات"
+                android:layout_marginStart="@dimen/margin_small"
+                android:text="@string/explanation"
                 app:layout_constraintBottom_toBottomOf="@id/iv_place_text"
-                app:layout_constraintRight_toLeftOf="@id/iv_place_text"
+                app:layout_constraintStart_toEndOf="@id/iv_place_text"
                 app:layout_constraintTop_toTopOf="@id/iv_place_text" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_place_name"
                 style="@style/textSmall"
-                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="جنگل"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_place_text_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_place_text_label"
                 app:layout_constraintTop_toTopOf="@id/tv_place_name_label" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -125,8 +125,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="گیلان"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/tv_place_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_place_name"
                 app:layout_constraintTop_toTopOf="@id/tv_place_city_label" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -139,8 +139,8 @@
                 android:lineSpacingExtra="@dimen/lines_extra_space"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و  "
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/tv_place_text_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_place_text_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_place_text_label"
 
                 />
