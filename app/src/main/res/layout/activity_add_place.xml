@@ -37,7 +37,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="تصویری از مکان"
+                    android:text="@string/picture_of_place"
                     style="@style/textTittleMedium"
                     android:layout_marginTop="@dimen/margin_medium"
 
@@ -70,14 +70,14 @@
                     android:layout_gravity="center"
                     android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                     android:layout_marginTop="@dimen/margin_very_small"
-                    android:text="انتخاب عکس" />
+                    android:text="@string/choose_pic" />
 
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="موقعیت جغرافیایی"
+                android:text="@string/location"
                 style="@style/textTittleMedium"
                 android:layout_marginTop="@dimen/margin_large"
 
@@ -124,7 +124,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="اطلاعات مکان"
+                android:text="@string/place_info"
                 style="@style/textTittleMedium"
                 android:layout_marginTop="@dimen/margin_large"
 
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
                 android:layout_marginTop="@dimen/margin_small"
-                android:hint="نام مکان"
+                android:hint="@string/Place_name"
                 app:startIconDrawable="@drawable/ic_place_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -154,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:hint="نام شهر"
+                android:hint="@string/city_name"
                 app:startIconDrawable="@drawable/ic_place_city">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -177,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:hint="توضیحات">
+                    android:hint="@string/explanation">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_place_description"
@@ -197,7 +197,7 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|left"
+                    android:layout_gravity="bottom|end"
                     android:layout_margin="@dimen/margin_very_small"
                     android:text="0/750" />
             </FrameLayout>
@@ -209,7 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_medium"
                 android:layout_marginVertical="@dimen/margin_small"
-                android:text="ارسال درخواست" />
+                android:text="@string/send_req" />
 
         </LinearLayout>
     </ScrollView>

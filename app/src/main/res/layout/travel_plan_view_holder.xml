@@ -45,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_very_small"
-                android:gravity="right"
-                android:text="شهر" />
+                android:gravity="start"
+                android:text="@string/city" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_very_small"
                 android:gravity="right"
-                android:text="تاریخ سفر" />
+                android:text="@string/start_date" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,9 +93,9 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_very_small"
-                android:text="درخواست‌ها" />
+                android:text="@string/requests" />
         </LinearLayout>
 
     </LinearLayout>
