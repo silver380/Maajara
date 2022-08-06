@@ -1,6 +1,5 @@
 package ir.blackswan.travelapp.ui.Activities;
 
-import static ir.blackswan.travelapp.Utils.Utils.changeStatusColor;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 
 import android.Manifest;
@@ -235,7 +234,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             Log.e("FileChooser", "onActivityResult:Crop error ", cropError);
-            Toast.makeText(this, getString(R.string.pic_error) +getString(R.string.try_again), Toast.LENGTH_LONG,
+            Toast.makeText(this, getString(R.string.pic_error) +getString(R.string.please_try_again), Toast.LENGTH_LONG,
                     Toast.TYPE_ERROR).show();
         }
     }

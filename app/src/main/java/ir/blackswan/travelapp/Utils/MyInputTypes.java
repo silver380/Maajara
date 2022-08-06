@@ -17,6 +17,8 @@ import com.skydoves.powermenu.PowerMenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.blackswan.travelapp.R;
+
 public class MyInputTypes {
 
     public static List<Boolean> spinner(TextInputEditText editText, List<PowerMenuItem> options) {
@@ -55,10 +57,10 @@ public class MyInputTypes {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType(intentType);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    launcher.launch(Intent.createChooser(intent, "انتخاب"));
+                    launcher.launch(Intent.createChooser(intent, activity.getString(R.string.choose_file)));
                 }
             } catch (android.content.ActivityNotFoundException ignored) {
-                Toast.makeText(activity , "خطا در اجرای انتخابگر فایل. انتخابگری جدید نصب کنید" ,
+                Toast.makeText(activity , activity.getString(R.string.failed_top_to_open_file_chooser) ,
                         Toast.LENGTH_LONG , Toast.TYPE_ERROR).show();
             }
         });

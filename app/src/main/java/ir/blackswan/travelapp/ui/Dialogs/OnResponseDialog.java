@@ -1,12 +1,12 @@
 package ir.blackswan.travelapp.ui.Dialogs;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.OnResponse;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.DialogOnResponseBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
@@ -69,7 +69,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             show();
             Log.d("ResponseDialog", "onFailed: " + response);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
-            binding.btnOnResponseTryAgain.setText("تلاش مجدد");
+            binding.btnOnResponseTryAgain.setText(activity.getString(R.string.tryAgain));
             binding.btnOnResponseTryAgain.setOnClickListener(view -> {
                 call.clone().enqueue(callback.reload());
                 dismiss();
@@ -77,7 +77,7 @@ public class OnResponseDialog extends MyDialog implements OnResponse {
             });
             getDialog().setCancelable(false);
         } else {
-            binding.btnOnResponseTryAgain.setText("باشه");
+            binding.btnOnResponseTryAgain.setText(R.string.Ok);
             getDialog().setCancelable(true);
             binding.tvOnResponseMessage.setText(response.getErrorMessage());
             show();

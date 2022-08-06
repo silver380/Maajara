@@ -89,6 +89,6 @@ public class TourLeaderVerticalView extends MaterialCardView {
         else
             phone.setVisibility(GONE);
 
-        mail.setOnClickListener(v -> Utils.openGmail(context, user.getEmail()));
+        mail.setOnClickListener(v -> Utils.openGmail(context, user.getEmail() , context.getString(R.string.email_tittle)));
     }
 }

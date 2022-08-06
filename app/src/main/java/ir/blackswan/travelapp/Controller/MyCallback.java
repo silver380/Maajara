@@ -53,12 +53,12 @@ public class MyCallback implements Callback<ResponseBody> {
                 }
             } catch (IOException e) {
                 onResponse.onFailed(call, this, new MyResponse(response.code(),
-                        authActivity.getString(R.string.somthing_went_wrong), false));
+                        authActivity.getString(R.string.something_went_wrong), false));
                 Log.e(TAG, "onResponse: ", e);
             }
         } else if (response.code() == 500) { //something went wrong
             onResponse.onFailed(call, this, new MyResponse(response.code(),
-                    authActivity.getString(R.string.somthing_went_wrong), false));
+                    authActivity.getString(R.string.something_went_wrong), false));
             Log.e(TAG, "onResponse: " + response.message());
         } else {
             try {

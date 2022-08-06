@@ -234,13 +234,13 @@ public class Utils {
         context.startActivity(intent);
     }
 
-    public static void openGmail(Context context, String email) {
+    public static void openGmail(Context context, String email , String tittle) {
         try {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
             intent.setPackage("com.google.android.gm");
-            context.startActivity(Intent.createChooser(intent, "ارسال ایمیل"));
+            context.startActivity(Intent.createChooser(intent, tittle));
         } catch (ActivityNotFoundException e) {
 
         }

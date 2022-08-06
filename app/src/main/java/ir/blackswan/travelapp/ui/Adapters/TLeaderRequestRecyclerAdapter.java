@@ -117,7 +117,7 @@ public class TLeaderRequestRecyclerAdapter extends RecyclerView.Adapter<TLeaderR
     }
 
     private void acceptTourLeader(ViewHolder holder) {
-        holder.accept.setText("تایید شده");
+        holder.accept.setText(R.string.confirmed);
         holder.accept.setRippleColor(ColorStateList.valueOf(activity.getColor(R.color.colorTransparent)));
         holder.accept.setClickable(false);
         holder.accept.setBackgroundTintList(ColorStateList.valueOf(activity.getColor(R.color.colorSuccess)));

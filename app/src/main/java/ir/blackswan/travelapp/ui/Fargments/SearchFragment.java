@@ -105,10 +105,10 @@ public class SearchFragment extends RefreshingFragment {
     private void setToggle() {
 
         if (HomeFragment.isTourLeader()) {
-            binding.toggleSearch.setButtonsTextByArray(getString(R.string.plan), "مکان");
+            binding.toggleSearch.setButtonsTextByArray(getString(R.string.plan), getString(R.string.place));
             toggle = TOGGLE_PLAN;
         } else {
-            binding.toggleSearch.setButtonsTextByArray(getString(R.string.toggle_tour), "مکان");
+            binding.toggleSearch.setButtonsTextByArray(getString(R.string.toggle_tour), getString(R.string.place));
             toggle = TOGGLE_TOUR;
         }
 

@@ -5,7 +5,7 @@
     <string name="title_search">Search</string>
     <string name="title_add">Add</string>
     <string name="title_archive">Archive</string>
-    <string name="TourName">نام ماجرا</string>
+    <string name="TourName">Tour name</string>
     <string name="location">Location</string>
     <string name="places">Places</string>
     <string name="information">Information</string>
@@ -15,26 +15,26 @@
     <string name="duration">Duration</string>
     <string name="tl_name">Leader name</string>
     <string name="biography">Biography</string>
-    <string name="nameError">نام نمی‌تواند خالی باشد.</string>
-    <string name="lastNameError">نام خانوادگی نمی‌تواند خالی باشد.</string>
-    <string name="emailError">فرمت ایمیل نادرست است.</string>
-    <string name="passwordError">رمز عبور نمی‌تواند کمتر از ۸ کاراکتر داشته باشد.</string>
-    <string name="picture_download_failed">خطا در بارگذاری تصویر</string>
-    <string name="picture_not_found">تصویر پیدا نشد.</string>
-    <string name="error_connection_lost">ارتباط با شبکه امکان پذیر نیست. لطفا تنظیمات اینترنت را بررسی کنید.</string>
-    <string name="error_email_exist">این ایمیل قبلا ثبت‌نام شده است.</string>
-    <string name="somthing_went_wrong">مشکلی پیش آمده، لطفا دوباره تلاش کنید.</string>
+    <string name="nameError">Name cannot be empty.</string>
+    <string name="lastNameError">Last name cannot be empty.</string>
+    <string name="emailError">Email format is incorrect.</string>
+    <string name="passwordError">Password length must at least 8 characters</string>
+    <string name="picture_download_failed">Image download failed</string>
+    <string name="picture_not_found">Image not found</string>
+    <string name="error_connection_lost">It is not possible to connect to the network. Please check your internet settings.</string>
+    <string name="error_email_exist">This email is already registered.</string>
+    <string name="something_went_wrong">Something went wrong, please try again</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
 
     <string name="city">City</string>
-    <string name="title_activity_setting">تنظیمات</string>
+    <string name="title_activity_setting">Setting</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="createdPlans">ماجراهای ساخته شده من</string>
-    <string name="pendingTours">در انتظار تایید</string>
-    <string name="confirmedTours">قطعی شده‌ها</string>
-    <string name="wanted_list">مواردی که می‌خواهم</string>
-    <string name="add_tour_tittle">ماجرای جدید</string>
+    <string name="createdPlans">Created plans</string>
+    <string name="pendingTours">Pending</string>
+    <string name="confirmedTours">Decided</string>
+    <string name="wanted_list">Wanted items</string>
+    <string name="add_tour_tittle">New tour</string>
     <string name="add_plan_tittle">New plan</string>
 
     <string name="date_error">ُEnd date is earlier than start date!</string>
@@ -45,13 +45,13 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="fix_errors">Fix errors!</string>
 
-    <string name="no_place_select">مکانی انتخاب نشده است.\nبرای انتخاب + را کلیک نمایید.</string>
+    <string name="no_place_select">No place has been selected.\nClick + to select.</string>
 
-    <string name="recycler_default_error">خطا در دریافت اطلاعات</string>
+    <string name="recycler_default_error">Error in downloading information</string>
     <string name="my_tours">My tours.</string>
-    <string name="recycler_default_text">موردی یافت نشد.</string>
+    <string name="recycler_default_text">Nothing found.</string>
     <string name="pending_plans">Pending</string>
-    <string name="date_greater_of_now">برای زمان گذشته نمی‌توانید تعریف کنید.</string>
+    <string name="date_greater_of_now">You cannot define past tense.</string>
     <string name="show_more">Show all</string>
     <string name="home_tours">More</string>
     <string name="home_plans">More</string>
@@ -59,13 +59,15 @@
     <string name="toggle_tour">Tour</string>
     <string name="toggle_place">Place</string>
 
-    <string name="plan">ماجرا</string>
-    <string name="error_email_or_password_incorrect">ایمیل یا رمز عبور نادرست است.</string>
-    <string name="error_login_again">برای ادامه باید دوباره وارد برنامه شوید.</string>
-    <string name="error_ticket_not_enough">تیکت کافی نمی‌باشد.</string>
+    <string name="plan">Plan</string>
+    <string name="place">Place</string>
+
+    <string name="error_email_or_password_incorrect">Email or password is incorrect.</string>
+    <string name="error_login_again">You must login again to continue.</string>
+    <string name="error_ticket_not_enough">The ticket is not enough.</string>
     <string name="report">Report illegal action</string>
     <string name="archived_tours">Passed tours</string>
-    <string name="success_buy_ticket">خرید با موفقیت انجام شد.</string>
+    <string name="success_buy_ticket">The purchase was made successfully.</string>
     <string name="add_place">Add place</string>
     <string name="set_location">Set location</string>
 
@@ -149,7 +151,7 @@
     <string name="Male">Male</string>
     <string name="Female">Female</string>
     <string name="Image_error">Image recognition error.Try again!</string>
-    <string name="Ok">Ok</string>
+    <string name="Ok">OK</string>
     <string name="changed_succesfully">Changed successfully.</string>
     <string name="national_id_limits">National ID should contain 10 digits.</string>
     <string name="it_is_necessary"> is necessary.</string>
@@ -173,12 +175,11 @@
     <string name="explanation">explanation</string>
     <string name="send_req">request</string>
     <string name="Adventure">An Adventure to</string>
-    <string name="end_date">End date</string>
+
     <string name="requested_items">Requested items</string>
     <string name="see_req">see requests</string>
     <string name="suggested_price">Suggested price</string>
     <string name="your_req">Your request</string>
-    <string name="destination">Destination</string>
     <string name="schedule">Schedule</string>
     <string name="facility">facilities</string>
     <string name="residence">Residence</string>
@@ -187,15 +188,35 @@
     <string name="picture_of_place">Picture</string>
     <string name="successful_place_request_sent">Request of adding a place has been sent successfully.</string>
     <string name="pic_error">Error in recognizing the picture.</string>
-    <string name="try_again">Please try again.</string>
+    <string name="please_try_again">Please try again.</string>
     <string name="request_sent">Request has been sent successfully.</string>
-    <string name="confirmed">confirmed</string>
-    <string name="rejected">rejected</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="rejected">Rejected</string>
     <string name="leader_is_set">The leader of this plan has been selected.</string>
     <string name="successful_add_tour">Tour has been added successfully.</string>
     <string name="necessary">is necessary.</string>
     <string name="capacity_empty">Capacity field can not be empty.</string>
     <string name="capacity_not_number">Capacity must be a positive number.</string>
     <string name="capacity_negative">Capacity must be more than zero.</string>
+    <string name="no_account">No account?</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="send_verification_email">Send verification email</string>
+
+    <string name="resend_code">Send again</string>
+
+    <string name="verification_code_for">The verification code for</string>
+    <string name="sent_please_enter">sent. Please enter it.</string>
+
+    <string name="sent_verification_email">Verification email sent successfully. Login again after confirming the email</string>
+    <string name="rate_cant_empty">Rate cannot be empty</string>
+    <string name="email_tittle">Sending email</string>
+
+    <string name="select">Select</string>
+    <string name="cancel">Cancel</string>
+    <string name="today">Today</string>
+
+    <string name="tryAgain">Try again</string>
+    <string name="choose_file">Choose File</string>
+    <string name="failed_top_to_open_file_chooser">Failed top open file chooser. please install new file chooser</string>
 
 </resources>

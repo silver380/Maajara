@@ -40,7 +40,7 @@ public class ErrorHandler {
         } catch (Exception e) {
             Log.e(TAG, "getStringErrors: ", e);
         }
-        return context.getString(R.string.somthing_went_wrong);
+        return context.getString(R.string.something_went_wrong);
     }
 
     private static String translate(Context context, String msg) {

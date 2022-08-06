@@ -16,6 +16,7 @@ import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
 import ir.blackswan.travelapp.Controller.TourController;
 import ir.blackswan.travelapp.Data.Tour;
+import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.databinding.DialogReportBinding;
@@ -47,7 +48,7 @@ public class ReportDialog extends MyDialog {
 
     private boolean checkInputs() {
         if (binding.simpleRatingBar.getRating() <= 0) {
-            Toast.makeText(authActivity, "امتیاز نمی‌تواند خالی باشد.",
+            Toast.makeText(authActivity, authActivity.getString(R.string.rate_cant_empty),
                     Toast.LENGTH_SHORT, Toast.TYPE_ERROR).show();
             return false;
         }

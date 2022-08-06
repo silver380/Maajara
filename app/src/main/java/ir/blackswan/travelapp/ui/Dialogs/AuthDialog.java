@@ -8,6 +8,7 @@ import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_NAME;
 import static ir.blackswan.travelapp.Utils.Utils.INPUT_TYPE_PASSWORD;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Handler;
 import android.text.Editable;
@@ -41,16 +42,11 @@ public class AuthDialog extends MyDialog {
     boolean forLogin;
     private Stack<Integer> stepsStack = new Stack<>();
     private boolean loading = false; //if true, submit button disable
-    private final ActiveCodeTimer activeCodeTimer;
-    private String[] errors;
-    private int[] inputTypes = {INPUT_TYPE_NAME, INPUT_TYPE_NAME, INPUT_TYPE_EMAIL, INPUT_TYPE_PASSWORD};
-    private TextInputEditText[] textInputs;
+    private final String[] errors;
+    private final int[] inputTypes = {INPUT_TYPE_NAME, INPUT_TYPE_NAME, INPUT_TYPE_EMAIL, INPUT_TYPE_PASSWORD};
+    private final TextInputEditText[] textInputs;
 
-    public ActiveCodeTimer getActiveCodeTimer() {
-        return activeCodeTimer;
-    }
-
-    private AuthController authController;
+    private final AuthController authController;
     private OnResponseDialog onResponseDialog;
 
     public AuthDialog(AuthActivity activity, boolean forLogin) {
@@ -76,7 +72,6 @@ public class AuthDialog extends MyDialog {
         setFields();
         addListeners();
         setTexts();
-        activeCodeTimer = new ActiveCodeTimer();
 
         dialog.setCancelable(false);
 
@@ -119,6 +114,7 @@ public class AuthDialog extends MyDialog {
         return loading;
     }
 
+    @SuppressLint("SetTextI18n")
     private void setFields() {
         binding.ivLoginBack.setVisibility(stepsStack.isEmpty() ? GONE : VISIBLE);
         clearError();
@@ -127,7 +123,7 @@ public class AuthDialog extends MyDialog {
             binding.llLoginEditTexes.setVisibility(GONE);
             binding.llLoginActiveCode.setVisibility(VISIBLE);
             binding.tvLoginSendCode.setText(
-                    "کد فعالسازی برای " + binding.etLoginEmail.getText() + " ارسال شد. لطفا آن را وارد کنید"
+                    mActivity.getString(R.string.verification_code_for) + " " + binding.etLoginEmail.getText() + " " + mActivity.getString(R.string.sent_please_enter)
             );
         } else {
             binding.llLoginActiveCode.setVisibility(GONE);
@@ -163,8 +159,8 @@ public class AuthDialog extends MyDialog {
                                 @Override
                                 public void onSuccess(Call<ResponseBody> call, MyCallback callback, MyResponse response) {
                                     super.onSuccess(call, callback, response);
-                                    Toast.makeText(activity, "ایمیل تایید با موفقیت ارسال شد. پس " +
-                                            "از تایید ایمیل دوباره وارد شوید", Toast.LENGTH_LONG , Toast.TYPE_SUCCESS).show();
+                                    Toast.makeText(activity, activity.getString(R.string.sent_verification_email)
+                                            , Toast.LENGTH_LONG, Toast.TYPE_SUCCESS).show();
                                     changeTypeAndStep(true, STEP_LOGIN, false);
                                     stopLoadingAnimation();
                                 }
@@ -180,15 +176,11 @@ public class AuthDialog extends MyDialog {
                     Editable editable = binding.pinLogin.getText();
                     if (Utils.getEditableText(editable).length() < 6) {
                         stopLoadingAnimation();
-                        return;
                     }
 
                 }
 
-            } else {
-
             }
-
         });
 
         binding.btnLoginGoToAnother.setOnClickListener(v -> {
@@ -249,9 +241,9 @@ public class AuthDialog extends MyDialog {
     }
 
     private void setTexts() {
-        final String login = "ورود", register = "ثبت‌نام",
-                goToLogin = "قبلا ثبت نام کرده‌اید؟";
-        final String goToRegister = String.format("حسابی در %s ندارید؟", mActivity.getString(R.string.app_name));
+        final String login = mActivity.getString(R.string.login), register = mActivity.getString(R.string.register),
+                goToLogin = mActivity.getString(R.string.already_registered);
+        final String goToRegister = mActivity.getString(R.string.no_account);
 
         if (forLogin) {
             binding.tvLoginTittle.setText(login);
@@ -265,10 +257,10 @@ public class AuthDialog extends MyDialog {
             binding.btnLoginGoToAnother.setText(login);
         }
         if (step == STEP_REGISTER) {
-            binding.btnLogin.setText("ارسال ایمیل تایید");
+            binding.btnLogin.setText(R.string.send_verification_email);
 
         } else if (step == STEP_VERIFY) {
-            binding.btnLogin.setText("تایید");
+            binding.btnLogin.setText(R.string.confirm);
 
         }
 
@@ -333,62 +325,5 @@ public class AuthDialog extends MyDialog {
         void onCompleted();
     }
 
-    public class ActiveCodeTimer {
-        String email, emailKey = "phoneNumberKey", lastEmailTimeKey = "lastSmsTime";
-        long lastEmailTime, dif;
-        TextView btnSendAgain;
-        Handler handler = new Handler();
-        SharedPrefManager sh;
-
-        ActiveCodeTimer() {
-            btnSendAgain = binding.btnLoginSendAgain;
-            sh = new SharedPrefManager(mActivity);
-            lastEmailTime = sh.getLong(lastEmailTimeKey);
-            email = sh.getString(emailKey, "");
-        }
-
-        void sendCodeAndStartTimer() {
-            dif = System.currentTimeMillis() / 1000 - lastEmailTime;
-
-            if (dif >= 30 || !email.equals(Utils.getEditableText(binding.etLoginEmail.getText()))) {
-                //registerUser(metName.getText(), metPhone.getText(), RegisterLoginDialog.this);
-            } else {
-                changeToVerify();
-                startTimer();
-            }
-        }
-
-        public void updateLastSmsTimeAndStartTimer() {
-            email = Utils.getEditableText(binding.etLoginEmail.getText());
-            lastEmailTime = System.currentTimeMillis() / 1000;
-            sh.putString(emailKey, email);
-            sh.putLong(lastEmailTimeKey, lastEmailTime);
-            startTimer();
-        }
-
-
-        private void startTimer() {
-            handler.removeCallbacksAndMessages(null);
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    dif = System.currentTimeMillis() / 1000 - lastEmailTime;
-                    Log.d("timer", "run: " + dif);
-                    if (dif < 120) {
-                        btnSendAgain.setOnClickListener(v -> {
-                        });
-                        btnSendAgain.setTextColor(mActivity.getResources().getColor(R.color.colorHint));
-                        btnSendAgain.setText("ارسال مجدد کد(" + Utils.convertTimeInSecondToMMSS(120 - dif) + ")");
-                        handler.postDelayed(this, 1000);
-                    } else {
-                        btnSendAgain.setText("ارسال مجدد کد");
-                        btnSendAgain.setOnClickListener(v -> sendCodeAndStartTimer());
-                        btnSendAgain.setTextColor(Utils.getThemePrimaryColor(mActivity));
-                    }
-                }
-            });
-        }
-    }
 }
 

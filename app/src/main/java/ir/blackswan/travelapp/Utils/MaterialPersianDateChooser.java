@@ -32,9 +32,9 @@ public class MaterialPersianDateChooser {
         materialEditText.setShowSoftInputOnFocus(false);
         this.activity = activity;
         dialog = new PersianDatePickerDialog(activity)
-                .setPositiveButtonString("انتخاب")
-                .setNegativeButton("لغو")
-                .setTodayButton("امروز")
+                .setPositiveButtonString(activity.getString(R.string.select))
+                .setNegativeButton(activity.getString(R.string.cancel))
+                .setTodayButton(activity.getString(R.string.today))
                 .setTodayButtonVisible(true)
                 .setMinYear(PersianDatePickerDialog.THIS_YEAR)
                 .setActionTextColor(Utils.getThemePrimaryColor(this.activity))
