@@ -1,25 +1,47 @@
 package ir.blackswan.travelapp.ui.Fargments;
 
 import static ir.blackswan.travelapp.Utils.Utils.createImageFromBitmap;
+import static ir.blackswan.travelapp.Utils.Utils.dp2px;
 import static ir.blackswan.travelapp.Utils.Utils.getEditableText;
 import static ir.blackswan.travelapp.ui.Fargments.FragmentDataHandler.KEY_ADD_PLAN_FRAGMENT;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.style.CharacterStyle;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -28,9 +50,11 @@ import ir.blackswan.travelapp.Data.Place;
 import ir.blackswan.travelapp.Data.Plan;
 import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
+import ir.blackswan.travelapp.Utils.PopupMenuCreator;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.Views.CitiesAutoCompleteView;
 import ir.blackswan.travelapp.databinding.FragmentAddPlanBinding;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
@@ -47,6 +71,7 @@ public class AddPlanFragment extends Fragment {
     ArrayList<TextInputEditText> wantedInputEditTexts = new ArrayList<>();
     SelectPlacesDialog selectPlacesDialog;
     TextInputsChecker checker = new TextInputsChecker();
+    CitiesAutoCompleteView citiesAutoCompleteView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,17 +83,21 @@ public class AddPlanFragment extends Fragment {
 
         binding.rclPlanPlaces.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL,
                 false));
-        binding.rclPlanPlaces.setText(getString(R.string.no_item_chosen_click_plus));
+        binding.rclPlanPlaces.setText(getString(R.string.no_place_select));
         binding.rclPlanPlaces.setErrorText(binding.rclPlanPlaces.getText());
         binding.rclPlanPlaces.textState();
 
 
         planController = new PlanController(mainActivity);
+
+        citiesAutoCompleteView = new CitiesAutoCompleteView(binding.etPlanDestination);
+
         setChecker();
         setupDateChooses();
         setListeners();
         selectPlacesDialog = new SelectPlacesDialog(mainActivity, v -> setPlacesRecyclerAdapter());
         setNoWantedListVisibility();
+
 
         return root;
     }
@@ -111,9 +140,16 @@ public class AddPlanFragment extends Fragment {
             return null;
 
         };
-        checker.add(binding.etPlanDestination);
+
+
+        checker.add(binding.etPlanDestination, editText -> {
+            if (citiesAutoCompleteView.getSelectedCityId() == null)
+                return getString(R.string.city_is_not_valid);
+            return null;
+        });
         checker.add(binding.etPlanStartDate, error);
         checker.add(binding.etPlanFinalDate, error);
+
 
     }
 

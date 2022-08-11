@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,9 +20,9 @@ public class TextInputsChecker {
     ArrayList<InputMessageError> inputsMessagesErrors = new ArrayList<>();
 
 
-    public void add(TextInputEditText inputEditText , Error error){
-        InputMessageError ime = new InputMessageError(inputEditText , error);
-        inputEditText.addTextChangedListener(new TextWatcher() {
+    public void add(EditText editText , Error error){
+        InputMessageError ime = new InputMessageError(editText , error);
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -37,12 +38,17 @@ public class TextInputsChecker {
                 checkError(ime , false);
             }
         });
-        inputEditText.setOnFocusChangeListener((v, hasFocus) -> {
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus)
                 checkError(ime , true);
         });
         inputsMessagesErrors.add(ime);
     }
+
+    public static void prepareShowError(){
+
+    }
+
     public void add(TextInputEditText inputEditText ){
         add(inputEditText, editText ->{
             if (Utils.getEditableText(editText.getText()).isEmpty())
@@ -81,7 +87,7 @@ public class TextInputsChecker {
     }
 
     public interface Error{
-        @Nullable String error(TextInputEditText editText);
+        @Nullable String error(EditText editText);
     }
 
     private boolean checkError(InputMessageError ime , boolean showError){
@@ -116,10 +122,10 @@ public class TextInputsChecker {
     }
 
     static class InputMessageError {
-        final TextInputEditText input;
+        final EditText input;
         final Error error;
 
-        public InputMessageError(TextInputEditText input,  Error error) {
+        public InputMessageError(EditText input,  Error error) {
             this.input = input;
             this.error = error;
         }

@@ -121,7 +121,7 @@
                         android:hint="@string/destination"
                         app:startIconDrawable="@drawable/ic_location">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                             android:id="@+id/et_add_tour_destination"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"

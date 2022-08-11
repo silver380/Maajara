@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ماجرا</string>
+    <string name="api_key" translatable="false">AIzaSyA7hFdEUBMZxxk_T17WYW5eiK9P3G0t20E</string>
+
     <string name="title_home">خانه</string>
     <string name="title_search">جستجو</string>
     <string name="title_add">افزودن</string>
@@ -200,6 +202,7 @@
     <string name="tryAgain">تلاش مجدد</string>
     <string name="choose_file">انتخاب فایل</string>
     <string name="failed_top_to_open_file_chooser">خطا در اجرای انتخابگر فایل. انتخابگری جدید نصب کنید</string>
+    <string name="city_is_not_valid">نام شهر معتبر نیست</string>
 
 
 </resources>

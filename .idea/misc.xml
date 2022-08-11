@@ -50,6 +50,7 @@
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/travel_plan_view_holder.xml" value="0.2" />
         <entry key="..\:/android_projects/Software-Engineering-Project/app/src/main/res/layout/user_req_view_holder.xml" value="0.2" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/bac_grad_black.xml" value="0.2" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_bottom_stroke.xml" value="0.12" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_medium_raidus_no_fill.xml" value="0.1325" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rec_small_radius_filled.xml" value="0.242" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/drawable/rounded_dialog.xml" value="0.1265" />
@@ -67,6 +68,7 @@
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page.xml" value="0.264" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_tour_page_picture.xml" value="0.136" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/activity_user_requests.xml" value="0.12447916666666667" />
+        <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/auto_complete_text_view.xml" value="0.4" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/cases_view.xml" value="0.176" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_add_ticket.xml" value="0.25" />
         <entry key="..\:/java/AndroidProjects/travelApp/app/src/main/res/layout/dialog_loading.xml" value="0.2" />

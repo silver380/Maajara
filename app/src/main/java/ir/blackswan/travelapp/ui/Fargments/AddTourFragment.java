@@ -33,6 +33,7 @@ import ir.blackswan.travelapp.Utils.MaterialPersianDateChooser;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.Views.CitiesAutoCompleteView;
 import ir.blackswan.travelapp.databinding.FragmentAddTourBinding;
 import ir.blackswan.travelapp.ui.Activities.MainActivity;
 import ir.blackswan.travelapp.ui.Adapters.PlacesRecyclerAdapter;
@@ -51,6 +52,7 @@ public class AddTourFragment extends Fragment {
     private TourController tourController;
     private MainActivity mainActivity;
     private TextInputsChecker checker = new TextInputsChecker();
+    CitiesAutoCompleteView citiesAutoCompleteView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class AddTourFragment extends Fragment {
             setPlacesRecyclerAdapter();
         });
         tourController = new TourController(mainActivity);
+        citiesAutoCompleteView = new CitiesAutoCompleteView(binding.etAddTourDestination);
         setChecker();
         setupGroupButtons();
         setupDateChooses();
@@ -299,7 +302,12 @@ public class AddTourFragment extends Fragment {
             return null;
 
         };
-        checker.add(Arrays.asList(binding.etAddTourDestination, binding.etAddTourName,
+        checker.add(binding.etAddTourDestination, editText -> {
+            if (citiesAutoCompleteView.getSelectedCityId() == null)
+                return getString(R.string.city_is_not_valid);
+            return null;
+        });
+        checker.add(Arrays.asList(binding.etAddTourName,
                 binding.etAddTourPrice));
         checker.add(binding.etAddTourCapacity, editText -> {
             String capacity = getEditableText(editText.getText());

@@ -59,7 +59,7 @@
                         app:errorEnabled="true"
                         app:startIconDrawable="@drawable/ic_location">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                             android:id="@+id/et_plan_destination"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
@@ -67,6 +67,8 @@
                             android:maxLength="@integer/max_city_name_length" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_plan_startDate"

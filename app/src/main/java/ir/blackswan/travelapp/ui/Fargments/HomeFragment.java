@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -197,6 +198,7 @@ public class HomeFragment extends RefreshingFragment {
             PowerMenu powerMenu = PopupMenuCreator.create(mainActivity, powerMenuItems, v);
             powerMenu.setWidth(dp2px(mainActivity, 250));
             powerMenu.showAsDropDown(v);
+            powerMenu.setTextGravity(Gravity.START);
             powerMenu.setOnMenuItemClickListener((position, item) -> {
                 powerMenu.dismiss();
                 switch ((int) item.getTag()) {
