@@ -41,15 +41,15 @@ public class User implements Serializable {
     private int user_id = -1;
     private boolean isValidatedByAdmin;
     @Expose
-    private String first_name, last_name, email, ssn;
+    private String first_name, first_name_en, last_name, last_name_en, email, ssn;
     @Expose
     private String date_of_birth;
     @Expose
     private String gender;
     @Expose
-    private String biography;
+    private String biography, biography_en;
     @Expose
-    private String languages;
+    private String languages, languages_en;
     @Expose
     private String phone_number, telegram_id, whatsapp_id;
     private boolean requested_for_upgrade;
