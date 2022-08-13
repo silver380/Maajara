@@ -200,6 +200,8 @@
     <string name="tryAgain">تلاش مجدد</string>
     <string name="choose_file">انتخاب فایل</string>
     <string name="failed_top_to_open_file_chooser">خطا در اجرای انتخابگر فایل. انتخابگری جدید نصب کنید</string>
+    <string name="tourname_eng">نام ماجرا انگلیسی</string>
+    <string name="destination_eng">مقصد انگلیسی</string>
 
 
 </resources>

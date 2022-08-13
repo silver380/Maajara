@@ -218,5 +218,7 @@
     <string name="tryAgain">Try again</string>
     <string name="choose_file">Choose File</string>
     <string name="failed_top_to_open_file_chooser">Failed top open file chooser. please install new file chooser</string>
+    <string name="tourname_eng">English Tour name</string>
+    <string name="destination_eng">English Destination</string>
 
 </resources>

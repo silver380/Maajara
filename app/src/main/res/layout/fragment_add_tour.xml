@@ -64,7 +64,24 @@
                         app:startIconDrawable="@drawable/ic_flag">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_add_tour_name"
+                            android:id="@+id/et_add_tour_name_per"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="@integer/max_tour_name_length" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:hint="@string/tourname_eng"
+                        app:startIconDrawable="@drawable/ic_flag">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_add_tour_name_eng"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -129,6 +146,24 @@
                             android:maxLength="@integer/max_city_name_length" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:hint="@string/destination_eng"
+                        app:startIconDrawable="@drawable/ic_location">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_add_tour_destination_eng"
+                            style="@style/editText.oneLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="@integer/max_city_name_length" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
