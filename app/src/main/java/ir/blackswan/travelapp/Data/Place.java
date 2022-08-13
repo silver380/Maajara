@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Place implements Serializable {
     private int place_id;
     @Expose
-    private String name , name_en,  city, city_en, description, description_en;
+    private String name , city, description;
     @Expose
     private float latitude , longitude;
     private String picture;

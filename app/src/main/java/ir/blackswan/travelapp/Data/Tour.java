@@ -33,12 +33,12 @@ public class Tour implements Serializable {
     private int tour_id;
     private User creator;
     @Expose
-    private String tour_name, tour_name_en;
+    private String tour_name;
     @Expose
     private int tour_capacity;
     private int current_confirmed;
     @Expose
-    private String destination, destination_en;
+    private String destination;
     @Expose
     private String start_date, end_date;
     private Place[] places;
