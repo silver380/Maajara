@@ -202,6 +202,9 @@
     <string name="failed_top_to_open_file_chooser">خطا در اجرای انتخابگر فایل. انتخابگری جدید نصب کنید</string>
     <string name="tourname_eng">نام ماجرا انگلیسی</string>
     <string name="destination_eng">مقصد انگلیسی</string>
+    <string name="PlaceName_eng">نام مکان انگلیسی</string>
+    <string name="cityName_eng">نام شهر انگلیسی</string>
+    <string name="explanation_Eng">توضیحات به انگلیسی</string>
 
 
 </resources>

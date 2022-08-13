@@ -149,6 +149,26 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/textInputLayout.outLinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/PlaceName_eng"
+                app:startIconDrawable="@drawable/ic_place_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_place_name_eng"
+                    style="@style/editText.oneLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/max_user_name_length" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/textInputLayout.outLinedBox"
                 android:layout_width="match_parent"
@@ -167,10 +187,29 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <FrameLayout
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/textInputLayout.outLinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="@string/cityName_eng"
+                app:startIconDrawable="@drawable/ic_place_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_place_city_eng"
+                    style="@style/editText.oneLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
                 android:id="@+id/fl_bio"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/textInputLayout.outLinedBox"
@@ -187,7 +226,10 @@
                         android:gravity="top"
                         android:inputType="textMultiLine"
                         android:maxLines="30"
-                        android:minLines="5" />
+                        android:minLines="5"
+                        />
+
+
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -199,8 +241,40 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="@dimen/margin_very_small"
-                    android:text="0/750" />
-            </FrameLayout>
+                    android:text="0/750"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/textInputLayout.outLinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    android:hint="@string/explanation_Eng">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_place_description_eng"
+                        style="@style/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:maxLines="30"
+                        android:minLines="5" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_setting_bio_counter_eng"
+                    style="@style/textSmall.hintColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/margin_very_small"
+                    android:text="0/750"
+                    />
+
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit_place"
