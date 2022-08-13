@@ -205,11 +205,11 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/fl_bio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                >
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/textInputLayout.outLinedBox"
@@ -230,8 +230,6 @@
                         />
 
 
-
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -240,9 +238,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
+                    android:layout_marginTop="@dimen/margin_small"
                     android:layout_margin="@dimen/margin_very_small"
                     android:text="0/750"
                     />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_bio_eng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/textInputLayout.outLinedBox"
@@ -269,12 +277,13 @@
                     style="@style/textSmall.hintColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="@dimen/margin_very_small"
                     android:text="0/750"
                     />
 
-            </LinearLayout>
+            </FrameLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit_place"
