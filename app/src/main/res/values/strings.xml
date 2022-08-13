@@ -205,6 +205,11 @@
     <string name="PlaceName_eng">نام مکان انگلیسی</string>
     <string name="cityName_eng">نام شهر انگلیسی</string>
     <string name="explanation_Eng">توضیحات به انگلیسی</string>
+    <string name="lastname_eng">نام خانوادگی انگلیسی</string>
+    <string name="name_eng">نام انگلیسی</string>
+    <string name="gender_eng">جنسیت انگلیسی</string>
+    <string name="Biography_and_tourism_experience_eng">شرح حال و سابقه فعالیت گردشگری به انگلیسی</string>
+    <string name="Language_skills_eng">مهارت های زبانی به انگلیسی</string>
 
 
 </resources>

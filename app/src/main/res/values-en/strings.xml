@@ -135,7 +135,7 @@
     <string name="birth_date">Birth date</string>
     <string name="certificate_of_clean_records">Certificate of clean records</string>
     <string name="Biography_and_tourism_experience">Biography and tourism experience</string>
-    <string name="Language_skills">Language_skills</string>
+    <string name="Language_skills">Language skills</string>
     <string name="contacts">Contacts</string>
     <string name="Phone_number">Phone number</string>
     <string name="phone_number_example">For example: 9120000000</string>
@@ -218,10 +218,15 @@
     <string name="tryAgain">Try again</string>
     <string name="choose_file">Choose File</string>
     <string name="failed_top_to_open_file_chooser">Failed top open file chooser. please install new file chooser</string>
-    <string name="tourname_eng">English Tour name</string>
+    <string name="tourname_eng">Tour name in English</string>
     <string name="destination_eng">Destination in English</string>
     <string name="PlaceName_eng">English Name</string>
-    <string name="cityName_eng">English City Name</string>
+    <string name="cityName_eng">City Name in English</string>
     <string name="explanation_Eng">Explanation in English</string>
+    <string name="lastname_eng">Name in English</string>
+    <string name="name_eng">Lastname in English</string>
+    <string name="gender_eng">Gender in English</string>
+    <string name="Biography_and_tourism_experience_eng">Biography and tourism experience in English</string>
+    <string name="Language_skills_eng">Language skills in English</string>
 
 </resources>

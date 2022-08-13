@@ -103,8 +103,8 @@
                             style="@style/textInputLayout.outLinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_very_small"
                             android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_very_small"
                             android:layout_weight="1"
                             android:hint="@string/first_name"
                             app:errorEnabled="true"
@@ -124,8 +124,8 @@
                             style="@style/textInputLayout.outLinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
                             android:layout_marginStart="@dimen/margin_very_small"
+                            android:layout_marginTop="@dimen/margin_small"
                             android:layout_weight="1"
                             android:hint="@string/last_name"
                             app:errorEnabled="true"
@@ -133,6 +133,54 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_setting_lastname"
+                                style="@style/editText.oneLine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:maxLength="@integer/max_user_name_length" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_very_small"
+                            android:layout_weight="1"
+                            android:hint="@string/name_eng"
+                            app:errorEnabled="true"
+                            app:startIconDrawable="@drawable/ic_user">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_name_eng"
+                                style="@style/editText.oneLine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:maxLength="@integer/max_user_name_length" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_very_small"
+                            android:layout_weight="1"
+                            android:hint="@string/lastname_eng"
+                            app:errorEnabled="true"
+                            app:startIconDrawable="@drawable/ic_user">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_lastname_eng"
                                 style="@style/editText.oneLine"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -250,20 +298,20 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_ssn"
+                        android:id="@+id/til_setting_gender_eng"
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:hint="@string/national_id"
+                        android:hint="@string/gender_eng"
                         app:errorEnabled="true"
                         app:layout_constraintStart_toEndOf="@id/view_middle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ll_top_card"
-                        app:startIconDrawable="@drawable/ic_personal_card">
+                        app:startIconDrawable="@drawable/ic_gender">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_setting_ssn"
+                            android:id="@+id/et_setting_gender_eng"
                             style="@style/editText.oneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -280,7 +328,7 @@
                         app:errorEnabled="true"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/view_middle"
-                        app:layout_constraintTop_toTopOf="@id/til_ssn"
+                        app:layout_constraintTop_toTopOf="@id/til_setting_gender_eng"
                         app:startIconDrawable="@drawable/ic_gender">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -288,6 +336,27 @@
                             style="@style/editText.nonInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_ssn"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/national_id"
+                        app:errorEnabled="true"
+                        app:layout_constraintTop_toBottomOf="@id/til_setting_gender_eng"
+
+                        app:startIconDrawable="@drawable/ic_calendar">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tl_ssn"
+                            style="@style/editText.nonInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
                             android:inputType="none" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -380,6 +449,8 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_setting_bio_counter"
                             style="@style/textSmall.hintColor"
@@ -391,16 +462,85 @@
 
                     </FrameLayout>
 
+
+                    <FrameLayout
+                        android:id="@+id/fl_bio_eng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/fl_bio">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/textInputLayout.outLinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:hint="@string/Biography_and_tourism_experience_eng"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_setting_bioـeng"
+                                style="@style/editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="top"
+                                android:inputType="textMultiLine"
+                                android:maxEms="3"
+                                android:maxLines="5"
+                                android:minLines="3"
+                                android:paddingBottom="20dp" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_setting_bio_counter_eng"
+                            style="@style/textSmall.hintColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="@dimen/margin_very_small"
+                            android:text="0/300" />
+
+                    </FrameLayout>
+
+
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_skills"
                         style="@style/textInputLayout.outLinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/Language_skills"
-                        app:layout_constraintTop_toBottomOf="@id/fl_bio">
+                        app:layout_constraintTop_toBottomOf="@id/fl_bio_eng">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_setting_language_skills"
+                            style="@style/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:maxEms="3"
+                            android:maxLines="5"
+                            android:minLines="2" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_skills_eng"
+                        style="@style/textInputLayout.outLinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/Language_skills_eng"
+                        app:layout_constraintTop_toBottomOf="@id/til_skills"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_setting_language_skills_eng"
                             style="@style/editText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -421,7 +561,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/contacts"
-                        app:layout_constraintTop_toBottomOf="@id/til_skills" />
+                        app:layout_constraintTop_toBottomOf="@id/til_skills_eng" />
 
 
                     <com.google.android.material.textfield.TextInputLayout
