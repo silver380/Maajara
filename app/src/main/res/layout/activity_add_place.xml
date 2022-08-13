@@ -35,11 +35,11 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textTittleMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/picture_of_place"
-                    style="@style/textTittleMedium"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/picture_of_place"
 
                     />
 
@@ -68,18 +68,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                     android:layout_marginTop="@dimen/margin_very_small"
+                    android:paddingHorizontal="@dimen/btn_large_horizontal_padding"
                     android:text="@string/choose_pic" />
 
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textTittleMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/location"
-                style="@style/textTittleMedium"
                 android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/location"
 
                 />
 
@@ -116,17 +116,16 @@
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/place_mapview"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    />
+                    android:layout_height="240dp" />
 
             </FrameLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/textTittleMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/place_info"
-                style="@style/textTittleMedium"
                 android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/place_info"
 
                 />
 
@@ -134,9 +133,9 @@
                 style="@style/textInputLayout.outLinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
                 android:layout_marginTop="@dimen/margin_small"
                 android:hint="@string/Place_name"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_place_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -173,11 +172,11 @@
                 style="@style/textInputLayout.outLinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
                 android:hint="@string/city_name"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_place_city">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/et_place_city"
                     style="@style/editText.oneLine"
                     android:layout_width="match_parent"
@@ -215,8 +214,8 @@
                     style="@style/textInputLayout.outLinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
-                    android:hint="@string/explanation">
+                    android:hint="@string/explanation"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_place_description"

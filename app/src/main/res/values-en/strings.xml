@@ -165,19 +165,19 @@
     <string name="no_account_question">No account?</string>
     <string name="destination">Destination</string>
     <string name="end_date">End date</string>
-    <string name="no_item_chosen_click_plus">No item is chosen. Click + icon.</string>
+    <string name="no_item_chosen_click_plus">No item has been added. Click + to add</string>
     <string name="plan_added_successfully">Added successfully.</string>
 
     <string name="choose_pic">Choose a Picture</string>
     <string name="place_info">Place Information</string>
     <string name="Place_name">Name</string>
-    <string name="city_name">city</string>
-    <string name="explanation">explanation</string>
-    <string name="send_req">request</string>
+    <string name="city_name">City</string>
+    <string name="explanation">Explanation</string>
+    <string name="send_req">Request</string>
     <string name="Adventure">An Adventure to</string>
 
     <string name="requested_items">Requested items</string>
-    <string name="see_req">see requests</string>
+    <string name="see_req">See requests</string>
     <string name="suggested_price">Suggested price</string>
     <string name="your_req">Your request</string>
     <string name="schedule">Schedule</string>
@@ -218,6 +218,7 @@
     <string name="tryAgain">Try again</string>
     <string name="choose_file">Choose File</string>
     <string name="failed_top_to_open_file_chooser">Failed top open file chooser. please install new file chooser</string>
+    <string name="city_is_not_valid">City is not valid</string>
     <string name="tourname_eng">Tour name in English</string>
     <string name="destination_eng">Destination in English</string>
     <string name="PlaceName_eng">English Name</string>

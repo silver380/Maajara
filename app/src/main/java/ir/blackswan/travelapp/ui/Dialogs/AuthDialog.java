@@ -28,7 +28,8 @@ import ir.blackswan.travelapp.R;
 import ir.blackswan.travelapp.Utils.SharedPrefManager;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
-import ir.blackswan.travelapp.databinding.DialogRegisterLoginBinding;
+
+import ir.blackswan.travelapp.databinding.DialogAuthBinding;
 import ir.blackswan.travelapp.ui.Activities.AuthActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,7 +37,7 @@ import retrofit2.Call;
 
 public class AuthDialog extends MyDialog {
     public static final int STEP_LOGIN = 0, STEP_REGISTER = 1, STEP_VERIFY = 2;
-    DialogRegisterLoginBinding binding;
+    DialogAuthBinding binding;
     private final AuthActivity mActivity;
     int step;
     boolean forLogin;
@@ -50,7 +51,7 @@ public class AuthDialog extends MyDialog {
     private OnResponseDialog onResponseDialog;
 
     public AuthDialog(AuthActivity activity, boolean forLogin) {
-        binding = DialogRegisterLoginBinding.inflate(activity.getLayoutInflater());
+        binding = DialogAuthBinding.inflate(activity.getLayoutInflater());
         this.forLogin = forLogin;
         if (forLogin)
             step = STEP_LOGIN;

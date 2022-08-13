@@ -41,7 +41,10 @@
     </style>
 
 
-    <style name="editText" parent="textRegular" />
+    <style name="editText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/vazir_medium</item>
+    </style>
 
     <style name="editText.oneLine" parent="editText">
         <item name="android:maxLines">1</item>

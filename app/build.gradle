@@ -69,7 +69,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.7.1'
     testImplementation 'junit:junit:4.13.2'
@@ -100,4 +99,9 @@ dependencies {
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
 
+
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.6.0'
 }

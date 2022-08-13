@@ -16,6 +16,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 
 import ir.blackswan.travelapp.R;
@@ -23,6 +32,11 @@ import ir.blackswan.travelapp.Utils.Utils;
 import ir.blackswan.travelapp.databinding.ActivityMainBinding;
 import ir.blackswan.travelapp.ui.Fargments.HomeFragment;
 import ir.blackswan.travelapp.ui.Fargments.RefreshingFragment;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AuthActivity {
 
@@ -48,7 +62,6 @@ public class MainActivity extends AuthActivity {
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
         homeFragment = (HomeFragment) navHostFragment.getChildFragmentManager().getFragments().get(0);
 
 
@@ -62,6 +75,20 @@ public class MainActivity extends AuthActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    static class GetBodyBuilder extends Request.Builder {
+        public Request.Builder get(RequestBody body) throws Exception {
+            this.post(body);
+            try {
+                Field field = Request.Builder.class.getDeclaredField("method");
+                field.setAccessible(true);
+                field.set(this, "GET");
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                throw new Exception("Couldn't set dirty reflection", e);
+            }
+            return this;
+        }
     }
 
 

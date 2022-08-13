@@ -43,6 +43,7 @@ import com.yalantis.ucrop.UCrop;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 import ir.blackswan.travelapp.Controller.MyCallback;
 import ir.blackswan.travelapp.Controller.MyResponse;
@@ -55,6 +56,7 @@ import ir.blackswan.travelapp.Utils.PermissionRequest;
 import ir.blackswan.travelapp.Utils.TextInputsChecker;
 import ir.blackswan.travelapp.Utils.Toast;
 import ir.blackswan.travelapp.Utils.Utils;
+import ir.blackswan.travelapp.Views.CitiesAutoCompleteView;
 import ir.blackswan.travelapp.databinding.ActivityAddPlaceBinding;
 import ir.blackswan.travelapp.ui.Dialogs.OnResponseDialog;
 import okhttp3.ResponseBody;
@@ -71,6 +73,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     GoogleMap map;
     File image;
     TextInputsChecker checker = new TextInputsChecker();
+    private CitiesAutoCompleteView citiesAutoCompleteView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
 
+        citiesAutoCompleteView = new CitiesAutoCompleteView(binding.etPlaceCity);
 
         binding.placeMapview.onCreate(savedInstanceState);
 
@@ -103,9 +107,11 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
             }
         }.execute();
 
+
         setChecker();
 
         setPlacePicture();
+
 
         binding.btnSubmitPlace.setOnClickListener(v -> {
             if (checkInputs()) {
@@ -136,7 +142,12 @@ public class AddPlaceActivity extends ToolbarActivity implements OnMapReadyCallb
     }
 
     private void setChecker() {
-        checker.add(Arrays.asList(binding.etPlaceName , binding.etPlaceCity));
+        checker.add(binding.etPlaceCity, editText -> {
+            if (citiesAutoCompleteView.getSelectedCityId() == null)
+                return getString(R.string.city_is_not_valid);
+            return null;
+        });
+        checker.add(Collections.singletonList(binding.etPlaceName));
     }
 
     boolean checkInputs(){
